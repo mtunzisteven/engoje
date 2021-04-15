@@ -31,6 +31,7 @@
             <section class="dashboard">
                 <ul class="dashboard-side-nav">
                     <li class="dashboard-side-nav-items"><a href="/zalisting/view/admin.php" class="dashboard-side-nav-links dashboard-main-link">DASHBOARD</a></li>
+                    <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=account" class="dashboard-side-nav-links">My Account</a></li>
                     <li class="dashboard-side-nav-items"><a href="/index.php" class="dashboard-side-nav-links">Products</a></li>
                     <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Accounts</a></li>
                     <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Orders</a></li>

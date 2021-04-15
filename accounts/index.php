@@ -158,6 +158,12 @@
             header('Location: /zalisting/');
             break;
 
+        case 'account':
+
+            include '../view/account.php';
+
+            break;
+
         case 'update':
 
             $userId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);

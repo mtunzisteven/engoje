@@ -31,6 +31,10 @@
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Orders</a></li>
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Reviews</a></li>
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Returns</a></li>
+                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Addresses</a></li>
+                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Contact Details</a></li>
+                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Security</a></li>
+                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Talk to us</a></li>
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class='dashboard-side-nav-links account-dasshboard-links' href='/zalisting/accounts/index.php?action=logout'>Logout</a></li>
                 </ul>
 

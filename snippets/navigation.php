@@ -13,7 +13,7 @@
         <div class="fa-items-container">
             <?php 
                 if(isset($_SESSION['userData']['userFirstName'])){
-                    echo "<a class='nav-hamburger-account user' href='/zalisting/view/admin.php'><i class='nav-hamburger-account fa fa-user'></i></a>";
+                    echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account'><i class='nav-hamburger-account fa fa-user'></i></a>";
                     echo "<i class='nav-hamburger-account fa fa-shopping-cart'></i>";
                 } else{
                     echo "<a class='account' href='/zalisting/accounts/index.php?action=login'>Login</a>";
@@ -34,7 +34,7 @@
         <div >
             <?php 
                 if(isset($_SESSION['userData']['userFirstName'])){
-                    echo "<a class='nav-hamburger-account ' href='/zalisting/view/admin.php'><i class='nav-hamburger-account fa fa-user'></i></a>";
+                    echo "<a class='nav-hamburger-account ' href='/zalisting/myaccount?action=account'><i class='nav-hamburger-account fa fa-user'></i></a>";
                     echo "<i class='nav-hamburger-account fa fa-shopping-cart'></i>";
                 } else{
                     echo "<a class='account' href='/zalisting/accounts/index.php?action=login'>Login</a>";
