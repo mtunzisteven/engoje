@@ -11,7 +11,6 @@
 *------------------------------------------------------------------------CSS
 */
 body {
-  background-color: #fdfdfd;
   color: #3a3939;
   padding: 0;
   margin: 0;
@@ -22,6 +21,10 @@ body main {
   margin: 0;
 }
 
+body .admin-main {
+  background-color: #80a1d1;
+}
+
 body .detail-span-bold {
   font-size: 13px;
   font-style: italic;
@@ -30,12 +33,56 @@ body .detail-span-bold {
   text-align: left;
 }
 
+body table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  text-align: center;
+  width: 80%;
+  margin: 0 0 50px 15px;
+  border-bottom: 1px solid #80a1d1;
+}
+
+body table th, body table td {
+  padding: 8px;
+  border-left: 1px solid #80a1d1;
+  border-right: 1px solid #80a1d1;
+}
+
+body table tr:hover {
+  background-color: #80a1d1;
+}
+
+body table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #0f4392;
+  color: #fdfdfd;
+}
+
+.admin-main {
+  background-color: #d8d5d5;
+}
+
 .desktop-nav, .hidden {
   display: none;
 }
 
 .mobile-nav {
   display: block;
+}
+
+ul {
+  -webkit-margin-before: 0 !important;
+          margin-block-start: 0 !important;
+  -webkit-margin-after: 0 !important;
+          margin-block-end: 0 !important;
+  -webkit-margin-start: 0px;
+          margin-inline-start: 0px;
+  -webkit-margin-end: 0px;
+          margin-inline-end: 0px;
+  -webkit-padding-start: 0 !important;
+          padding-inline-start: 0 !important;
 }
 
 li {
@@ -280,38 +327,29 @@ nav.mobile-nav .show a.nav-list-link {
 *------------------------------------------------Dashboard
 */
 .dashboard {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   max-width: 100%;
-  margin: 5px 1%;
+  min-height: 100%;
+  margin: 0;
+  display: none;
 }
 
 .dashboard .dashboard-side-nav {
-  width: 95%;
-  height: 100%;
-  max-width: 95%;
-  padding: 0;
-  background-color: #0f4392;
+  -webkit-padding-start: 0 !important;
+          padding-inline-start: 0 !important;
+  height: 800px;
+  background-color: #80a1d1;
+  border: 1px solid #0f4392;
+  border-top: none;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items {
-  border: 2px solid #000249;
-  background-color: #0f4392;
+  border-bottom: 2px solid #0f4392;
+  background-color: #80a1d1;
   width: 100%;
   height: 40px;
   line-height: 40px;
   padding: 0;
+  margin: 0 auto;
   text-align: center;
 }
 
@@ -326,11 +364,16 @@ nav.mobile-nav .show a.nav-list-link {
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items .dashboard-main-link {
   font-weight: 900;
-  background-color: #000249;
+  background-color: #0f4392;
+  color: #fdfdfd;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items:hover {
   background-color: #000249;
+}
+
+.dashboard .dashboard-side-nav .dashboard-side-nav-items:hover .a:hover {
+  color: #fdfdfd;
 }
 
 .dashboard .dashboard-side-nav .active-li {
@@ -351,11 +394,13 @@ nav.mobile-nav .show a.nav-list-link {
 }
 
 .dashboard .dashboard-content {
-  width: 95%;
-  max-width: 95%;
-  border: 1px solid #0f4392;
-  border-radius: 3px;
-  margin: 2px auto;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  background-color: #fdfdfd;
+  margin: 10px;
+  border-radius: 4px;
+  padding: 0;
 }
 
 .dashboard .dashboard-content .h2 {
@@ -452,7 +497,8 @@ form .detail-span {
 *------------------------------------------------Dashboard
 */
   .dashboard {
-    margin: 4px auto;
+    margin: 0 auto;
+    height: 100%;
   }
   .dashboard .dashboard-side-nav {
     width: 450px;
@@ -630,26 +676,25 @@ form .detail-span {
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
-    max-width: 94%;
-    margin: 13px auto;
+    max-width: 100%;
+    margin: 0;
   }
   .dashboard .dashboard-side-nav {
     min-width: 0;
-    max-width: 24%;
-    margin: 0 10px 0 0;
+    max-width: 19%;
+    margin: 0;
   }
-  .dashboard-content {
-    min-width: 0;
-    max-width: 70%;
-    min-height: 302px;
-    border-width: 2px;
+  .dashboard .dashboard-content {
+    max-width: 100%;
+    min-height: 100%;
+    border: none;
   }
-  .dashboard-content .h2 {
-    font-size: 30px;
-    padding: 20px 10px 0 10px;
+  .dashboard .dashboard-content .h2 {
+    font-size: 23px;
+    padding: 0x 10px 0 20px;
   }
-  .dashboard-content p {
-    font-size: 30px;
+  .dashboard .dashboard-content p {
+    font-size: 16px;
     padding: 0 10px 10px 10px;
   }
   /*------------------------------------------------Dashboard END

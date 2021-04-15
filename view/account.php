@@ -17,7 +17,7 @@
 ?><!DOCTYPE html>
 <html lang="en-us">
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
-    <body>
+    <body class=" admin-main">
         <main class="content">
             <?php 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header-top.php'; 
@@ -49,10 +49,7 @@
                     ?>
                     <p> This is where all your order operations will be handled</p>
                 </section>
-            </section>
-            
-            
-            <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
+            </section>           
         </main>
     </body>
 </html>

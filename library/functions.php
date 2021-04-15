@@ -20,6 +20,39 @@ function checkPrice($invPrice){
     return preg_match($pattern, $invPrice);
 }
 
+
+
+// Build a multi user display view
+function buildUsersDisplay($users){
+
+    $userRows = [];
+
+    foreach($users as $user){
+
+        $userRows[] = "<tr class='user-display-info'> <td><a class='account' href='/zalisting/accounts/?action=user&userId=$user[userId]'>update</a> <a class='account' href='/zalisting/accounts/?action=delete&userId=$user[userId]'>delete</a></td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>$user[userPhone]</td> </tr>";
+    }
+
+   return $userRows;
+  }
+
+// Build a single user display view
+function buildUserDisplay($userInfo){
+
+    $userDisplay = "<form>";
+
+    $userDisplay .= "<label>First Name</label><input type='text' name='userFirstName' value='$userInfo[userFirstName]' readonly/>";
+    $userDisplay .= "<label>Last Name</label><input type='text' name='userLastName' value='$userInfo[userLastName]' readonly/>";
+    $userDisplay .= "<label>Email</label><input type='text' name='userEmail' value='$userInfo[userEmail]' readonly/>";
+    $userDisplay .= "<label>Phone Number</label><input type='text' name='userPhone' value='$userInfo[userPhone]' readonly/>";
+
+
+    $userDisplay .= "</form>";
+
+
+   return $userDisplay;
+  }
+
+
 function buildNav($classifications){
     // Build a navigation bar using the $classifications array
     $navList = '<ul>';

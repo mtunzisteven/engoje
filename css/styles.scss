@@ -3,9 +3,11 @@
 */
 $main-color: #0f4392;
 $dark-main-color: #000249;
+$light-main-color:#80a1d1;
 $secondary-color: #ff4949;
 $dark-secondary-color: #DD1717;
 $background-color:#fdfdfd;
+$darker-background-color:#d8d5d5;
 $dark-color: #3a3939;
 $box-shadow:1px 2px 12px 2px $dark_color;
 
@@ -45,7 +47,6 @@ $p  : 15px Arial, sans-serif;
 */
 
 body{
-    background-color:$background-color;
     color:$dark-color;
     padding:0;
     margin:0;
@@ -55,6 +56,10 @@ body{
         margin:0;
     }
 
+    & .admin-main{
+        background-color: $light-main-color;
+    }
+
     & .detail-span-bold{
         font-size: 13px;
         font-style: italic;
@@ -62,6 +67,38 @@ body{
         max-width:65%;
         text-align: left;
     }
+
+    & table{
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        text-align: center;
+        width: 80%;
+        margin:0 0 50px 15px;
+        border-bottom: 1px solid $light-main-color;
+
+        & th,td{
+            padding: 8px;
+            border-left: 1px solid $light-main-color;
+            border-right: 1px solid $light-main-color;
+        }
+
+        & tr:hover{
+            background-color: $light-main-color;
+        }
+
+        & th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: $main-color;
+            color: $background-color;
+          }
+    }
+
+}
+
+.admin-main{
+    background-color: $darker-background-color;
 }
 
 .desktop-nav, .hidden{
@@ -70,6 +107,14 @@ body{
 
 .mobile-nav{
     display:block;
+}
+
+ul{
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0 !important;
 }
 
 li{
@@ -239,24 +284,29 @@ nav.mobile-nav{
 */
 
 .dashboard{
-    @include flex(column, center);
     max-width:100%;
-    margin:5px 1%;
+    min-height: 100%;
+    margin:0;
+    display:none;
+
 
     & .dashboard-side-nav{
-        width:95%;
-        height:100%;
-        max-width:95%;
-        padding:0;
-        background-color: $main-color;
+        padding-inline-start: 0 !important;
+        height:800px;
+        background-color: $light-main-color;
+        border: 1px solid $main-color;
+        border-top: none;
+
+
 
         & .dashboard-side-nav-items{
-            border: 2px solid $dark-main-color;
-            background-color: $main-color;
+            border-bottom: 2px solid $main-color;
+            background-color: $light-main-color;
             width:100%;
             height:40px;
             line-height:40px;
             padding:0;
+            margin: 0 auto;
             text-align: center;
 
             & .dashboard-side-nav-links{
@@ -270,13 +320,19 @@ nav.mobile-nav{
 
             & .dashboard-main-link{
                 font-weight: 900;
-                background-color: $dark-main-color;
+                background-color: $main-color;
+                color:$background-color;
             }
 
         }
 
         & .dashboard-side-nav-items:hover{
             background-color:$dark-main-color;
+
+            & .a:hover{
+                color:$background-color;
+    
+            }
         }
 
         & .active-li{
@@ -298,11 +354,13 @@ nav.mobile-nav{
     }
 
     & .dashboard-content{
-        width:95%;
-        max-width:95%;
-        border: 1px solid $main-color;
-        border-radius: 3px;
-        margin:2px auto;
+        width:100%;
+        max-width:100%;
+        height:100%;
+        background-color: $background-color;
+        margin:10px;
+        border-radius:4px;
+        padding:0;
 
 
         & .h2{
@@ -381,7 +439,8 @@ form{
 
 .dashboard{
     //max-width:450px;
-    margin:4px auto;
+    margin:0 auto;
+    height:100%;
 
     & .dashboard-side-nav{
         width:450px;
@@ -501,34 +560,34 @@ form{
 
     .dashboard{
         @include flex(row, space-around, flex-start);
-        max-width:94%;
-        margin:13px auto;
+        max-width:100%;
+        margin:0;
 
         & .dashboard-side-nav{
             min-width:0;
-            max-width:24%;
-            margin: 0 10px 0 0;
+            max-width:19%;
+            margin: 0;
             }
-        }
+        
 
         & .dashboard-content{
-            min-width:0;
-            max-width:70%;
-            min-height:302px;
-            border-width: 2px;
+            max-width:100%;
+            min-height:100%;
+            border:none;
 
             & .h2{
-                font-size: 30px;
-                padding: 20px 10px 0 10px;
+                font-size: 23px;
+                padding: 0x 10px 0 20px;
             }
 
             & p{
-                font-size: 30px;
+                font-size: 16px;
                 padding: 0 10px 10px 10px;
 
             }
 
         }
+    }
     /*------------------------------------------------Dashboard END
     */
 

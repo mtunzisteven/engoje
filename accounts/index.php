@@ -164,6 +164,32 @@
 
             break;
 
+        case 'users':
+
+            $users = getUsers();
+
+            $userRows = buildUsersDisplay($users);
+
+            //echo $display; exit;
+
+            include '../view/users.php';
+
+            break;
+
+        case 'user':
+
+            $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_STRING);
+
+            $userInfo = getUserInfo($userId);
+
+            $userDisplay = buildUserDisplay($userInfo);
+
+            //echo $display; exit;
+
+            include '../view/user.php';
+
+            break;
+
         case 'update':
 
             $userId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);

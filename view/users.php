@@ -11,11 +11,9 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    //echo $_SESSION['clientData']['clientId']; exit;
-
-    $pageName ="Admin"; 
+    $pageName ="Users"; 
     $pageShortSummary = "Dashboard";
-    $pageDescription = "Website management dashboard";
+    $pageDescription = "User management dashboard";
 
 ?><!DOCTYPE html>
 <html lang="en-us">
@@ -23,12 +21,11 @@
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header-top.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
             ?>
 
-            <section class="dashboard">
+            <section class="dashboard  desktop-nav">
                 <ul class="dashboard-side-nav">
                     <li class="dashboard-side-nav-items"><a href="/zalisting/view/admin.php" class="dashboard-side-nav-links dashboard-main-link">DASHBOARD</a></li>
                     <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=account" class="dashboard-side-nav-links">My Account</a></li>
@@ -46,14 +43,24 @@
 
                 <section class="dashboard-content">
                     <?php
-                        echo "<h1 class='h2'>Welcome to Your Dashboard</h1>";
-                        if(isset($_SESSION['message'])){
-                            echo $_SESSION['message'];
+                        echo "<h1 class='h2'>View Users</h1>";
+                        echo "<p> This is where all the website management operations will be handled</p>";
+                        if(isset($userRows)){
+
+                            echo "<table id='users-display'><tr id='user-display-header'> <th>Action</th> <th>Name </th> <th>Email</th> <th>Phone</th> </tr>";
+
+                            foreach($userRows as $row){
+
+                                echo $row;
+
+                            }
+
+                            echo  "</table>";
+                            ;
                         }
                     ?>
-                    <p> This is where all the website management operations will be handled</p>
                 </section>
-            </section>            
+            </section>         
         </main>
     </body>
 </html>

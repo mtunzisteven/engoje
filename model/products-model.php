@@ -41,72 +41,60 @@ function addProduct($productName, $productPrice, $productDescription, $productCr
     return $result;
 }
 
-// Get vehicles by classificationId 
-function getInventoryByClassification($classificationId){ 
+// Get vehicles by categoryId 
+function getProductByCategory($categoryId){ 
     $db = zalistingConnect(); 
-    $sql = ' SELECT * FROM inventory WHERE classificationId = :classificationId'; 
+    $sql = ' SELECT * FROM product WHERE categoryId = :categoryId'; 
     $stmt = $db->prepare($sql); 
-    $stmt->bindValue(':classificationId', $classificationId, PDO::PARAM_INT); 
+    $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_INT); 
     $stmt->execute(); 
-    $inventory = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    $product = $stmt->fetchAll(PDO::FETCH_ASSOC); 
     $stmt->closeCursor(); 
-    return $inventory; 
+    return $product; 
    }
 
-// Get car info using classification ids and Image Primary level
-function getClassVehicles($classificationId, $imgPrimary){
+// Get car info using category ids and Image Primary level
+function getCategoryProduct($categoryId, $imgPrimary){
     $db = zalistingConnect(); 
     $sql = "SELECT images.imgPath, inventory.invModel, inventory.invMake, inventory.invPrice, inventory.invId FROM images INNER JOIN inventory ON images.invId=inventory.invId WHERE images.imgName LIKE '%\-tn%' AND images.imgPrimary=:imgPrimary AND inventory.classificationId=:classificationId"; 
     $stmt = $db->prepare($sql); 
-    $stmt->bindValue(':classificationId', $classificationId, PDO::PARAM_INT); 
+    $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_INT); 
     $stmt->bindValue(':imgPrimary', $imgPrimary, PDO::PARAM_INT); 
     $stmt->execute(); 
-    $classVehicles = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    $categoryProduct = $stmt->fetchAll(PDO::FETCH_ASSOC); 
     $stmt->closeCursor(); 
-    return $classVehicles; 
+    return $categoryProduct; 
 }
 
-// Get vehicle information by invId
-function getInvItemInfo($invId){
+// Get product information by productId
+function getProductItemInfo($productId){
     $db = zalistingConnect();
-    $sql = 'SELECT * FROM inventory WHERE invId = :invId';
+    $sql = 'SELECT * FROM inventory WHERE productId = :productId';
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
     $stmt->execute();
-    $invInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+    $productInfo = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
-    return $invInfo;
+    return $productInfo;
    }
 
-   // This function will update vehicles
-   function updateVehicle($classificationId, $invMake, $invModel, $invDescription, $invImage, $invThumbnail, $invPrice, $invStock, $invColor, $invId){
+// This function will update product
+function updateProduct($productName, $productPrice, $productDescription, $productCreationDate, $reviewId, $variationId, $categoryId){
     
-    // Create a connection object from the phpmotors connection function
+    // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 
 
-    // The next line creates the prepared statement using the phpmotors connection      
-    $stmt = $db->prepare('UPDATE inventory SET invMake = :invMake, 
-                                                invModel = :invModel, 
-                                                invDescription = :invDescription, 
-                                                invImage = :invImage, 
-	                                            invThumbnail = :invThumbnail, 
-                                                invPrice = :invPrice, 
-	                                            invStock = :invStock, 
-                                                invColor = :invColor, 
-	                                            classificationId = :classificationId
-                            WHERE invId = :invId');
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('UPDATE inventory SET $productName, $productPrice, $productDescription, $productCreationDate, $reviewId, $variationId, $categoryId WHERE productId = :productId');
 
     // Replace the place holders
-    $stmt->bindValue(':invMake',$invMake, PDO::PARAM_STR);
-    $stmt->bindValue(':invModel',$invModel, PDO::PARAM_STR);
-    $stmt->bindValue(':invDescription',$invDescription, PDO::PARAM_STR);
-    $stmt->bindValue(':invImage',$invImage, PDO::PARAM_STR);
-    $stmt->bindValue(':invThumbnail',$invThumbnail, PDO::PARAM_STR);
-    $stmt->bindValue(':invPrice',$invPrice, PDO::PARAM_STR);
-    $stmt->bindValue(':invStock',$invStock, PDO::PARAM_INT);
-    $stmt->bindValue(':invColor',$invColor, PDO::PARAM_STR);
-    $stmt->bindValue(':classificationId',$classificationId, PDO::PARAM_INT);
-    $stmt->bindValue(':invId',$invId, PDO::PARAM_INT);
+    $stmt->bindValue(':productName',$productName, PDO::PARAM_STR);
+    $stmt->bindValue(':productPrice',$productPrice, PDO::PARAM_STR);
+    $stmt->bindValue(':productDescription',$productDescription, PDO::PARAM_STR);
+    $stmt->bindValue(':productCreationDate',$productCreationDate, PDO::PARAM_STR);
+    $stmt->bindValue(':reviewId',$reviewId, PDO::PARAM_STR);
+    $stmt->bindValue(':variationId',$variationId, PDO::PARAM_STR);
+    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
 
     // The next line runs the prepared statement 
     $stmt->execute(); 
@@ -118,17 +106,17 @@ function getInvItemInfo($invId){
     return $result;
 }
 
-  // This function will update vehicles
-  function deleteVehicle($invId){
+// This function will update product
+function deleteProduct($productId){
     
     // Create a connection object from the phpmotors connection function
     $db = zalistingConnect(); 
 
     // The next line creates the prepared statement using the phpmotors connection      
-    $stmt = $db->prepare('DELETE FROM inventory WHERE invId = :invId');
+    $stmt = $db->prepare('DELETE FROM products WHERE productId = :productId');
 
     // Replace the place holder
-    $stmt->bindValue(':invId',$invId, PDO::PARAM_INT);
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
 
     // The next line runs the prepared statement 
     $stmt->execute(); 
@@ -140,17 +128,18 @@ function getInvItemInfo($invId){
     return $result;
 }
 
-function getVehiclesByClassification($classificationName){
+function getProductsByCategory($categoryName){
     $db = zalistingConnect();
-    $sql = 'SELECT * FROM inventory WHERE classificationId IN (SELECT classificationId FROM carclassification WHERE classificationName = :classificationName)';
+    $sql = 'SELECT * FROM products WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :categoryName)';
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
+    $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
     $stmt->execute();
-    $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
-    return $vehicles;
+    return $products;
 }
 
+/*
 function getVehicleDetails($invId){
     $db = zalistingConnect();
     $sql = "SELECT images.imgPath, inventory.invModel, inventory.invMake, inventory.invPrice, inventory.invId, inventory.invStock, inventory.invDescription, inventory.invId FROM images INNER JOIN inventory ON images.invId=inventory.invId WHERE images.imgName NOT LIKE '%\-tn%' AND inventory.invId=:invId"; 
@@ -173,3 +162,5 @@ function getVehicles(){
 	$stmt->closeCursor();
 	return $invInfo;
 }
+
+*/

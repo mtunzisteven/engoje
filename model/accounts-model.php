@@ -68,10 +68,10 @@ function checkforRegisteredEmail($userEmail){
 
 }
 
-// get hassed password for the user using email.
+// get hashed password for the user using email.
 function getDefaultPassword($userEmail){
 
-    // Create a connection object using the phpmotors connection function
+    // Create a connection object using the zalist connection function
     $db = zalistingConnect();
 
     // The SQL statement
@@ -99,6 +99,17 @@ function getDefaultPassword($userEmail){
     
 }
 
+// Get all registered users 
+function getUsers(){
+    $db = zalistingConnect();
+    $sql = 'SELECT userId, userFirstName, userLastName, userEmail, userPhone FROM users';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $userData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $userData;
+   }
+
 // Get user data based on an email address
 function getUser($userEmail){
     $db = zalistingConnect();
@@ -114,7 +125,7 @@ function getUser($userEmail){
 // Get user information by invId
 function getUserInfo($userId){
     $db = zalistingConnect();
-    $sql = 'SELECT userFirstName, userLastName, userEmail FROM users WHERE userId = :userId'; 
+    $sql = 'SELECT userFirstName, userLastName, userEmail, userPhone FROM users WHERE userId = :userId'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();

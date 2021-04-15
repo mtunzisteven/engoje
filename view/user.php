@@ -11,24 +11,21 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    //echo $_SESSION['clientData']['clientId']; exit;
-
-    $pageName ="Admin"; 
+    $pageName ="User"; 
     $pageShortSummary = "Dashboard";
-    $pageDescription = "Website management dashboard";
+    $pageDescription = "User management dashboard";
 
 ?><!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-us" class=" admin-main">
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header-top.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
             ?>
 
-            <section class="dashboard">
+            <section class="dashboard desktop-nav user-dashboard">
                 <ul class="dashboard-side-nav">
                     <li class="dashboard-side-nav-items"><a href="/zalisting/view/admin.php" class="dashboard-side-nav-links dashboard-main-link">DASHBOARD</a></li>
                     <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=account" class="dashboard-side-nav-links">My Account</a></li>
@@ -45,18 +42,29 @@
                 
 
                 <section class="dashboard-content">
+                
+                    <ul class="user-update">
+                        <li class="user-update-item <?php if($pageName=='User'){echo "user-update-item-active";} ?>" ><a href="">Personal</a></li>
+                        <li class="user-update-item" ><a href="">Addresses</a></li>
+                        <li class="user-update-item" ><a href="">Orders</a></li>
+                        <li class="user-update-item" ><a href="">Returns</a></li>
+                    </ul>
+                    <div class="dashboard-user-update-data">
+
                     <?php
-                        echo "<h1 class='h2'>Welcome to Your Dashboard</h1>";
-                        if(isset($_SESSION['message'])){
-                            echo $_SESSION['message'];
+
+                        if(isset($userDisplay)){
+
+                            echo $userDisplay;
                         }
+
                     ?>
-                    <p> This is where all the website management operations will be handled</p>
+                    </div>
                 </section>
-            </section>            
+            </section>    
+            <?php 
+                 unset($_SESSION['message']);
+            ?>        
         </main>
     </body>
 </html>
-<?php 
-    unset($_SESSION['message']);
-?>
