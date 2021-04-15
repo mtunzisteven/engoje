@@ -1,0 +1,557 @@
+/*
+*---------------------------------Website Colors
+*/
+$main-color: #0f4392;
+$dark-main-color: #000249;
+$secondary-color: #ff4949;
+$dark-secondary-color: #DD1717;
+$background-color:#fdfdfd;
+$dark-color: #3a3939;
+$box-shadow:1px 2px 12px 2px $dark_color;
+
+/*
+*---------------------------------Fonts
+*/
+$h1 : 35px Arial, sans-serif;
+$h2 : 30px Arial, sans-serif;
+$h3 : 25px Arial, sans-serif;
+$p  : 15px Arial, sans-serif;
+
+/*
+*---------------------------------mixins
+*/
+
+@mixin flex($direction:row, $justify:space-between, $justify-items: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $justify-items;
+}
+
+@mixin buttons($backColor,$width: 65.5%, $height: 30px){
+    display:block;
+    width:$width;
+    height:$height;
+    text-align: center;
+    color:$background-color;
+    background-color: $backColor;
+    border-radius: 3px;
+    border: none;
+    box-shadow: 1px 2px 5px 1px $dark_color;
+}
+
+/*
+*------------------------------------------------------------------------CSS
+*/
+
+body{
+    background-color:$background-color;
+    color:$dark-color;
+    padding:0;
+    margin:0;
+
+    & main{
+        padding:0;
+        margin:0;
+    }
+
+    & .detail-span-bold{
+        font-size: 13px;
+        font-style: italic;
+        color:$dark-secondary-color;
+        max-width:65%;
+        text-align: left;
+    }
+}
+
+.desktop-nav, .hidden{
+    display:none;
+}
+
+.mobile-nav{
+    display:block;
+}
+
+li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color:$main-color;
+}
+
+h1.title{
+    text-align:center;
+}
+
+/*
+*-------------------------------------------Header-top
+*/
+
+.header-top{
+    height:50px;
+    width:100%;
+    line-height: 50px;
+    text-align: center;
+    color:$background-color;
+    background-color: $dark-main-color;
+}
+
+/*------------------------------------------------Header-top END
+*/
+
+
+/*
+* -------------------------------------------Nav Menu
+*/
+nav.mobile-nav{
+    @include flex();
+    background-color: $secondary-color;
+    height:40px;
+    line-height: 40px;
+    width:94%;
+    padding: 5px 3%;
+    color:$background-color;
+
+    & .nav-hamburger-top{
+        @include flex();
+
+        & .nav-logo-hello-container{
+            @include flex();
+
+        }
+    }
+
+    & .fa-item-container{
+        @include flex();
+        height: 15px;
+        line-height: 15px;
+
+        & a.account{
+            font-size:14px;
+            color:$dark-color;
+            padding:5px;
+            background-color:$background-color;
+            border-radius: 3px;
+        }
+
+        & .fa{
+            font-size:25px;
+            padding: 0 8px 0 0;
+            color:$background-color;
+        }
+    }
+
+    & .nav-menu-logo{
+        @include flex();
+        height: 30px;
+        line-height: 30px;
+
+        & .fa{
+            font-size:30px;
+        }
+    }
+
+    .show{
+        position:absolute;
+        top:0;
+        left:0;
+        z-index: 1000;
+        width:100%;
+        height:100%;
+        color:$dark-color;
+        background-color: $background-color;
+
+        & .nav-hamburger-top{
+            @include flex();
+            height:50px;
+            line-height:50px;
+            background-color: $secondary-color;
+            padding:0 15px;
+
+            & .fa-item-container{
+                @include flex();
+                width: 100%;
+                height:30px;
+                line-height: 15px;
+            
+        
+                & a.account, p.nav-hamburger-hello{
+                    font-size:20px;
+                    color:$background-color;
+                    padding:5px;
+                    margin: 0 5px 0 0;
+                    border-radius: 3px;
+                }
+
+                & a.account{
+                    font-size:14px;
+                    color:$dark-color
+                }
+
+                & img{
+                    font-size:14px;
+                    color:$background-color;
+                }
+            }
+
+            & i.nav-hamburger-close{
+                font-size:20px;
+                color:$background-color;
+                margin:0;
+                padding:0;
+            
+            }
+        }
+
+        & a.nav-list-link{
+            color:$dark-color;
+        }
+    }
+}/*-----------------------------------------------Nav Menu
+*/
+
+/*
+*-------------------------------------------------Header-bottom
+*/
+
+.header-bottom{
+    height:150px;
+    width:94%;
+    line-height: 150px;
+    text-align: center;
+    color:$background-color;
+    font-size:60px;
+    background-color: $main-color;
+    border-radius: 3px;
+    margin: 10px auto;
+}
+
+
+/*------------------------------------------------Header-bottom END
+*/
+
+/*
+*------------------------------------------------Dashboard
+*/
+
+.dashboard{
+    @include flex(column, center);
+    max-width:100%;
+    margin:5px 1%;
+
+    & .dashboard-side-nav{
+        width:95%;
+        height:100%;
+        max-width:95%;
+        padding:0;
+        background-color: $main-color;
+
+        & .dashboard-side-nav-items{
+            border: 2px solid $dark-main-color;
+            background-color: $main-color;
+            width:100%;
+            height:40px;
+            line-height:40px;
+            padding:0;
+            text-align: center;
+
+            & .dashboard-side-nav-links{
+                display:block;
+                width:100%;
+                height:40px;
+                line-height:40px;
+                color:$background-color;
+                text-align: center;
+            }
+
+            & .dashboard-main-link{
+                font-weight: 900;
+                background-color: $dark-main-color;
+            }
+
+        }
+
+        & .dashboard-side-nav-items:hover{
+            background-color:$dark-main-color;
+        }
+
+        & .active-li{
+            background-color:$secondary-color;
+        }
+
+        & .account-dashboard-side-nav-items{
+            border: 2px solid $dark-secondary-color;
+            background-color: $secondary-color;
+
+            & .account-dashboard-main-link{
+                background-color: $dark-secondary-color;
+            }
+        }
+
+        & .account-dashboard-side-nav-items:hover{
+            background-color: $dark-secondary-color;
+        }
+    }
+
+    & .dashboard-content{
+        width:95%;
+        max-width:95%;
+        border: 1px solid $main-color;
+        border-radius: 3px;
+        margin:2px auto;
+
+
+        & .h2{
+            color: $dark-main-color;
+            font-size: 20px;
+            text-align:left;
+            margin:5px;
+        }
+
+        & p{
+            color: $dark-color;
+            font-size: 14px;
+            text-align:left;
+            max-width:100%;
+            margin:15px 5px 5px 5px;
+        }
+    }
+
+    & .Account-content{
+        border: 1px solid $secondary-color;
+    }
+}
+
+/*------------------------------------------------Dashboard END
+*/
+
+/*
+*------------------------------------------------All Forms
+*/
+
+form{
+    @include flex(column, center);
+    width:98%;
+    padding:20px 0;
+    margin: 15px auto;
+    border-radius: 3px;
+    border:$main-color 1px solid;
+
+    & input{
+        width:65%;
+        height:28px;
+        margin:2px 0 15px 0;
+    }
+
+    & .button{
+        @include buttons($secondary-color);
+    }
+
+    & .login-reg-button{
+        @include buttons($main-color, 65.5%);
+        line-height: 28px;
+    }
+
+    & .detail-span{
+        text-align: center;
+        color: $dark-secondary-color;
+        font-size: 12px;
+        font-style: italic;
+        margin:-10px 0 20px 0;
+        width:67%;
+    }
+}
+
+/*------------------------------------------------Forms END
+*/
+
+//---------------------------------------------------------------
+//                           Tablet                              |
+//---------------------------------------------------------------
+@media only screen and (min-width: 550px){
+
+
+/*
+*------------------------------------------------Dashboard
+*/
+
+.dashboard{
+    //max-width:450px;
+    margin:4px auto;
+
+    & .dashboard-side-nav{
+        width:450px;
+        max-width:450px;
+
+        }
+    }
+
+    & .dashboard-content{
+        min-width:450px;
+        max-width:450px;
+
+        & .h2{
+            font-size: 24px;
+        }
+
+        & p{
+            font-size: 14px;
+        }
+    }
+/*------------------------------------------------Dashboard END
+*/
+
+/*
+*------------------------------------------------All Forms
+*/
+
+form{
+    width:65%;
+
+}
+
+/*------------------------------------------------Forms END
+*/
+    
+}
+
+@media only screen and (min-width: 880px){
+    nav.mobile-nav{
+        display:none;
+    }
+
+    nav.desktop-nav{
+        @include flex();
+        background-color: $background-color;
+        height:45px;
+        line-height:45px;
+        padding: 0 3%;
+        max-width:100%;
+        box-shadow: $box-shadow;
+
+        & .nav-right-block{
+            @include flex();
+            height:25px;
+            line-height:25px;
+
+            & li{
+                padding:10px;
+                
+                & a{
+                    color:$dark-color;
+                }
+            }
+        }
+
+        & .nav-desktop-items {
+            @include flex();
+        }
+
+        & .fa-item-container {
+            @include flex();
+
+            & .fa-items-container{
+                @include flex();
+
+                & .fa-shopping-cart{
+                    border: $dark-color 1px solid;
+                    padding: 2px 7px;
+                    border-radius:4px;
+                }
+
+                
+                & a{
+                    height:22px;
+                    line-height:22px;
+                    font-size:15px;
+                    color:$background-color;
+                    padding:5px 8px;
+                    border-radius: 3px;
+                }
+
+                & a.user{
+                    background-color:$background-color;
+                }
+
+                & a.account{
+                    background-color:$secondary-color;
+
+                }
+            }
+
+            & .fa{
+                @include flex();
+                font-size:22px;
+                color: $dark-color;
+                background-color:$background-color;
+                margin:0 5px;
+                height:25px;
+                line-height:25px;
+            }
+        }
+    }
+
+    /*
+    *------------------------------------------------Dashboard
+    */
+
+    .dashboard{
+        @include flex(row, space-around, flex-start);
+        max-width:94%;
+        margin:13px auto;
+
+        & .dashboard-side-nav{
+            min-width:0;
+            max-width:24%;
+            margin: 0 10px 0 0;
+            }
+        }
+
+        & .dashboard-content{
+            min-width:0;
+            max-width:70%;
+            min-height:302px;
+            border-width: 2px;
+
+            & .h2{
+                font-size: 30px;
+                padding: 20px 10px 0 10px;
+            }
+
+            & p{
+                font-size: 30px;
+                padding: 0 10px 10px 10px;
+
+            }
+
+        }
+    /*------------------------------------------------Dashboard END
+    */
+
+    /*
+    *------------------------------------------------All Forms
+    */
+
+    form{
+        width:45%;
+        max-width: 500px;
+
+    }
+
+    /*------------------------------------------------Forms END
+*/
+
+}
+
+//---------------------------------------------------------------
+//                           Desktop                             |
+//---------------------------------------------------------------
+@media only screen and (min-width: 1080px){
+
+}
+
+
