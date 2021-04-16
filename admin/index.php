@@ -13,6 +13,11 @@
     // Get the reviews model for use as needed
     require_once '../model/reviews-model.php';  
 
+    // Build Admin Side Nav
+    $adminSideNav = buildAdminSideNav();
+
+    // Build User Update Admin Nav
+    $userUpdateNav = buildUserUpdateNav();
 
 
     $action = filter_input(INPUT_POST, 'action');
@@ -21,142 +26,6 @@
     }
 
     switch ($action) {
-        case 'login':
-            include "../view/login.php";
-            break;
-        case 'reg':
-            include "../view/registration.php";
-            break;
-        case 'register':
-            // Filter and store the data
-            $userFirstName = filter_input(INPUT_POST, 'userFirstName', FILTER_SANITIZE_STRING);
-            $userLastName = filter_input(INPUT_POST, 'userLastName', FILTER_SANITIZE_STRING);
-            $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
-            $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
-
-            $userEmail = checkEmail($userEmail);
-            $checkPassword = checkPassword($userPassword);
-
-            // Check for existing email in the database
-            $existingEmail = checkforRegisteredEmail($userEmail);
-
-            // When email exists reject registration and ask user to user another
-            if($existingEmail===1){
-                $message = "<p class='detail-span-bold'>An account with the email: $userEmail already exists. Do you want to login instead?</p>";
-                include "../view/login.php";
-                exit;
-            }
-
-            // Check for missing data
-            if(empty($userFirstName) || empty($userLastName) || empty($userEmail) || empty($checkPassword)){
-                $message = "<p class='detail-span-bold'>Please provide information for all empty form fields.</p>";
-                include '../view/registration.php';
-                exit; 
-            }
-
-            // Hash the password to hide it from anyone and all.
-            $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
-
-            // Send the data to the model
-            $regOutcome = regUser($userFirstName, $userLastName, $userEmail, $userPassword);
-
-            // Check and report the result
-            if($regOutcome === 1){
-                setcookie('firstName',$userFirstName,strtotime('+1 year'), '/');
-
-                $_SESSION['message'] = "<p class='detail-span-bold'>Thanks for registering $userFirstName. Please use your email and password to login.</p>";
-
-                header('Location: /zalisting/view/login.php');
-
-                exit;
-            } else {
-                $message = "<p class='detail-span-bold'>Error! Your registration failed. Please try again.</p>";
-                include '../view/registration.php';
-                exit;
-            }
-            break;
-
-        case 'Login':
-            // Filter and store the data
-            $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
-            $userEmail = checkEmail($userEmail);
-
-            $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
-            $checkPassword = checkPassword($userPassword);
-
-            // Check for missing data
-            if(empty($userEmail) || empty($checkPassword)){
-                
-                $message = "<p class='detail-span-bold'>Incorrect password and email combination. Please try again.</p>";
-                include '../view/login.php';
-                exit; 
-            }
-
-            // Get all user data
-            $userData = getUser($userEmail);
-
-            if($userData!=0){
-                // Get default password for the email-password combination entered
-                // If email entered was not valid, this will return a boolian and cause an error. 
-                // Need to fix that
-                $hashed_password = $userData['userPassword'];
-
-                // Save password verification check to a variable
-                $password_check = password_verify($userPassword, $hashed_password);
-
-                // If password check has a true value, password is correct
-                if($password_check){
-
-                    // Set log out session variable
-                    $_SESSION['logout']="<span class=\" detail-span-bold\"><a class=\"account \" href=\"/zalisting/accounts/index.php?action=logout\">Logout</a></span>";
-
-
-                    // A valid user exists, log them in
-                    $_SESSION['loggedin'] = TRUE;
-                    // Remove the password from the array
-                    // the array_pop function removes the last
-                    // element from an array
-                    array_pop($userData);
-                    // Store the array into the session
-                    $_SESSION['userData'] = $userData;
-
-                    // Create a message session variable
-                    $_SESSION['message'] = "<p class='detail-span-bold'>Thanks for logging in ".$_SESSION['userData']['userFirstName']."</p>";
-
-                    // Get reviews for the specific user for use in showing reviews
-                    $reviews = getUserReviews($_SESSION['userData']['userId']);
-
-                    // Getting the reviews html from the functions.
-                    $customerReviews = customerReviews($reviews);
-
-                    // Send them to the admin view
-                    include '../view/admin.php';
-                    exit; 
-                }
-                else{
-
-                    $message = "<p class='detail-span-bold'>Please check your password and email combination and try again.</p>";
-                    include '../view/login.php';
-                    exit; 
-                }
-            }
-            else{
-
-                $message = '<p class="notice detail-span-bold">Please check your password and email combination and try again.</p>';
-                include '../view/login.php';
-                exit; 
-            }
-
-            break;
-
-        case 'logout':
-
-            //Destroy session variables
-            $_SESSION = array();
-            // Log them out
-            $_SESSION['loggedin'] = FALSE;
-            header('Location: /zalisting/');
-            break;
 
         case 'account':
 
@@ -179,6 +48,7 @@
         case 'user':
 
             $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_NUMBER_INT);
+            $_SESSION['updatinguserId'] = $userId;
 
             $userInfo = getUserInfo($userId);
 
@@ -190,18 +60,24 @@
 
             break;
 
-        case 'update':
+        case 'update-user':
 
-            $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
             $userFirstName = filter_input(INPUT_POST, 'userFirstName', FILTER_SANITIZE_STRING);
             $userLastName = filter_input(INPUT_POST, 'userLastName', FILTER_SANITIZE_STRING);
             $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_STRING);
             $userPhone = filter_input(INPUT_POST, 'userPhone', FILTER_SANITIZE_NUMBER_INT);
 
             // Send the data to the model
-            $updateResult = updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $userId);
+            $updateResult = updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $_SESSION['updatinguserId']);
+
+            //var_dump($updateResult); exit;
+
+            // Build Admin Side Nav
+            $adminSideNav = buildAdminSideNav();
 
             //echo var_dump($userInfo); exit;
+
+            // If database update fails, send user a message.
             if (!$updateResult) {
                     $message = "<p class='notice detail-span-bold'>Sorry, we couldn't update the account.</p>";
                     include '../view/user.php';
@@ -215,7 +91,86 @@
 
             break;
 
-        case 'updateInfo':
+        // Access adddress update form
+        case 'address':
+
+            $address = getAddress($_SESSION['updatinguserId']);
+
+            if(!empty($address)){
+                $addressSideDisplay = buildAddresses($address);
+            }
+
+            $addressDisplay = buildAddressDisplay($address);
+
+            include '../view/address.php';
+
+            break;
+
+        // Access adddress update form
+        case 'new-address':
+
+            $addressLineOne = filter_input(INPUT_POST, 'addressLineOne', FILTER_SANITIZE_STRING); 
+            $addressLineTwo = filter_input(INPUT_POST, 'addressLineTwo', FILTER_SANITIZE_STRING);
+            $addressCity = filter_input(INPUT_POST, 'addressCity', FILTER_SANITIZE_STRING);
+            $addressZipCode = filter_input(INPUT_POST, 'addressZipCode', FILTER_SANITIZE_STRING);
+            $addressType = filter_input(INPUT_POST, 'addressType', FILTER_SANITIZE_NUMBER_INT);
+
+            if(!empty($addressLineOne) && !empty($addressLineTwo) && !empty($addressCity) && !empty($addressZipCode) && !empty($addressType)){
+                $newAddress = addAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $_SESSION['updatinguserId']);
+            
+                // carry on if an address exists for the user
+                if($newAddress){
+                    $message = "<p class='notice detail-span-bold'>Success, we added the address successfully.</p>";
+                }else{
+                    // Empty placeholder values, but values were added by user
+                    $message = "<p class='notice detail-span-bold'>Error, we couldn't add the address.</p>";
+    
+                }
+
+            }else{
+                $message = "<p class='notice detail-span-bold'>Error! All address details need to be filled</p>";
+                include '../view/admin.php';
+                exit;
+            }
+
+            include '../view/admin.php';
+
+            break;
+
+        // Access adddress update form
+        case 'update-address':
+
+            $addressLineOne = filter_input(INPUT_POST, 'addressLineOne', FILTER_SANITIZE_STRING); 
+            $addressLineTwo = filter_input(INPUT_POST, 'addressLineTwo', FILTER_SANITIZE_STRING);
+            $addressCity = filter_input(INPUT_POST, 'addressCity', FILTER_SANITIZE_STRING);
+            $addressZipCode = filter_input(INPUT_POST, 'addressZipCode', FILTER_SANITIZE_STRING);
+            $addressType = filter_input(INPUT_POST, 'addressType', FILTER_SANITIZE_NUMBER_INT);
+
+            if(!empty($addressLineOne) && !empty($addressLineTwo) && !empty($addressCity) && !empty($addressZipCode) && !empty($addressType)){
+
+                //echo "<br/>Line 1: $addressLineOne"; echo "<br/>Line 2: $addressLineTwo"; echo "<br/>AddressCity: $addressCity";  echo "<br/>AddressZipCode: $addressZipCode";   echo "<br/>AddressType: $addressType";   echo "<br/>User Id: $_SESSION[updatinguserId]"; exit;
+
+
+                $updatedAddress = updateAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $_SESSION['updatinguserId']);
+            
+                // carry on if an address exists for the user
+                if($updatedAddress){
+                    $message = "<p class='notice detail-span-bold'>Success, we updated the address successfully.</p>";
+                }else{
+                    
+                    
+                    $message = "<p class='notice detail-span-bold'>Error, we couldn't update the address.</p>";
+    
+                }
+
+            }else{
+                $message = "<p class='notice detail-span-bold'>Error! All address details need to be filled</p>";
+                include '../view/admin.php';
+                exit;
+            }
+
+            include '../view/admin.php';
+
 
 
             break;

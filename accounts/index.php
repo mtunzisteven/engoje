@@ -13,6 +13,9 @@
     // Get the reviews model for use as needed
     require_once '../model/reviews-model.php';  
 
+    // Build Admin Side Nav
+    $adminSideNav = buildAdminSideNav();
+
 
 
     $action = filter_input(INPUT_POST, 'action');

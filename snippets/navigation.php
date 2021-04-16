@@ -16,7 +16,7 @@
                     echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account'><i class='nav-hamburger-account fa fa-user'></i></a>";
                     echo "<i class='nav-hamburger-account fa fa-shopping-cart'></i>";
                 } else{
-                    echo "<a class='account' href='/zalisting/accounts/index.php?action=login'>Login</a>";
+                    echo "<a class='account account-button' href='/zalisting/accounts/index.php?action=login'>Login</a>";
                 } 
             ?>
         </div>

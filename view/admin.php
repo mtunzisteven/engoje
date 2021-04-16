@@ -28,24 +28,19 @@
             ?>
 
             <section class="dashboard admin-dashboard">
-                <ul class="dashboard-side-nav">
-                    <li class="dashboard-side-nav-items"><a href="/zalisting/view/admin.php" class="dashboard-side-nav-links dashboard-main-link">DASHBOARD</a></li>
-                    <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=account" class="dashboard-side-nav-links">My Account</a></li>
-                    <li class="dashboard-side-nav-items"><a href="/index.php" class="dashboard-side-nav-links">Products</a></li>
-                    <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=users" class="dashboard-side-nav-links">Accounts</a></li>
-                    <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Orders</a></li>
-                    <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Reviews</a></li>
-                    <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Sales</a></li>
-                    <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Reports</a></li>
-                    <li class="dashboard-side-nav-items"><a class="dashboard-side-nav-links">Logs</a></li>
-                    <li class="dashboard-side-nav-items"><a class='dashboard-side-nav-links' href='/zalisting/accounts/index.php?action=logout'>Logout</a></li>
-                </ul>
 
-                
+
+                <?php
+
+                    if(isset($adminSideNav)){
+                        echo $adminSideNav;
+                    }
+
+                ?>
 
                 <section class="dashboard-content">
                     <?php
-                        echo "<h1 class='h2'>Welcome to Your Dashboard</h1>";
+                        echo "<h1 class='h2'>Website Admin Dashboard</h1>";
                         if(isset($_SESSION['message'])){
                             echo $_SESSION['message'];
                         }
@@ -58,6 +53,7 @@
                 </section>
             </section>            
         </main>
+        <script src="/zalisting/js/sliders.js"></script>
     </body>
 </html>
 <?php 

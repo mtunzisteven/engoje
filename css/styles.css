@@ -60,6 +60,15 @@ body table th {
   color: #fdfdfd;
 }
 
+body .account-button {
+  display: block;
+  padding: 4px;
+  background-color: #ff4949 !important;
+  color: #fdfdfd;
+  border-radius: 3px !important;
+  max-width: 150px !important;
+}
+
 .admin-main {
   background-color: #d8d5d5;
 }
@@ -131,7 +140,7 @@ nav.mobile-nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #ff4949;
+  background-color: #fa9595;
   height: 40px;
   line-height: 40px;
   width: 94%;
@@ -252,7 +261,7 @@ nav.mobile-nav .show .nav-hamburger-top {
           align-items: center;
   height: 50px;
   line-height: 50px;
-  background-color: #ff4949;
+  background-color: #fa9595;
   padding: 0 15px;
 }
 
@@ -384,16 +393,34 @@ nav.mobile-nav .show a.nav-list-link {
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items {
-  border: 2px solid #DD1717;
-  background-color: #ff4949;
+  border: 2px solid #ff4949;
+  background-color: #fa9595;
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items .account-dashboard-main-link {
-  background-color: #DD1717;
+  background-color: #ff4949;
+  font-weight: 500;
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items:hover {
   background-color: #DD1717;
+}
+
+.dashboard .account-side-nav {
+  background-color: #fa9595 !important;
+  border: 1px solid #ff4949;
+  padding-right: 1px;
+}
+
+.dashboard .account-side-nav .dashboard-side-nav-items {
+  border: none;
+  border-bottom: 2px solid #ff4949;
+  background-color: #fa9595;
+}
+
+.dashboard .account-side-nav .dashboard-side-nav-items .dashboard-main-link {
+  font-weight: 900;
+  background-color: #ff4949;
 }
 
 .dashboard .dashboard-content {
@@ -640,7 +667,7 @@ form .detail-span {
     background-color: #fdfdfd;
   }
   nav.desktop-nav .fa-item-container .fa-items-container a.account {
-    background-color: #ff4949;
+    background-color: #fa9595;
   }
   nav.desktop-nav .fa-item-container .fa {
     display: -webkit-box;
@@ -728,8 +755,15 @@ form .detail-span {
   .dashboard .dashboard-content .user-data-container .user-update li a {
     display: block;
   }
-  .dashboard .dashboard-content .user-data-container .user-update .user-update-item-active {
+  .dashboard .dashboard-content .user-data-container .user-update .user-update-item {
     background-color: #80a1d1;
+    border-bottom: #fdfdfd 1px solid;
+  }
+  .dashboard .dashboard-content .user-data-container .user-update .user-update-item a {
+    color: #fdfdfd;
+  }
+  .dashboard .dashboard-content .user-data-container .user-update .user-update-item:hover {
+    background-color: #0f4392;
   }
   .dashboard .dashboard-content .user-data-container .dashboard-user-update-data {
     margin: 0 auto 50px auto;

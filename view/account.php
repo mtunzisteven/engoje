@@ -26,7 +26,7 @@
             ?>
 
             <section class="dashboard account-dasshboard">
-                <ul class="dashboard-side-nav">
+                <ul class="dashboard-side-nav account-side-nav">
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a href="/zalisting/view/account.php" class="dashboard-side-nav-links account-dashboard-main-link">DASHBOARD</a></li>
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Orders</a></li>
                     <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Reviews</a></li>
@@ -51,6 +51,7 @@
                 </section>
             </section>           
         </main>
+        <script src="/zalisting/js/sliders.js"></script>
     </body>
 </html>
 <?php 

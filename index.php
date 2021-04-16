@@ -9,6 +9,9 @@
     // Get the PHP Motors model for use as needed
     require_once 'model/main-model.php';
 
+    // Build Admin Side Nav
+    $adminSideNav = buildAdminSideNav();
+
     // Check if the firstname cookie exists, get its value
     if(isset($_COOKIE['firstname'])){
         $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);

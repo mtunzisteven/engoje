@@ -29,7 +29,7 @@ function buildUsersDisplay($users){
 
     foreach($users as $user){
 
-        $userRows[] = "<tr class='user-display-info'> <td><a class='account' href='/zalisting/admin/?action=user&userId=$user[userId]'>update</a> <a class='account' href='/zalisting/accounts/?action=delete&userId=$user[userId]'>delete</a></td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>$user[userPhone]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td><a class='account account-button' href='/zalisting/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
     }
 
    return $userRows;
@@ -43,9 +43,9 @@ function buildUserDisplay($userInfo){
     $userDisplay .= "<label>First Name</label><input type='text' name='userFirstName' value='$userInfo[userFirstName]' />";
     $userDisplay .= "<label>Last Name</label><input type='text' name='userLastName' value='$userInfo[userLastName]' />";
     $userDisplay .= "<label>Email</label><input type='text' name='userEmail' value='$userInfo[userEmail]' />";
-    $userDisplay .= "<label>Phone Number</label><input type='text' name='userPhone' value='$userInfo[userPhone]' />";
-    $userDisplay .= "<input type='submit' value='submit' />";
-    $userDisplay .= "<input type='hidden' name='action' value='update' />";
+    $userDisplay .= "<label>Phone Number</label><input type='tel' name='userPhone' value='0$userInfo[userPhone]' />";
+    $userDisplay .= "<input class='button account-button' type='submit' value='submit' />";
+    $userDisplay .= "<input type='hidden' name='action' value='update-user' />";
     $userDisplay .= "<input type='hidden' name='userId' value='$userInfo[userId]' />";
 
 
@@ -55,6 +55,93 @@ function buildUserDisplay($userInfo){
    return $userDisplay;
   }
 
+// Build a Address edit display view
+function buildAddressDisplay($address){
+
+    if(!isset($address['addressLineOne'])){
+
+        $addressDisplay = "<form method='POST' action='/zalisting/admin/?action=new-address'>";
+
+        $addressDisplay .= "<label>Address Line 1</label><input type=text name=addressLineOne />";
+        $addressDisplay .= "<label>Address Line 2</label><input type=text name=addressLineTwo />";
+        $addressDisplay .= "<label>City</label><input type=text name=addressCity />";
+        $addressDisplay .= "<label>Zip Code</label><input type=text name=addressZipCode />";
+        $addressDisplay .= "<label>Shipping or Billing Address?</label><input type=number name=addressType />";
+        $addressDisplay .= "<input class=button account-button type=submit value=submit />";
+    
+        $addressDisplay .= "</form>";
+
+    }else{
+
+        $addressDisplay = "<form method='POST' action='/zalisting/admin/?action=update-address'>";
+
+        $addressDisplay .= "<label>Address Line 1</label><input type='text' name='addressLineOne' value='$address[addressLineOne]' />";
+        $addressDisplay .= "<label>Address Line 2</label><input type='text' name='addressLineTwo' value='$address[addressLineTwo]' />";
+        $addressDisplay .= "<label>City</label><input type='text' name='addressCity' value='$address[addressCity]' />";
+        $addressDisplay .= "<label>Zip Code</label><input type='text' name='addressZipCode' value='$address[addressZipCode]' />";
+        $addressDisplay .= "<label>Shipping or Billing Address?</label><input type='number' name='addressType' value='$address[addressType]' />";
+        $addressDisplay .= "<input class='button account-button' type='submit' value='submit' />";
+    
+        $addressDisplay .= "</form>";
+    }
+
+   return $addressDisplay;
+  }
+
+//  Build Admin Side Nav display
+function buildAdminSideNav(){
+
+    $adminSideNav = "<ul class='dashboard-side-nav'>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/' class='dashboard-side-nav-links'>Products</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Sales</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reports</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Logs</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links' href='/zalisting/accounts/index.php?action=logout'>Logout</a></li>";
+    $adminSideNav .= "</ul>";
+
+    return $adminSideNav;
+}
+
+
+//  Build User Update Admin Nav display
+function buildUserUpdateNav(){
+
+    $updateNav ="<ul class='user-update'>";    
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=user&userId=$_SESSION[updatinguserId]'>Personal</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=address'>Addresses</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
+    $updateNav .="</ul>";
+
+    return $updateNav;
+}
+
+//  Build Address display
+function buildAddresses($addressInfo){
+
+    if($addressInfo['addressType']==1){
+
+        $address ="<p class='detail-span-bold'><strong>Billing Address</strong></p>";    
+        $address .="<p class='detail-span-bold' >$addressInfo[addressLineOne]</p>";
+        $address .="<p class='detail-span-bold' >$addressInfo[addressLineTwo]</p>";
+        $address .="<p class='detail-span-bold' >$addressInfo[addressCity]</p>";
+        $address .="<p class='detail-span-bold' >$addressInfo[addressZipCode]</p>";
+
+    }else{
+        $address ="<p class='detail-span-bold'><strong>Shipping Address</strong></p>";    
+        $address .="<p class='detail-span-bold' >$addressInfo[addressLineOne]</p>";
+        $address .="<p class='detail-span-bold' >$addressInfo[addressLineTwo]</p>";
+        $address .="<p class='detail-span-bold' >$addressInfo[addressCity]</p>";
+        $address .="<p class='detail-span-bold' >$addressInfo[addressZipCode]</p>";
+    }
+
+    return $address;
+}
 
 function buildNav($classifications){
     // Build a navigation bar using the $classifications array

@@ -11,7 +11,7 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    $pageName ="User"; 
+    $pageName ="Address"; 
     $pageShortSummary = "Dashboard";
     $pageDescription = "User management dashboard";
 
@@ -47,15 +47,20 @@
 
                             echo "<div class='dashboard-user-update-data'>";
 
-                                if(isset($userDisplay)){
+                                if(isset($addressDisplay)){
 
-                                    echo $userDisplay;
+                                    echo $addressDisplay;
                                 }
 
                             ?>
                             <div class="dashboard-form-details">
-                                <h3>Heading</h3>
-                                <p>Information about the form on the left.</p>
+                                <h3>Addresses</h3>
+                                <?php
+                                    if(isset($addressSideDisplay)){
+                                        echo $addressSideDisplay;
+                                    }
+                                ?>
+
                             </div>
                         </div>
                     </div>

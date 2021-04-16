@@ -163,3 +163,52 @@ function updatePassword($userId, $userPassword){
     $stmt->closeCursor();
     return $userData;
 }
+
+// Get user information by invId
+function getAddress($userId){
+    $db = zalistingConnect();
+    $sql = 'SELECT addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType FROM addresses WHERE userId = :userId'; 
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $Address = $stmt->fetch(PDO::FETCH_ASSOC); 
+    $stmt->closeCursor();
+    return $Address;
+}
+
+// This is for updating Addresses
+function updateAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
+    $db = zalistingConnect();
+    $sql = "UPDATE addresses SET addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':addressLineOne', $addressLineOne, PDO::PARAM_STR);
+    $stmt->bindValue(':addressLineTwo', $addressLineTwo, PDO::PARAM_STR);
+    $stmt->bindValue(':addressCity', $addressCity, PDO::PARAM_STR);
+    $stmt->bindValue(':addressZipCode', $addressZipCode, PDO::PARAM_STR);
+    $stmt->bindValue(':addressType', $addressType, PDO::PARAM_INT);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+    return $rowsChanged;
+}
+
+// This is for updating Addresses
+function addAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
+
+    $db = zalistingConnect();
+    $sql = 'INSERT INTO addresses (addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType, userId) VALUES(:addressLineOne, :addressLineTwo, :addressCity, :addressZipCode, :addressType, :userId)';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':addressLineOne', $addressLineOne, PDO::PARAM_STR);
+    $stmt->bindValue(':addressLineTwo', $addressLineTwo, PDO::PARAM_STR);
+    $stmt->bindValue(':addressCity', $addressCity, PDO::PARAM_STR);
+    $stmt->bindValue(':addressZipCode', $addressZipCode, PDO::PARAM_STR);
+    $stmt->bindValue(':addressType', $addressType, PDO::PARAM_INT);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+    return $rowsChanged;
+}
