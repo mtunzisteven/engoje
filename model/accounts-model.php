@@ -125,7 +125,7 @@ function getUser($userEmail){
 // Get user information by invId
 function getUserInfo($userId){
     $db = zalistingConnect();
-    $sql = 'SELECT userFirstName, userLastName, userEmail, userPhone FROM users WHERE userId = :userId'; 
+    $sql = 'SELECT userId, userFirstName, userLastName, userEmail, userPhone FROM users WHERE userId = :userId'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
@@ -135,14 +135,16 @@ function getUserInfo($userId){
 }
 
 // This is for updating user information
-function updateInfo($userFirstName, $userLastName, $userEmail, $userId){
+function updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $userId){
     $db = zalistingConnect();
-    $sql = 'UPDATE users SET userFirstName=:userFirstName, userLastName=:userLastName, userEmail=:userEmail WHERE userId = :userId';
+    $sql = 'UPDATE users SET userFirstName=:userFirstName, userLastName=:userLastName, userEmail=:userEmail, userPhone=:userPhone WHERE userId = :userId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userFirstName', $userFirstName, PDO::PARAM_STR);
     $stmt->bindValue(':userLastName', $userLastName, PDO::PARAM_STR);
     $stmt->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
+    $stmt->bindValue(':userPhone', $userPhone, PDO::PARAM_INT);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+
     $stmt->execute();
     $rowsChanged = $stmt->rowCount(); 
     $stmt->closeCursor();

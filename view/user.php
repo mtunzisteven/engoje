@@ -25,7 +25,7 @@
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
             ?>
 
-            <section class="dashboard desktop-nav user-dashboard">
+            <section class="dashboard admin-dashboard">
                 <ul class="dashboard-side-nav">
                     <li class="dashboard-side-nav-items"><a href="/zalisting/view/admin.php" class="dashboard-side-nav-links dashboard-main-link">DASHBOARD</a></li>
                     <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=account" class="dashboard-side-nav-links">My Account</a></li>
@@ -42,23 +42,28 @@
                 
 
                 <section class="dashboard-content">
-                
-                    <ul class="user-update">
-                        <li class="user-update-item <?php if($pageName=='User'){echo "user-update-item-active";} ?>" ><a href="">Personal</a></li>
-                        <li class="user-update-item" ><a href="">Addresses</a></li>
-                        <li class="user-update-item" ><a href="">Orders</a></li>
-                        <li class="user-update-item" ><a href="">Returns</a></li>
-                    </ul>
-                    <div class="dashboard-user-update-data">
+                    <div class="user-data-container">
+                        <ul class="user-update">
+                            <li class="user-update-item <?php if($pageName=='User'){echo "user-update-item-active";} ?>" ><a href="">Personal</a></li>
+                            <li class="user-update-item" ><a href="">Addresses</a></li>
+                            <li class="user-update-item" ><a href="">Orders</a></li>
+                            <li class="user-update-item" ><a href="">Returns</a></li>
+                        </ul>
+                        <div class="dashboard-user-update-data">
 
-                    <?php
+                            <?php
 
-                        if(isset($userDisplay)){
+                                if(isset($userDisplay)){
 
-                            echo $userDisplay;
-                        }
+                                    echo $userDisplay;
+                                }
 
-                    ?>
+                            ?>
+                            <div class="dashboard-form-details">
+                                <h3>Heading</h3>
+                                <p>Information about the form on the left.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </section>    

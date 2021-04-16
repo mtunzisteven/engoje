@@ -25,7 +25,7 @@
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
             ?>
 
-            <section class="dashboard  desktop-nav">
+            <section class="dashboard admin-dashboard">
                 <ul class="dashboard-side-nav">
                     <li class="dashboard-side-nav-items"><a href="/zalisting/view/admin.php" class="dashboard-side-nav-links dashboard-main-link">DASHBOARD</a></li>
                     <li class="dashboard-side-nav-items"><a href="/zalisting/accounts/?action=account" class="dashboard-side-nav-links">My Account</a></li>

@@ -29,7 +29,7 @@ function buildUsersDisplay($users){
 
     foreach($users as $user){
 
-        $userRows[] = "<tr class='user-display-info'> <td><a class='account' href='/zalisting/accounts/?action=user&userId=$user[userId]'>update</a> <a class='account' href='/zalisting/accounts/?action=delete&userId=$user[userId]'>delete</a></td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>$user[userPhone]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td><a class='account' href='/zalisting/admin/?action=user&userId=$user[userId]'>update</a> <a class='account' href='/zalisting/accounts/?action=delete&userId=$user[userId]'>delete</a></td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>$user[userPhone]</td> </tr>";
     }
 
    return $userRows;
@@ -38,12 +38,15 @@ function buildUsersDisplay($users){
 // Build a single user display view
 function buildUserDisplay($userInfo){
 
-    $userDisplay = "<form>";
+    $userDisplay = "<form method='POST' action='/zalisting/admin/'>";
 
-    $userDisplay .= "<label>First Name</label><input type='text' name='userFirstName' value='$userInfo[userFirstName]' readonly/>";
-    $userDisplay .= "<label>Last Name</label><input type='text' name='userLastName' value='$userInfo[userLastName]' readonly/>";
-    $userDisplay .= "<label>Email</label><input type='text' name='userEmail' value='$userInfo[userEmail]' readonly/>";
-    $userDisplay .= "<label>Phone Number</label><input type='text' name='userPhone' value='$userInfo[userPhone]' readonly/>";
+    $userDisplay .= "<label>First Name</label><input type='text' name='userFirstName' value='$userInfo[userFirstName]' />";
+    $userDisplay .= "<label>Last Name</label><input type='text' name='userLastName' value='$userInfo[userLastName]' />";
+    $userDisplay .= "<label>Email</label><input type='text' name='userEmail' value='$userInfo[userEmail]' />";
+    $userDisplay .= "<label>Phone Number</label><input type='text' name='userPhone' value='$userInfo[userPhone]' />";
+    $userDisplay .= "<input type='submit' value='submit' />";
+    $userDisplay .= "<input type='hidden' name='action' value='update' />";
+    $userDisplay .= "<input type='hidden' name='userId' value='$userInfo[userId]' />";
 
 
     $userDisplay .= "</form>";

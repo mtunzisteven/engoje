@@ -283,11 +283,15 @@ nav.mobile-nav{
 *------------------------------------------------Dashboard
 */
 
+.admin-dashboard{    
+    display:none;
+}
+
 .dashboard{
     max-width:100%;
     min-height: 100%;
     margin:0;
-    display:none;
+
 
 
     & .dashboard-side-nav{
@@ -565,14 +569,13 @@ form{
 
         & .dashboard-side-nav{
             min-width:0;
-            max-width:19%;
+            max-width:17%;
             margin: 0;
             }
         
 
         & .dashboard-content{
             max-width:100%;
-            min-height:100%;
             border:none;
 
             & .h2{
@@ -584,6 +587,58 @@ form{
                 font-size: 16px;
                 padding: 0 10px 10px 10px;
 
+            }
+
+            & .user-data-container{
+                max-width:100%;
+                padding:30px;
+
+                & .user-update{
+                    @include flex();
+                    width:100%;
+
+                    & li{
+                        width:25%;
+                        height:40px;
+                        line-height:40px;
+                        text-align:center;
+
+                        & a{
+                            display:block;
+                        }
+                    }
+
+                    & .user-update-item-active{
+                        background-color: $light-main-color;
+                    }
+                }
+
+
+
+                & .dashboard-user-update-data{
+                    margin:0 auto 50px auto;
+                    background-color: $light-main-color;
+                    @include flex(row, space-around, start);
+
+                    & form{
+                        border:none;
+                        padding:10px;
+                        margin:15px 0 !important;
+                        width:50%;
+                    }
+
+                    & .dashboard-form-details{
+                        width:50%;
+                        height:300px;
+                        background-color: $background-color;
+                        border-radius: 3px;
+                        margin:25px 60px 30px 0;
+
+                        & h3{
+                            padding-left:15px;
+                        }
+                    }
+                }
             }
 
         }

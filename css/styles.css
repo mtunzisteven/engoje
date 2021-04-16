@@ -326,11 +326,14 @@ nav.mobile-nav .show a.nav-list-link {
 /*
 *------------------------------------------------Dashboard
 */
+.admin-dashboard {
+  display: none;
+}
+
 .dashboard {
   max-width: 100%;
   min-height: 100%;
   margin: 0;
-  display: none;
 }
 
 .dashboard .dashboard-side-nav {
@@ -681,12 +684,11 @@ form .detail-span {
   }
   .dashboard .dashboard-side-nav {
     min-width: 0;
-    max-width: 19%;
+    max-width: 17%;
     margin: 0;
   }
   .dashboard .dashboard-content {
     max-width: 100%;
-    min-height: 100%;
     border: none;
   }
   .dashboard .dashboard-content .h2 {
@@ -696,6 +698,70 @@ form .detail-span {
   .dashboard .dashboard-content p {
     font-size: 16px;
     padding: 0 10px 10px 10px;
+  }
+  .dashboard .dashboard-content .user-data-container {
+    max-width: 100%;
+    padding: 30px;
+  }
+  .dashboard .dashboard-content .user-data-container .user-update {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+  }
+  .dashboard .dashboard-content .user-data-container .user-update li {
+    width: 25%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+  }
+  .dashboard .dashboard-content .user-data-container .user-update li a {
+    display: block;
+  }
+  .dashboard .dashboard-content .user-data-container .user-update .user-update-item-active {
+    background-color: #80a1d1;
+  }
+  .dashboard .dashboard-content .user-data-container .dashboard-user-update-data {
+    margin: 0 auto 50px auto;
+    background-color: #80a1d1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: start;
+  }
+  .dashboard .dashboard-content .user-data-container .dashboard-user-update-data form {
+    border: none;
+    padding: 10px;
+    margin: 15px 0 !important;
+    width: 50%;
+  }
+  .dashboard .dashboard-content .user-data-container .dashboard-user-update-data .dashboard-form-details {
+    width: 50%;
+    height: 300px;
+    background-color: #fdfdfd;
+    border-radius: 3px;
+    margin: 25px 60px 30px 0;
+  }
+  .dashboard .dashboard-content .user-data-container .dashboard-user-update-data .dashboard-form-details h3 {
+    padding-left: 15px;
   }
   /*------------------------------------------------Dashboard END
     */

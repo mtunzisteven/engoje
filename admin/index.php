@@ -178,7 +178,7 @@
 
         case 'user':
 
-            $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_STRING);
+            $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_NUMBER_INT);
 
             $userInfo = getUserInfo($userId);
 
@@ -192,100 +192,36 @@
 
         case 'update':
 
-            $userId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-            $userInfo = getUserInfo($userId);
+            $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
+            $userFirstName = filter_input(INPUT_POST, 'userFirstName', FILTER_SANITIZE_STRING);
+            $userLastName = filter_input(INPUT_POST, 'userLastName', FILTER_SANITIZE_STRING);
+            $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_STRING);
+            $userPhone = filter_input(INPUT_POST, 'userPhone', FILTER_SANITIZE_NUMBER_INT);
+
+            // Send the data to the model
+            $updateResult = updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $userId);
 
             //echo var_dump($userInfo); exit;
-            if (!$userInfo) {
-                    $message = 'Sorry, no user information could be found.';
-                }
+            if (!$updateResult) {
+                    $message = "<p class='notice detail-span-bold'>Sorry, we couldn't update the account.</p>";
+                    include '../view/user.php';
 
-            $_SESSION['userId'] = $userId;
+            }else{
 
-            include '../view/user-update.php';
-            exit;
+                $message = "<p class='notice detail-span-bold'>Success, we updated $userFirstName $userLastName's account.</p>";
+                include '../view/admin.php';
+
+            }
 
             break;
 
         case 'updateInfo':
 
-            // Filter and store the data
-            $userFirstName = filter_input(INPUT_POST, 'userFirstName', FILTER_SANITIZE_STRING);
-            $userLastName = filter_input(INPUT_POST, 'userLastName', FILTER_SANITIZE_STRING);
-            $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
-            $userPhone = filter_input(INPUT_POST, 'userPhone', FILTER_SANITIZE_NUMBER_INT);
-            $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
-
-            //echo "updating"; exit;
-           
-            // Check for missing data
-            if(empty($userFirstName) || empty($userLastName) || empty($userEmail)){
-                $message = '<p>Please provide information for all empty form fields.</p>';
-                $_SESSION['message-info']=$message;
-
-                unset($_POST);
-                include '../view/user-update.php';
-                exit; 
-            }
-
-            // Send the data to the model
-            $updateResult = updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $userId);
-
-            // Check and report the result
-            if($updateResult===1){
-                //echo "done"; exit;
-
-                $_SESSION['message-info'] = "<p class='admin-center'>Your information has been updated successfully $userFirstName.</p>";
-
-                $_SESSION['userData']['userFirstName'] = $userFirstName;
-
-                header('Location: /phpmotors/accounts/');
-
-                exit;
-            } else {
-                $message = "<p>Error! Details could not be. Please try again.</p>";
-                include '../view/user-update.php';
-                exit;
-            }
 
             break;
 
-        case 'updatePassword':
-
-                // Filter and store the data
-                $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
-                $userId = filter_input(INPUT_POST, 'userId', FILTER_SANITIZE_NUMBER_INT);
-
-                // Check for missing data
-                if(empty($userPassword)){
-                    $_SESSION['message-password']='<p>Please provide new password.</p>';
-
-                    echo $userPassword; exit;
-
-                    include '../view/user-update.php';
-                    exit; 
-                }
-
-                $userPassword = password_hash($userPassword, PASSWORD_DEFAULT); 
-
-                // Send the data to the model
-                $updateResult = updatePassword($userId, $userPassword);
-
-                // Check and report the result
-                if($updateResult){
-
-                    $_SESSION['message-password'] = "<p class='admin-center'>Your password has been updated successfully.</p>";
-
-                    header('Location: /phpmotors/accounts/');
-
-                    exit;
-                } else {
-
-                    $message = "<p>Error! Details could not be. Please try again.</p>";
-                    include '../view/user-update.php';
-                    exit;
-                }
-
+        // Send Password reset link
+        case 'sendPassword':
 
 
             break;
