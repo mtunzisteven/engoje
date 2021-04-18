@@ -20,6 +20,24 @@ function checkPrice($invPrice){
     return preg_match($pattern, $invPrice);
 }
 
+//  Build Admin Side Nav display
+function buildAdminSideNav(){
+
+    $adminSideNav = "<ul class='dashboard-side-nav'>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/' class='dashboard-side-nav-links'>Products</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Sales</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reports</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Logs</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links' href='/zalisting/accounts/index.php?action=logout'>Logout</a></li>";
+    $adminSideNav .= "</ul>";
+
+    return $adminSideNav;
+}
 
 
 // Build a multi user display view
@@ -29,11 +47,31 @@ function buildUsersDisplay($users){
 
     foreach($users as $user){
 
-        $userRows[] = "<tr class='user-display-info'> <td><a class='account account-button' href='/zalisting/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td><a class='button account-button' href='/zalisting/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
     }
 
    return $userRows;
   }
+
+
+//  Build User Update Admin Nav display
+function buildUserUpdateNav(){
+
+    $accountUser = "";
+
+    if(isset($_SESSION['updatinguserId'])){
+        $accountUser = $_SESSION['updatinguserId'];
+    }
+
+    $updateNav ="<ul class='user-update'>";    
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=user&userId=$accountUser'>Personal</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=address'>Addresses</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
+    $updateNav .="</ul>";
+
+    return $updateNav;
+}
 
 // Build a single user display view
 function buildUserDisplay($userInfo){
@@ -55,90 +93,109 @@ function buildUserDisplay($userInfo){
    return $userDisplay;
   }
 
-// Build a Address edit display view
-function buildAddressDisplay($address){
+// Build a Address adding or update form view
+function buildAddressForm($address, $addressFound){
 
-    if(!isset($address['addressLineOne'])){
+    //var_dump($addresses); exit;
 
-        $addressDisplay = "<form method='POST' action='/zalisting/admin/?action=new-address'>";
+    // This will potentially have 2 addresses but is an array none the less
+    // So we must loop through regardless how many addresses exist, 
+    // the if statements will give us the variable value we want for action
 
-        $addressDisplay .= "<label>Address Line 1</label><input type=text name=addressLineOne />";
-        $addressDisplay .= "<label>Address Line 2</label><input type=text name=addressLineTwo />";
-        $addressDisplay .= "<label>City</label><input type=text name=addressCity />";
-        $addressDisplay .= "<label>Zip Code</label><input type=text name=addressZipCode />";
-        $addressDisplay .= "<label>Shipping or Billing Address?</label><input type=number name=addressType />";
-        $addressDisplay .= "<input class=button account-button type=submit value=submit />";
-    
-        $addressDisplay .= "</form>";
+    // When no address exists
+    if($addressFound==false){
 
-    }else{
+        $action = 'new-address';
+        
+        // Set address type to be able to make readonly value of 1
+        $addressType = 1;
 
-        $addressDisplay = "<form method='POST' action='/zalisting/admin/?action=update-address'>";
+        // Set address db variables to empty strings
+        $addressLineOne = "";
+        $addressLineTwo = "";
+        $addressCity = "";
+        $addressZipCode = "";
 
-        $addressDisplay .= "<label>Address Line 1</label><input type='text' name='addressLineOne' value='$address[addressLineOne]' />";
-        $addressDisplay .= "<label>Address Line 2</label><input type='text' name='addressLineTwo' value='$address[addressLineTwo]' />";
-        $addressDisplay .= "<label>City</label><input type='text' name='addressCity' value='$address[addressCity]' />";
-        $addressDisplay .= "<label>Zip Code</label><input type='text' name='addressZipCode' value='$address[addressZipCode]' />";
-        $addressDisplay .= "<label>Shipping or Billing Address?</label><input type='number' name='addressType' value='$address[addressType]' />";
-        $addressDisplay .= "<input class='button account-button' type='submit' value='submit' />";
-    
-        $addressDisplay .= "</form>";
+
+    }else if($addressFound==true){//When there is atleast one address found
+
+        $action = 'update-address';
+
+        // Set actual address db variables to their valules
+
+        $addressLineOne = $address['addressLineOne'];
+        $addressLineTwo = $address['addressLineTwo'];
+        $addressCity = $address['addressCity'];
+        $addressZipCode = $address['addressZipCode'];
+        $addressType = $address['addressType'];
+
     }
 
-   return $addressDisplay;
+    //echo $action; exit;
+    $form = "<form method='POST' action='/zalisting/admin/?action=$action'>";
+    $form .= "<label>Address Line 1</label><input type=text name=addressLineOne value='$addressLineOne' />";
+    $form .= "<label>Address Line 2</label><input type=text name=addressLineTwo value='$addressLineTwo' />";
+    $form .= "<label>City</label><input type=text name=addressCity value='$addressCity' />";
+    $form .= "<label>Zip Code</label><input type=text name=addressZipCode value='$addressZipCode' />";
+    $form .= "<input type=hidden name=addressType value='$addressType' />";
+    $form .= "<input class=button account-button type=submit value=submit />";
+    $form .= "</form>";
+
+    //var_dump($addressType); exit;
+
+    return $form;
   }
 
-//  Build Admin Side Nav display
-function buildAdminSideNav(){
-
-    $adminSideNav = "<ul class='dashboard-side-nav'>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/' class='dashboard-side-nav-links'>Products</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Sales</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reports</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Logs</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links' href='/zalisting/accounts/index.php?action=logout'>Logout</a></li>";
-    $adminSideNav .= "</ul>";
-
-    return $adminSideNav;
-}
-
-
-//  Build User Update Admin Nav display
-function buildUserUpdateNav(){
-
-    $updateNav ="<ul class='user-update'>";    
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=user&userId=$_SESSION[updatinguserId]'>Personal</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=address'>Addresses</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
-    $updateNav .="</ul>";
-
-    return $updateNav;
-}
-
 //  Build Address display
-function buildAddresses($addressInfo){
+function buildAddresses($addresses, $addressFound){
 
-    if($addressInfo['addressType']==1){
+    //var_dump($addresses); exit;
+    
+    $address ="<div class='dashboard-details-addresses'>";
 
-        $address ="<p class='detail-span-bold'><strong>Billing Address</strong></p>";    
-        $address .="<p class='detail-span-bold' >$addressInfo[addressLineOne]</p>";
-        $address .="<p class='detail-span-bold' >$addressInfo[addressLineTwo]</p>";
-        $address .="<p class='detail-span-bold' >$addressInfo[addressCity]</p>";
-        $address .="<p class='detail-span-bold' >$addressInfo[addressZipCode]</p>";
+    if($addressFound==false){
+        $address .="<div class='dashboard-details-address'>"; 
+        $address .="<p class='detail-span-bold'><strong>Billing Address</strong></p>"; 
+        $address .="<p class='detail-span-bold' >No address added...</p>";
+        $address .="</div>";
+        $address .="<div class='dashboard-details-address'>"; 
+        $address .="<p class='detail-span-bold'><strong>Shipping Address</strong></p>"; 
+        $address .="<p class='detail-span-bold' >No address added...</p>";
+        $address .="</div>";
+    }else{ 
+        foreach($addresses as $eachAddress){
 
-    }else{
-        $address ="<p class='detail-span-bold'><strong>Shipping Address</strong></p>";    
-        $address .="<p class='detail-span-bold' >$addressInfo[addressLineOne]</p>";
-        $address .="<p class='detail-span-bold' >$addressInfo[addressLineTwo]</p>";
-        $address .="<p class='detail-span-bold' >$addressInfo[addressCity]</p>";
-        $address .="<p class='detail-span-bold' >$addressInfo[addressZipCode]</p>";
+            if($eachAddress['addressType']==1){
+                $address .="<div class='dashboard-details-address'>"; 
+                $address .="<p class='detail-span-bold'><strong>Billing Address</strong></p>"; 
+                $address .="<p class='detail-span-bold' >".$eachAddress['addressLineOne']."</p>";
+                $address .="<p class='detail-span-bold' >$eachAddress[addressLineTwo]</p>";
+                $address .="<p class='detail-span-bold' >$eachAddress[addressCity]</p>";
+                $address .="<p class='detail-span-bold' >$eachAddress[addressZipCode]</p>";
+                $address .="<a class='button account-button center' href='/zalisting/admin/?action=replace-address&addressType=1'>update</a>";
+                $address .="</div>";
+            }
+
+            else if($eachAddress['addressType']==2){
+
+                //var_dump($eachAddress['addressType']); exit;
+
+                $address .="<div class='dashboard-details-address'>"; 
+                $address .="<p class='detail-span-bold'><strong>Shipping Address</strong></p>"; 
+                $address .="<p class='detail-span-bold' >$eachAddress[addressLineOne]</p>";
+                $address .="<p class='detail-span-bold' >$eachAddress[addressLineTwo]</p>";
+                $address .="<p class='detail-span-bold' >$eachAddress[addressCity]</p>";
+                $address .="<p class='detail-span-bold' >$eachAddress[addressZipCode]</p>";
+                $address .="<a class='button account-button center' href='/zalisting/admin/?action=replace-address&addressType=2'>update</a>";
+                $address .="</div>";
+            }
+        }
     }
+
+
+    $address .="</div>";
+
+    //var_dump($address); exit;
 
     return $address;
 }

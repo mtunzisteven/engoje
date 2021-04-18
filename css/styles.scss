@@ -83,8 +83,8 @@ body{
             border-right: 1px solid $light-main-color;
         }
 
-        & tr:hover{
-            background-color: $light-main-color;
+        & tr:nth-child(even){
+            background-color: $darker-background-color;
         }
 
         & th {
@@ -244,7 +244,7 @@ nav.mobile-nav{
 
                 & a.account{
                     font-size:14px;
-                    color:$dark-color
+                    color:$dark-color;
                 }
 
                 & img{
@@ -264,6 +264,7 @@ nav.mobile-nav{
 
         & a.nav-list-link{
             color:$dark-color;
+            padding-left:15px;
         }
     }
 }/*-----------------------------------------------Nav Menu
@@ -308,13 +309,8 @@ nav.mobile-nav{
         padding-inline-start: 0 !important;
         height:800px;
         background-color: $light-main-color;
-        border: 1px solid $main-color;
-        border-top: none;
-
-
 
         & .dashboard-side-nav-items{
-            border-bottom: 2px solid $main-color;
             background-color: $light-main-color;
             width:100%;
             height:40px;
@@ -329,13 +325,17 @@ nav.mobile-nav{
                 height:40px;
                 line-height:40px;
                 color:$background-color;
-                text-align: center;
+                text-align: left;
+                margin-left:18%;
             }
 
             & .dashboard-main-link{
                 font-weight: 900;
                 background-color: $main-color;
                 color:$background-color;
+                margin-left:0;
+                text-align: center;
+
             }
 
         }
@@ -354,12 +354,14 @@ nav.mobile-nav{
         }
 
         & .account-dashboard-side-nav-items{
-            border: 2px solid $secondary-color;
             background-color: $light-secondary-color;
 
-            & .account-dashboard-main-link{
-                background-color: $secondary-color;
-                font-weight:500;
+        & .account-dashboard-main-link{
+            background-color: $secondary-color;
+            font-weight: 900;
+            color:$background-color;
+            margin-left:0;
+            text-align: center;
             }
         }
 
@@ -370,17 +372,20 @@ nav.mobile-nav{
 
     & .account-side-nav{
         background-color:$light-secondary-color !important;
-        border: 1px solid $secondary-color;
+        //border: 1px solid $secondary-color;
         padding-right:1px;
 
         & .dashboard-side-nav-items{
             border:none;
-            border-bottom: 2px solid $secondary-color;
+            //border-bottom: 2px solid $secondary-color;
             background-color: $light-secondary-color;
 
             & .dashboard-main-link{
                 font-weight: 900;
                 background-color: $secondary-color;
+                margin-left:0;
+                text-align: center;
+
             }
         }
 
@@ -598,7 +603,7 @@ form{
 
         & .dashboard-side-nav{
             min-width:0;
-            max-width:17%;
+            max-width:12%;
             margin: 0;
             }
         
@@ -673,7 +678,15 @@ form{
                         margin:25px 60px 30px 0;
 
                         & h3{
-                            padding-left:15px;
+                            text-align: center;
+
+                        }
+
+                        & .dashboard-details-addresses{
+                            @include flex(row, space-around);
+                            margin-top: -15px;
+
+
                         }
                     }
                 }
@@ -696,6 +709,10 @@ form{
 
     /*------------------------------------------------Forms END
 */
+
+    .center{
+        text-align:center !important;
+    }
 
 }
 

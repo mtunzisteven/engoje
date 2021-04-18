@@ -164,22 +164,35 @@ function updatePassword($userId, $userPassword){
     return $userData;
 }
 
-// Get user information by invId
+// Get user information by userId 
 function getAddress($userId){
     $db = zalistingConnect();
     $sql = 'SELECT addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType FROM addresses WHERE userId = :userId'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
+    $Address = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    $stmt->closeCursor();
+    return $Address;
+}
+
+// Get user information by userId and addressType
+function getAddressbyType($userId, $addressType){
+    $db = zalistingConnect();
+    $sql = 'SELECT addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType FROM addresses WHERE userId = :userId AND addressType = :addressType'; 
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindValue(':addressType', $addressType, PDO::PARAM_INT);
+    $stmt->execute();
     $Address = $stmt->fetch(PDO::FETCH_ASSOC); 
     $stmt->closeCursor();
     return $Address;
 }
 
-// This is for updating Addresses
+// This is for updating Addresses by address typ
 function updateAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
     $db = zalistingConnect();
-    $sql = "UPDATE addresses SET addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId";
+    $sql = "UPDATE addresses SET addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId AND addressType = :addressType";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':addressLineOne', $addressLineOne, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineTwo', $addressLineTwo, PDO::PARAM_STR);

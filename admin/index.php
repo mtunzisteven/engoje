@@ -48,11 +48,15 @@
         case 'user':
 
             $userId = filter_input(INPUT_GET, 'userId', FILTER_SANITIZE_NUMBER_INT);
-            $_SESSION['updatinguserId'] = $userId;
 
             $userInfo = getUserInfo($userId);
 
             $userDisplay = buildUserDisplay($userInfo);
+
+            $_SESSION['updatinguserId'] = $userInfo['userId'];
+
+            // Build User Update Admin Nav here for scope to updating userId
+            $userUpdateNav = buildUserUpdateNav();
 
             //echo $display; exit;
 
@@ -91,18 +95,64 @@
 
             break;
 
-        // Access adddress update form
+        // Get Addresses from db
+        // Create form based on whether an address exists or not for the user
+        // Create a display for the forms if they not are found
         case 'address':
 
-            $address = getAddress($_SESSION['updatinguserId']);
+            $addresses = getAddress($_SESSION['updatinguserId']);
 
-            if(!empty($address)){
-                $addressSideDisplay = buildAddresses($address);
+            //var_dump($addresses); exit;
+
+            // Set true if because there are no addresses found in the database
+            $addressFound = false;
+
+            if(empty($addresses)){
+
+            // Build form
+            $addressForm = buildAddressForm($addresses, $addressFound);
+
+            // Build Address display
+            $addressSideDisplay = buildAddresses($addresses, $addressFound);
+
+            }else{
+
+                // Set true if because there are addresses found in the database
+                $addressFound = true;
+
+                // Build Address display
+                $addressSideDisplay = buildAddresses($addresses, $addressFound);
+
             }
 
-            $addressDisplay = buildAddressDisplay($address);
-
             include '../view/address.php';
+
+            break;
+
+
+        case 'replace-address':
+
+            // Get and sanitize the variable from the link 
+            $addressType = filter_input(INPUT_GET, 'addressType', FILTER_SANITIZE_STRING); 
+
+            //var_dump($addressType); exit;
+
+            // Get specific address from database
+            $address = getAddressbyType($_SESSION['updatinguserId'], $addressType);
+
+            if(!empty($address)){
+
+                // Set true if because there are addresses found in the database
+                $addressFound = true;
+
+                //var_dump($address); exit;
+
+                // Build form
+                $addressForm = buildAddressForm($address, $addressFound); 
+
+            }
+
+            include '../view/address-update.php';
 
             break;
 
@@ -116,11 +166,30 @@
             $addressType = filter_input(INPUT_POST, 'addressType', FILTER_SANITIZE_NUMBER_INT);
 
             if(!empty($addressLineOne) && !empty($addressLineTwo) && !empty($addressCity) && !empty($addressZipCode) && !empty($addressType)){
+                
+                // Add billing address
                 $newAddress = addAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $_SESSION['updatinguserId']);
+
+                // Set shipping addressType
+                $addressType =$addressType+1;
+
+                // Add shipping address
+                $newAddress = addAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $_SESSION['updatinguserId']);
+
             
                 // carry on if an address exists for the user
                 if($newAddress){
-                    $message = "<p class='notice detail-span-bold'>Success, we added the address successfully.</p>";
+
+                    // Get the new addresses you added
+                    $addresses = getAddress($_SESSION['updatinguserId']);
+                
+                    // Set true if because there are addresses found in the database
+                    $addressFound = true;
+
+                    // Build Address display
+                    $addressSideDisplay = buildAddresses($addresses, $addressFound);
+
+                    $message = "<p class='notice detail-span-bold center'>Success, we added the address successfully.</p>";
                 }else{
                     // Empty placeholder values, but values were added by user
                     $message = "<p class='notice detail-span-bold'>Error, we couldn't add the address.</p>";
@@ -133,7 +202,7 @@
                 exit;
             }
 
-            include '../view/admin.php';
+            include '../view/address.php';
 
             break;
 
@@ -155,7 +224,18 @@
             
                 // carry on if an address exists for the user
                 if($updatedAddress){
-                    $message = "<p class='notice detail-span-bold'>Success, we updated the address successfully.</p>";
+
+                    // Get the new addresses you added
+                    $addresses = getAddress($_SESSION['updatinguserId']);
+
+                    // Set true if because there are addresses found in the database
+                    $addressFound = true;
+
+                    // Build Address display
+                    $addressSideDisplay = buildAddresses($addresses, $addressFound);
+
+                    $message = "<p class='notice detail-span-bold center'>Success, we updated the address successfully.</p>";
+
                 }else{
                     
                     
@@ -165,11 +245,11 @@
 
             }else{
                 $message = "<p class='notice detail-span-bold'>Error! All address details need to be filled</p>";
-                include '../view/admin.php';
+                include '../view/address.php';
                 exit;
             }
 
-            include '../view/admin.php';
+            include '../view/address.php';
 
 
 

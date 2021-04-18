@@ -11,7 +11,7 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    $pageName ="Address"; 
+    $pageName ="Address-Update"; 
     $pageShortSummary = "Dashboard";
     $pageDescription = "User management dashboard";
 

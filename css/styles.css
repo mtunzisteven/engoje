@@ -48,8 +48,8 @@ body table th, body table td {
   border-right: 1px solid #80a1d1;
 }
 
-body table tr:hover {
-  background-color: #80a1d1;
+body table tr:nth-child(even) {
+  background-color: #d8d5d5;
 }
 
 body table th {
@@ -311,6 +311,7 @@ nav.mobile-nav .show .nav-hamburger-top i.nav-hamburger-close {
 
 nav.mobile-nav .show a.nav-list-link {
   color: #3a3939;
+  padding-left: 15px;
 }
 
 /*-----------------------------------------------Nav Menu
@@ -350,12 +351,9 @@ nav.mobile-nav .show a.nav-list-link {
           padding-inline-start: 0 !important;
   height: 800px;
   background-color: #80a1d1;
-  border: 1px solid #0f4392;
-  border-top: none;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items {
-  border-bottom: 2px solid #0f4392;
   background-color: #80a1d1;
   width: 100%;
   height: 40px;
@@ -371,13 +369,16 @@ nav.mobile-nav .show a.nav-list-link {
   height: 40px;
   line-height: 40px;
   color: #fdfdfd;
-  text-align: center;
+  text-align: left;
+  margin-left: 18%;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items .dashboard-main-link {
   font-weight: 900;
   background-color: #0f4392;
   color: #fdfdfd;
+  margin-left: 0;
+  text-align: center;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items:hover {
@@ -393,13 +394,15 @@ nav.mobile-nav .show a.nav-list-link {
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items {
-  border: 2px solid #ff4949;
   background-color: #fa9595;
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items .account-dashboard-main-link {
   background-color: #ff4949;
-  font-weight: 500;
+  font-weight: 900;
+  color: #fdfdfd;
+  margin-left: 0;
+  text-align: center;
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items:hover {
@@ -408,19 +411,19 @@ nav.mobile-nav .show a.nav-list-link {
 
 .dashboard .account-side-nav {
   background-color: #fa9595 !important;
-  border: 1px solid #ff4949;
   padding-right: 1px;
 }
 
 .dashboard .account-side-nav .dashboard-side-nav-items {
   border: none;
-  border-bottom: 2px solid #ff4949;
   background-color: #fa9595;
 }
 
 .dashboard .account-side-nav .dashboard-side-nav-items .dashboard-main-link {
   font-weight: 900;
   background-color: #ff4949;
+  margin-left: 0;
+  text-align: center;
 }
 
 .dashboard .dashboard-content {
@@ -711,7 +714,7 @@ form .detail-span {
   }
   .dashboard .dashboard-side-nav {
     min-width: 0;
-    max-width: 17%;
+    max-width: 12%;
     margin: 0;
   }
   .dashboard .dashboard-content {
@@ -795,7 +798,22 @@ form .detail-span {
     margin: 25px 60px 30px 0;
   }
   .dashboard .dashboard-content .user-data-container .dashboard-user-update-data .dashboard-form-details h3 {
-    padding-left: 15px;
+    text-align: center;
+  }
+  .dashboard .dashboard-content .user-data-container .dashboard-user-update-data .dashboard-form-details .dashboard-details-addresses {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-top: -15px;
   }
   /*------------------------------------------------Dashboard END
     */
@@ -808,5 +826,8 @@ form .detail-span {
   }
   /*------------------------------------------------Forms END
 */
+  .center {
+    text-align: center !important;
+  }
 }
 /*# sourceMappingURL=styles.css.map */
