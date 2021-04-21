@@ -26,7 +26,7 @@ function buildAdminSideNav(){
     $adminSideNav = "<ul class='dashboard-side-nav'>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/' class='dashboard-side-nav-links'>Products</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/products/?action=account' class='dashboard-side-nav-links'>Products</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";

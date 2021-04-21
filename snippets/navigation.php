@@ -3,9 +3,9 @@
         <img src=" /zalisting/images/logo.jpg" alt="logo image">
         <ul class="nav-desktop-items">
             <li class="nav-list-item"><a href=" /zalisting/" class="nav-list-link <?php if($pageName=="Home"){echo 'active';} ?>">Home</a></li>
-            <li class="nav-list-item"><a href=" /about" class="nav-list-link <?php if($pageName=="Shop"){echo 'active';} ?>">Shop</a></li>
-            <li class="nav-list-item"><a href=" /services" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">Sale</a></li>
-            <li class="nav-list-item"><a href=" /contact" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">New</a></li>
+            <li class="nav-list-item"><a href=" /zalisting//shop" class="nav-list-link <?php if($pageName=="Shop"){echo 'active';} ?>">Shop</a></li>
+            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">Sale</a></li>
+            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">New</a></li>
         </ul>
     </div>
     <div class="fa-item-container">
@@ -60,7 +60,7 @@
         </div>
         <ul class="nav-mobile-items">
             <li class="nav-list-item"><a href=" /" class="nav-list-link <?php if($pageName=="Home"){echo 'active';} ?>">Home</a></li>
-            <li class="nav-list-item"><a href=" /about" class="nav-list-link <?php if($pageName=="Shop"){echo 'active';} ?>">Shop</a></li>
+            <li class="nav-list-item"><a href=" /shop" class="nav-list-link <?php if($pageName=="Shop"){echo 'active';} ?>">Shop</a></li>
             <li class="nav-list-item"><a href=" /services" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">Sale</a></li>
             <li class="nav-list-item"><a href=" /contact" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">New</a></li>
         </ul>

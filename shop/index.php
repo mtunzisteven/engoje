@@ -1,21 +1,20 @@
 <?php
-    //This is the main controller for the site
+
+//This is the shop controller for the site
     session_start();
 
     // Get the database connection file
-    require_once 'library/connections.php';
+    require_once '../library/connections.php';
     // Get the database connection file
-    require_once 'library/functions.php';
-    // Get the za listing model for use as needed
-    require_once 'model/main-model.php';
+    require_once '../library/functions.php';
+    // Get the za listing main model for use as needed
+    require_once '../model/main-model.php';
+    // Get the shop model for use as needed
+    require_once '../model/shop-model.php';
 
     // Build Admin Side Nav
     $adminSideNav = buildAdminSideNav();
 
-    // Check if the firstname cookie exists, get its value
-    if(isset($_COOKIE['firstname'])){
-        $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
-    }
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -28,5 +27,5 @@
          break;
         
         default:
-         include 'view/home.php';
-       }
+         include '../view/shop.php';
+    }
