@@ -9,8 +9,10 @@ $dark-secondary-color: #DD1717;
 $light-secondary-color: #fa9595;
 $background-color:#fdfdfd;
 $darker-background-color:#d8d5d5;
+$dark-background-color:#f0f0f0;
 $dark-color: #3a3939;
 $box-shadow:1px 2px 12px 2px $dark_color;
+$light-box-shadow: 0 0 10px 1px $darker-background-color;
 
 /*
 *---------------------------------Fonts
@@ -26,6 +28,7 @@ $p  : 15px Arial, sans-serif;
 
 @mixin flex($direction:row, $justify:space-between, $justify-items: center) {
     display: flex;
+    flex-wrap: nowrap;
     flex-direction: $direction;
     justify-content: $justify;
     align-items: $justify-items;
@@ -43,18 +46,28 @@ $p  : 15px Arial, sans-serif;
     box-shadow: 1px 2px 5px 1px $dark_color;
 }
 
+@mixin product-details() {
+    text-align: left !important;
+    padding:2px !important;
+    margin:5px 5px 0 5px !important;
+}
+
 /*
 *------------------------------------------------------------------------CSS
 */
 
 body{
     color:$dark-color;
+    background-color: $dark-background-color;
     padding:0;
     margin:0;
 
     & main{
         padding:0;
         margin:0;
+        overflow-x: hidden;    
+        background-color: $dark-background-color;
+    
     }
 
     & .admin-main{
@@ -221,14 +234,14 @@ nav.mobile-nav{
         background-color: $background-color;
 
         & .nav-hamburger-top{
-            @include flex();
+            @include flex(row,space-between,center);
             height:50px;
             line-height:50px;
             background-color: $light-secondary-color;
             padding:0 15px;
 
             & .fa-item-container{
-                @include flex();
+                @include flex(row,space-between,center);
                 width: 100%;
                 height:30px;
                 line-height: 15px;
@@ -275,7 +288,7 @@ nav.mobile-nav{
 */
 
 .header-bottom{
-    height:150px;
+    height:250px;
     width:94%;
     line-height: 150px;
     text-align: center;
@@ -283,7 +296,7 @@ nav.mobile-nav{
     font-size:60px;
     background-color: $main-color;
     border-radius: 3px;
-    margin: 10px auto;
+    margin: 20px auto;
 }
 
 .shop-hero{
@@ -426,6 +439,123 @@ nav.mobile-nav{
 }
 
 /*------------------------------------------------Dashboard END
+*/
+
+/*
+*-----------------------------------------------Category block
+*/
+
+.categories{
+    @include flex(row, space-around);
+    min-width:90%;
+    max-width:93%; 
+    height:300px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 20px auto;
+
+    & .category{
+        display:block;
+        height:96%;
+        min-width:47%;
+        color:$background-color;
+        border-radius: 5px;
+        background-color: $secondary-color;
+
+        & p{
+            font-size:50px;
+            text-align:center;        
+        }
+    }
+}
+
+/*-----------------------------------------------Category block END
+*/
+
+
+/*
+*-----------------------------------------------Products block
+*/
+
+.products{
+    @include flex(row, space-between);
+    width:94%;
+    height:320px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 20px auto;
+
+    & .product{
+        @include flex(column,space-between);
+        flex-wrap: wrap;
+        width:100%;
+        color:$background-color;
+        background-color: $background-color;
+        border-radius: 5px;
+        margin: 10px auto;
+
+        & img{
+            width:70%;
+            height:auto;
+            background-color: $darker-background-color;
+            display:block;
+            margin: 15px auto;
+
+        }
+
+        & p{
+            font-size:15px;
+            height:20px;
+            text-align:center;      
+            color: $dark-color;  
+        }
+    }
+}
+
+.shop{
+    @include flex(column, center);
+    background-color: $background-color;
+
+
+    & .side-bar{
+        width:85%;
+    }
+
+
+    & .shop-products{
+        width:85%;
+        flex-wrap: wrap;
+        position:relative;
+        z-index: 0;
+        border-radius: 3px;
+        padding: 1px;
+        height:auto;
+
+        & .product{
+            justify-content:left;
+            color:$dark-color;
+            text-align: left;
+            max-width:184px;
+            box-shadow: $light-box-shadow;
+            
+
+            & img{
+                width:180px;
+                margin: 2px;
+
+            }
+
+            & p, h3, h4{
+                text-align: left;
+                padding:2px 0;
+                margin:0;
+            }
+        }
+    }
+}
+
+/*-----------------------------------------------Product END
 */
 
 /*
@@ -717,7 +847,131 @@ form{
         text-align:center !important;
     }
 
+        /*
+        *-----------------------------------------------Category block
+        */
+
+        .categories{
+            @include flex(row, space-around);
+            min-width:90%;
+            max-width:93%; 
+            height:300px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 20px auto;
+
+            & .category{
+                display:block;
+                height:96%;
+                min-width:47%;
+                color:$background-color;
+                border-radius: 5px;
+                background-color: $secondary-color;
+
+                & p{
+                    font-size:50px;
+                    text-align:center;        
+                }
+            }
+        }
+
+        /*-----------------------------------------------Category block END
+        */
+
+
+        /*
+        *-----------------------------------------------Products block
+        */
+
+        .products{
+            @include flex(row, space-around);
+            width:94%;
+            height:320px;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 20px auto;
+
+            & .product{
+                max-width:20%;
+                color:$background-color;
+                background-color: $background-color;
+                border-radius: 5px;
+
+                & img{
+                    width:200px;
+                    height:auto;
+                    background-color: $darker-background-color;
+                    display:block;
+                    margin: 15px auto;
+
+                }
+
+                & p{
+                    font-size:15px;
+                    height:20px;
+                    text-align:center;      
+                    color: $dark-color;  
+                }
+            }
+        }
+
+        .shop{
+            @include flex(row, space-around, start);
+            max-width:93%;
+            margin: 10px auto;
+            background-color: $background-color;
+            padding:5px;
+
+            & .side-bar{
+                width:28%;
+                max-width:28%;
+                margin:20px 10px;
+            
+                & h2  {
+                        text-align: center;
+                        margin-top: 2px;
+                    }
+            }
+
+
+            & .shop-products{
+                width:68%;
+                max-width:68%;
+
+                & .shop-product{
+                    color:$dark-color;
+                    text-align: left;
+                    max-width:184px;
+
+                    & img{
+                        width:180px;
+                        margin: 2px;
+
+                    }
+
+                    & .productName{
+                        @include product-details();
+                    }
+
+                    & .productShortDescr{
+                        @include product-details();
+
+                    }
+
+                    & .productCategory{
+                        @include product-details();
+                    }
+
+                    & .productPrice{
+                        @include product-details();
+                    }                 
+                }
+            }
+        }
 }
+/*-----------------------------------------------Product END
+*/
 
 //---------------------------------------------------------------
 //                           Desktop                             |

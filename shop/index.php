@@ -11,9 +11,14 @@
     require_once '../model/main-model.php';
     // Get the shop model for use as needed
     require_once '../model/shop-model.php';
+    // Get the products admin model for use as needed
+    require_once '../model/products-model.php';
 
     // Build Admin Side Nav
     $adminSideNav = buildAdminSideNav();
+
+    // Fetch all products and bring them to scope of all cases
+    $products = getProducts();
 
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
@@ -27,5 +32,13 @@
          break;
         
         default:
+
+        //var_dump($products); exit;
+
+        // BUild a products archive
+        $productsDisplay = buildproductsDisplay($products);
+
+        //var_dump($productsDisplay); exit;
+
          include '../view/shop.php';
     }

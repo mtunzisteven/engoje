@@ -247,29 +247,36 @@ function buildClassificationList($classifications){
     return $dv;
    }
 
-   // Build a single vehicle view
-   function buildVehicleDisplay($vehicleDetails, $thumbNails){
+   // Build a product block
+   function buildproductDisplay($product){
 
-     $dv = '<div id="single-display">';
-     // Single vehicle image block
-     $dv .= "<div id='images-container'><img id='single-display-image' src='$vehicleDetails[imgPath]' alt='Image of $vehicleDetails[invMake] $vehicleDetails[invModel] on phpmotors.com'>";
-     $dv .= buildVehicleThumbnails($thumbNails, $vehicleDetails);
-     $dv .= '</div>';
-     // Single vehicle Details block
-     $dv .= "<div id='single-display-details'>";
-     $dv .= "<h1 id='single-display-title'>$vehicleDetails[invMake], $vehicleDetails[invModel]</h1>";
-     $dv .= "<h2>$$vehicleDetails[invPrice]</h2>";
-     $dv .= "<hr/>";
-     $dv .= "<div id='single-display-summary'>";
-     $dv .= "<p><strong>Color:</strong> $vehicleDetails[invPrice]</p>";
-     $dv .= "<p><strong>Available stock:</strong> $vehicleDetails[invStock]</p>";
-     $dv .= "<p><strong>Description:</strong> <br/>$vehicleDetails[invDescription]</p>";
-     $dv .= "</div>";
-     $dv .= '</div>';
-     $dv .= '</div>';
+    $dv  = "<div  class='product'><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' />";
+    $dv .= "<h4 class='productName'>$product[productName]</h4>";
+    $dv .= "<p  class='productShortDescr'>$product[productShortDescr]</p>";
+    $dv .= "<p  class='productCategory'>$product[productCategory]</p>";
+    $dv .= "<h4 class='productPrice' >R$product[productPrice]</h4></div>";
 
     return $dv;
+
    }
+
+// Build a product block
+function buildproductsDisplay($products){
+
+    $dv ="";
+
+    if(isset($products)){
+                        
+        foreach($products as $product){
+
+            $dv .= buildproductDisplay($product);
+
+        }
+    }
+
+return $dv;
+
+}
 
    // Build thumbnail section for vehicle display
    function buildVehicleThumbnails($thumbNails, $vehicleDetails){

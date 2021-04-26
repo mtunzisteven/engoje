@@ -17,6 +17,9 @@
     // Build Admin Side Nav
     $adminSideNav = buildAdminSideNav();
 
+    // Fetch all products and bring them to scope of all cases
+    $products = getProducts();
+
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -24,10 +27,13 @@
     }
 
     switch ($action){
-        case 'something':
+        case 'shopQuery':
          
+            
+            include '../view/shop.php';
+
          break;
         
         default:
-         include '../view/admin.php';
+         include '../view/shop.php';
     }
