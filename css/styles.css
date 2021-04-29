@@ -756,6 +756,45 @@ form .detail-span {
   width: 67%;
 }
 
+form.form-add-to-cart {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  border: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+form.form-add-to-cart #add-to-cart-qty {
+  border-radius: 3px 0 0 3px;
+  border: solid 1px #d8d5d5;
+  width: 55%;
+  height: 23px;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+form.form-add-to-cart #add-to-cart-qty:focus {
+  outline: none;
+}
+
+form.form-add-to-cart #add-to-cart-button {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 0 3px 3px 0;
+  width: 45%;
+  height: 28px;
+}
+
+form.form-add-to-cart #add-to-cart-button:hover {
+  background-color: #0f4392;
+}
+
 /*------------------------------------------------Forms END
 */
 @media only screen and (min-width: 550px) {

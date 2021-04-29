@@ -622,6 +622,40 @@ form{
     }
 }
 
+form.form-add-to-cart{
+    flex-direction:row;
+    justify-content: left;
+    border:none;
+    width:100%;
+    padding:0;
+    margin:0;
+
+    & #add-to-cart-qty{
+        border-radius:3px 0 0 3px;
+        border:solid 1px $darker-background-color;
+        width:55%;
+        height:23px;
+        background-color:$dark-background-color;
+        text-align:center;
+    }
+
+    &  #add-to-cart-qty:focus{
+        outline:none;
+    }
+
+    & #add-to-cart-button{
+        box-shadow: none;
+        border-radius: 0 3px 3px 0;
+        width:45%;
+        height:28px;
+    }
+
+    & #add-to-cart-button:hover{
+        background-color: $main-color;
+    }
+
+}
+
 /*------------------------------------------------Forms END
 */
 

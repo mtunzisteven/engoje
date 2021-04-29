@@ -267,7 +267,7 @@ function buildClassificationList($classifications){
     $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' /></a>";
     $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
     //$dv .= "<p  class='productShortDescr'>$product[productShortDescr]</p>";
-    $dv .= "<p  class='productCategory'>$product[productCategory]</p>";
+    $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
     $dv .= "<h4 class='productPrice' >R$product[productPrice]</h4></div>";
 
     return $dv;
@@ -289,6 +289,10 @@ function buildproductsDisplay($products){
     }
 
 return $dv;
+
+}
+
+function buildSingleProductDisplay($product){
 
 }
 

@@ -30,6 +30,11 @@
         case 'product':
             $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
             
+            $productData = getProduct($productId);
+
+            //echo $productData['imagePath']; exit;
+
+            include '../view/product-details.php';
          
          break;
         

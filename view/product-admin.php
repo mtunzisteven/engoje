@@ -50,7 +50,7 @@
                             }
 
                             echo  "</table>";
-                            ;
+                            
                         }
                     ?>
                 </section>
