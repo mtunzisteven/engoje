@@ -3,7 +3,7 @@
         header('Location: /zalisting/shop');
     }
 
-    $pageName ="Shop"; 
+    $pageName ="Product Title"; 
     $pageShortSummary = "";
     $pageDescription = "";
 
@@ -13,10 +13,8 @@
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header-top.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/shop-hero.php';
         ?>
         <div class="shop">
             <div class="side-bar">

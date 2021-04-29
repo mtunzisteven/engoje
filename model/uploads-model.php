@@ -1,26 +1,28 @@
 <?php
 
+// This is the image management model
+
 // Add image information to the database table
-function storeImages($imgPath, $invId, $imgName, $imgPrimary) {
-    $db = phpmotorsConnect();
-    $sql = 'INSERT INTO images (invId, imgPath, imgName, imgPrimary) VALUES (:invId, :imgPath, :imgName, :imgPrimary)';
+function storeImages($imagePath, $productId, $imageName, $imagePrimary) {
+    $db = zalistingConnect();
+    $sql = 'INSERT INTO images (productId, imagePath, imageName, imagePrimary) VALUES (:productId, :imagePath, :imageName, :imagePrimary)';
     $stmt = $db->prepare($sql);
     // Store the full size image information
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
-    $stmt->bindValue(':imgPath', $imgPath, PDO::PARAM_STR);
-    $stmt->bindValue(':imgName', $imgName, PDO::PARAM_STR);
-    $stmt->bindValue(':imgPrimary', $imgPrimary, PDO::PARAM_INT);
+    $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
+    $stmt->bindValue(':imagePath', $imagePath, PDO::PARAM_STR);
+    $stmt->bindValue(':imageName', $imageName, PDO::PARAM_STR);
+    $stmt->bindValue(':imagePrimary', $imagePrimary, PDO::PARAM_INT);
     $stmt->execute();
         
     // Make and store the thumbnail image information
     // Change name in path
-    $imgPath = makeThumbnailName($imgPath);
+    $imagePath = makeThumbnailName($imagePath);
     // Change name in file name
-    $imgName = makeThumbnailName($imgName);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
-    $stmt->bindValue(':imgPath', $imgPath, PDO::PARAM_STR);
-    $stmt->bindValue(':imgName', $imgName, PDO::PARAM_STR);
-    $stmt->bindValue(':imgPrimary', $imgPrimary, PDO::PARAM_INT);
+    $imageName = makeThumbnailName($imageName);
+    $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
+    $stmt->bindValue(':imagePath', $imagePath, PDO::PARAM_STR);
+    $stmt->bindValue(':imageName', $imageName, PDO::PARAM_STR);
+    $stmt->bindValue(':imagePrimary', $imagePrimary, PDO::PARAM_INT);
     $stmt->execute();
     
     $rowsChanged = $stmt->rowCount();
@@ -30,7 +32,7 @@ function storeImages($imgPath, $invId, $imgName, $imgPrimary) {
 
 // Get Image Information from images table
 function getImages() {
-    $db = phpmotorsConnect();
+    $db = zalistingConnect();
     $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invMake, invModel FROM images JOIN inventory ON images.invId = inventory.invId';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -44,7 +46,7 @@ function getVehicleThumbnails($invId){
 
     //echo $invId; exit;
 
-    $db = phpmotorsConnect();
+    $db = zalistingConnect();
     $sql = "SELECT imgPath FROM images WHERE imgName LIKE '%\-tn%' AND invId=:invId"; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
@@ -59,7 +61,7 @@ function getVehicleThumbnails($invId){
 
    // Delete image information from the images table
 function deleteImage($imgId) {
-    $db = phpmotorsConnect();
+    $db = zalistingConnect();
     $sql = 'DELETE FROM images WHERE imgId = :imgId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':imgId', $imgId, PDO::PARAM_INT);
@@ -71,7 +73,7 @@ function deleteImage($imgId) {
 
    // Check for an existing image
 function checkExistingImage($imgName){
-    $db = phpmotorsConnect();
+    $db = zalistingConnect();
     $sql = "SELECT imgName FROM images WHERE imgName = :name";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':name', $imgName, PDO::PARAM_STR);

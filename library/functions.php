@@ -26,7 +26,7 @@ function buildAdminSideNav(){
     $adminSideNav = "<ul class='dashboard-side-nav'>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/products/?action=account' class='dashboard-side-nav-links'>Products</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/products/?action=product' class='dashboard-side-nav-links'>Products</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";
@@ -68,6 +68,20 @@ function buildUserUpdateNav(){
     $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=address'>Addresses</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
+    $updateNav .="</ul>";
+
+    return $updateNav;
+}
+
+
+//  Build User Update Admin Nav display
+function buildProductUpdateNav(){
+
+    $updateNav ="<ul class='user-update'>";    
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=create'>Create Product</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=update'>Update Product</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=delete'>Delete Product</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=lookup'>View Product</a></li>";
     $updateNav .="</ul>";
 
     return $updateNav;
@@ -250,9 +264,9 @@ function buildClassificationList($classifications){
    // Build a product block
    function buildproductDisplay($product){
 
-    $dv  = "<div  class='product'><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' />";
-    $dv .= "<h4 class='productName'>$product[productName]</h4>";
-    $dv .= "<p  class='productShortDescr'>$product[productShortDescr]</p>";
+    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' /></a>";
+    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+    //$dv .= "<p  class='productShortDescr'>$product[productShortDescr]</p>";
     $dv .= "<p  class='productCategory'>$product[productCategory]</p>";
     $dv .= "<h4 class='productPrice' >R$product[productPrice]</h4></div>";
 

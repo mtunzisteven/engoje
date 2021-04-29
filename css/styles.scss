@@ -46,11 +46,6 @@ $p  : 15px Arial, sans-serif;
     box-shadow: 1px 2px 5px 1px $dark_color;
 }
 
-@mixin product-details() {
-    text-align: left !important;
-    padding:2px !important;
-    margin:5px 5px 0 5px !important;
-}
 
 /*
 *------------------------------------------------------------------------CSS
@@ -525,6 +520,7 @@ nav.mobile-nav{
 
     & .shop-products{
         width:85%;
+        @include flex();
         flex-wrap: wrap;
         position:relative;
         z-index: 0;
@@ -537,6 +533,7 @@ nav.mobile-nav{
             color:$dark-color;
             text-align: left;
             max-width:184px;
+            margin-top: 15px;
             box-shadow: $light-box-shadow;
             
 
@@ -546,10 +543,40 @@ nav.mobile-nav{
 
             }
 
-            & p, h3, h4{
-                text-align: left;
-                padding:2px 0;
-                margin:0;
+
+
+            & .productName-link{
+                color:$main-color;
+
+                & .productName{
+                    text-align: center;
+                    padding:2px 5px;
+                    margin:2px 0;
+                }
+            }
+
+            & .productName-link:hover{
+                color:$secondary-color;
+
+            }
+
+            & .productPrice{
+                text-align: center;
+                color:$dark-color;
+                padding:2px 5px;
+                margin:2px 0;
+            }
+
+            & h5{
+                text-align: center;
+                padding:2px 5px;
+                margin:2px 0;
+            }
+
+            & p{
+                text-align: center;
+                padding:2px 5px;
+                margin:2px 0;
             }
         }
     }
@@ -939,7 +966,7 @@ form{
                 width:68%;
                 max-width:68%;
 
-                & .shop-product{
+                & .product{
                     color:$dark-color;
                     text-align: left;
                     max-width:184px;
@@ -948,24 +975,7 @@ form{
                         width:180px;
                         margin: 2px;
 
-                    }
-
-                    & .productName{
-                        @include product-details();
-                    }
-
-                    & .productShortDescr{
-                        @include product-details();
-
-                    }
-
-                    & .productCategory{
-                        @include product-details();
-                    }
-
-                    & .productPrice{
-                        @include product-details();
-                    }                 
+                    }              
                 }
             }
         }

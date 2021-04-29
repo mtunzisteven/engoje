@@ -1,45 +1,5 @@
 <?php 
 
-//This is the vehicles model
-
-function addCategory($categoryId, $categoryParent){
-    // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
-    // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare('INSERT INTO categories (categoryId, categoryParent) VALUES (:categoryId, :categoryParent)');
-    // Replace the place holder
-    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_STR);
-    $stmt->bindValue(':categoryParent',$categoryParent, PDO::PARAM_STR);
-
-    // The next line runs the prepared statement 
-    $stmt->execute(); 
-    // The next line closes the interaction with the database 
-    $stmt->closeCursor(); 
-   }
-
-function addProduct($productName, $productPrice, $productDescription, $productCreationDate, $reviewId, $variationId, $categoryId){
-    // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
-    // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare('INSERT INTO products (productName, productPrice, productDescription, productCreationDate, reviewId, variationId, categoryId) VALUES (:productName, :productPrice, :productDescription, :productCreationDate, :reviewId, :variationId, :categoryId');
-    // Replace the place holders
-    $stmt->bindValue(':productName',$productName, PDO::PARAM_STR);
-    $stmt->bindValue(':productPrice',$productPrice, PDO::PARAM_STR);
-    $stmt->bindValue(':productDescription',$productDescription, PDO::PARAM_STR);
-    $stmt->bindValue(':productCreationDate',$productCreationDate, PDO::PARAM_STR);
-    $stmt->bindValue(':reviewId',$reviewId, PDO::PARAM_STR);
-    $stmt->bindValue(':variationId',$variationId, PDO::PARAM_STR);
-    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
-
-    // The next line runs the prepared statement 
-    $stmt->execute(); 
-    // Get number of affected rows
-    $result = $stmt->rowCount();
-    // The next line closes the interaction with the database 
-    $stmt->closeCursor(); 
-
-    return $result;
-}
 
 // Get vehicles by categoryId 
 function getProductByCategory($categoryId){ 
@@ -69,7 +29,7 @@ function getCategoryProduct($categoryId, $imgPrimary){
 // Get product information by productId
 function getProductItemInfo($productId){
     $db = zalistingConnect();
-    $sql = 'SELECT * FROM inventory WHERE productId = :productId';
+    $sql = 'SELECT * FROM products WHERE productId = :productId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
     $stmt->execute();

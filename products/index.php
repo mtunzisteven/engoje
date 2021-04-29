@@ -11,7 +11,7 @@
     require_once '../model/main-model.php';
     // Get the accounts model for use as needed
     require_once '../model/accounts-model.php';
-    // Get the products admin model for use as needed
+    // Get the products adproductUpdateNavmin model for use as needed
     require_once '../model/products-model.php';
 
     // Build Admin Side Nav
@@ -20,6 +20,8 @@
     // Fetch all products and bring them to scope of all cases
     $products = getProducts();
 
+    // Build User Update Admin Nav
+    $productUpdateNav = buildProductUpdateNav();
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -27,13 +29,35 @@
     }
 
     switch ($action){
-        case 'shopQuery':
+
+        case 'create':
+
+            include '../view/product-admin.php';
+
+         break;
+
          
+        case 'update':
             
-            include '../view/shop.php';
+            include '../view/product-admin.php';
+
+         break;
+
+         
+        case 'delete':
+            
+            include '../view/product-admin.php';
+
+         break;
+
+         
+        case 'lookup':
+            
+            include '../view/product-admin.php';
 
          break;
         
+        case 'product':
         default:
-         include '../view/shop.php';
+         include '../view/product-admin.php';
     }

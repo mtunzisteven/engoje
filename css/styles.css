@@ -612,6 +612,21 @@ nav.mobile-nav .show a.nav-list-link {
 
 .shop .shop-products {
   width: 85%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   position: relative;
@@ -628,6 +643,7 @@ nav.mobile-nav .show a.nav-list-link {
   color: #3a3939;
   text-align: left;
   max-width: 184px;
+  margin-top: 15px;
   -webkit-box-shadow: 0 0 10px 1px #d8d5d5;
           box-shadow: 0 0 10px 1px #d8d5d5;
 }
@@ -637,10 +653,37 @@ nav.mobile-nav .show a.nav-list-link {
   margin: 2px;
 }
 
-.shop .shop-products .product p, .shop .shop-products .product h3, .shop .shop-products .product h4 {
-  text-align: left;
-  padding: 2px 0;
-  margin: 0;
+.shop .shop-products .product .productName-link {
+  color: #0f4392;
+}
+
+.shop .shop-products .product .productName-link .productName {
+  text-align: center;
+  padding: 2px 5px;
+  margin: 2px 0;
+}
+
+.shop .shop-products .product .productName-link:hover {
+  color: #ff4949;
+}
+
+.shop .shop-products .product .productPrice {
+  text-align: center;
+  color: #3a3939;
+  padding: 2px 5px;
+  margin: 2px 0;
+}
+
+.shop .shop-products .product h5 {
+  text-align: center;
+  padding: 2px 5px;
+  margin: 2px 0;
+}
+
+.shop .shop-products .product p {
+  text-align: center;
+  padding: 2px 5px;
+  margin: 2px 0;
 }
 
 /*-----------------------------------------------Product END
@@ -1155,34 +1198,14 @@ form .detail-span {
     width: 68%;
     max-width: 68%;
   }
-  .shop .shop-products .shop-product {
+  .shop .shop-products .product {
     color: #3a3939;
     text-align: left;
     max-width: 184px;
   }
-  .shop .shop-products .shop-product img {
+  .shop .shop-products .product img {
     width: 180px;
     margin: 2px;
-  }
-  .shop .shop-products .shop-product .productName {
-    text-align: left !important;
-    padding: 2px !important;
-    margin: 5px 5px 0 5px !important;
-  }
-  .shop .shop-products .shop-product .productShortDescr {
-    text-align: left !important;
-    padding: 2px !important;
-    margin: 5px 5px 0 5px !important;
-  }
-  .shop .shop-products .shop-product .productCategory {
-    text-align: left !important;
-    padding: 2px !important;
-    margin: 5px 5px 0 5px !important;
-  }
-  .shop .shop-products .shop-product .productPrice {
-    text-align: left !important;
-    padding: 2px !important;
-    margin: 5px 5px 0 5px !important;
   }
 }
 
