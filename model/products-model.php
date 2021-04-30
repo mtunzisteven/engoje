@@ -64,7 +64,7 @@ function getProduct($productId){
     $productData = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
 
-    //var_dump($productData['imagePath']); exit;
+    //var_dump($productData); exit;
 
     return $productData;
 }

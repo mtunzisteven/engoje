@@ -24,19 +24,23 @@
 
             
             <div class='single-product-details'>
-                <?php 
-
-                    // Display the shop products
-                    if(isset($productData)){
-                    
-                        echo "<h1>$productData[productName]</h1>";
-                        echo "<p  class='productShortDescr'>$productData[productShortDescr]</p>";
-                        echo "<p  class='productCategory'>$productData[categoryName]</p>";
-                        echo "<h4 class='productPrice' >R$productData[productPrice]</h4>";
-
-                    }
-                ?>
                 <form class="form-add-to-cart" action="" >
+
+                    <?php 
+
+                        // Display the shop products
+                        if(isset($productData)){
+
+                            //var_dump($productData); exit;
+                        
+                            echo "<h1>$productData[productName]</h1>";
+                            echo "<p  class='productShortDescr'>$productData[productShortDescr]</p>";
+                            echo "<p class='productPrice' >$productData[sizeValue]</p>";
+                            echo "<p class='productPrice' >R$productData[productPrice]</p>";
+                            
+
+                        }
+                    ?>
                     <input id="add-to-cart-qty" type="number" name="qty" value="0" />
                     <input type="hidden" name="productId" value="$productData[productId]" />
                     <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />

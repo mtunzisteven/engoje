@@ -623,7 +623,7 @@ form{
 }
 
 form.form-add-to-cart{
-    flex-direction:row;
+    flex-direction:column;
     justify-content: left;
     border:none;
     width:100%;
@@ -637,6 +637,10 @@ form.form-add-to-cart{
         height:23px;
         background-color:$dark-background-color;
         text-align:center;
+
+        &::-webkit-inner-spin-button{
+            opacity:1;
+          } 
     }
 
     &  #add-to-cart-qty:focus{
