@@ -69,9 +69,64 @@ function getProduct($productId){
     return $productData;
 }
 
-//
-//This is the shop model
+// Get all product sizes 
+function getSizes(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM size';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productsizes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
 
+    //var_dump($productsizes); exit;
+
+    return $productsizes;
+}
+
+// Get all product images 
+function getImages(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM images';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productImages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productImages); exit;
+
+    return $productImages;
+}
+
+
+// Get all product images 
+function getColours(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM colour';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productColours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productColours); exit;
+
+    return $productColours;
+}
+
+// Get all product images 
+function getCategories(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM categories';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productCategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productCategories); exit;
+
+    return $productCategories;
+}
+
+// Add a single category
 function addCategory($categoryId, $categoryParent){
     // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 

@@ -20,8 +20,8 @@
     // Fetch all products and bring them to scope of all cases
     $products = getProducts();
 
-    // Build User Update Admin Nav
-    $productUpdateNav = buildProductUpdateNav();
+    // Build products update Admin Nav
+    $productUpdateNav = buildAdminProductsDisplay( $products);
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -32,21 +32,34 @@
 
         case 'create':
 
-            include '../view/product-admin.php';
+            include '../view/add-product.php';
 
          break;
 
          
         case 'update':
-            
-            include '../view/product-admin.php';
+            $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
+
+            $product = getProduct($productId);
+            $colour = getColours();
+            $sizes = getSizes();
+            $images = getImages();
+            $categories = getCategories();
+
+            //var_dump($colour); exit;
+
+
+            $productUpdateDisplay = buildProductUpdateDisplay($product, $colour, $sizes, $images, $categories);
+
+            include '../view/product-update.php';
 
          break;
 
          
         case 'delete':
-            
-            include '../view/product-admin.php';
+            $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
+
+            include '../view/product-delete.php';
 
          break;
 

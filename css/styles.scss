@@ -34,10 +34,11 @@ $p  : 15px Arial, sans-serif;
     align-items: $justify-items;
 }
 
-@mixin buttons($backColor,$width: 65.5%, $height: 30px){
+@mixin buttons($backColor,$width: 65.5%, $height: 20px){
     display:block;
     width:$width;
     height:$height;
+    line-height: $height;
     text-align: center;
     color:$background-color;
     background-color: $backColor;
@@ -83,12 +84,28 @@ body{
         text-align: center;
         width: 80%;
         margin:0 0 50px 15px;
-        border-bottom: 1px solid $light-main-color;
+        border: 1px solid $light-main-color;
+
 
         & th,td{
             padding: 8px;
             border-left: 1px solid $light-main-color;
             border-right: 1px solid $light-main-color;
+
+            & .image-tn{
+                width:60px;
+                height: auto;
+            }
+        }
+
+        & .td-buttons{
+            @include flex();
+            line-height: 60px;
+            border: none;
+
+            & .button{
+                margin: 15px 3px 0 3px;
+            }
         }
 
         & tr:nth-child(even){
@@ -111,6 +128,10 @@ body{
         color:$background-color;
         border-radius:3px !important;
         max-width:150px !important;
+    }
+
+    .button{
+        @include buttons($secondary-color);
     }
 
 }
@@ -416,7 +437,7 @@ nav.mobile-nav{
             color: $dark-main-color;
             font-size: 20px;
             text-align:left;
-            margin:5px;
+            margin:5px 15px;
         }
 
         & p{
@@ -425,6 +446,12 @@ nav.mobile-nav{
             text-align:left;
             max-width:100%;
             margin:15px 5px 5px 5px;
+        }
+
+        & .add-new{
+            max-width: 75px;
+            padding:4px;
+            margin: 10px 15px;
         }
     }
 
@@ -605,12 +632,14 @@ form{
 
     & .button{
         @include buttons($secondary-color);
+        height: 30px;
+        line-height: 30px;
     }
 
     & .login-reg-button{
         @include buttons($main-color, 65.5%);
-        line-height: 28px;
-    }
+        height: 30px;
+        line-height: 30px;    }
 
     & .detail-span{
         text-align: center;

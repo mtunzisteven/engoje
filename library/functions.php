@@ -53,6 +53,19 @@ function buildUsersDisplay($users){
    return $userRows;
   }
 
+// Build a multi product display table on admin dashboard
+function buildAdminProductsDisplay($products){
+
+    $userRows = [];
+
+    foreach($products as $product){
+
+        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&productId=$product[productId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&productId=$product[productId]'>delete</a> </td><td><img class=image-tn src=/zalisting/images/$product[imagePath_tn] /></td>  <td>$product[productName] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>0$product[sku]</td> </tr>";
+    }
+
+   return $userRows;
+  }
+
 
 //  Build User Update Admin Nav display
 function buildUserUpdateNav(){
@@ -73,19 +86,6 @@ function buildUserUpdateNav(){
     return $updateNav;
 }
 
-
-//  Build User Update Admin Nav display
-function buildProductUpdateNav(){
-
-    $updateNav ="<ul class='user-update'>";    
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=create'>Create Product</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=update'>Update Product</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=delete'>Delete Product</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/products/?action=lookup'>View Product</a></li>";
-    $updateNav .="</ul>";
-
-    return $updateNav;
-}
 
 // Build a single user display view
 function buildUserDisplay($userInfo){
@@ -227,52 +227,67 @@ function buildNav($classifications){
 
 }
 
-// Build the classifications select list 
-function buildClassificationList($classifications){ 
-    $classificationList = '<select name="classificationId" id="classificationList">'; 
-    $classificationList .= "<option>Choose a Classification</option>"; 
-    foreach ($classifications as $classification) { 
-     $classificationList .= "<option value='$classification[classificationId]'>$classification[classificationName]</option>"; 
+// Build the classifications select list for size and color
+function buildTableList($table, $tableItemId, $tableItemName ){ 
+
+    // TableItemId and tavleItemName are both strings to be entered at function call (buildProductUpdateDisplay)
+    // eg for categories table:
+        // TableItemId = categoryId
+        // TableItemName = categoryName
+
+        
+
+    $tableList = "<select name=$tableItemId id=tableList >"; 
+    $tableList .= "<option>Choose From List</option>"; 
+    foreach ($table as $Item) { 
+
+        if(isset($Item['colour'])){
+            $tableList .= "<option style='background:$Item[colour];padding: 4px; margin:3px; border-radius:5px;' value='$Item[$tableItemId]'>$Item[$tableItemName]</option>"; 
+        }else{
+            $tableList .= "<option value='$Item[$tableItemId]'>$Item[$tableItemName]</option>"; 
+        }
+
+
     } 
-    $classificationList .= '</select>'; 
-    return $classificationList; 
-   }
+    $tableList .= '</select>'; 
 
-   // Build an archive vehicle view
-   function buildVehiclesDisplay($ClassVehicles){
-    $dv = '<ul id="inv-display">';
+    return $tableList; 
+}
 
-    foreach ($ClassVehicles as $vehicle) {
+// Build a product update display form for admin dashboard
+function buildProductUpdateDisplay($product, $colours, $sizes, $images, $categories){
+    $productUpdate = "<form method='POST' action='/zalisting/product/'>";
+
+    $productUpdate .= "<label>Name</label><input type='text' name='productName' value='$product[productName]' />";
+    $productUpdate .= buildTableList($colours, 'colourId', 'colour' );
+    $productUpdate .= buildTableList($sizes, 'sizeId', 'sizeValue' );
+    $productUpdate .= buildTableList($images, 'imageId', 'imagePath' );
+    $productUpdate .= buildTableList($categories, 'categoryId', 'categoryName' );
+    $productUpdate .= "<label>Quantity</label><input type='number' name='qty' value='$product[qty]' />";
+
+    $productUpdate .= "<input type='submit' class='button' value='Submit' />";
+
+    $productUpdate .= "<input type='hidden' name='action' value='update-product' />";
+    $productUpdate .= "<input type='hidden' name='productId' value='$product[productId]' />";
 
 
-        $dv .= '<li>';
-        // anchor element to make image clickable
-        $dv .= "<a href='/phpmotors/vehicles/?action=details&invId=$vehicle[invId]' title='View Details'>";
-        $dv .= "<img class='inv-display-image' src='$vehicle[imgPath]' alt='Image of $vehicle[invMake] $vehicle[invModel] on phpmotors.com'></a>";
-        $dv .= '<hr>';
-        // anchor element to make image clickable
-        $dv .= "<a href='/phpmotors/vehicles/?action=details&invId=$vehicle[invId]' title='View Details'>";
-        $dv .= "<h2>$vehicle[invMake] $vehicle[invModel]</h2></a>";
-        $dv .= "<span>$vehicle[invPrice]</span>";
-        $dv .= '</li>';
+    $productUpdate .= "</form>";
 
-    }
-    $dv .= '</ul>';
-    return $dv;
-   }
 
-   // Build a product block
-   function buildproductDisplay($product){
+   return $productUpdate;
+}
 
-    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' /></a>";
-    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
-    //$dv .= "<p  class='productShortDescr'>$product[productShortDescr]</p>";
-    $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
-    $dv .= "<h4 class='productPrice' >R$product[productPrice]</h4></div>";
+// Build a product block
+function buildproductDisplay($product){
 
-    return $dv;
+$dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' /></a>";
+$dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+$dv .= "<p  class='productCategory'>$product[categoryName]</p>";
+$dv .= "<h4 class='productPrice' >R$product[productPrice]</h4></div>";
 
-   }
+return $dv;
+
+}
 
 // Build a product block
 function buildproductsDisplay($products){
@@ -296,16 +311,6 @@ function buildSingleProductDisplay($product){
 
 }
 
-   // Build thumbnail section for vehicle display
-   function buildVehicleThumbnails($thumbNails, $vehicleDetails){
-
-    $dv = '<div id="thumbnail-display-images">';
-    foreach($thumbNails as $thumbNail){
-    $dv .= "<div class='thumbnail-display-images'><img  src='$thumbNail[imgPath]' alt='Image of $vehicleDetails[invMake] $vehicleDetails[invModel] on phpmotors.com'></div>";
-    }
-    $dv .= '</div>';
-    return $dv;
-    }
 
 /* * ********************************
 *  Functions for working with images

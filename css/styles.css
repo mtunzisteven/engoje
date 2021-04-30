@@ -42,13 +42,42 @@ body table {
   text-align: center;
   width: 80%;
   margin: 0 0 50px 15px;
-  border-bottom: 1px solid #80a1d1;
+  border: 1px solid #80a1d1;
 }
 
 body table th, body table td {
   padding: 8px;
   border-left: 1px solid #80a1d1;
   border-right: 1px solid #80a1d1;
+}
+
+body table th .image-tn, body table td .image-tn {
+  width: 60px;
+  height: auto;
+}
+
+body table .td-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 60px;
+  border: none;
+}
+
+body table .td-buttons .button {
+  margin: 15px 3px 0 3px;
 }
 
 body table tr:nth-child(even) {
@@ -70,6 +99,20 @@ body .account-button {
   color: #fdfdfd;
   border-radius: 3px !important;
   max-width: 150px !important;
+}
+
+body .button {
+  display: block;
+  width: 65.5%;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fdfdfd;
+  background-color: #ff4949;
+  border-radius: 3px;
+  border: none;
+  -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
+          box-shadow: 1px 2px 5px 1px #3a3939;
 }
 
 .admin-main {
@@ -461,7 +504,7 @@ nav.mobile-nav .show a.nav-list-link {
   color: #000249;
   font-size: 20px;
   text-align: left;
-  margin: 5px;
+  margin: 5px 15px;
 }
 
 .dashboard .dashboard-content p {
@@ -470,6 +513,12 @@ nav.mobile-nav .show a.nav-list-link {
   text-align: left;
   max-width: 100%;
   margin: 15px 5px 5px 5px;
+}
+
+.dashboard .dashboard-content .add-new {
+  max-width: 75px;
+  padding: 4px;
+  margin: 10px 15px;
 }
 
 .dashboard .Account-content {
@@ -723,7 +772,8 @@ form input {
 form .button {
   display: block;
   width: 65.5%;
-  height: 30px;
+  height: 20px;
+  line-height: 20px;
   text-align: center;
   color: #fdfdfd;
   background-color: #ff4949;
@@ -731,12 +781,15 @@ form .button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  height: 30px;
+  line-height: 30px;
 }
 
 form .login-reg-button {
   display: block;
   width: 65.5%;
-  height: 30px;
+  height: 20px;
+  line-height: 20px;
   text-align: center;
   color: #fdfdfd;
   background-color: #0f4392;
@@ -744,7 +797,8 @@ form .login-reg-button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
 }
 
 form .detail-span {

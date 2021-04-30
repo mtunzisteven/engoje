@@ -36,14 +36,16 @@
                 ?>
 
                 <section class="dashboard-content">
+                    <h1 class='h2'>View Products</h1>
+                    <p> This page allows you to view, create, delete, or update products</p>
+                    <a href="/zalisting/products/?action=create" class="button add-new" >Add New</a>
+
                     <?php
-                        echo "<h1 class='h2'>View Products</h1>";
-                        echo "<p> This is where all the website management operations will be handled</p>";
-                        if(isset($userRows)){
+                        if(isset($productUpdateNav)){
 
-                            echo "<table id='users-display'><tr id='user-display-header'> <th>Action</th> <th>Name </th> <th>Email</th> <th>Phone</th> </tr>";
+                            echo "<table id='users-display'><tr id='user-display-header'> <th>Action</th> <th>Image </th> <th>Name</th> <th>Size</th> <th>Colour</th> <th>SKU</th> </tr>";
 
-                            foreach($userRows as $row){
+                            foreach($productUpdateNav as $row){
 
                                 echo $row;
 
