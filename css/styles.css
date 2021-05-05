@@ -155,6 +155,16 @@ h1.title {
   text-align: center;
 }
 
+img.product-image {
+  width: 200px;
+  height: auto;
+  background-color: #d8d5d5;
+  display: block;
+  margin: 15px auto;
+  -webkit-box-shadow: 0 1px 10px 2px #3a3939;
+          box-shadow: 0 1px 10px 2px #3a3939;
+}
+
 /*
 *-------------------------------------------Header-top
 */
@@ -1059,6 +1069,7 @@ form.form-add-to-cart #add-to-cart-button:hover {
   .dashboard .dashboard-side-nav {
     min-width: 0;
     max-width: 12%;
+    min-height: 100%;
     margin: 0;
   }
   .dashboard .dashboard-content {
@@ -1165,6 +1176,15 @@ form.form-add-to-cart #add-to-cart-button:hover {
             align-items: center;
     margin-top: -15px;
   }
+  .wide-form-container {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    width: 95%;
+    height: auto;
+    margin: 5px;
+    padding: 0;
+  }
   /*------------------------------------------------Dashboard END
     */
   /*
@@ -1173,6 +1193,86 @@ form.form-add-to-cart #add-to-cart-button:hover {
   form {
     width: 45%;
     max-width: 500px;
+  }
+  form.checkboxed {
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    min-width: 85%;
+  }
+  form.checkboxed div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+  }
+  form.checkboxed div fieldset {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: #f0f0f0;
+    min-width: 20%;
+    height: 200px;
+    overflow: scroll;
+    padding: 15px 5px;
+  }
+  form.checkboxed div fieldset label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: nowrap;
+        -ms-flex-align: nowrap;
+            align-items: nowrap;
+    vertical-align: center;
+    width: 25%;
+    height: 40px;
+  }
+  form.checkboxed div fieldset label span {
+    text-align: left;
+    width: 60px;
+  }
+  form.checkboxed div fieldset label input {
+    min-width: 12px;
+    width: 12px;
+    min-height: 12px;
+    height: 12px;
+  }
+  form.checkboxed div fieldset label input.button {
+    max-width: 100px;
+    margin: 20px;
   }
   /*------------------------------------------------Forms END
 */

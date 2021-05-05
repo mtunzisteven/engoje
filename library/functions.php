@@ -255,13 +255,12 @@ function buildTableList($table, $tableItemId, $tableItemName ){
 }
 
 // Build a product update display form for admin dashboard
-function buildProductUpdateDisplay($product, $colours, $sizes, $images, $categories){
+function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
     $productUpdate = "<form method='POST' action='/zalisting/product/'>";
 
     $productUpdate .= "<label>Name</label><input type='text' name='productName' value='$product[productName]' />";
     $productUpdate .= buildTableList($colours, 'colourId', 'colour' );
     $productUpdate .= buildTableList($sizes, 'sizeId', 'sizeValue' );
-    $productUpdate .= buildTableList($images, 'imageId', 'imagePath' );
     $productUpdate .= buildTableList($categories, 'categoryId', 'categoryName' );
     $productUpdate .= "<label>Quantity</label><input type='number' name='qty' value='$product[qty]' />";
 
@@ -270,11 +269,73 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $images, $categor
     $productUpdate .= "<input type='hidden' name='action' value='update-product' />";
     $productUpdate .= "<input type='hidden' name='productId' value='$product[productId]' />";
 
-
     $productUpdate .= "</form>";
 
-
    return $productUpdate;
+}
+
+// Build a product create display form for admin dashboard
+function buildProductCreateForm(){
+
+    $productCreate = "<form method='POST' action='/zalisting/products/index.php' >";
+
+    $productCreate .= "<label>Product Name</label> <input type='text' name='productName' />";
+
+    $productCreate .= "<label>Short Description</label> <textarea name='productShortDescr' rows='3' ></textarea>";
+
+    $productCreate .= "<label>Price</label> <input type='number' name='productPrice' />";
+
+    $productCreate .= "<label>Long Description</label> <textarea name='productDescription' rows='5' ></textarea>";
+
+    $productCreate .= "<input type='hidden' name='action' value='core' />";
+
+    $productCreate .= "<input type='submit' class='button' value='Next' />";
+
+    $productCreate .= "</form>";
+
+   return $productCreate;
+}
+
+// Build a product create display form for admin dashboard
+function buildCreateVariationForm($categories, $colours, $sizes){
+
+    $productCreate = "<form class='checkboxed' method='POST' action='' >";
+
+    $productCreate .= "<div class=''><fieldset><legend>Add a Category</legend>";
+
+    foreach($categories as $category){
+        $productCreate .= "<label class='longChoice' ><input type='radio' class='colourId' value='$category[categoryId]' /><span>$category[categoryName]</span></label>";
+    }
+
+    $productCreate .= "</fieldset>";
+
+
+    $productCreate .= "<fieldset><legend>Add Colours</legend>";
+
+    foreach($colours as $colour){
+        $productCreate .= "<label class='longChoice' ><input type='checkbox' class='colourId' value='$colour[colourId]' /><span>$colour[colour]</span></label>";
+    }
+
+    $productCreate .= "</fieldset>";
+
+
+    $productCreate .= "<fieldset><legend>Add Sizes</legend>";
+
+    foreach($sizes as $size){
+        $productCreate .= "<label class='longChoice' ><input type='checkbox' class='sizeId' value='$size[sizeId]' /><span>$size[sizeValue]</span></label>";
+    }
+
+    $productCreate .= "</fieldset>";
+
+
+    $productCreate .= "<input type='hidden' name='action' value='variations' />";
+
+    $productCreate .= "</div><input id='variations' type='button' class='button' onclick='ajaxing()' value='Next' />";
+
+    $productCreate .= "</form>";
+
+
+   return $productCreate;
 }
 
 // Build a product block

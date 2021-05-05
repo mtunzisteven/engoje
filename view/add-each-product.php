@@ -11,7 +11,7 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    $pageName ="Product-Update"; 
+    $pageName ="Add Product"; 
     $pageShortSummary = "Dashboard";
     $pageDescription = "Product management dashboard";
 
@@ -39,42 +39,21 @@
                     <div class="user-data-container">
 
                         <?php
-                           
-                            if(isset($userUpdateNav)){
 
-                                echo $userUpdateNav;
-                            }
+                            echo "<div class='dashboard-user-update-data wide-form-container'>";
 
-                            echo "<div class='dashboard-user-update-data'>";
+                                    if(isset($createVariationsForm)){
 
-                                if(isset($productUpdateDisplay)){
-
-                                    echo $productUpdateDisplay;
-                                }
-
-                            ?>
-                            <div class='dashboard-form-details'>
-                                
-                                <?php
-                                    if(isset($product['imagePath'])){
-                                        echo "<h3>Primary Image</h3>";
-                                        echo "<img class='product-image' src=/zalisting/images/$product[imagePath] />";
+                                        echo $createVariationsForm;
                                     }
-
-
-                                    if(isset($message)){
-                                        echo $message;
-                                    }
-                                ?>
-
-                            
+                        ?>
 
                             </div>
-                        </div>
                     </div>
                 </section>
             </section>         
         </main>
-        <script src="/zalisting/js/sliders.js"></script>
+        <script src="../js/sliders.js"></script>
+        <script src="../js/functions.js"></script>
     </body>
 </html>

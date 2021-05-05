@@ -47,6 +47,14 @@ $p  : 15px Arial, sans-serif;
     box-shadow: 1px 2px 5px 1px $dark_color;
 }
 
+@mixin product-image($width:70%){
+    width:$width;
+    height:auto;
+    background-color: $darker-background-color;
+    display:block;
+    margin: 15px auto;
+}
+
 
 /*
 *------------------------------------------------------------------------CSS
@@ -169,6 +177,11 @@ a{
 
 h1.title{
     text-align:center;
+}
+
+img.product-image{
+    @include product-image(200px);
+    box-shadow:0 1px 10px 2px $dark-color;
 }
 
 /*
@@ -518,11 +531,7 @@ nav.mobile-nav{
         margin: 10px auto;
 
         & img{
-            width:70%;
-            height:auto;
-            background-color: $darker-background-color;
-            display:block;
-            margin: 15px auto;
+            @include product-image;
 
         }
 
@@ -689,6 +698,8 @@ form.form-add-to-cart{
 
 }
 
+
+
 /*------------------------------------------------Forms END
 */
 
@@ -831,6 +842,7 @@ form{
         & .dashboard-side-nav{
             min-width:0;
             max-width:12%;
+            min-height: 100%;
             margin: 0;
             }
         
@@ -921,6 +933,16 @@ form{
 
         }
     }
+
+    .wide-form-container{
+        justify-content: space-between;
+        width:95%;
+        height:auto;
+        margin: 5px;
+        padding:0;
+
+    }
+
     /*------------------------------------------------Dashboard END
     */
 
@@ -932,6 +954,51 @@ form{
         width:45%;
         max-width: 500px;
 
+    }
+
+    form.checkboxed{
+        padding:5px;
+        margin:5px;
+        width:100%;
+        min-width:85%;
+
+        & div{
+            @include flex(row, space-between);
+            width:100%;
+        
+            & fieldset{
+                @include flex(column);
+                background-color: $dark-background-color;
+                min-width:20%;
+                height:200px;
+                overflow:scroll;
+                padding: 15px 5px;
+
+                & label{
+                    @include flex(row, space-between, nowrap);
+                    vertical-align: center;
+                    width:25%;
+                    height:40px;
+
+                    & span{
+                        text-align: left;
+                        width:60px;
+                    }
+
+                    & input{
+                        min-width:12px;
+                        width:12px;
+                        min-height:12px;
+                        height:12px;
+                    }
+
+                    & input.button{
+                        max-width:100px;
+                        margin:20px;
+                    }
+                }
+            }
+        }
     }
 
     /*------------------------------------------------Forms END

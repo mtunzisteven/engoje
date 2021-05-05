@@ -11,7 +11,7 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    $pageName ="Users"; 
+    $pageName ="Products"; 
     $pageShortSummary = "Dashboard";
     $pageDescription = "User management dashboard";
 

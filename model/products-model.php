@@ -3,26 +3,40 @@
 //This model is for the Products 
 
 // Add a single simple or variable product
-function addProduct($productName, $productPrice, $productShortDescr, $productCategory, $productDescription, $productQty, $productCreationDate, $reviewId, $variationId){
+function addProduct($productName, $productShortDescr, $productPrice, $productDescription, $productCreationDate){
     // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 
     // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare('INSERT INTO products (productName, productPrice, productShortDescr, productCategory, productDescription, productCreationDate, productQty, reviewId, variationId, categoryId) VALUES (:productName, :productPrice, :productShortDescr, :productCategory, :productDescription, :productCreationDate, :productQty, :reviewId, :variationId, :categoryId');
+    $stmt = $db->prepare('INSERT INTO 
+            
+            products (
+                productName, 
+                productPrice, 
+                productShortDescr, 
+                productDescription, 
+                productCreationDate) 
+            VALUES (
+                :productName, 
+                :productPrice, 
+                :productShortDescr, 
+                :productDescription, 
+                :productCreationDate)');
+
     // Replace the place holders
     $stmt->bindValue(':productName',$productName, PDO::PARAM_STR);
     $stmt->bindValue(':productPrice',$productPrice, PDO::PARAM_INT);
     $stmt->bindValue(':productShortDescr',$productShortDescr, PDO::PARAM_STR);
-    $stmt->bindValue(':productCategory',$productCategory, PDO::PARAM_STR);
     $stmt->bindValue(':productDescription',$productDescription, PDO::PARAM_STR);
     $stmt->bindValue(':productCreationDate',$productCreationDate, PDO::PARAM_STR);
-    $stmt->bindValue(':productQty',$productQty, PDO::PARAM_INT);
-    $stmt->bindValue(':reviewId',$reviewId, PDO::PARAM_STR);
-    $stmt->bindValue(':variationId',$variationId, PDO::PARAM_STR);
+
 
     // The next line runs the prepared statement 
     $stmt->execute(); 
     // Get number of affected rows
     $result = $stmt->rowCount();
+
+    //echo $result; exit;
+
     // The next line closes the interaction with the database 
     $stmt->closeCursor(); 
 

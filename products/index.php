@@ -32,10 +32,100 @@
 
         case 'create':
 
+            $createProductForm = buildProductCreateForm();
+
             include '../view/add-product.php';
 
          break;
 
+         case 'core':
+
+            //echo 'Here'; exit;
+
+            $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
+            $productShortDescr = filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING);
+            $productPrice = filter_input(INPUT_POST, 'productPrice',FILTER_SANITIZE_NUMBER_INT);
+            $productDescription = filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING);
+
+            if(empty($productName) || empty($productShortDescr) || empty($productPrice) || empty($productDescription)){
+
+                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
+
+            }else{
+
+                $productCreationDate = date('Y-m-d H:i:s');
+
+                $productAdded = addProduct($productName, $productShortDescr, $productPrice, $productDescription, $productCreationDate);
+
+                 //echo $productAdded; exit;
+
+                if($productAdded){
+
+                    $message = "<p class='notice detail-span-bold'>Product Information Added!</p>";
+
+                    // Choose and/or add category
+
+                    // Choose and/or colours-sizes
+
+                    $categories = getCategories(); //var_dump($categories); exit;
+                    $colours = getColours(); //var_dump($colours); exit;
+                    $sizes = getSizes(); //var_dump($sizes); exit;
+
+                    $createVariationsForm = buildCreateVariationForm($categories, $colours, $sizes);
+
+                    //var_dump($createVariationsForm); exit;
+
+                    include '../view/add-each-product.php';
+                    break;
+
+                }
+
+            }
+
+
+
+            include '../view/add-product.php';
+
+         break;
+
+         case 'variations':
+
+            var_dump($_POST['categoryId']); exit;
+
+            $colours =$_POST['colourId'];
+
+            $cleanColours = [];
+
+            foreach($colours as $colourId){
+                $cleanColours[] = filter_var($colourId, FILTER_DEFAULT);
+            }
+
+            $sizes =$_POST['sizeId'];
+
+            $cleanSizes = [];
+
+            foreach($sizes as $sizeId){
+                $cleanSizes[] = filter_var($sizeId, FILTER_DEFAULT);
+            }
+
+            $categories =$_POST['categoryId'];
+
+            $cleanCategories = [];
+
+            foreach($categories as $categoryId){
+                $cleanCategories[] = filter_var($categoryId, FILTER_DEFAULT);
+            }
+
+            var_dump($cleanCategories); exit;
+
+            break;
+
+        case 'each':
+
+
+            
+
+            break;
          
         case 'update':
             $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
@@ -49,7 +139,7 @@
             //var_dump($colour); exit;
 
 
-            $productUpdateDisplay = buildProductUpdateDisplay($product, $colour, $sizes, $images, $categories);
+            $productUpdateDisplay = buildProductUpdateDisplay($product, $colour, $sizes, $categories);
 
             include '../view/product-update.php';
 
