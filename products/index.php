@@ -32,7 +32,15 @@
 
         case 'create':
 
-            $createProductForm = buildProductCreateForm();
+            // Fetch categories & colours from db
+            $categories = getCategories(); //var_dump($categories); exit;
+            $colours = getColours(); //var_dump($colours); exit;
+
+            
+            $createProductForm = buildProductCreateForm($categories, $colours);
+
+
+            //$createVariationsForm = buildCreateVariationForm($categories, $colours);
 
             include '../view/add-product.php';
 
@@ -40,14 +48,19 @@
 
          case 'core':
 
-            //echo 'Here'; exit;
+            //var_dump($_POST['colours']); exit;
 
             $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
             $productShortDescr = filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING);
             $productPrice = filter_input(INPUT_POST, 'productPrice',FILTER_SANITIZE_NUMBER_INT);
             $productDescription = filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING);
+            $_SESSION['categoryId'] = $_POST['colours'];
+            $_SESSION['colours'] = $_POST['colours'];
 
-            if(empty($productName) || empty($productShortDescr) || empty($productPrice) || empty($productDescription)){
+            //var_dump($colours); exit;
+
+
+            if(empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productPrice) || empty($productDescription) || empty($_SESSION['colours'])){
 
                 $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
 
@@ -63,17 +76,11 @@
 
                     $message = "<p class='notice detail-span-bold'>Product Information Added!</p>";
 
-                    // Choose and/or add category
-
-                    // Choose and/or colours-sizes
-
-                    $categories = getCategories(); //var_dump($categories); exit;
-                    $colours = getColours(); //var_dump($colours); exit;
-                    $sizes = getSizes(); //var_dump($sizes); exit;
-
-                    $createVariationsForm = buildCreateVariationForm($categories, $colours, $sizes);
-
                     //var_dump($createVariationsForm); exit;
+
+                    $sizes = getSizes();
+
+                    $variationsForm = buildCreateVariationForm($sizes);
 
                     include '../view/add-each-product.php';
                     break;
@@ -88,7 +95,17 @@
 
          break;
 
+         case 'catcolor':
+            // FIlter category from form submission
+            $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_SANITIZE_NUMBER_INT);
+
+            
+            break;
+
          case 'variations':
+
+            //$sizes = getSizes(); //var_dump($sizes); exit;
+
 
             var_dump($_POST['categoryId']); exit;
 

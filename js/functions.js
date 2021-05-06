@@ -1,16 +1,8 @@
-/*$(document).ready(function () {
-
-    var data = {};
+$(document).ready(function () {
 
     $('#variations').on('click', function(){
 
-        var categories = $('.categoryId').val();
-        var colours = $('.colourId').val();
-        var sizes = $('.sizeId').val();
-
-        data['categoryIds']= categories;
-        data['colourIds']= colours;
-        data['sizeIds']= sizes;
+        let data = ajaxing();
 
         // The actual ajax data transfer method. Data gathered above will now be used.
         $.ajax({
@@ -18,26 +10,43 @@
             url: "/zalisting/products/index.php?action='variations'",
             data: data,
             success: function (response) {
-                console.log(response);
+                alert(response);
             }
             
         });
     });
-});*/
+});
 
 function ajaxing(){
 
-    var categoryIds = document.getElementsByClassName('categoryId').value;
-    /*var colourIds = parseInt(document.getElementsByClassName('colourId').value);
-    var sizeIds = parseInt(document.getElementsByClassName('sizeId').value);*/
+    let categoryIds = document.getElementsByClassName('categoryId');
+    let colourIds = document.getElementsByClassName('colourId');
+    let sizeIds = document.getElementsByClassName('sizeId');
 
-    var stringOut = "";
 
-    for(var category in categoryIds){
-        stringOut += category;
+    let categoryId = loopIds(categoryIds);
+    let colourId = loopIds(colourIds);
+    let sizeId = loopIds(sizeIds);
+
+    let data = {categoryId:categoryId, colourIds:colourId, sizeIds:sizeId};
+
+
+
+    return data;
+}
+
+
+// Select only checked checkboxes and radio buttons
+function loopIds(elements){
+
+    let Arr = [];
+
+    for(let i=0; i<elements.length; i++){
+        if(elements[i].checked){
+            //alert(elements[i].value);
+            Arr.push(elements[i].value);
+        }
     }
-    alert(stringOut);
 
-
-    return;
+    return Arr;
 }

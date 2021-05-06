@@ -275,17 +275,36 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
 }
 
 // Build a product create display form for admin dashboard
-function buildProductCreateForm(){
+function buildProductCreateForm($categories, $colours){
 
-    $productCreate = "<form method='POST' action='/zalisting/products/index.php' >";
+    $productCreate = "<form class='checkboxed' method='POST' action='/zalisting/products/index.php' ><div class='row-form-content'>";
 
-    $productCreate .= "<label>Product Name</label> <input type='text' name='productName' />";
+
+
+    $productCreate .= "<div class='column-form-input'><label>Product Name</label> <input type='text' name='productName' />";
 
     $productCreate .= "<label>Short Description</label> <textarea name='productShortDescr' rows='3' ></textarea>";
 
     $productCreate .= "<label>Price</label> <input type='number' name='productPrice' />";
 
     $productCreate .= "<label>Long Description</label> <textarea name='productDescription' rows='5' ></textarea>";
+
+    $productCreate .= "</div><div class='column-form-fieldsets'><fieldset><legend>Add a Category</legend>";
+
+    foreach($categories as $category){
+        $productCreate .= "<label class='longChoice' ><input type='radio' class='categoryId' name='categoryId' value='".$category['categoryId']."' /><span>$category[categoryName]</span></label>";
+    }
+
+    $productCreate .= "</fieldset>";
+
+
+    $productCreate .= "<fieldset><legend>Add Colours</legend>";
+
+    foreach($colours as $colour){
+        $productCreate .= "<label class='longChoice' ><input type='checkbox' name='colours[]' class='colourId' value='$colour[colourId]' /><span>$colour[colour]</span></label>";
+    }
+
+    $productCreate .= "</fieldset></div></div>";
 
     $productCreate .= "<input type='hidden' name='action' value='core' />";
 
@@ -297,40 +316,30 @@ function buildProductCreateForm(){
 }
 
 // Build a product create display form for admin dashboard
-function buildCreateVariationForm($categories, $colours, $sizes){
+function buildCreateVariationForm($sizes){
 
     $productCreate = "<form class='checkboxed' method='POST' action='' >";
 
     $productCreate .= "<div class=''><fieldset><legend>Add a Category</legend>";
 
-    foreach($categories as $category){
-        $productCreate .= "<label class='longChoice' ><input type='radio' class='colourId' value='$category[categoryId]' /><span>$category[categoryName]</span></label>";
-    }
+    foreach($_SESSION['colours'] as $colours){
+        $productCreate .= "<label class='longChoice' ><input type='radio' onchange='ajaxing()' class='categoryId' name='categoryId' value='".$colours['coloursId']."' /><span>$colours[colours]</span></label>";
 
     $productCreate .= "</fieldset>";
 
 
     $productCreate .= "<fieldset><legend>Add Colours</legend>";
 
-    foreach($colours as $colour){
-        $productCreate .= "<label class='longChoice' ><input type='checkbox' class='colourId' value='$colour[colourId]' /><span>$colour[colour]</span></label>";
-    }
-
-    $productCreate .= "</fieldset>";
-
-
-    $productCreate .= "<fieldset><legend>Add Sizes</legend>";
-
     foreach($sizes as $size){
-        $productCreate .= "<label class='longChoice' ><input type='checkbox' class='sizeId' value='$size[sizeId]' /><span>$size[sizeValue]</span></label>";
+        $productCreate .= "<label class='longChoice' ><input type='checkbox' onchange='ajaxing()' class='colourId' value='$size[sizeId]' /><span>$size[size]</span></label>";
+    }
     }
 
     $productCreate .= "</fieldset>";
-
 
     $productCreate .= "<input type='hidden' name='action' value='variations' />";
 
-    $productCreate .= "</div><input id='variations' type='button' class='button' onclick='ajaxing()' value='Next' />";
+    $productCreate .= "</div><input id='variations' type='button' class='button' value='Next' />";
 
     $productCreate .= "</form>";
 

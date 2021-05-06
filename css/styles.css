@@ -1199,8 +1199,13 @@ form.form-add-to-cart #add-to-cart-button:hover {
     margin: 5px;
     width: 100%;
     min-width: 85%;
+    background-color: #80a1d1;
   }
-  form.checkboxed div {
+  form.checkboxed input.button {
+    max-width: 100px;
+    margin: 30px 20px 20px 20px;
+  }
+  form.checkboxed div.row-form-content {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1216,9 +1221,58 @@ form.form-add-to-cart #add-to-cart-button:hover {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    width: 100%;
+    width: 95%;
+    border: #f0f0f0 1px solid;
+    border-radius: 3px;
+    padding: 20px;
   }
-  form.checkboxed div fieldset {
+  form.checkboxed div.row-form-content div.column-form-input {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    min-width: 50%;
+    text-align: left;
+  }
+  form.checkboxed div.row-form-content div.column-form-input input, form.checkboxed div.row-form-content div.column-form-input textarea, form.checkboxed div.row-form-content div.column-form-input label {
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-radius: 4px;
+  }
+  form.checkboxed div.row-form-content div.column-form-input label {
+    color: #3a3939;
+  }
+  form.checkboxed div.row-form-content div.column-form-fieldsets {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    min-width: 50%;
+  }
+  form.checkboxed div.row-form-content div.column-form-fieldsets fieldset {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1235,12 +1289,13 @@ form.form-add-to-cart #add-to-cart-button:hover {
         -ms-flex-align: center;
             align-items: center;
     background-color: #f0f0f0;
-    min-width: 20%;
-    height: 200px;
+    min-width: 30%;
+    width: 40%;
+    height: 150px;
     overflow: scroll;
-    padding: 15px 5px;
+    padding: 2px 5px;
   }
-  form.checkboxed div fieldset label {
+  form.checkboxed div.row-form-content div.column-form-fieldsets fieldset label {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1256,23 +1311,23 @@ form.form-add-to-cart #add-to-cart-button:hover {
     -webkit-box-align: nowrap;
         -ms-flex-align: nowrap;
             align-items: nowrap;
-    vertical-align: center;
-    width: 25%;
+    vertical-align: left;
+    min-width: 100%;
     height: 40px;
   }
-  form.checkboxed div fieldset label span {
+  form.checkboxed div.row-form-content div.column-form-fieldsets fieldset label span {
     text-align: left;
-    width: 60px;
+    width: 100%;
+    font-size: 14px;
+    height: 14px;
+    margin: 5px 0 5px 0;
   }
-  form.checkboxed div fieldset label input {
-    min-width: 12px;
-    width: 12px;
-    min-height: 12px;
-    height: 12px;
-  }
-  form.checkboxed div fieldset label input.button {
-    max-width: 100px;
-    margin: 20px;
+  form.checkboxed div.row-form-content div.column-form-fieldsets fieldset label input {
+    min-width: 14px;
+    width: 14px;
+    min-height: 14px;
+    height: 14px;
+    margin: 5px 5px 5px 20px;
   }
   /*------------------------------------------------Forms END
 */
