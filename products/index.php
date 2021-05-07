@@ -111,7 +111,7 @@
 
                     $variationsForm .= "<input type='hidden' name='action' value='swatches' />";
 
-                    $variationsForm .= "<input type='submit' value='Add Product' />";
+                    $variationsForm .= "<input class='button' type='submit' value='Add Product' />";
 
 
                     include '../view/add-each-product.php';
@@ -131,34 +131,69 @@
 
             //$sizes = getSizes(); //var_dump($sizes); exit;
 
+            if(!empty($_POST['sku']) || !empty($_POST['price']) || !empty($_POST['qty']) || !empty($_POST['sizeValue']) || !empty($_POST['colour']) || !empty($_SESSION['categoryId'])){
 
-            var_dump($_POST['categoryId']); exit;
+                //var_dump($_POST['colour']); exit;
 
-            $colours =$_POST['colourId'];
+                $productId = getLastProductId();
 
-            $cleanColours = [];
+                // Get sizes array from datalist inputs
+                $size = $_POST['sizeValue'];
+                
+                // Get colours array from datalist inputs
+                $colour = $_POST['colour'];
+    
+                // Get the amount of products to add colour or size count would both work the same
+                $length = count($size);
+    
+                // Filter external input arrays
+                $price  = filter_var_array($_POST['price']);
+                $qty  = filter_var_array($_POST['qty']);
+                $sku  = filter_var_array($_POST['sku']);
 
-            foreach($colours as $colourId){
-                $cleanColours[] = filter_var($colourId, FILTER_DEFAULT);
+                /*var_dump($price)."<br/>";
+                var_dump($qty)."<br/>";
+                var_dump($sku)."<br/>"; exit;*/
+
+                
+    
+                for($i= 0; $i<$length; $i++){
+    
+                    $price = $_POST['price'][$i];
+                    $qty =  $_POST['qty'][$i];
+                    $sku =  $_POST['sku'][$i];
+
+                    // get the size id from the db
+                    $sizeId = getSizeId($size[$i]);
+
+                    // get the colour id from the db
+                    $colourId = getColourId($colour[$i]);
+
+
+                    /*echo gettype ((int)$productId['productId'])."<br/>";
+                    echo gettype ((int)$sizeId['sizeId'])."<br/>";
+                    echo gettype ((int)$colourId['colourId'])."<br/>"; 
+                    echo gettype ((int)$_SESSION['categoryId'])."<br/>";
+                    echo gettype ((int)$price)."<br/>";
+                    echo gettype ((int)$qty)."<br/>";
+                    echo gettype ($sku)."<br/>";                    
+                    exit;*/
+    
+                    // convert all IDs to inegers as array items some were received as strings
+                    $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);
+                
+                    $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
+                    include '../view/product-admin.php';
+                    exit;
+
+                }
+
+            }else{
+
+                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
+
             }
 
-            $sizes =$_POST['sizeId'];
-
-            $cleanSizes = [];
-
-            foreach($sizes as $sizeId){
-                $cleanSizes[] = filter_var($sizeId, FILTER_DEFAULT);
-            }
-
-            $categories =$_POST['categoryId'];
-
-            $cleanCategories = [];
-
-            foreach($categories as $categoryId){
-                $cleanCategories[] = filter_var($categoryId, FILTER_DEFAULT);
-            }
-
-            var_dump($cleanCategories); exit;
 
             break;
 

@@ -312,8 +312,11 @@ function buildProductCreateForm($categories, $colours, $sizes){
 // Create a dropdown list for the size variations form
 function buildDropDownList($array, $id, $name){
 
+    $placeholder = '';
+    if($name == 'sizeValue'){ $placeholder = 'size';}else{$placeholder = $name; }
+
     // Build a navigation bar using the $classifications array
-    $DropDownList = "<input list='$id' name='$name' />";
+    $DropDownList = "<input list='$id' name='".$name."[]' placeholder='$placeholder'/>";
     $DropDownList .= "<datalist id='$id'>";
     foreach ($array as $item) {
         //var_dump($item); exit;
@@ -332,15 +335,15 @@ function buildCreateVariationFormRows($colours, $sizes){
 
     $productCreate = "<div class='swatch-row'>";
 
-    $productCreate .= buildDropDownList($colours, 'colourId', 'colour');
+    $productCreate .= "<label>Choose Colour".buildDropDownList($colours, 'colourId', 'colour')."</label>";
 
-    $productCreate .= buildDropDownList($sizes, 'sizeId', 'sizeValue');
+    $productCreate .= "<label>Choose Size".buildDropDownList($sizes, 'sizeId', 'sizeValue')."</label>";
 
-    $productCreate .= "<input type='number' name='price' />";
+    $productCreate .= "<label>Enter Price<input type='number' name='price[]' placeholder='Price' /></label>";
 
-    $productCreate .= "<input type='text' name='sku' />";
+    $productCreate .= "<label>Enter SKU<input type='text' name='sku[]' placeholder='sku code' /></label>";
 
-    $productCreate .= "<input type='number' name='qty' /></div>";
+    $productCreate .= "<label>Enter Quantity<input type='number' name='qty[]' placeholder='number of items' /></label></div>";
 
    return $productCreate;
 }

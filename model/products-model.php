@@ -2,7 +2,7 @@
 
 //This model is for the Products 
 
-// Add a single simple or variable product
+// Add a single product meta
 function addProduct($productName, $productShortDescr, $productDescription, $productCreationDate){
     // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 
@@ -40,6 +40,57 @@ function addProduct($productName, $productShortDescr, $productDescription, $prod
     return $result;
 }
 
+// Add acual product with qty and price
+function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $sku, $amount){
+    // Create a connection object from the zalist connection function
+    $db = zalistingConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('INSERT INTO 
+            
+            product_entry (
+                productId, 
+                sizeId, 
+                colourId, 
+                categoryId,
+                price,
+                sku,
+                amount
+                ) 
+            VALUES (
+                :productId, 
+                :sizeId, 
+                :colourId, 
+                :categoryId,
+                :price,
+                :sku,
+                :amount)'
+            );
+
+    // Replace the place holders
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
+    $stmt->bindValue(':sizeId',$sizeId, PDO::PARAM_INT);
+    $stmt->bindValue(':colourId',$colourId, PDO::PARAM_INT);
+    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
+    $stmt->bindValue(':price',$price, PDO::PARAM_INT);
+    $stmt->bindValue(':sku',$sku, PDO::PARAM_STR);    
+    $stmt->bindValue(':amount',$amount, PDO::PARAM_INT);
+
+
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // Get number of affected rows
+    $result = $stmt->rowCount();
+
+    //echo $result; exit;
+
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $result;
+}
+
+
 // Get all products 
 function getProducts(){
     $db = zalistingConnect();
@@ -59,7 +110,7 @@ function getProducts(){
     return $productsData;
    }
 
-// Get all products 
+// Get one product 
 function getProduct($productId){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
@@ -80,6 +131,20 @@ function getProduct($productId){
     return $productData;
 }
 
+// Get the largest product id 
+function getLastProductId(){
+    $db = zalistingConnect();
+    $sql = 'SELECT productId FROM products ORDER BY productId DESC LIMIT 0, 1';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productId = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productId); exit;
+
+    return $productId;
+}
+
 // Get all product sizes 
 function getSizes(){
     $db = zalistingConnect();
@@ -92,6 +157,36 @@ function getSizes(){
     //var_dump($productsizes); exit;
 
     return $productsizes;
+}
+
+// Get size Id by name
+function getSizeId($sizeValue){
+    $db = zalistingConnect();
+    $sql = 'SELECT sizeId FROM size WHERE sizeValue = :sizeValue';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':sizeValue',$sizeValue, PDO::PARAM_STR);
+    $stmt->execute();
+    $sizeId = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($sizeId); exit;
+
+    return $sizeId;
+}
+
+// Get colour Id by name
+function getColourId($colour){
+    $db = zalistingConnect();
+    $sql = 'SELECT colourId FROM colour WHERE colour = :colour';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+    $stmt->execute();
+    $colourId = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($colourId); exit;
+
+    return $colourId;
 }
 
 // Get all product images 

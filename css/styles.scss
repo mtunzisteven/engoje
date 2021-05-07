@@ -967,6 +967,8 @@ form{
         margin:5px;
         width:100%;
         min-width:85%;
+        border: $background-color 1px solid;
+        border-radius: 3px;
         background-color: $light-main-color;
 
         & .swatch-row{
