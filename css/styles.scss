@@ -82,8 +82,14 @@ body{
         font-size: 13px;
         font-style: italic;
         color:$dark-secondary-color;
-        max-width:65%;
         text-align: left;
+    }
+
+    & .notice{
+        color:$dark-color;
+        font-size: 22px;
+        font-weight: 500;
+        font-style: normal;
     }
 
     & table{

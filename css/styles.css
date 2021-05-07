@@ -32,8 +32,14 @@ body .detail-span-bold {
   font-size: 13px;
   font-style: italic;
   color: #DD1717;
-  max-width: 65%;
   text-align: left;
+}
+
+body .notice {
+  color: #3a3939;
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
 }
 
 body table {

@@ -18,7 +18,7 @@ function zalistingConnect(){
         return $link;
     }catch(PDOException $e){
         
-        header('Location:/zalisting/view/500.php');
+        header('Location:/zalisting/error/500.php');
         exit;
     }
 

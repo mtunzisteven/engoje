@@ -40,12 +40,12 @@
         
         default:
 
-        //var_dump($products); exit;
+            //var_dump($products); exit;
 
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products);
+            // BUild a products archive
+            $productsDisplay = buildproductsDisplay($products);
 
-        //var_dump($productsDisplay); exit;
+            //var_dump($productsDisplay); exit;
 
-         include '../view/shop.php';
+            include '../view/shop.php';
     }
