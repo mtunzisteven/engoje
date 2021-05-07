@@ -3,7 +3,7 @@
 //This model is for the Products 
 
 // Add a single simple or variable product
-function addProduct($productName, $productShortDescr, $productPrice, $productDescription, $productCreationDate){
+function addProduct($productName, $productShortDescr, $productDescription, $productCreationDate){
     // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 
     // The next line creates the prepared statement using the zalist connection      
@@ -11,20 +11,17 @@ function addProduct($productName, $productShortDescr, $productPrice, $productDes
             
             products (
                 productName, 
-                productPrice, 
                 productShortDescr, 
                 productDescription, 
                 productCreationDate) 
             VALUES (
                 :productName, 
-                :productPrice, 
                 :productShortDescr, 
                 :productDescription, 
                 :productCreationDate)');
 
     // Replace the place holders
     $stmt->bindValue(':productName',$productName, PDO::PARAM_STR);
-    $stmt->bindValue(':productPrice',$productPrice, PDO::PARAM_INT);
     $stmt->bindValue(':productShortDescr',$productShortDescr, PDO::PARAM_STR);
     $stmt->bindValue(':productDescription',$productDescription, PDO::PARAM_STR);
     $stmt->bindValue(':productCreationDate',$productCreationDate, PDO::PARAM_STR);
@@ -119,6 +116,36 @@ function getColours(){
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $productColours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productColours); exit;
+
+    return $productColours;
+}
+
+// Get colours by ids images 
+function getColourById($colourId){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM colour WHERE colourId = :colourId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':colourId',$colourId, PDO::PARAM_STR);
+    $stmt->execute();
+    $productColours = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productColours); exit;
+
+    return $productColours;
+}
+
+// Get sizes by ids images 
+function getSizeById($sizeId){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM size WHERE sizeId = :sizeId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':sizeId',$sizeId, PDO::PARAM_STR);
+    $stmt->execute();
+    $productColours = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
 
     //var_dump($productColours); exit;

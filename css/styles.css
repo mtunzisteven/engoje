@@ -1201,6 +1201,23 @@ form.form-add-to-cart #add-to-cart-button:hover {
     min-width: 85%;
     background-color: #80a1d1;
   }
+  form.checkboxed .swatch-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
   form.checkboxed input.button {
     max-width: 100px;
     margin: 30px 20px 20px 20px;
@@ -1291,7 +1308,7 @@ form.form-add-to-cart #add-to-cart-button:hover {
     background-color: #f0f0f0;
     min-width: 30%;
     width: 40%;
-    height: 150px;
+    height: 100px;
     overflow: scroll;
     padding: 2px 5px;
   }

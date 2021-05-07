@@ -963,6 +963,11 @@ form{
         min-width:85%;
         background-color: $light-main-color;
 
+        & .swatch-row{
+            @include flex();
+
+        }
+
                             
         & input.button{
             max-width:100px;
@@ -1002,7 +1007,7 @@ form{
                     background-color: $dark-background-color;
                     min-width:30%;
                     width:40%;
-                    height:150px;
+                    height:100px;
                     overflow:scroll;
                     padding: 2px 5px;
 

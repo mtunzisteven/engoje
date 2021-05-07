@@ -214,19 +214,6 @@ function buildAddresses($addresses, $addressFound){
     return $address;
 }
 
-function buildNav($classifications){
-    // Build a navigation bar using the $classifications array
-    $navList = '<ul>';
-    $navList .= "<li><a class=\"links\" href='/phpmotors/' title='View the PHP Motors home page'>Home</a></li>";
-    foreach ($classifications as $classification) {
-    $navList .= "<li><a class=\"links\" href='/phpmotors/vehicles/?action=classification&classificationName=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a></li>";
-    }
-    $navList .= '</ul>';
-
-    return $navList;
-
-}
-
 // Build the classifications select list for size and color
 function buildTableList($table, $tableItemId, $tableItemName ){ 
 
@@ -275,7 +262,7 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
 }
 
 // Build a product create display form for admin dashboard
-function buildProductCreateForm($categories, $colours){
+function buildProductCreateForm($categories, $colours, $sizes){
 
     $productCreate = "<form class='checkboxed' method='POST' action='/zalisting/products/index.php' ><div class='row-form-content'>";
 
@@ -285,14 +272,20 @@ function buildProductCreateForm($categories, $colours){
 
     $productCreate .= "<label>Short Description</label> <textarea name='productShortDescr' rows='3' ></textarea>";
 
-    $productCreate .= "<label>Price</label> <input type='number' name='productPrice' />";
-
     $productCreate .= "<label>Long Description</label> <textarea name='productDescription' rows='5' ></textarea>";
 
     $productCreate .= "</div><div class='column-form-fieldsets'><fieldset><legend>Add a Category</legend>";
 
-    foreach($categories as $category){
+    foreach($categories as $category){// Get the category for the product
         $productCreate .= "<label class='longChoice' ><input type='radio' class='categoryId' name='categoryId' value='".$category['categoryId']."' /><span>$category[categoryName]</span></label>";
+    }
+
+    $productCreate .= "</fieldset>";
+
+    $productCreate .= "<fieldset><legend>Add Sizes</legend>";
+
+    foreach($sizes as $size){  // Create an array that will hold all the sizes chosen by the user
+        $productCreate .= "<label class='longChoice' ><input type='checkbox' name='sizeIds[]' value='".$size['sizeId']."' /><span>$size[sizeValue]</span></label>";
     }
 
     $productCreate .= "</fieldset>";
@@ -300,8 +293,8 @@ function buildProductCreateForm($categories, $colours){
 
     $productCreate .= "<fieldset><legend>Add Colours</legend>";
 
-    foreach($colours as $colour){
-        $productCreate .= "<label class='longChoice' ><input type='checkbox' name='colours[]' class='colourId' value='$colour[colourId]' /><span>$colour[colour]</span></label>";
+    foreach($colours as $colour){// Create an array that will hold all the colours chosen by the user
+        $productCreate .= "<label class='longChoice' ><input type='checkbox' name='colourIds[]' value='$colour[colourId]' /><span>$colour[colour]</span></label>";
     }
 
     $productCreate .= "</fieldset></div></div>";
@@ -315,34 +308,39 @@ function buildProductCreateForm($categories, $colours){
    return $productCreate;
 }
 
-// Build a product create display form for admin dashboard
-function buildCreateVariationForm($sizes){
 
-    $productCreate = "<form class='checkboxed' method='POST' action='' >";
+// Create a dropdown list for the size variations form
+function buildDropDownList($array, $id, $name){
 
-    $productCreate .= "<div class=''><fieldset><legend>Add a Category</legend>";
-
-    foreach($_SESSION['colours'] as $colours){
-        $productCreate .= "<label class='longChoice' ><input type='radio' onchange='ajaxing()' class='categoryId' name='categoryId' value='".$colours['coloursId']."' /><span>$colours[colours]</span></label>";
-
-    $productCreate .= "</fieldset>";
-
-
-    $productCreate .= "<fieldset><legend>Add Colours</legend>";
-
-    foreach($sizes as $size){
-        $productCreate .= "<label class='longChoice' ><input type='checkbox' onchange='ajaxing()' class='colourId' value='$size[sizeId]' /><span>$size[size]</span></label>";
+    // Build a navigation bar using the $classifications array
+    $DropDownList = "<input list='$id' name='$name' />";
+    $DropDownList .= "<datalist id='$id'>";
+    foreach ($array as $item) {
+        //var_dump($item); exit;
+    $DropDownList .= "<option value='$item[$name]' />";
     }
-    }
+    $DropDownList .= '</datalist>';
 
-    $productCreate .= "</fieldset>";
+    return $DropDownList;
 
-    $productCreate .= "<input type='hidden' name='action' value='variations' />";
+}
 
-    $productCreate .= "</div><input id='variations' type='button' class='button' value='Next' />";
+// Build the inner portion of the variation form
+function buildCreateVariationFormRows($colours, $sizes){
 
-    $productCreate .= "</form>";
+    //var_dump($colours); exit;
 
+    $productCreate = "<div class='swatch-row'>";
+
+    $productCreate .= buildDropDownList($colours, 'colourId', 'colour');
+
+    $productCreate .= buildDropDownList($sizes, 'sizeId', 'sizeValue');
+
+    $productCreate .= "<input type='number' name='price' />";
+
+    $productCreate .= "<input type='text' name='sku' />";
+
+    $productCreate .= "<input type='number' name='qty' /></div>";
 
    return $productCreate;
 }

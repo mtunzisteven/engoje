@@ -35,12 +35,10 @@
             // Fetch categories & colours from db
             $categories = getCategories(); //var_dump($categories); exit;
             $colours = getColours(); //var_dump($colours); exit;
+            $sizes = getSizes();
 
             
-            $createProductForm = buildProductCreateForm($categories, $colours);
-
-
-            //$createVariationsForm = buildCreateVariationForm($categories, $colours);
+            $createProductForm = buildProductCreateForm($categories, $colours, $sizes);
 
             include '../view/add-product.php';
 
@@ -52,15 +50,15 @@
 
             $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
             $productShortDescr = filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING);
-            $productPrice = filter_input(INPUT_POST, 'productPrice',FILTER_SANITIZE_NUMBER_INT);
             $productDescription = filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING);
-            $_SESSION['categoryId'] = $_POST['colours'];
-            $_SESSION['colours'] = $_POST['colours'];
+            $_SESSION['categoryId'] = $_POST['categoryId'];
+            $colourIds = $_POST['colourIds'];
+            $sizeIds = $_POST['sizeIds'];
 
-            //var_dump($colours); exit;
+            //var_dump($sizeIds); exit;
 
 
-            if(empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productPrice) || empty($productDescription) || empty($_SESSION['colours'])){
+            if(empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
 
                 $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
 
@@ -68,7 +66,7 @@
 
                 $productCreationDate = date('Y-m-d H:i:s');
 
-                $productAdded = addProduct($productName, $productShortDescr, $productPrice, $productDescription, $productCreationDate);
+                $productAdded = addProduct($productName, $productShortDescr, $productDescription, $productCreationDate);
 
                  //echo $productAdded; exit;
 
@@ -76,11 +74,45 @@
 
                     $message = "<p class='notice detail-span-bold'>Product Information Added!</p>";
 
-                    //var_dump($createVariationsForm); exit;
+                    // Create an array that will hold the specified colors
+                    $colours = [];
 
-                    $sizes = getSizes();
+                    
+                    // Create an array that will hold the specified sizes
+                    $sizes = [];
 
-                    $variationsForm = buildCreateVariationForm($sizes);
+                    // Get lengths for all sizes in db and specified colours
+                    $sizeLength = count($sizeIds);
+                    $colourLength = count($colourIds);
+
+                    $length = $colourLength*$sizeLength;
+
+
+
+                    for($i= 0; $i<$colourLength; $i++){
+                        // fetch the specified colours and load them into the array $colours
+                        $colours[] = getColourById($colourIds[$i]);
+                    }
+
+                    for($i= 0; $i<$sizeLength; $i++){
+                        // fetch the specified sizes and load them into the array $sizes
+                        $sizes[] = getSizeById($sizeIds[$i]);
+                    }
+
+                    //var_dump($colours); exit;
+
+                    // Create the variations form using the highest number of items between the sizes and coloours
+                    $variationsForm = "<form class='checkboxed' method='POST' action='/zalisting/products/index.php' >";
+
+                    for($i= 0; $i<$length; $i++){
+
+                        $variationsForm .= buildCreateVariationFormRows($colours, $sizes); // Access the table elements fetched with fetchall
+                    }
+
+                    $variationsForm .= "<input type='hidden' name='action' value='swatches' />";
+
+                    $variationsForm .= "<input type='submit' value='Add Product' />";
+
 
                     include '../view/add-each-product.php';
                     break;
@@ -95,14 +127,7 @@
 
          break;
 
-         case 'catcolor':
-            // FIlter category from form submission
-            $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_SANITIZE_NUMBER_INT);
-
-            
-            break;
-
-         case 'variations':
+         case 'swatches':
 
             //$sizes = getSizes(); //var_dump($sizes); exit;
 

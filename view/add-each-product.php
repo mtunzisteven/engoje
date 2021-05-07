@@ -42,9 +42,9 @@
 
                             echo "<div class='dashboard-user-update-data wide-form-container'>";
 
-                                    if(isset($createVariationsForm)){
+                                    if(isset($variationsForm)){
 
-                                        echo $createVariationsForm;
+                                        echo $variationsForm;
                                     }
                         ?>
 
