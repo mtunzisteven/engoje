@@ -56,11 +56,20 @@ function buildUsersDisplay($users){
 // Build a multi product display table on admin dashboard
 function buildAdminProductsDisplay($products){
 
+    $path = '';
+
+    if(isset($product['imagePath_tn'])){
+        $path = $product['imagePath_tn'];
+    }else{
+        $path = 'no-image.png';
+        
+    }
+
     $userRows = [];
 
     foreach($products as $product){
 
-        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&productId=$product[productId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&productId=$product[productId]'>delete</a> </td><td><img class=image-tn src=/zalisting/images/$product[imagePath_tn] /></td>  <td>$product[productName] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>0$product[sku]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src=/zalisting/images/$path /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>0$product[sku]</td> </tr>";
     }
 
    return $userRows;
@@ -214,47 +223,19 @@ function buildAddresses($addresses, $addressFound){
     return $address;
 }
 
-// Build the classifications select list for size and color
-function buildTableList($table, $tableItemId, $tableItemName ){ 
-
-    // TableItemId and tavleItemName are both strings to be entered at function call (buildProductUpdateDisplay)
-    // eg for categories table:
-        // TableItemId = categoryId
-        // TableItemName = categoryName
-
-        
-
-    $tableList = "<select name=$tableItemId id=tableList >"; 
-    $tableList .= "<option>Choose From List</option>"; 
-    foreach ($table as $Item) { 
-
-        if(isset($Item['colour'])){
-            $tableList .= "<option style='background:$Item[colour];padding: 4px; margin:3px; border-radius:5px;' value='$Item[$tableItemId]'>$Item[$tableItemName]</option>"; 
-        }else{
-            $tableList .= "<option value='$Item[$tableItemId]'>$Item[$tableItemName]</option>"; 
-        }
-
-
-    } 
-    $tableList .= '</select>'; 
-
-    return $tableList; 
-}
-
 // Build a product update display form for admin dashboard
 function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
-    $productUpdate = "<form method='POST' action='/zalisting/product/'>";
+    $productUpdate = "<form method='POST' action='/zalisting/product/'><div class='swatch-row small-width-swatches'>";
 
-    $productUpdate .= "<label>Name</label><input type='text' name='productName' value='$product[productName]' />";
-    $productUpdate .= buildTableList($colours, 'colourId', 'colour' );
-    $productUpdate .= buildTableList($sizes, 'sizeId', 'sizeValue' );
-    $productUpdate .= buildTableList($categories, 'categoryId', 'categoryName' );
-    $productUpdate .= "<label>Quantity</label><input type='number' name='qty' value='$product[qty]' />";
+    $productUpdate .= "<div class='swatch-item'><label>Change Colour</label>".buildDropDownList($colours, 'colourId', 'colour' )."</div>";
+    $productUpdate .= "<div class='swatch-item'><label>Change Size</label>".buildDropDownList($sizes, 'sizeId', 'sizeValue' )."</div>";
+    $productUpdate .= "<div class='swatch-item'><label>Change Category</label>".buildDropDownList($categories, 'categoryId', 'categoryName' )."</div></div>";
+    $productUpdate .= "<label>Quantity</label><input type='number' name='amount' value='$product[amount]' />";
 
     $productUpdate .= "<input type='submit' class='button' value='Submit' />";
 
     $productUpdate .= "<input type='hidden' name='action' value='update-product' />";
-    $productUpdate .= "<input type='hidden' name='productId' value='$product[productId]' />";
+    $productUpdate .= "<input type='hidden' name='product_entryId' value='$product[product_entryId]' />";
 
     $productUpdate .= "</form>";
 
@@ -313,14 +294,20 @@ function buildProductCreateForm($categories, $colours, $sizes){
 function buildDropDownList($array, $id, $name){
 
     $placeholder = '';
-    if($name == 'sizeValue'){ $placeholder = 'size';}else{$placeholder = $name; }
+    if($name == 'sizeValue'){ 
+        $placeholder = 'size';
+    }    
+    else if($name == 'categoryName'){ 
+        $placeholder = 'category';
+    }else{
+        $placeholder = $name; }
 
     // Build a navigation bar using the $classifications array
     $DropDownList = "<input list='$id' name='".$name."[]' placeholder='$placeholder'/>";
     $DropDownList .= "<datalist id='$id'>";
     foreach ($array as $item) {
         //var_dump($item); exit;
-    $DropDownList .= "<option value='$item[$name]' />";
+    $DropDownList .= "<option value='$item[$name]' ></option>";
     }
     $DropDownList .= '</datalist>';
 
@@ -348,15 +335,45 @@ function buildCreateVariationFormRows($colours, $sizes){
    return $productCreate;
 }
 
+// Build product swatches display for product details view
+function buildProductSwatchesDisplay($products, $swatch){
+
+    //var_dump($swatch); exit;
+
+    $swatchDisplay = "<div class='swatch-container'>";
+
+    foreach($products as $product){
+
+        if(!strpos($swatchDisplay, $product[$swatch]) &&$product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchDisplay, execute block
+            
+            $swatchDisplay .= "<div class='swatch-single-item' >$product[$swatch]</div>";
+
+        }
+    }
+
+    $swatchDisplay .= "</div>";
+
+    return $swatchDisplay;
+
+
+}
+
 // Build a product block
 function buildproductDisplay($product){
 
-$dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$product['imagePath']."' alt='".$product['imageName']."' /></a>";
-$dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
-$dv .= "<p  class='productCategory'>$product[categoryName]</p>";
-$dv .= "<h4 class='productPrice' >R$product[productPrice]</h4></div>";
+    if(isset($product['imagePath'])){
+        $path = $product['imagePath'];
+    }else{
+        $path = 'no-image';
+        
+    }
 
-return $dv;
+    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$path."' alt='".$product['productName']."' /></a>";
+    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+    $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
+    $dv .= "<h4 class='productPrice' >R$product[price]</h4></div>";
+
+    return $dv;
 
 }
 

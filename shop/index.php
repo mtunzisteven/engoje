@@ -18,7 +18,7 @@
     $adminSideNav = buildAdminSideNav();
 
     // Fetch all products and bring them to scope of all cases
-    $products = getProducts();
+    $products = getShopProducts();
 
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
@@ -30,9 +30,13 @@
         case 'product':
             $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
             
-            $productData = getProduct($productId);
+            $productData = getShopProduct($productId);
 
-            //echo $productData['imagePath']; exit;
+            $sizes = buildProductSwatchesDisplay($productData, 'sizeValue');
+
+            $colours = buildProductSwatchesDisplay($productData, 'colour');
+
+            //echo $productData[0]['imagePath']; exit;
 
             include '../view/product-details.php';
          

@@ -17,9 +17,15 @@
             require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
         ?>
-        <div class="shop">
+        <div class="shop single-product-shop">
             <div class="single-product">
-                <img src='../images/<?php if(isset($productData['imagePath'])){echo $productData['imagePath'];}else{echo "no-image.png";} ?>'>
+                <?php
+
+                if(isset($productData)){
+
+                echo "<img src='../images/".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
+
+                ?>
             </div>
 
             
@@ -28,22 +34,25 @@
 
                     <?php 
 
-                        // Display the shop products
-                        if(isset($productData)){
-
                             //var_dump($productData); exit;
                         
-                            echo "<h1>$productData[productName]</h1>";
-                            echo "<p  class='productShortDescr'>$productData[productShortDescr]</p>";
-                            echo "<p class='productPrice' >$productData[sizeValue]</p>";
-                            echo "<p class='productPrice' >R$productData[productPrice]</p>";
-                            
+                            echo "<h1 id='product-title'>".$productData[0]['productName']."</h1>";
+                            echo "<p class='productPrice' >R".$productData[0]['price']."</p>";
+                            echo "<p  class='productShort-descr'>".$productData[0]['productShortDescr']."</p>";
+
+                            echo $sizes;
+
+                            echo $colours;                            
 
                         }
                     ?>
-                    <input id="add-to-cart-qty" type="number" name="qty" value="0" />
-                    <input type="hidden" name="productId" value="$productData[productId]" />
-                    <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
+                    <div id="add-to-cart-container">
+                        <input id="add-to-cart-qty" type="number" name="qty" value="0" />
+                        <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
+                    </div>
+
+                    <input type="hidden" name="product_entryId" value="$productData[product_entryId]" />
+
                 </form>
             </div>
         </div>

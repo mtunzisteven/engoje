@@ -95,7 +95,7 @@ function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $s
 function getProducts(){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.productId = images.productId
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
@@ -114,7 +114,7 @@ function getProducts(){
 function getProduct($productId){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.productId = images.productId
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
@@ -122,6 +122,27 @@ function getProduct($productId){
                     WHERE product_entry.productId = :productId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
+    $stmt->execute();
+    $productData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productData); exit;
+
+    return $productData;
+}
+
+// Get one product entry by id
+function getProduct_entry($product_entryId){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE product_entry.product_entryId = :product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
     $stmt->execute();
     $productData = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();

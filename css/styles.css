@@ -652,6 +652,10 @@ nav.mobile-nav .show a.nav-list-link {
   color: #3a3939;
 }
 
+.single-product-shop {
+  padding: 40px 2px;
+}
+
 .shop {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -840,7 +844,71 @@ form.form-add-to-cart {
   margin: 0;
 }
 
-form.form-add-to-cart #add-to-cart-qty {
+form.form-add-to-cart #product-title {
+  color: #0f4392;
+  text-align: left;
+  min-width: 100%;
+}
+
+form.form-add-to-cart .productShort-descr {
+  text-align: left;
+  color: #3a3939;
+  min-width: 100%;
+}
+
+form.form-add-to-cart .swatch-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 100%;
+}
+
+form.form-add-to-cart .swatch-container .swatch-single-item {
+  margin: 5px 10px 5px 0;
+  font-size: 10px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 2px solid #d8d5d5;
+  border-radius: 30px;
+  text-align: center;
+}
+
+form.form-add-to-cart .swatch-container .swatch-single-item:hover {
+  border: 2px solid #0f4392;
+}
+
+form.form-add-to-cart #add-to-cart-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+form.form-add-to-cart #add-to-cart-container #add-to-cart-qty {
   border-radius: 3px 0 0 3px;
   border: solid 1px #d8d5d5;
   width: 55%;
@@ -849,15 +917,15 @@ form.form-add-to-cart #add-to-cart-qty {
   text-align: center;
 }
 
-form.form-add-to-cart #add-to-cart-qty::-webkit-inner-spin-button {
+form.form-add-to-cart #add-to-cart-container #add-to-cart-qty::-webkit-inner-spin-button {
   opacity: 1;
 }
 
-form.form-add-to-cart #add-to-cart-qty:focus {
+form.form-add-to-cart #add-to-cart-container #add-to-cart-qty:focus {
   outline: none;
 }
 
-form.form-add-to-cart #add-to-cart-button {
+form.form-add-to-cart #add-to-cart-container #add-to-cart-button {
   -webkit-box-shadow: none;
           box-shadow: none;
   border-radius: 0 3px 3px 0;
@@ -865,8 +933,16 @@ form.form-add-to-cart #add-to-cart-button {
   height: 28px;
 }
 
-form.form-add-to-cart #add-to-cart-button:hover {
+form.form-add-to-cart #add-to-cart-container #add-to-cart-button:hover {
   background-color: #0f4392;
+}
+
+form.form-add-to-cart .productPrice {
+  font-size: 18px;
+  color: #0f4392;
+  font-weight: 600;
+  text-align: left;
+  min-width: 100%;
 }
 
 /*------------------------------------------------Forms END
@@ -1205,6 +1281,8 @@ form.form-add-to-cart #add-to-cart-button:hover {
     margin: 5px;
     width: 100%;
     min-width: 85%;
+    border: #fdfdfd 1px solid;
+    border-radius: 3px;
     background-color: #80a1d1;
   }
   form.checkboxed .swatch-row {
@@ -1223,6 +1301,42 @@ form.form-add-to-cart #add-to-cart-button:hover {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+  form.checkboxed .small-width-swatches {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    max-width: 50px;
+  }
+  form.checkboxed .small-width-swatches .swatch-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    max-width: 50px;
   }
   form.checkboxed input.button {
     max-width: 100px;
@@ -1486,4 +1600,10 @@ form.form-add-to-cart #add-to-cart-button:hover {
 
 /*-----------------------------------------------Product END
 */
+@media only screen and (min-width: 1080px) {
+  .single-product-shop {
+    max-width: 80%;
+    padding: 30px 10px;
+  }
+}
 /*# sourceMappingURL=styles.css.map */

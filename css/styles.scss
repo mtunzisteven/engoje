@@ -550,6 +550,10 @@ nav.mobile-nav{
     }
 }
 
+.single-product-shop{
+    padding: 40px 2px;
+}
+
 .shop{
     @include flex(column, center);
     background-color: $background-color;
@@ -664,6 +668,9 @@ form{
         margin:-10px 0 20px 0;
         width:67%;
     }
+
+    
+
 }
 
 form.form-add-to-cart{
@@ -674,34 +681,79 @@ form.form-add-to-cart{
     padding:0;
     margin:0;
 
-    & #add-to-cart-qty{
-        border-radius:3px 0 0 3px;
-        border:solid 1px $darker-background-color;
-        width:55%;
-        height:23px;
-        background-color:$dark-background-color;
-        text-align:center;
-
-        &::-webkit-inner-spin-button{
-            opacity:1;
-          } 
+    & #product-title{
+        color: $main-color;
+        text-align:left;
+        min-width:100%;
     }
 
-    &  #add-to-cart-qty:focus{
-        outline:none;
+    & .productShort-descr{
+        text-align:left;
+        color:$dark-color;
+        min-width:100%;
     }
 
-    & #add-to-cart-button{
-        box-shadow: none;
-        border-radius: 0 3px 3px 0;
-        width:45%;
-        height:28px;
+    & .swatch-container{
+        @include flex(row, start);
+        min-width:100%;
+
+        & .swatch-single-item{
+            margin: 5px 10px 5px 0;
+            font-size: 10px;
+            width: 30px;
+            height:30px;
+            line-height: 30px;
+            border:2px solid $darker-background-color;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        & .swatch-single-item:hover{
+            border:2px solid $main-color;
+        }
+
     }
 
-    & #add-to-cart-button:hover{
-        background-color: $main-color;
+    & #add-to-cart-container{
+        @include flex();
+
+        & #add-to-cart-qty{
+            border-radius:3px 0 0 3px;
+            border:solid 1px $darker-background-color;
+            width:55%;
+            height:23px;
+            background-color:$dark-background-color;
+            text-align:center;
+
+            &::-webkit-inner-spin-button{
+                opacity:1;
+            } 
+        }
+
+        &  #add-to-cart-qty:focus{
+            outline:none;
+        }
+    
+        & #add-to-cart-button{
+            box-shadow: none;
+            border-radius: 0 3px 3px 0;
+            width:45%;
+            height:28px;
+    
+        }
+    
+        & #add-to-cart-button:hover{
+            background-color: $main-color;
+        }
     }
 
+    & .productPrice{
+        font-size: 18px;
+        color: $main-color;
+        font-weight:600;
+        text-align:left;
+        min-width:100%;
+    }
 }
 
 
@@ -976,6 +1028,16 @@ form{
 
         }
 
+        & .small-width-swatches{
+            @include flex(row, start);
+            max-width:50px;
+
+            & .swatch-item{
+                @include flex(column, start);
+                max-width:50px;
+            }
+        }
+
                             
         & input.button{
             max-width:100px;
@@ -1166,6 +1228,11 @@ form{
 //                           Desktop                             |
 //---------------------------------------------------------------
 @media only screen and (min-width: 1080px){
+
+    .single-product-shop{
+        max-width:80%;
+        padding: 30px 10px;
+    }
 
 }
 

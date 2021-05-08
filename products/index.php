@@ -20,8 +20,8 @@
     // Fetch all products and bring them to scope of all cases
     $products = getProducts();
 
-    // Build products update Admin Nav
-    $productUpdateNav = buildAdminProductsDisplay( $products);
+    // Build products update Table
+    $productAdminTable = buildAdminProductsDisplay( $products);
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -111,7 +111,7 @@
 
                     $variationsForm .= "<input type='hidden' name='action' value='swatches' />";
 
-                    $variationsForm .= "<input class='button' type='submit' value='Add Product' />";
+                    $variationsForm .= "<input class='button' type='submit' value='Add Product' /></form>";
 
 
                     include '../view/add-each-product.php';
@@ -180,34 +180,26 @@
                     exit;*/
     
                     // convert all IDs to inegers as array items some were received as strings
-                    $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);
-                
-                    $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
-                    include '../view/product-admin.php';
-                    exit;
-
+                    $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
                 }
+
+                $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
+                include '../view/product-admin.php';
+                exit;
 
             }else{
 
-                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
+                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product(s).</p>";
 
             }
 
 
             break;
-
-        case 'each':
-
-
-            
-
-            break;
          
         case 'update':
-            $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
+            $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
 
-            $product = getProduct($productId);
+            $product = getProduct_entry($product_entryId);
             $colour = getColours();
             $sizes = getSizes();
             $images = getImages();

@@ -58,7 +58,7 @@
                                 <?php
                                     if(isset($product['imagePath'])){
                                         echo "<h3>Primary Image</h3>";
-                                        echo "<img class='product-image' src=/zalisting/images/$product[imagePath] />";
+                                        echo "<img class='product-image' src=/zalisting/images/$product[imagePath] alt='Product Image'/>";
                                     }
 
 
