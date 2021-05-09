@@ -183,8 +183,10 @@
                     $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
                 }
 
+                //$uploadForm = buildImageUploadForm();
+
                 $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
-                include '../view/product-admin.php';
+                include '../view/image-uploads.php';
                 exit;
 
             }else{
@@ -193,7 +195,7 @@
 
             }
 
-
+            include '../view/product-admin.php';
             break;
          
         case 'update':
@@ -216,7 +218,7 @@
 
          
         case 'delete':
-            $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
+            $productId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
 
             include '../view/product-delete.php';
 
