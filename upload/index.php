@@ -90,18 +90,19 @@ switch ($action) {
         
     // Build the full path to the image and image thumbnail to be deleted
     $target = $image_dir_path . '/' . $filename;
-    $target_tn = $image['imagePath_tn'];
+
+    // careful to include $_SERVER['DOCUMENT ROOT'], other directory cannot be found
+    $target_tn = $_SERVER['DOCUMENT_ROOT'] . $image['imagePath_tn']; 
         
     // Check that the file exists in that location
     if (file_exists($target)) {
         // Deletes the file in the folder
         $result = unlink($target); 
         $result_tn = unlink($target_tn);
-        echo $result_tn; exit;
     }
         
     // Remove from database only if physical file deleted
-    if ($result) {
+    if ($result && $result_tn) {
         $remove = deleteImage($imageId);
     }
         

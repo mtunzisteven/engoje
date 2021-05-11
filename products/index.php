@@ -17,8 +17,8 @@
     // Build Admin Side Nav
     $adminSideNav = buildAdminSideNav();
 
-    // Fetch all products and bring them to scope of all cases
-    $products = getProducts();
+    // Fetch all product entries and bring them to scope of all cases
+    $products = getPrimaryProducts();
 
     // Build products update Table
     $productAdminTable = buildAdminProductsDisplay( $products);
