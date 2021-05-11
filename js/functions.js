@@ -3,12 +3,12 @@ $(document).ready(function () {
     $(".uploadform").on("submit" ,function(e){
         e.preventDefault();
 
-        let check = 0;
+        //let check = 0;
 
 
         //$(this).ajaxForm({url: 'http://localhost/zalisting/upload/index.php', type: 'post'});
-        
-        $.post('http://localhost/zalisting/upload/index.php', $(this).serialize())
+
+        $.post('http://localhost/zalisting/upload/new.php', $(this).serialize())
 
         /*
         let product_entryId = parseInt(document.querySelector('#activeForm #product_entryId').value); // The id of the product entry
@@ -33,7 +33,7 @@ $(document).ready(function () {
             
         });*/
 
-        check +=1;
+        //check +=1;
 
         //$('#activeForm').removeAttr('id');
 

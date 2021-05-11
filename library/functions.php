@@ -357,6 +357,38 @@ function buildImageUploadForm($productSelect){
 
 }
 
+
+// Build the form for uploading product images
+/*function buildProductImageUploadForm($productSelect){
+
+    $imageUploadForm = "<form class='db-entry-form form-image-upload uploadform' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm .= "<label for='product_entryId'>Products</label>";
+
+    if(isset($productSelect)){ 
+        $imageUploadForm .= $productSelect;
+    }
+
+    $imageUploadForm .= "<label class='radio'>Is this the main image for the product?</label>";
+
+    $imageUploadForm .= "<div class='pImage-container'>";
+    $imageUploadForm .= "<label for='priYes' class='pImage'>Yes</label><input type='radio' name='imagePrimary' class='primary' value='1' />";
+    $imageUploadForm .= "</div>";
+
+    $imageUploadForm .= "<div class='pImage-container'>";
+    $imageUploadForm .= "<label for='priNo' class='pImage'>No</label><input type='radio' name='imagePrimary' class='primary'  checked value='0' />";
+    $imageUploadForm .= "</div>";
+
+    $imageUploadForm .= "<label>Upload Image:</label>";
+    $imageUploadForm .= "<input type='file' id='file' name='file1'>";
+    $imageUploadForm .= "<input type='hidden' id='action' name='action' value='upload' >";
+    $imageUploadForm .= "<input type='submit' class='button' id='productImageUploadForm' value='Upload'>";
+    $imageUploadForm .= "</form>";
+
+    return $imageUploadForm;
+
+}*/
+
+
 // Build product swatches display for product details view
 function buildProductSwatchesDisplay($products, $swatch){
 

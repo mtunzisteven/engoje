@@ -45,6 +45,9 @@
                             if (isset($message)) {
                                 echo $message;
                             } 
+                            if (isset($_SESSION['message'])) {
+                                echo $_SESSION['message'];
+                            } 
 
                             echo "<div class='upload-forms-container'>";
 
