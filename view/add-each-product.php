@@ -54,6 +54,5 @@
             </section>         
         </main>
         <script src="../js/sliders.js"></script>
-        <script src="../js/functions.js"></script>
     </body>
 </html>

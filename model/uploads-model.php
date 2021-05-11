@@ -15,21 +15,39 @@ function storeImages($imagePath, $product_entryId, $imageName, $imagePrimary) {
     $stmt->execute();
         
     // Make and store the thumbnail image information
-    // Change name in path
-    $imagePath = makeThumbnailName($imagePath);
+    // Change path in path-tn
+    $imagePath_th = makeThumbnailName($imagePath);
+
+    // fetch the id of the image above
+    $imageId = getLastImageId()['imageId'];
     // Change name in file name
     // $imageName = makeThumbnailName($imageName);
 
-    $sql = 'UPDATE images SET imagePath_tn = :imagePath WHERE product_entryId = :product_entryId';
+    $sql = 'UPDATE images SET imagePath_tn = :imagePath_th WHERE product_entryId = :product_entryId AND imageId = :imageId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
-    $stmt->bindValue(':imagePath', $imagePath, PDO::PARAM_STR);
+    $stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
+    $stmt->bindValue(':imagePath_th', $imagePath_th, PDO::PARAM_STR);
     $stmt->execute();
     
     $rowsChanged = $stmt->rowCount();
     $stmt->closeCursor();
     return $rowsChanged;
    }
+
+   // Get the largest(last) product id 
+function getLastImageId(){
+    $db = zalistingConnect();
+    $sql = 'SELECT imageId FROM images ORDER BY imageId DESC LIMIT 0, 1';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productId = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productId); exit;
+
+    return $productId;
+}
 
 // Get Image Information from images table
 function getImages() {

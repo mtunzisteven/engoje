@@ -144,7 +144,25 @@
                 $colour = $_POST['colour'];
     
                 // Get the amount of products to add colour or size count would both work the same
-                $length = count($size);
+                $length = count($size)*count($colour);
+
+                for($i= 0; $i<$length; $i++){
+                    if(isset($colour[$i])){
+
+                        // fetch the non-empty specified non empty colours and load them into the array $colours
+                        $colours[] = $colour[$i];
+
+                    }
+                }
+
+                for($i= 0; $i<$length; $i++){
+                    if(isset($size[$i])){
+
+                    // fetch the non-empty specified sizes and load them into the array $sizes
+                    $sizes[] = $size[$i];
+
+                    }
+                }
     
                 // Filter external input arrays
                 $price  = filter_var_array($_POST['price']);
@@ -152,22 +170,25 @@
                 $sku  = filter_var_array($_POST['sku']);
 
                 /*var_dump($price)."<br/>";
-                var_dump($qty)."<br/>";
-                var_dump($sku)."<br/>"; exit;*/
+                var_dump($qty)."<br/>";*/
+                //var_dump($colours)."<br/>"; exit;
 
-                
+                // Either sizes or colours will work as the new length because the length equals the rows variation input rows now
+                $variationRows = count($sizes);
+
+                //echo $variationRows."<br/>"; exit;
     
-                for($i= 0; $i<$length; $i++){
+                for($i= 0; $i<$variationRows; $i++){
     
                     $price = $_POST['price'][$i];
                     $qty =  $_POST['qty'][$i];
                     $sku =  $_POST['sku'][$i];
 
                     // get the size id from the db
-                    $sizeId = getSizeId($size[$i]);
+                    $sizeId = getSizeId($sizes[$i]);
 
                     // get the colour id from the db
-                    $colourId = getColourId($colour[$i]);
+                    $colourId = getColourId($colours[$i]);
 
 
                     /*echo gettype ((int)$productId['productId'])."<br/>";
@@ -178,15 +199,20 @@
                     echo gettype ((int)$qty)."<br/>";
                     echo gettype ($sku)."<br/>";                    
                     exit;*/
-    
-                    // convert all IDs to inegers as array items some were received as strings
-                    $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
-                }
+                    
+                        if(isset($sizeId['sizeId']) && isset($colourId['colourId']) && isset($price) && !empty($sku) && isset($qty)){
+
+                            // convert all IDs to inegers as array items some were received as strings
+                            $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
+
+
+                        }
+                    }
 
                 //$uploadForm = buildImageUploadForm();
 
-                // Get product entry id from database
-                $product_entryIds = getLastProductEntryId($colour);
+                // Get product entry ids from database for the last products added
+                $product_entryIds = getLastProductEntryId($colours);
 
                 // products just added and have no images
                 $products = getLastProductsInfoById((int)$productId['productId']);
@@ -195,10 +221,9 @@
                 $productSelect = buildProductSelect($products);
 
                 // get product image upload form
-                $uploadForm = '';
-                for($i= 0; $i<$length; $i++){
-                    $uploadForm .= buildImageUploadForm($productSelect);
-                }
+                //$uploadForm = '';
+
+                $uploadForm = buildImageUploadForm($productSelect);
 
 
                 $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";

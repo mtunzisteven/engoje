@@ -37,6 +37,21 @@ switch ($action) {
 	$product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_VALIDATE_INT);
 	$imagePrimary = filter_input(INPUT_POST, 'imagePrimary', FILTER_VALIDATE_INT);
 
+    /*$fileName = 'file';
+    $num = 0;
+    do {
+
+        $fileName .= $num;
+
+        // Search for index with set file name
+        if(isset($_FILES[$fileName])){
+            $num = -1;
+        }else{
+            $num++;
+        }
+
+    } while ($num != -1);*/
+
 	
     // Store the name of the uploaded image
     $imageName = $_FILES['file1']['name'];
@@ -89,20 +104,24 @@ switch ($action) {
 
         
     // Build the full path to the image and image thumbnail to be deleted
-    $target = $image_dir_path . '/' . $filename;
+    $target = $image_dir_path . '/'. $filename;
 
     // careful to include $_SERVER['DOCUMENT ROOT'], other directory cannot be found
     $target_tn = $_SERVER['DOCUMENT_ROOT'] . $image['imagePath_tn']; 
+
+    //var_dump($target); exit; 
         
     // Check that the file exists in that location
     if (file_exists($target)) {
         // Deletes the file in the folder
         $result = unlink($target); 
         $result_tn = unlink($target_tn);
+
+        //var_dump($result); exit; 
     }
         
     // Remove from database only if physical file deleted
-    if ($result && $result_tn) {
+    if ($result) {
         $remove = deleteImage($imageId);
     }
         
