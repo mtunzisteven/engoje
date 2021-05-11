@@ -35,20 +35,39 @@
 
                 ?>
 
-                <section class="dashboard-content">
-                    <div class="user-data-container">
+                <section class="dashboard-content user-data-container">
+                    <div class='uploads-container'>
+                        <h1 id=title>Image Management</h1>    
 
+                        <h2 class="notice">Add New Vehicle Image</h2>
                         <?php
+                            if (isset($message)) {
+                                echo $message;
+                            } 
 
-                            echo "<div class='dashboard-user-update-data wide-form-container'>";
+                            echo "<div class='upload-forms-container'>";
 
-                                    if(isset($uploadForm)){
+                            if (isset($uploadForm)) {
+                                echo $uploadForm;
+                            } 
 
-                                        echo $uploadForm;
-                                    }
+                            echo "</div>";
+
                         ?>
 
-                            </div>
+
+
+                        <hr/>
+
+                        <h2 class="notice">Existing Images</h2>
+                        <p>These are product images. If one is deleted, the product will no longer appear in the store.</p>
+                        <div class="media-display">
+                            <?php
+                                if (isset($imageDisplay)) {
+                                    echo $imageDisplay;
+                                } 
+                            ?>
+                        </div> 
                     </div>
                 </section>
             </section>         

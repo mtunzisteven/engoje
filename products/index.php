@@ -185,6 +185,22 @@
 
                 //$uploadForm = buildImageUploadForm();
 
+                // Get product entry id from database
+                $product_entryIds = getLastProductEntryId($colour);
+
+                // products just added and have no images
+                $products = getLastProductsInfoById((int)$productId['productId']);
+
+                // Build a select list of product information for the view
+                $productSelect = buildProductSelect($products);
+
+                // get product image upload form
+                $uploadForm = '';
+                for($i= 0; $i<$length; $i++){
+                    $uploadForm .= buildImageUploadForm($productSelect);
+                }
+
+
                 $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
                 include '../view/image-uploads.php';
                 exit;
@@ -204,10 +220,10 @@
             $product = getProduct_entry($product_entryId);
             $colour = getColours();
             $sizes = getSizes();
-            $images = getImages();
+            $image = getProductImageByProdEntryId($product_entryId);
             $categories = getCategories();
 
-            //var_dump($colour); exit;
+            //var_dump($image['imagePath']); exit;
 
 
             $productUpdateDisplay = buildProductUpdateDisplay($product, $colour, $sizes, $categories);

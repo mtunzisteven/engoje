@@ -26,8 +26,9 @@ function buildAdminSideNav(){
     $adminSideNav = "<ul class='dashboard-side-nav'>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/products/?action=product' class='dashboard-side-nav-links'>Products</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/products/?action=product' class='dashboard-side-nav-links'>Products</a></li>";
+    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/upload/' class='dashboard-side-nav-links'>Images</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";
     $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Sales</a></li>";
@@ -56,20 +57,11 @@ function buildUsersDisplay($users){
 // Build a multi product display table on admin dashboard
 function buildAdminProductsDisplay($products){
 
-    $path = '';
-
-    if(isset($product['imagePath_tn'])){
-        $path = $product['imagePath_tn'];
-    }else{
-        $path = 'no-image.png';
-        
-    }
-
     $userRows = [];
 
     foreach($products as $product){
 
-        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src=/zalisting/images/$path /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>0$product[sku]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$product[imagePath_tn]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>0$product[sku]</td> </tr>";
     }
 
    return $userRows;
@@ -303,7 +295,7 @@ function buildDropDownList($array, $id, $name){
         $placeholder = $name; }
 
     // Build a navigation bar using the $classifications array
-    $DropDownList = "<input list='$id' name='".$name."[]' placeholder='$placeholder'/>";
+    $DropDownList = "<input list='$id' name='".$name."[]' placeholder='$placeholder' />";
     $DropDownList .= "<datalist id='$id'>";
     foreach ($array as $item) {
         //var_dump($item); exit;
@@ -335,6 +327,36 @@ function buildCreateVariationFormRows($colours, $sizes){
    return $productCreate;
 }
 
+// Build the form for uploading product images
+function buildImageUploadForm($productSelect){
+
+    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='/zalisting/upload/' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm .= "<label for='product_entryId'>Products</label>";
+
+    if(isset($productSelect)){ 
+        $imageUploadForm .= $productSelect;
+    }
+
+    $imageUploadForm .= "<label class='radio'>Is this the main image for the product?</label>";
+
+    $imageUploadForm .= "<div class='pImage-container'>";
+    $imageUploadForm .= "<label for='priYes' class='pImage'>Yes</label><input type='radio' name='imagePrimary' id='priYes' value='1' />";
+    $imageUploadForm .= "</div>";
+
+    $imageUploadForm .= "<div class='pImage-container'>";
+    $imageUploadForm .= "<label for='priNo' class='pImage'>No</label><input type='radio' name='imagePrimary' id='priNo'  checked value='0' />";
+    $imageUploadForm .= "</div>";
+
+    $imageUploadForm .= "<label>Upload Image:</label>";
+    $imageUploadForm .= "<input type='file' name='file1'>";
+    $imageUploadForm .= "<input type='submit' class='button' value='Upload'>";
+    $imageUploadForm .= "<input type='hidden' name='action' value='upload'>";
+    $imageUploadForm .= "</form>";
+
+    return $imageUploadForm;
+
+}
+
 // Build product swatches display for product details view
 function buildProductSwatchesDisplay($products, $swatch){
 
@@ -358,17 +380,17 @@ function buildProductSwatchesDisplay($products, $swatch){
 
 }
 
-// Build a product block
+// Build a product display card for shop views
 function buildproductDisplay($product){
 
     if(isset($product['imagePath'])){
         $path = $product['imagePath'];
     }else{
-        $path = 'no-image';
+        $path = '/zalisting/images/no-image';
         
     }
 
-    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='../images/".$path."' alt='".$product['productName']."' /></a>";
+    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='$path' alt='".$product['productName']."' /></a>";
     $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
     $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
     $dv .= "<h4 class='productPrice' >R$product[price]</h4></div>";
@@ -392,10 +414,6 @@ function buildproductsDisplay($products){
     }
 
 return $dv;
-
-}
-
-function buildSingleProductDisplay($product){
 
 }
 
@@ -425,23 +443,23 @@ function makeThumbnailName($image) {
 
 // Build images display for image management view
 function buildImageDisplay($imageArray) {
-    $id = '<ul id="image-display">';
+    $id = '<ul id="image-library">';
     foreach ($imageArray as $image) {
      $id .= '<li>';
-     $id .= "<img src='$image[imgPath]' title='$image[invMake] $image[invModel] image on PHP Motors.com' alt='$image[invMake] $image[invModel] image on PHP Motors.com'>";
-     $id .= "<p><a href='/phpmotors/uploads?action=delete&imgId=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
+     $id .= "<img class='library-images' src='$image[imagePath]' title='image on zalisting.com' alt=' $image[imageName] image on zalisting.com'>";
+     $id .= "<p><a class='media-delete-button button' href='/zalisting/upload?action=delete&imageId=$image[imageId]&filename=$image[imageName]' title='Delete the image'>Delete</a></p>";
      $id .= '</li>';
    }
     $id .= '</ul>';
     return $id;
    }
 
-// Build the vehicles select list
-function buildVehiclesSelect($vehicles) {
-    $prodList = '<select name="invId" id="invId">';
-    $prodList .= "<option>Choose a Vehicle</option>";
-    foreach ($vehicles as $vehicle) {
-     $prodList .= "<option value='$vehicle[invId]'>$vehicle[invMake] $vehicle[invModel]</option>";
+// Build the product select list
+function buildProductSelect($products) {
+    $prodList = '<select name="product_entryId" id="product_entryId">';
+    $prodList .= "<option>Choose a Product</option>";
+    foreach ($products as $product) {
+     $prodList .= "<option value='$product[product_entryId]'>$product[productName] $product[colour] $product[productCreationDate]</option>";
     }
     $prodList .= '</select>';
     return $prodList;
@@ -503,7 +521,7 @@ function processImage($dir, $filename) {
     resizeImage($image_path, $image_path, 500, 500);
    }
 
-   // Checks and Resizes image
+// Checks and Resizes image
 function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) {
      
     // Get image type: built in function returns array with size, type, and dimensions
@@ -543,10 +561,21 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     // If image is larger than specified ratio, create the new image
     if ($width_ratio > 1 || $height_ratio > 1) {
    
-     // Calculate height and width for the new image
-     $ratio = max($width_ratio, $height_ratio);
-     $new_height = round($old_height / $ratio);
-     $new_width = round($old_width / $ratio);
+        if($width_ratio === $height_ratio){
+
+            // Calculate height and width for the new image
+            $ratio = max($width_ratio, $height_ratio);
+            $new_height = round($old_height / $ratio);
+            $new_width = round($old_width / $ratio);
+            
+        }else{
+            
+            // Calculate height and width for the new image
+            $new_height = $max_height;
+            $new_width = $max_width;
+            
+        }
+
    
      // Create the new image
      $new_image = imagecreatetruecolor($new_width, $new_height);
@@ -582,9 +611,9 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
      imagedestroy($old_image);
    } // ends resizeImage function
 
-   // Build customer reviews for admin and vehicle-details views
-   // Only client's reviews appear in admin view while all car's
-   // reviews will appear in vehicle-details view
+// Build customer reviews for admin and vehicle-details views
+// Only client's reviews appear in admin view while all car's
+// reviews will appear in vehicle-details view
    function customerReviews($reviews){
 
        $loggedinClientId = 0;
@@ -615,7 +644,7 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
         else if(isset($_SESSION['clientData'])){
             $cutomerReviews .= "<tr><td class='reviewerName'>Posted by: ".substr($_SESSION['clientData']['clientFirstname'],0,1)."".$_SESSION['clientData']['clientLastname']."</td></tr>";
             $cutomerReviews .= "<tr><td class='reviewDate' >Date posted: ".date('F j, Y', strtotime($review['reviewDate']))."</td></tr>";
-            $cutomerReviews .= "<tr><td><a href='/phpmotors/reviews?action=getUpdateReview&reviewId=$review[reviewId]' title='Update Review' >Update</a>  <a href='/phpmotors/reviews?action=deleteRequest&clientId=".$_SESSION['clientData']['clientId']."' title='Delete Review' >Delete</a></td></tr>";
+            $cutomerReviews .= "<tr><td><a href='/zalisting/reviews?action=getUpdateReview&reviewId=$review[reviewId]' title='Update Review' >Update</a>  <a href='/zalisting/reviews?action=deleteRequest&clientId=".$_SESSION['clientData']['clientId']."' title='Delete Review' >Delete</a></td></tr>";
         }
 
         $cutomerReviews .= "<tr><td> <hr/> </td></tr>";

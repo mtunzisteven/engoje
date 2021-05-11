@@ -38,7 +38,7 @@
 
             //echo $productData[0]['imagePath']; exit;
 
-            include '../view/product-details.php';
+            include '../view/shop-product.php';
          
          break;
         

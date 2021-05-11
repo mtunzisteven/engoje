@@ -23,7 +23,7 @@
 
                 if(isset($productData)){
 
-                echo "<img src='../images/".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
+                echo "<img src='".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
 
                 ?>
             </div>

@@ -56,9 +56,9 @@
                             <div class='dashboard-form-details'>
                                 
                                 <?php
-                                    if(isset($product['imagePath'])){
+                                    if(isset($image['imagePath'])){
                                         echo "<h3>Primary Image</h3>";
-                                        echo "<img class='product-image' src=/zalisting/images/$product[imagePath] alt='Product Image'/>";
+                                        echo "<img class='product-image' src='$image[imagePath]' alt='Product Image'/>";
                                     }
 
 

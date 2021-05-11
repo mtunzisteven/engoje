@@ -703,6 +703,7 @@ nav.mobile-nav .show a.nav-list-link {
   border-radius: 3px;
   padding: 1px;
   height: auto;
+  min-height: 200px;
 }
 
 .shop .shop-products .product {
@@ -943,6 +944,138 @@ form.form-add-to-cart .productPrice {
   font-weight: 600;
   text-align: left;
   min-width: 100%;
+}
+
+div.uploads-container {
+  background-color: #80a1d1;
+  border-radius: 3px;
+  margin: 10px;
+  padding: 10px;
+}
+
+div.uploads-container .upload-forms-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+div.uploads-container .upload-forms-container form {
+  background-color: #d8d5d5;
+  padding: 20px;
+  text-align: left;
+}
+
+div.uploads-container .upload-forms-container form label, div.uploads-container .upload-forms-container form input {
+  min-width: 100%;
+  text-align: left;
+}
+
+div.uploads-container .upload-forms-container form select {
+  margin: 10px 0;
+  text-align: left;
+  margin-left: -190px;
+}
+
+div.uploads-container .upload-forms-container form .pImage-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  margin: 0 0 10px 0;
+  padding: 0;
+  width: 100%;
+}
+
+div.uploads-container .upload-forms-container form .pImage-container input {
+  max-height: 15px;
+  max-width: 15px;
+  min-width: 0;
+  margin-top: 15px;
+}
+
+div.uploads-container .upload-forms-container form .pImage-container label {
+  font-size: 15px;
+  margin: 10px 10px 10px 0;
+  min-width: 0;
+}
+
+div.uploads-container .upload-forms-container form .button {
+  max-width: 200px;
+  min-width: 200px;
+  text-align: center;
+  margin: 5px auto;
+}
+
+div.uploads-container h1, div.uploads-container h2, div.uploads-container p {
+  text-align: left;
+  padding-left: 10px;
+  color: #3a3939;
+}
+
+div.uploads-container .media-display ul#image-library {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 100%;
+  max-height: 350px;
+  margin: 15px 10px;
+  overflow: scroll;
+  background-color: #f0f0f0;
+}
+
+div.uploads-container .media-display ul#image-library img.library-images {
+  max-height: 150px;
+  max-width: 150px;
+  margin: 15px 5px 0 5px;
+  -webkit-box-shadow: 1px 2px 12px 2px #3a3939;
+          box-shadow: 1px 2px 12px 2px #3a3939;
+}
+
+div.uploads-container .media-display ul#image-library .media-delete-button {
+  margin: -10px auto 5px auto;
+  width: 100%;
 }
 
 /*------------------------------------------------Forms END

@@ -3,12 +3,12 @@
 // This is the image management model
 
 // Add image information to the database table
-function storeImages($imagePath, $productId, $imageName, $imagePrimary) {
+function storeImages($imagePath, $product_entryId, $imageName, $imagePrimary) {
     $db = zalistingConnect();
-    $sql = 'INSERT INTO images (productId, imagePath, imageName, imagePrimary) VALUES (:productId, :imagePath, :imageName, :imagePrimary)';
+    $sql = 'INSERT INTO images (product_entryId, imagePath, imageName, imagePrimary) VALUES (:product_entryId, :imagePath, :imageName, :imagePrimary)';
     $stmt = $db->prepare($sql);
     // Store the full size image information
-    $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
     $stmt->bindValue(':imagePath', $imagePath, PDO::PARAM_STR);
     $stmt->bindValue(':imageName', $imageName, PDO::PARAM_STR);
     $stmt->bindValue(':imagePrimary', $imagePrimary, PDO::PARAM_INT);
@@ -18,11 +18,12 @@ function storeImages($imagePath, $productId, $imageName, $imagePrimary) {
     // Change name in path
     $imagePath = makeThumbnailName($imagePath);
     // Change name in file name
-    $imageName = makeThumbnailName($imageName);
-    $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
+    // $imageName = makeThumbnailName($imageName);
+
+    $sql = 'UPDATE images SET imagePath_tn = :imagePath WHERE product_entryId = :product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
     $stmt->bindValue(':imagePath', $imagePath, PDO::PARAM_STR);
-    $stmt->bindValue(':imageName', $imageName, PDO::PARAM_STR);
-    $stmt->bindValue(':imagePrimary', $imagePrimary, PDO::PARAM_INT);
     $stmt->execute();
     
     $rowsChanged = $stmt->rowCount();
@@ -33,7 +34,7 @@ function storeImages($imagePath, $productId, $imageName, $imagePrimary) {
 // Get Image Information from images table
 function getImages() {
     $db = zalistingConnect();
-    $sql = 'SELECT imgId, imgPath, imgName, imgDate, inventory.invId, invMake, invModel FROM images JOIN inventory ON images.invId = inventory.invId';
+    $sql = 'SELECT imageId, imagePath, imageName, product_entryId FROM images';
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $imageArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -42,29 +43,29 @@ function getImages() {
    }
 
 // Get all thumbnails for a specific images from images table
-function getVehicleThumbnails($invId){
+function getProductThumbnail($imageId){ 
 
     //echo $invId; exit;
 
     $db = zalistingConnect();
-    $sql = "SELECT imgPath FROM images WHERE imgName LIKE '%\-tn%' AND invId=:invId"; 
+    $sql = "SELECT imagePath_tn FROM images WHERE imageId=:imageId"; 
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
     $stmt->execute();
-    $vehicleDetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $ProductThumbnail = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
 
-    //echo var_dump($vehicleDetails); exit;
+    //echo var_dump($ProductThumbnail); exit;
 
-    return $vehicleDetails;
+    return $ProductThumbnail;
 }
 
    // Delete image information from the images table
-function deleteImage($imgId) {
+function deleteImage($imageId) {
     $db = zalistingConnect();
-    $sql = 'DELETE FROM images WHERE imgId = :imgId';
+    $sql = 'DELETE FROM images WHERE imageId = :imageId';
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':imgId', $imgId, PDO::PARAM_INT);
+    $stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->rowCount();
     $stmt->closeCursor();
@@ -72,11 +73,11 @@ function deleteImage($imgId) {
    }
 
    // Check for an existing image
-function checkExistingImage($imgName){
+function checkExistingImage($imageName){
     $db = zalistingConnect();
-    $sql = "SELECT imgName FROM images WHERE imgName = :name";
+    $sql = "SELECT imageName FROM images WHERE imageName = :imageName";
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':name', $imgName, PDO::PARAM_STR);
+    $stmt->bindValue(':imageName', $imageName, PDO::PARAM_STR);
     $stmt->execute();
     $imageMatch = $stmt->fetch();
     $stmt->closeCursor();

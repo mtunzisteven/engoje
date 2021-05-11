@@ -91,6 +91,25 @@ function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $s
 }
 
 
+// Get all products with primary image
+function getPrimaryProducts(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId AND images.imagePrimary = 1
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productsData); exit;
+
+    return $productsData;
+   }
+
 // Get all products 
 function getProducts(){
     $db = zalistingConnect();
@@ -152,7 +171,7 @@ function getProduct_entry($product_entryId){
     return $productData;
 }
 
-// Get the largest product id 
+// Get the largest(last) product id 
 function getLastProductId(){
     $db = zalistingConnect();
     $sql = 'SELECT productId FROM products ORDER BY productId DESC LIMIT 0, 1';
@@ -164,6 +183,41 @@ function getLastProductId(){
     //var_dump($productId); exit;
 
     return $productId;
+}
+
+// Get the ids of the last products added 
+function getLastProductEntryId($numberAdded){
+    $db = zalistingConnect();
+    $sql = 'SELECT product_entryId, productId FROM product_entry ORDER BY product_entryId DESC LIMIT :numberAdded, 1';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':numberAdded',$numberAdded, PDO::PARAM_INT);
+    $stmt->execute();
+    $product_entryIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($product_entryIds); exit;
+
+    return $product_entryIds;
+}
+
+// Get the info of the last products added 
+function getLastProductsInfoById($productId){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE product_entry.productId = :productId';    
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
+    $stmt->execute();
+    $product_entryIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($product_entryIds); exit;
+
+    return $product_entryIds;
 }
 
 // Get all product sizes 
@@ -211,12 +265,27 @@ function getColourId($colour){
 }
 
 // Get all product images 
-function getImages(){
+function getProductImages(){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM images';
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $productImages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productImages); exit;
+
+    return $productImages;
+}
+
+// Get product image by product_entryId
+function getProductImageByProdEntryId($product_entryId){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM images WHERE product_entryId =:product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $productImages = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
 
     //var_dump($productImages); exit;
