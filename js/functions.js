@@ -11,10 +11,6 @@ form.addEventListener('submit', function(event) {
     data.append('imagePrimary', imagePrimary);
     data.append('file', this['file'].files[0]);
 
-    data.append("CustomField", "This is some extra data");
-
-    //data = JSON.stringify(data);
-
     var request = new XMLHttpRequest();
     request.open("POST", "http://localhost/zalisting/new/index.php", false);
     request.onload = function() {
@@ -27,5 +23,5 @@ form.addEventListener('submit', function(event) {
     };
 
     request.send(data);
-    event.preventDefault;
+    event.preventDefault();
 }, false);

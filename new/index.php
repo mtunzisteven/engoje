@@ -1,13 +1,8 @@
 <?php
 
-//header("Content-type: application/json; charset=UTF8");
-
-
-//$data = json_decode($_POST['data'], false);
 
 if(!empty($_POST)){
-    var_dump($_POST); 
-
+    
     
 // This is the images uload controller
 
