@@ -1,5 +1,14 @@
 <?php
 
+//header("Content-type: application/json; charset=UTF8");
+
+
+//$data = json_decode($_POST['data'], false);
+
+if(!empty($_POST)){
+    var_dump($_POST); 
+
+    
 // This is the images uload controller
 
 session_start();
@@ -29,7 +38,7 @@ $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_VALIDATE_I
 $imagePrimary = filter_input(INPUT_POST, 'imagePrimary', FILTER_VALIDATE_INT);
 
 // Store the name of the uploaded image
-$imageName = $_FILES['file1']['name'];
+$imageName = $_FILES['file']['name'];
 
 // Check the data base for any name matching this one
 $imageCheck = checkExistingImage($imageName);
@@ -45,7 +54,7 @@ if($imageCheck){
 } else {
 
     // Upload the image, store the returned path to the file
-    $imagePath = uploadFile('file1');
+    $imagePath = uploadFile('file');
         
     // Insert the image information to the database, get the result
     $result = storeImages($imagePath, $product_entryId, $imageName, $imagePrimary);
@@ -61,6 +70,7 @@ if($imageCheck){
     
 // Store message to session
 $_SESSION['message'] = $message;
-    
-// Redirect to this controller for default action
-header('location: .');
+
+}else{
+    echo "No Post Data!"; 
+}

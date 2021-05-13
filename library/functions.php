@@ -359,9 +359,9 @@ function buildImageUploadForm($productSelect){
 
 
 // Build the form for uploading product images
-/*function buildProductImageUploadForm($productSelect){
+function buildProductImageUploadForm($productSelect){
 
-    $imageUploadForm = "<form class='db-entry-form form-image-upload uploadform' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm = "<form class='db-entry-form form-image-upload uploadform' name='uploadform' method='post' enctype='multipart/form-data'>";
     $imageUploadForm .= "<label for='product_entryId'>Products</label>";
 
     if(isset($productSelect)){ 
@@ -379,14 +379,13 @@ function buildImageUploadForm($productSelect){
     $imageUploadForm .= "</div>";
 
     $imageUploadForm .= "<label>Upload Image:</label>";
-    $imageUploadForm .= "<input type='file' id='file' name='file1'>";
-    $imageUploadForm .= "<input type='hidden' id='action' name='action' value='upload' >";
+    $imageUploadForm .= "<input type='file' id='file1' name='file'>";
     $imageUploadForm .= "<input type='submit' class='button' id='productImageUploadForm' value='Upload'>";
     $imageUploadForm .= "</form>";
 
     return $imageUploadForm;
 
-}*/
+}
 
 
 // Build product swatches display for product details view
@@ -398,7 +397,7 @@ function buildProductSwatchesDisplay($products, $swatch){
 
     foreach($products as $product){
 
-        if(!strpos($swatchDisplay, $product[$swatch]) &&$product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchDisplay, execute block
+        if(!strpos($swatchDisplay, $product[$swatch]) && $product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchDisplay, execute block
             
             $swatchDisplay .= "<div class='swatch-single-item' >$product[$swatch]</div>";
 

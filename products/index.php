@@ -223,12 +223,12 @@
                 // get product image upload form
                 //$uploadForm = '';
 
-                $uploadForm = buildImageUploadForm($productSelect);
+                $_SESSION['uploadForm'] = buildProductImageUploadForm($productSelect);
 
-
+                
                 $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
-                include '../view/image-uploads.php';
-                exit;
+                header('Location: /zalisting/upload');
+                break;
 
             }else{
 

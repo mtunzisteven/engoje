@@ -152,13 +152,24 @@ switch ($action) {
         $imageDisplay = '<p class="notice">Sorry, no images could be found.</p>';
     }
         
-    // Get products information from database 
-    $products = getProducts();
+    if(isset($_SESSION['uploadForm'])){
 
-    // Build a select list of products to upload an image for
-    $productSelect = buildProductSelect($products);
+        $uploadForm = $_SESSION['uploadForm'];
 
-    $uploadForm = buildImageUploadForm($productSelect);
+        unset($_SESSION['uploadForm']);
+        
+    }else{
+        
+        // Get products information from database 
+        $products = getProducts();
+
+        // Build a select list of products to upload an image for
+        $productSelect = buildProductSelect($products);
+
+        $uploadForm = buildImageUploadForm($productSelect);
+
+    }
+
         
     include '../view/image-uploads.php';
     exit;

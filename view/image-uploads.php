@@ -40,7 +40,7 @@
                         <h1 id=title>Image Management</h1>    
 
                         <h2 class="notice">Add New Vehicle Image</h2>
-                        <p  id='ajax-response' class="notice"></p>
+                        <p  id='ajaxResponse' class="notice"></p>
                         <?php
                             if (isset($message)) {
                                 echo $message;
