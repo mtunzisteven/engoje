@@ -152,12 +152,13 @@ switch ($action) {
         $imageDisplay = '<p class="notice">Sorry, no images could be found.</p>';
     }
         
+    //var_dump($_SESSION['uploadForms']); exit;
     // use new product image form when uploading image with product
-    if(isset($_SESSION['uploadForm'])){
+    if(isset($_SESSION['uploadForms'])){
 
-        $uploadForm = $_SESSION['uploadForm'];
+        $uploadForms = $_SESSION['uploadForms'];
 
-        unset($_SESSION['uploadForm']);
+        unset($_SESSION['uploadForms']);
         
     }else{ // Otherwise, use the normal apload process where you choose the product that is already uploaded.
         

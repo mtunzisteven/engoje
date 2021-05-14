@@ -46,6 +46,7 @@
 
                     echo '<a href="/zalisting/products/?action=create" class="button add-new" >Add New</a>';
 
+                        echo "<div class='table-holder'>";
 
                         if(isset($productAdminTable)){
 
@@ -60,6 +61,8 @@
                             echo  "</table>";
                             
                         }
+                        
+                        echo "</div>";
                     ?>
                 </section>
             </section>         

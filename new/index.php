@@ -14,10 +14,6 @@ require_once '../model/products-model.php';
 require_once '../model/uploads-model.php';
 require_once '../library/functions.php';
 
-
-// Build Admin Side Nav
-$adminSideNav = buildAdminSideNav();
-
 /* * ****************************************************
 * Variables for use with the Image Upload Functionality
 * **************************************************** */
@@ -67,5 +63,5 @@ if($imageCheck){
 $_SESSION['message'] = $message;
 
 }else{
-    echo "No Post Data!"; 
+    echo "Error! There was a problem adding your image. Please try again, or consult maintenance."; 
 }

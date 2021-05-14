@@ -61,7 +61,7 @@ function buildAdminProductsDisplay($products){
 
     foreach($products as $product){
 
-        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$product[imagePath_tn]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>0$product[sku]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$product[imagePath_tn]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
     }
 
    return $userRows;
@@ -361,7 +361,7 @@ function buildImageUploadForm($productSelect){
 // Build the form for uploading product images
 function buildProductImageUploadForm($productSelect){
 
-    $imageUploadForm = "<form class='db-entry-form form-image-upload uploadform' name='uploadform' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm = "<form class='db-entry-form form-image-upload uploadform'  method='post' enctype='multipart/form-data'>";
     $imageUploadForm .= "<label for='product_entryId'>Products</label>";
 
     if(isset($productSelect)){ 

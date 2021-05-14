@@ -42,27 +42,32 @@ body .notice {
   font-style: normal;
 }
 
-body table {
+body .table-holder {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+body .table-holder table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   text-align: center;
-  width: 80%;
+  width: 100%;
   margin: 0 0 50px 15px;
   border: 1px solid #80a1d1;
 }
 
-body table th, body table td {
+body .table-holder table th, body .table-holder table td {
   padding: 8px;
   border-left: 1px solid #80a1d1;
   border-right: 1px solid #80a1d1;
 }
 
-body table th .image-tn, body table td .image-tn {
+body .table-holder table th .image-tn, body .table-holder table td .image-tn {
   width: 60px;
   height: auto;
 }
 
-body table .td-buttons {
+body .table-holder table .td-buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -82,15 +87,15 @@ body table .td-buttons {
   border: none;
 }
 
-body table .td-buttons .button {
+body .table-holder table .td-buttons .button {
   margin: 15px 3px 0 3px;
 }
 
-body table tr:nth-child(even) {
+body .table-holder table tr:nth-child(even) {
   background-color: #d8d5d5;
 }
 
-body table th {
+body .table-holder table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;

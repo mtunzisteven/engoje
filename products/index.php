@@ -212,9 +212,9 @@
                 //$uploadForm = buildImageUploadForm();
 
                 // Get product entry ids from database for the last products added
-                $product_entryIds = getLastProductEntryId($colours);
+                //$product_entryIds = getLastProductEntryId($colours);
 
-                // products just added and have no images
+                // fetch all product_entries just added and have no images
                 $products = getLastProductsInfoById((int)$productId['productId']);
 
                 // Build a select list of product information for the view
@@ -223,8 +223,14 @@
                 // get product image upload form
                 //$uploadForm = '';
 
-                $_SESSION['uploadForm'] = buildProductImageUploadForm($productSelect);
+                $_SESSION['uploadForms'] = '';
 
+                // display as many image upload forms as products added
+                for($i = 0; $i < count($products); $i++){
+
+                    $_SESSION['uploadForms'] .= buildProductImageUploadForm($productSelect);
+
+                }
                 
                 $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
                 header('Location: /zalisting/upload');

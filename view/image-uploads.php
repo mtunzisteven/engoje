@@ -51,8 +51,10 @@
 
                             echo "<div class='upload-forms-container'>";
 
-                            if (isset($uploadForm)) {
-                                echo $uploadForm;
+                            if (isset($uploadForms)) {
+
+                                echo $uploadForms;
+
                             } 
 
                             echo "</div>";
