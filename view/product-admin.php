@@ -39,8 +39,12 @@
                     <h1 class='h2'>View Products</h1>
                     <p> This page allows you to view, create, delete, or update products</p>
                     <?php 
-                        if(isset($message)){
+                        if(isset($message)){ 
                             echo $message;
+                        }
+
+                        if(isset($_SESSION['message'])){
+                            echo $_SESSION['message'];
                         }
 
 
@@ -61,7 +65,7 @@
                             echo  "</table>";
                             
                         }
-                        
+
                         echo "</div>";
                     ?>
                 </section>

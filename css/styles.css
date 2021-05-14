@@ -47,27 +47,27 @@ body .table-holder {
   overflow: scroll;
 }
 
-body .table-holder table {
+body table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   text-align: center;
-  width: 100%;
+  width: 90%;
   margin: 0 0 50px 15px;
   border: 1px solid #80a1d1;
 }
 
-body .table-holder table th, body .table-holder table td {
+body table th, body table td {
   padding: 8px;
   border-left: 1px solid #80a1d1;
   border-right: 1px solid #80a1d1;
 }
 
-body .table-holder table th .image-tn, body .table-holder table td .image-tn {
+body table th .image-tn, body table td .image-tn {
   width: 60px;
   height: auto;
 }
 
-body .table-holder table .td-buttons {
+body table .td-buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -87,15 +87,15 @@ body .table-holder table .td-buttons {
   border: none;
 }
 
-body .table-holder table .td-buttons .button {
+body table .td-buttons .button {
   margin: 15px 3px 0 3px;
 }
 
-body .table-holder table tr:nth-child(even) {
+body table tr:nth-child(even) {
   background-color: #d8d5d5;
 }
 
-body .table-holder table th {
+body table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
@@ -912,6 +912,10 @@ form.form-add-to-cart #add-to-cart-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  min-width: 100%;
 }
 
 form.form-add-to-cart #add-to-cart-container #add-to-cart-qty {

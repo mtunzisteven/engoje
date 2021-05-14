@@ -38,7 +38,8 @@
                 <section class="dashboard-content">
                     <?php
                         echo "<h1 class='h2'>View Users</h1>";
-                        echo "<p> This is where all the website management operations will be handled</p>";
+                        echo "<p> This is where all user management operations are handled</p>";
+                        echo "<div class='table-holder'>";
                         if(isset($userRows)){
 
                             echo "<table id='users-display'><tr id='user-display-header'> <th>Action</th> <th>Name </th> <th>Email</th> <th>Phone</th> </tr>";
@@ -52,6 +53,8 @@
                             echo  "</table>";
                             ;
                         }
+                        echo "</div>";
+
                     ?>
                 </section>
             </section>         

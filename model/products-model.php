@@ -220,6 +220,22 @@ function getLastProductsInfoById($productId){
     return $product_entryIds;
 }
 
+// Delete one product entry by id
+function deleteProduct_entry($product_entryId){
+    $db = zalistingConnect();
+    $sql = 'DELETE FROM product_entry
+                    WHERE product_entryId = :product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $productDeleted = $stmt->rowCount();
+    $stmt->closeCursor();
+
+    //var_dump($productData); exit;
+
+    return $productDeleted;
+}
+
 // Get all product sizes 
 function getSizes(){
     $db = zalistingConnect();

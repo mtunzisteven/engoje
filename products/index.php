@@ -264,15 +264,40 @@
          break;
 
          
-        case 'delete':
-            $productId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
+    case 'delete':
+            $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
+
+            $product_entry = getProduct_entry($product_entryId);
+
+            //var_dump($product_entry); exit;
 
             include '../view/product-delete.php';
 
          break;
 
+    case 'delete-confirmed':
+
+        $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
+
+        $deleteProduct = deleteProduct_entry($product_entryId);
+
+        if($deleteProduct){
+
+            $_SESSION['message'] = "<p class='notice detail-span-bold'>Success! Product removed successfully.</p>";
+
+        }else{
+
+            $_SESSION['message'] = "<p class='notice detail-span-bold'>Error! Product not removed. Please try again.</p>";
+
+        }
+
+        header('Location: /zalisting/products/');
+
+        break;
+
+
          
-        case 'lookup':
+    case 'lookup':
             
             include '../view/product-admin.php';
 

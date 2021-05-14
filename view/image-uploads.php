@@ -39,7 +39,7 @@
                     <div class='uploads-container'>
                         <h1 id=title>Image Management</h1>    
 
-                        <h2 class="notice">Add New Vehicle Image</h2>
+                        <h2 class="notice">Add New Product Image</h2>
                         <p  id='ajaxResponse' class="notice"></p>
                         <?php
                             if (isset($message)) {

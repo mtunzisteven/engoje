@@ -168,7 +168,11 @@ switch ($action) {
         // Build a select list of products to upload an image for
         $productSelect = buildProductSelect($products);
 
-        $uploadForm = buildImageUploadForm($productSelect);
+        // Only one form to display
+        $uploadForms = buildImageUploadForm($productSelect);
+
+        //var_dump($uploadForms); exit;
+
 
     }
 

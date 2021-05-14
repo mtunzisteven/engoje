@@ -1,40 +1,78 @@
-<?php 
-    if(!isset($products)){
-        header('Location: /zalisting/shop');
+<?php
+
+    if(!isset($_SESSION)){
+        session_start();
     }
 
-    $pageName ="Product Title"; 
-    $pageShortSummary = "";
-    $pageDescription = "";
+    if(!$_SESSION['loggedin']){
+        header('Location: /zalisting/');
+    }
+    else if($_SESSION['loggedin'] && $_SESSION['userData']['userLevel']<2){
+        header('Location: /zalisting/view/account.php');
+    }
+
+    $pageName ="Product-Update"; 
+    $pageShortSummary = "Dashboard";
+    $pageDescription = "Product management dashboard";
 
 ?><!DOCTYPE html>
-<html lang="en-us">
+<html lang="en-us" class=" admin-main">
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
- <body>
-    <main class="content">
-        <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
-        ?>
-        <div class="shop">
-            <div class="side-bar">
-                <h2>Side Bar</h2>
-            </div>
+    <body class=" admin-main">
+        <main class="content">
+            <?php 
+                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
+            ?>
 
-            
-            <div class='shop-products'>
-                <?php 
+            <section class="dashboard admin-dashboard">
 
-                    // Display the shop products
-                    if(isset($productsDisplay)){
-                    
-                        echo $productsDisplay;
+                <?php
 
+                    if(isset($adminSideNav)){
+                        echo $adminSideNav;
                     }
+
                 ?>
-            </div>
-        </div>
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
-    </main>
- </body>
+
+                <section class="dashboard-content">
+                    <div class="user-data-container">
+
+                        <?php
+                           
+                            echo "<div class='dashboard-user-update-data'><div>";
+                            echo "<p>Name: $product_entry[productName]</p>";
+                            echo "<p>Price: R$product_entry[price]</p>";
+                            echo "<p>Products in Stock: $product_entry[amount]</p>";
+                            echo "<p>Description:$product_entry[productDescription]</p>";
+                            echo "<a class='button' href='/zalisting/products?action=delete-confirmed&product_entryId=$product_entryId' >Delete Product";
+                            echo "</a>";
+                            echo "</div></div'>";
+
+
+                            ?>
+                            <div class='dashboard-form-details'>
+                                
+                                <?php
+                                    if(isset($product_entry['imagePath'])){
+                                        echo "<h3>Primary Image</h3>";
+                                        echo "<img class='product-image' src='$product_entry[imagePath]' alt='Product Image'/>";
+                                    }
+
+
+                                    if(isset($message)){
+                                        echo $message;
+                                    }
+                                ?>
+
+                            
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>         
+        </main>
+        <script src="/zalisting/js/sliders.js"></script>
+    </body>
 </html>

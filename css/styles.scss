@@ -95,51 +95,51 @@ body{
     & .table-holder{
         max-height:500px;
         overflow:scroll;
-
-        & table{
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            text-align: center;
-            width: 100%;
-            margin:0 0 50px 15px;
-            border: 1px solid $light-main-color;
-
-    
-    
-            & th,td{
-                padding: 8px;
-                border-left: 1px solid $light-main-color;
-                border-right: 1px solid $light-main-color;
-    
-                & .image-tn{
-                    width:60px;
-                    height: auto;
-                }
-            }
-    
-            & .td-buttons{
-                @include flex();
-                line-height: 60px;
-                border: none;
-    
-                & .button{
-                    margin: 15px 3px 0 3px;
-                }
-            }
-    
-            & tr:nth-child(even){
-                background-color: $darker-background-color;
-            }
-    
-            & th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: center;
-                background-color: $main-color;
-                color: $background-color;
-              }
-        }
     }
+
+    & table{
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        text-align: center;
+        width: 90%;
+        margin:0 0 50px 15px;
+        border: 1px solid $light-main-color;
+
+
+
+        & th,td{
+            padding: 8px;
+            border-left: 1px solid $light-main-color;
+            border-right: 1px solid $light-main-color;
+
+            & .image-tn{
+                width:60px;
+                height: auto;
+            }
+        }
+
+        & .td-buttons{
+            @include flex();
+            line-height: 60px;
+            border: none;
+
+            & .button{
+                margin: 15px 3px 0 3px;
+            }
+        }
+
+        & tr:nth-child(even){
+            background-color: $darker-background-color;
+        }
+
+        & th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: $main-color;
+            color: $background-color;
+            }
+        }
     
     & .account-button{
         display:block;
@@ -723,6 +723,8 @@ form.form-add-to-cart{
 
     & #add-to-cart-container{
         @include flex();
+        justify-content: left;
+        min-width: 100%;
 
         & #add-to-cart-qty{
             border-radius:3px 0 0 3px;
