@@ -9,7 +9,6 @@ for(let i = 0; i<form.length; i++){ // loop through them all and add the event L
         //alert();
     
         let responseContainer = document.querySelector('#ajaxResponse');
-        responseContainer.innerHTML = "Loading..."
         //let product_entryId = this['product_entryId'].value;
         let product_entryId = event.target['product_entryId'].value; // Be specific to the firing form using target
         //let imagePrimary = this['imagePrimary'].value;

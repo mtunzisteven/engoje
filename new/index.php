@@ -52,6 +52,7 @@ if($imageCheck){
         
     // Set a message based on the insert result
     if ($result) {
+
         echo '<p class="notice">The upload succeeded.</p>';
         exit;
     } else {

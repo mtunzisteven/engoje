@@ -20,8 +20,29 @@
     // Fetch all product entries and bring them to scope of all cases
     $products = getPrimaryProducts();
 
+    // Create image paths for products of each colour but different size that don't have images
+    // fetch all products first:
+    $allProducts = getAllProducts();
+
+    // Create an associative array  
+    $nonImgedProducts = [];
+
+    // For each product with no image, loop through products with images and find a matching color.
+    foreach($products as $imgProduct){
+
+        if(isset($imgProduct['imagePath_tn'])){
+
+            // add the following values in the order of colour then path
+            $nonImgedProducts[] = $imgProduct['colour']; 
+            $nonImgedProducts[] = $imgProduct['imagePath_tn']; 
+            $nonImgedProducts[] = $imgProduct['productId']; 
+
+
+        }
+    }
+
     // Build products update Table
-    $productAdminTable = buildAdminProductsDisplay( $products);
+    $productAdminTable = buildAdminProductsDisplay( $allProducts,  $nonImgedProducts);
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -171,7 +192,7 @@
 
                 //echo $variationRows."<br/>"; exit;
     
-                for($i= 0; $i<$length; $i++){
+                for($i= 0; $i<count($sizes); $i++){
     
                     $price = $_POST['price'][$i];
                     $qty =  $_POST['qty'][$i];
@@ -299,5 +320,8 @@
         
         case 'product':
         default:
+
+            // 
+
          include '../view/product-admin.php';
     }

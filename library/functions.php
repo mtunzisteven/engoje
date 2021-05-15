@@ -55,16 +55,28 @@ function buildUsersDisplay($users){
   }
 
 // Build a multi product display table on admin dashboard
-function buildAdminProductsDisplay($products){
+function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 
-    $userRows = [];
+    $productRows = [];
 
-    foreach($products as $product){
+    foreach($allProducts as $product){
 
-        $userRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$product[imagePath_tn]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
+        for($i = 0; $i < count($nonImgedProducts); $i++){
+
+            $path = $i + 1;    // The actual path for the same colour image
+            $productId = $i+2; // products table productId which is shred by all product_entries from that product
+
+            // Match colour and shared productId from products table
+            if($nonImgedProducts[$i] == $product['colour'] && $nonImgedProducts[$productId] == $product['productId']){
+
+
+                $productRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$nonImgedProducts[$path]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
+        
+            }
+        }
     }
 
-   return $userRows;
+   return $productRows;
   }
 
 
@@ -490,7 +502,7 @@ function buildProductSelect($products) {
     $prodList = '<select name="product_entryId" id="product_entryId">';
     $prodList .= "<option>Choose a Product</option>";
     foreach ($products as $product) {
-     $prodList .= "<option value='$product[product_entryId]'>$product[productName] $product[colour] $product[sizeValue] </option>";
+     $prodList .= "<option value='$product[product_entryId]'>$product[productName] in $product[colour]</option>";
     }
     $prodList .= '</select>';
     return $prodList;
