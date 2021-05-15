@@ -379,7 +379,7 @@ function buildProductImageUploadForm($productSelect){
     $imageUploadForm .= "</div>";
 
     $imageUploadForm .= "<label>Upload Image:</label>";
-    $imageUploadForm .= "<input type='file' id='file1' name='file'>";
+    $imageUploadForm .= "<input type='file' id='file1' name='file' multiple>";
     $imageUploadForm .= "<input type='submit' class='button' id='productImageUploadForm' value='Upload'>";
     $imageUploadForm .= "</form>";
 
@@ -490,7 +490,7 @@ function buildProductSelect($products) {
     $prodList = '<select name="product_entryId" id="product_entryId">';
     $prodList .= "<option>Choose a Product</option>";
     foreach ($products as $product) {
-     $prodList .= "<option value='$product[product_entryId]'>$product[productName] $product[colour] $product[productCreationDate]</option>";
+     $prodList .= "<option value='$product[product_entryId]'>$product[productName] $product[colour] $product[sizeValue] </option>";
     }
     $prodList .= '</select>';
     return $prodList;

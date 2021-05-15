@@ -163,7 +163,7 @@ switch ($action) {
     }else{ // Otherwise, use the normal apload process where you choose the product that is already uploaded.
         
         // Get products information from database 
-        $products = getProducts();
+        $products = getViewableProducts();
 
         // Build a select list of products to upload an image for
         $productSelect = buildProductSelect($products);

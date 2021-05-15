@@ -91,7 +91,7 @@ function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $s
 }
 
 
-// Get all products with primary image
+// Get all main products
 function getPrimaryProducts(){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
@@ -110,7 +110,7 @@ function getPrimaryProducts(){
     return $productsData;
    }
 
-// Get all products 
+// Get all product entries with images(entries duplicated by size or colour)
 function getProducts(){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
@@ -220,13 +220,75 @@ function getLastProductsInfoById($productId){
     return $product_entryIds;
 }
 
+// Get the info of products with images(no duplicates for sizes) 
+function getViewableProducts(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId';    
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $product_entryIds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($product_entryIds); exit;
+
+    return $product_entryIds;
+}
+
 // Delete one product entry by id
 function deleteProduct_entry($product_entryId){
     $db = zalistingConnect();
+    $results = [];
+
+    // Get the productId of the product entry to be deleted
+    $sql = 'SELECT products.productId FROM product_entry 
+                JOIN products ON product_entry.productId = products.productId';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $productIdInfo = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $productId = $productIdInfo['productId'];
+
+    //Delete entries we intended to delete
     $sql = 'DELETE FROM product_entry
                     WHERE product_entryId = :product_entryId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $results[] = $stmt->rowCount();
+
+    //Check if any other entries use the same product information
+    $sql = 'SELECT* FROM product_entry 
+            WHERE productId = :productId';  
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
+    $stmt->execute();
+    $answer = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    if(!$answer){
+        $results[] = $productId;
+    }
+
+
+    //var_dump($productData); exit;
+
+    return $results;
+}
+
+// Delete one product by id
+function deleteNoEntryProducts($productId){
+    $db = zalistingConnect();
+    $sql = 'DELETE FROM products
+                    WHERE productId = :productId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
     $stmt->execute();
     $productDeleted = $stmt->rowCount();
     $stmt->closeCursor();

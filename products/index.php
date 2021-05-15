@@ -143,7 +143,7 @@
                 // Get colours array from datalist inputs
                 $colour = $_POST['colour'];
     
-                // Get the amount of products to add colour or size count would both work the same
+                // Get the amount of product_entries to add
                 $length = count($size)*count($colour);
 
                 for($i= 0; $i<$length; $i++){
@@ -169,16 +169,9 @@
                 $qty  = filter_var_array($_POST['qty']);
                 $sku  = filter_var_array($_POST['sku']);
 
-                /*var_dump($price)."<br/>";
-                var_dump($qty)."<br/>";*/
-                //var_dump($colours)."<br/>"; exit;
-
-                // Either sizes or colours will work as the new length because the length equals the rows variation input rows now
-                $variationRows = count($sizes);
-
                 //echo $variationRows."<br/>"; exit;
     
-                for($i= 0; $i<$variationRows; $i++){
+                for($i= 0; $i<$length; $i++){
     
                     $price = $_POST['price'][$i];
                     $qty =  $_POST['qty'][$i];
@@ -189,27 +182,15 @@
 
                     // get the colour id from the db
                     $colourId = getColourId($colours[$i]);
-
-
-                    /*echo gettype ((int)$productId['productId'])."<br/>";
-                    echo gettype ((int)$sizeId['sizeId'])."<br/>";
-                    echo gettype ((int)$colourId['colourId'])."<br/>"; 
-                    echo gettype ((int)$_SESSION['categoryId'])."<br/>";
-                    echo gettype ((int)$price)."<br/>";
-                    echo gettype ((int)$qty)."<br/>";
-                    echo gettype ($sku)."<br/>";                    
-                    exit;*/
                     
-                        if(isset($sizeId['sizeId']) && isset($colourId['colourId']) && isset($price) && !empty($sku) && isset($qty)){
+                    if(isset($sizeId['sizeId']) && isset($colourId['colourId']) && isset($price) && !empty($sku) && isset($qty)){
 
-                            // convert all IDs to inegers as array items some were received as strings
-                            $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
+                        // convert all IDs to inegers as array items some were received as strings
+                        $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
 
 
-                        }
                     }
-
-                //$uploadForm = buildImageUploadForm();
+                }
 
                 // Get product entry ids from database for the last products added
                 //$product_entryIds = getLastProductEntryId($colours);
@@ -218,6 +199,7 @@
                 $products = getLastProductsInfoById((int)$productId['productId']);
 
                 // Build a select list of product information for the view
+                // Add images to all variations, even if it is size, it doesn't matter
                 $productSelect = buildProductSelect($products);
 
                 // get product image upload form
@@ -279,11 +261,23 @@
 
         $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
 
-        $deleteProduct = deleteProduct_entry($product_entryId);
+        $deleteProduct = deleteProduct_entry($product_entryId); 
+        // The above will return an array with 2 elements: The returned product id and the product delete result
 
-        if($deleteProduct){
+        if($deleteProduct[0]){
 
-            $_SESSION['message'] = "<p class='notice detail-span-bold'>Success! Product removed successfully.</p>";
+            // Find empty product information(products) table anad delete it
+            $emptyProducts = deleteNoEntryProducts($deleteProduct[1]); 
+
+            if($emptyProducts){ // Deleted products row for the above deleted entry if there was no other entry
+
+                $_SESSION['message'] = "<p class='notice detail-span-bold'>Success! Product and non-entry products table removed successfully.</p>";
+
+            }else{ // Products row for the above deleted entry has other product_entries, no deletion waranted
+
+                $_SESSION['message'] = "<p class='notice detail-span-bold'>Success! Product removed successfully and no non-entry products table was found</p>";
+
+            }
 
         }else{
 
