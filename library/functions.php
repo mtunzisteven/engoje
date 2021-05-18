@@ -403,23 +403,28 @@ function buildProductImageUploadForm($productSelect){
 // Build product swatches display for product details view
 function buildProductSwatchesDisplay($products, $swatch){
 
-    //var_dump($swatch); exit;
+    if($swatch == 'sizeValue'){
+        $label = 'size';
+    }else{
+        $label = $swatch;
+    }
 
-    $swatchDisplay = "<div class='swatch-container'>";
+    $swatchDisplay = "<label class='swatch-label'>$label:</label><div class='swatch-container'>";
 
     foreach($products as $product){
 
-        if(!strpos($swatchDisplay, $product[$swatch]) && $product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchDisplay, execute block
+        if(!strpos($swatchDisplay, ' '.$product[$swatch].' ') && $product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchDisplay, execute block
             
-            $swatchDisplay .= "<div class='swatch-single-item' >$product[$swatch]</div>";
-
+            $swatchDisplay .= "<div class='swatch-single-item' > $product[$swatch] </div>"; //spaces help avoid reding XS from XXS or S from XS 
         }
     }
 
     $swatchDisplay .= "</div>";
 
-    return $swatchDisplay;
+    //var_dump($swatchDisplay); exit;
 
+
+    return $swatchDisplay;
 
 }
 

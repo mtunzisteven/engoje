@@ -690,19 +690,30 @@ form.form-add-to-cart{
 
     & #product-title{
         color: $main-color;
+        margin:0;
         text-align:left;
         min-width:100%;
+        border-bottom: solid 1px $main-color;
     }
 
     & .productShort-descr{
         text-align:left;
         color:$dark-color;
         min-width:100%;
+        margin:0;
+    }
+
+    & .swatch-label{
+        margin: 10px 0 2px 0;
+        text-align: left;
+        min-width:100%;
     }
 
     & .swatch-container{
         @include flex(row, start);
         min-width:100%;
+        margin:0;
+
 
         & .swatch-single-item{
             margin: 5px 10px 5px 0;
@@ -725,6 +736,7 @@ form.form-add-to-cart{
         @include flex();
         justify-content: left;
         min-width: 100%;
+        margin:15px 0;
 
         & #add-to-cart-qty{
             border-radius:3px 0 0 3px;
@@ -748,6 +760,7 @@ form.form-add-to-cart{
             border-radius: 0 3px 3px 0;
             width:45%;
             height:28px;
+            line-height: 28px;
     
         }
     

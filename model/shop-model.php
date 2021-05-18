@@ -11,7 +11,8 @@ function getShopProducts(){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1';
+                    WHERE images.imagePrimary = 1
+                    GROUP BY size.sizeId';
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -31,7 +32,27 @@ function getShopProduct($productId){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE product_entry.productId = :productId ORDER BY images.imagePrimary ASC';
+                    WHERE product_entry.productId = :productId';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productData); exit;
+
+    return $productData;
+}
+
+// Get one product for swatches 
+function getShopSwatchProduct($productId){
+    $db = zalistingConnect();
+    $sql = 'SELECT size.sizeValue, colour FROM product_entry 
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE product_entry.productId = :productId';
+
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
     $stmt->execute();
