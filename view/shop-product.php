@@ -23,7 +23,7 @@
 
                 if(isset($productData)){
 
-                echo "<img src='".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
+                echo "<img id='single-product' src='".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
 
                 ?>
             </div>
@@ -37,8 +37,10 @@
                             //var_dump($productData); exit;
                         
                             echo "<h1 id='product-title'>".$productData[0]['productName']."</h1>";
-                            echo "<p class='productPrice' >R".$productData[0]['price']."</p>";
+                            echo "<p class='productPrice' id='productPrice' >R".$productData[0]['price']."</p>";
                             echo "<p  class='productShort-descr'>".$productData[0]['productShortDescr']."</p>";
+                            echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$productData[0]['product_entryId']."' />";
+                            echo "<input type='hidden' id='productId' name='productId' value='$productId' />";
 
                             echo $sizes;
 
@@ -51,12 +53,11 @@
                         <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
                     </div>
 
-                    <input type="hidden" name="product_entryId" value="$productData[product_entryId]" />
-
                 </form>
             </div>
         </div>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
     </main>
  </body>
+ <script src='/zalisting/js/swatches.js'></script>
 </html>

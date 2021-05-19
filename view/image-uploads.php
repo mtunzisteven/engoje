@@ -79,6 +79,6 @@
             </section>         
         </main>
         <script src="../js/sliders.js"></script>
-        <script src="../js/functions.js"></script>
+        <script src="../js/uploads.js"></script>
     </body>
 </html>

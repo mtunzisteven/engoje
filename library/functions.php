@@ -405,17 +405,28 @@ function buildProductSwatchesDisplay($products, $swatch){
 
     if($swatch == 'sizeValue'){
         $label = 'size';
+        $swatchClass = '';
     }else{
         $label = $swatch;
+        $swatchClass = $swatch;
     }
 
     $swatchDisplay = "<label class='swatch-label'>$label:</label><div class='swatch-container'>";
 
     foreach($products as $product){
 
-        if(!strpos($swatchDisplay, ' '.$product[$swatch].' ') && $product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchDisplay, execute block
+
+        if(!strpos($swatchDisplay, ' '.$product[$swatch].' ') && $product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchString, execute block
             
-            $swatchDisplay .= "<div class='swatch-single-item' > $product[$swatch] </div>"; //spaces help avoid reding XS from XXS or S from XS 
+            if($label == 'size'){
+
+                $swatchDisplay .= "<div class='swatch-single-item $swatchClass' > $product[$swatch] </div>"; //spaces help avoid reding XS from XXS or S from XS 
+
+            }else if($label == $swatch){
+
+                $swatchDisplay .= "<textarea class='swatch-single-item $swatchClass' name='$product[$swatch]' > $product[$swatch] </textarea>"; //spaces help avoid reding XS from XXS or S from XS 
+
+            }
         }
     }
 

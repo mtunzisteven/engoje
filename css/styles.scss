@@ -45,6 +45,8 @@ $p  : 15px Arial, sans-serif;
     border-radius: 3px;
     border: none;
     box-shadow: 1px 2px 5px 1px $dark_color;
+    cursor: pointer;
+
 }
 
 @mixin product-image($width:70%){
@@ -153,7 +155,10 @@ body{
     .button{
         @include buttons($secondary-color);
     }
+}
 
+input, textarea, button, a{
+    cursor: pointer;
 }
 
 .admin-main{
@@ -675,9 +680,6 @@ form{
         margin:-10px 0 20px 0;
         width:67%;
     }
-
-    
-
 }
 
 form.form-add-to-cart{
@@ -724,6 +726,13 @@ form.form-add-to-cart{
             border:2px solid $darker-background-color;
             border-radius: 30px;
             text-align: center;
+            overflow: hidden;
+            resize: none;
+            cursor: pointer;
+        }
+
+        &  .swatch-single-item:focus{
+            outline:none;
         }
 
         & .swatch-single-item:hover{
@@ -830,6 +839,7 @@ div.uploads-container{
                 min-width: 200px;
                 text-align: center;
                 margin: 5px auto;
+                cursor: pointer;
             }
         }
     }

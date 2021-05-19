@@ -124,6 +124,11 @@ body .button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  cursor: pointer;
+}
+
+input, textarea, button, a {
+  cursor: pointer;
 }
 
 .admin-main {
@@ -807,6 +812,7 @@ form .button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  cursor: pointer;
   height: 30px;
   line-height: 30px;
 }
@@ -823,6 +829,7 @@ form .login-reg-button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  cursor: pointer;
   height: 30px;
   line-height: 30px;
 }
@@ -900,6 +907,13 @@ form.form-add-to-cart .swatch-container .swatch-single-item {
   border: 2px solid #d8d5d5;
   border-radius: 30px;
   text-align: center;
+  overflow: hidden;
+  resize: none;
+  cursor: pointer;
+}
+
+form.form-add-to-cart .swatch-container .swatch-single-item:focus {
+  outline: none;
 }
 
 form.form-add-to-cart .swatch-container .swatch-single-item:hover {
@@ -1053,6 +1067,7 @@ div.uploads-container .upload-forms-container form .button {
   min-width: 200px;
   text-align: center;
   margin: 5px auto;
+  cursor: pointer;
 }
 
 div.uploads-container h1, div.uploads-container h2, div.uploads-container p {

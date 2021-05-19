@@ -20,4 +20,3 @@
     </div>
 </footer>
 <script src="/zalisting/js/sliders.js"></script>
-<script src="/zalisting/js/function.js"></script>

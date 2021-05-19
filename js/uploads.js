@@ -16,10 +16,11 @@ for(let i = 0; i<form.length; i++){ // loop through them all and add the event L
         data.append('product_entryId', product_entryId);
         data.append('imagePrimary', imagePrimary);
         data.append('file', event.target['file'].files[0]); // Be specific to the firing form using target
-    
+        data.append('action', 'new-upload');
+
         // Send data
         var request = new XMLHttpRequest();
-        request.open("POST", "http://localhost/zalisting/productAjaxUpload/index.php", false);
+        request.open("POST", "http://localhost/zalisting/upload/index.php", false);
         request.onload = function() {
             if (request.status == 200) {
                 responseContainer.innerHTML = this.responseText;

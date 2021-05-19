@@ -38,11 +38,33 @@
 
             $colours = buildProductSwatchesDisplay($productSwatch, 'colour');
 
-            //echo $productData[0]['imagePath']; exit;
+            //echo $productData[0]['product_entryId']; exit;
 
             include '../view/shop-product.php';
          
          break;
+
+         case 'new-swatch':
+            $productId = filter_input(INPUT_POST, 'productId', FILTER_SANITIZE_NUMBER_INT);
+            $colour = filter_input(INPUT_POST, 'colour', FILTER_SANITIZE_STRING);
+
+            if(!empty($productId) || !empty($colour)){
+
+                $newData = getNewShopProduct($productId, $colour);
+
+                if(!empty($newData)){
+
+                    echo $newData[0]['imagePath'];
+
+                }
+
+            }else{
+
+                echo "Error! The colour or product id are empty.";
+
+            }
+
+            break;
         
         default:
 
