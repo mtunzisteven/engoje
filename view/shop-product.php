@@ -42,9 +42,9 @@
                             echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$productData[0]['product_entryId']."' />";
                             echo "<input type='hidden' id='productId' name='productId' value='$productId' />";
 
-                            echo $sizes;
-
                             echo $colours;                            
+
+                            echo $sizes;
 
                         }
                     ?>

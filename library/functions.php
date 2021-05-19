@@ -411,7 +411,7 @@ function buildProductSwatchesDisplay($products, $swatch){
         $swatchClass = $swatch;
     }
 
-    $swatchDisplay = "<label class='swatch-label'>$label:</label><div class='swatch-container'>";
+    $swatchDisplay = "<label class='swatch-label'>$label: <strong id='label-$label'></strong></label><div class='swatch-container'>";
 
     foreach($products as $product){
 
@@ -420,7 +420,7 @@ function buildProductSwatchesDisplay($products, $swatch){
             
             if($label == 'size'){
 
-                $swatchDisplay .= "<div class='swatch-single-item $swatchClass' > $product[$swatch] </div>"; //spaces help avoid reding XS from XXS or S from XS 
+                $swatchDisplay .= "<textarea class='swatch-single-item $label' readonly name='$product[$swatch]' > $product[$swatch] </textarea>"; //spaces help avoid reding XS from XXS or S from XS 
 
             }else if($label == $swatch){
 
