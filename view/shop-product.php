@@ -48,10 +48,15 @@
 
                         }
                     ?>
-                    <div id="add-to-cart-container">
+                    <div class="add-to-cart-container">
                         <input id="add-to-cart-qty" type="number" name="qty" value="0" />
                         <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
                     </div>
+                    <div class="add-to-cart-container">
+                        <input id="add-to-wishlist-button" class="button" type="button" value="Add to Wishlist" />
+                    </div>
+                    <div id='add-to-cart-response'></div>
+
 
                 </form>
             </div>
@@ -60,4 +65,5 @@
     </main>
  </body>
  <script src='/zalisting/js/swatches.js'></script>
+ <script src='/zalisting/js/addtocart.js'></script>
 </html>

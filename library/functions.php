@@ -54,6 +54,29 @@ function buildUsersDisplay($users){
    return $userRows;
   }
 
+  // Build a multi user display view
+function buildCartDisplay($cartDetails){
+
+    $cartDisplay = '<table><tr><th>Product</th><th>Name</th><th>Quantity</th><th>Size</th><th>Price</th></tr>';
+
+    foreach($cartDetails as $cartItem){
+
+        $cartDisplay .= "<tr class='cart-display-info'> ";
+        $cartDisplay .= "<td><img src='$cartItem[imagePath_tn]'></td>"; 
+        $cartDisplay .= "<td>$cartItem[productName]</td>"; 
+        $cartDisplay .= "<td>$cartItem[qty]</td>"; 
+        $cartDisplay .= "<td>$cartItem[sizeValue]</td>"; 
+        $cartDisplay .= "<td>R$cartItem[price]</td></tr>"; 
+
+    }
+
+    $cartDisplay .= '</table>';
+
+
+   return $cartDisplay;
+  }
+  
+
 // Build a multi product display table on admin dashboard
 function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 
@@ -380,15 +403,9 @@ function buildProductImageUploadForm($productSelect){
         $imageUploadForm .= $productSelect;
     }
 
-    $imageUploadForm .= "<label class='radio'>Is this the main image for the product?</label>";
+    $imageUploadForm .= "<label class='radio'>This is the main image for the product</label>";
 
-    $imageUploadForm .= "<div class='pImage-container'>";
-    $imageUploadForm .= "<label for='priYes' class='pImage'>Yes</label><input type='radio' name='imagePrimary' class='primary' value='1' />";
-    $imageUploadForm .= "</div>";
-
-    $imageUploadForm .= "<div class='pImage-container'>";
-    $imageUploadForm .= "<label for='priNo' class='pImage'>No</label><input type='radio' name='imagePrimary' class='primary'  checked value='0' />";
-    $imageUploadForm .= "</div>";
+    $imageUploadForm .= "<input type='hidden' name='imagePrimary' class='primary' value='1' />";
 
     $imageUploadForm .= "<label>Upload Image:</label>";
     $imageUploadForm .= "<input type='file' id='file1' name='file' multiple>";

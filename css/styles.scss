@@ -742,7 +742,7 @@ form.form-add-to-cart{
 
     }
 
-    & #add-to-cart-container{
+    & .add-to-cart-container{
         @include flex();
         justify-content: left;
         min-width: 100%;
@@ -755,6 +755,7 @@ form.form-add-to-cart{
             height:23px;
             background-color:$dark-background-color;
             text-align:center;
+            margin-bottom: 0;
 
             &::-webkit-inner-spin-button{
                 opacity:1;
@@ -771,11 +772,31 @@ form.form-add-to-cart{
             width:45%;
             height:28px;
             line-height: 28px;
+            margin-bottom: 0;
     
         }
     
         & #add-to-cart-button:hover{
-            background-color: $main-color;
+            background-color: $light-main-color;
+        }
+
+        & #add-to-wishlist-button{
+            background-color: $light-main-color;
+            color: $background-color;
+            width:45%;
+            height:28px;
+            line-height: 28px;
+            box-shadow: none;
+            border: 1px solid $dark-background-color;
+            min-width: 100%;
+            margin-top: 0;
+            padding: 0 1px;
+        }
+
+        & #add-to-wishlist-button:hover{
+            background-color: $secondary-color;
+            color: $background-color;
+
         }
     }
 

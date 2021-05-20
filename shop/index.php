@@ -13,6 +13,8 @@
     require_once '../model/shop-model.php';
     // Get the products admin model for use as needed
     require_once '../model/products-model.php';
+    // Get the products image uploads model for use as needed
+    require_once '../model/uploads-model.php';
 
     // Build Admin Side Nav
     $adminSideNav = buildAdminSideNav();
@@ -103,6 +105,53 @@
                 }
     
                 break;
+
+        case 'add-to-cart':
+            $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
+            $qty = filter_input(INPUT_POST, 'qty', FILTER_SANITIZE_NUMBER_INT);
+
+            $_SESSION['cart'][] = [
+                'product_entryId' => $product_entryId, 
+                'qty' => $qty
+            ];
+
+            if(!empty($product_entryId) || !empty($qty)){
+                echo "<p>$qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+            }
+
+            break;
+
+        case 'cart':
+
+            $cartDetails = [];
+
+            if(isset($_SESSION['cart'])){
+                foreach($_SESSION['cart'] as $orderItem){
+
+                    // Make an array of cart display items, with the exception of the image
+                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['qty'=>$orderItem['qty']];
+
+                    //echo $productDetails['colour']; exit;
+    
+                    // Make an array of all the cart display data including the image
+                    $cartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+    
+                }
+    
+                //print_r($cartDetails); exit;
+    
+                $cartDisplay = buildCartDisplay($cartDetails);
+            }else{
+
+                $message = '<p class="notice">Your cart is empty...</p>';
+
+            }
+
+            //echo $cartDisplay; exit;
+
+            include '../view/cart.php';
+
+            break;
         
         default:
 

@@ -23,7 +23,7 @@ function getShopProducts(){
     return $productData;
 }
 
-// Get one product 
+// Get products by common product Id
 function getShopProduct($productId){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
@@ -38,6 +38,27 @@ function getShopProduct($productId){
     $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
     $stmt->execute();
     $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productData); exit;
+
+    return $productData;
+}
+
+// Get one product entry
+function getShopProductEntry($product_entryId){
+    $db = zalistingConnect();
+    $sql = 'SELECT products.productId, products.productName, colour.colour, size.sizeValue, product_entry.price
+                    FROM product_entry 
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE product_entry.product_entryId = :product_entryId';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $productData = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
 
     //var_dump($productData); exit;

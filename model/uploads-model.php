@@ -58,7 +58,23 @@ function getImages() {
     $imageArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $imageArray;
-   }
+}
+
+// Get Image Information from images table
+function getImage($productId, $colour) {
+    $db = zalistingConnect();
+    $sql = 'SELECT images.imagePath_tn FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    WHERE product_entry.productId = :productId and colour.colour = :colour';    
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
+    $stmt->bindValue(':colour', $colour, PDO::PARAM_STR);
+    $stmt->execute();
+    $imageArray = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $imageArray;
+}
 
 // Get all thumbnails for a specific images from images table
 function getProductThumbnail($imageId){ 
