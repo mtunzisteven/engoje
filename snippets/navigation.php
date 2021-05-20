@@ -14,7 +14,7 @@
             <?php 
                 if(isset($_SESSION['userData']['userFirstName'])){
                     echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account'><i class='nav-hamburger-account fa fa-user'></i></a>";
-                    echo "<a class='nav-hamburger-account user' href='/zalisting/shop?action=cart'><i class='nav-hamburger-account fa fa-shopping-cart'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/shop?action=cart'><i class='nav-hamburger-account fa fa-shopping-cart'></i></a>";
                 } else{
                     echo "<a class='account account-button' href='/zalisting/accounts/index.php?action=login'>Login</a>";
                 } 

@@ -1,18 +1,19 @@
+// declare the variables needed to add items asynchronously to theb cart
+// we don't need to declare product_entryId because it is defined in the 
+// swatches.js which is above this file in the html document
 let addToCart = document.querySelector('#add-to-cart-button'); 
-
 let cartQty = document.querySelector('#add-to-cart-qty');
-
 let addToCartRespose = document.querySelector('#add-to-cart-response');
 
 
 
 addToCart.addEventListener('click', function(){
 
-    let data = new FormData();                                // create a new formData object to send data aysnchronously to the controller
+    let data = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 
-    data.append('product_entryId', product_entryId.value);  // add productId for the item we are looking at, not the product_entryId
-    data.append('qty', cartQty.value);                      // add the colour for the item as well
-    data.append('action', 'add-to-cart');        // add the action that will be used by the case selection in the controller
+    data.append('product_entryId', product_entryId.value);  // add the product_entryId to data
+    data.append('qty', cartQty.value);                      // add the quantity of products to the data
+    data.append('action', 'add-to-cart');                   // add the action that will be used by the case selection in the controller
 
     // Send data
     var request = new XMLHttpRequest();
@@ -21,8 +22,6 @@ addToCart.addEventListener('click', function(){
         if (request.status == 200) {
 
             addToCartRespose.innerHTML = this.responseText;
-
-            //alert(assocArr['imagePath']);
 
         } else {
 
@@ -33,14 +32,3 @@ addToCart.addEventListener('click', function(){
 
     request.send(data);    
 }, false);
-
-
-/*if(addToCartRespose.value != ''){
-
-    document.body.addEventListener('click', function(){
-
-        addToCartRespose.innerHTML = '';
-
-    }, false);
-
-}*/

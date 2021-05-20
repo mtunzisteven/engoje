@@ -1391,9 +1391,9 @@ div.cart-display-table div.cart-display-table-row div img {
             align-items: center;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .fa-shopping-cart {
-    border: #3a3939 1px solid;
-    padding: 2px 7px;
+    padding: 0;
     border-radius: 4px;
+    margin: 0;
   }
   nav.desktop-nav .fa-item-container .fa-items-container a {
     height: 22px;
@@ -1431,6 +1431,10 @@ div.cart-display-table div.cart-display-table-row div img {
     margin: 0 5px;
     height: 25px;
     line-height: 25px;
+  }
+  nav.desktop-nav .fa-item-container .fa:hover {
+    color: #0f4392;
+    background-color: #fdfdfd;
   }
   /*
     *------------------------------------------------Dashboard

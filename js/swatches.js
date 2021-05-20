@@ -6,7 +6,7 @@ let productPrice = document.querySelector('#productPrice');//                   
 let colourLabel = document.querySelector('#label-colour');//                             |
 let sizeLabel = document.querySelector('#label-size');//                                 |
 //---------------------------------------------------------------------------------------|
-let sizeSwatches = document.querySelectorAll('.size'); // get all divs with class:size
+let sizeSwatches = document.querySelectorAll('.size');     // get all divs with class:size
 let colourSwatches = document.querySelectorAll('.colour'); // get all divs with class:colour
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +70,7 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
             //event.preventDefault();
         }, false);
 
+        // When loading the page, always auto click the first colour
         if(i == 0){
             colourSwatches[i].click();
         }
@@ -87,6 +88,7 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
 
     sizeSwatches[i].addEventListener('click', function(event) { // add an even listener for when any swatch is clicked.
 
+        // Convert all the sizes to textual format
         switch(swatchSize){
             case 'XXS':
 
@@ -145,14 +147,12 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
 
         let productId = document.querySelector('#productId');// The common product id for all product_entries
 
-        let colour = document.querySelector('#label-colour');// The common product id for all product_entries
+        let colour = document.querySelector('#label-colour');// The product colour label: will have the colour selected
 
         data.append('productId', productId.value);  // add productId for the item we are looking at, not the product_entryId
-        data.append('size', swatchSize);        // add the colour for the item as well
-        data.append('colour', colour.textContent);        // add the colour for the item as well
-        data.append('action', 'size-swatch');        // add the action that will be used by the case selection in the controller
-
-        //alert(colour.textContent);
+        data.append('size', swatchSize);            // add the size for the item as well
+        data.append('colour', colour.textContent);  // add the colour for the item as well
+        data.append('action', 'size-swatch');       // add the action that will be used by the case selection in the controller
 
         // Send data
         var request = new XMLHttpRequest();
@@ -160,22 +160,21 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
         request.onload = function() {
             if (request.status == 200) {
 
-                let assocArr = JSON.parse(this.responseText);
+                let assocArr = JSON.parse(this.responseText);           // convert json object to a js string
 
-                product_entryId.value = assocArr['product_entryId'];
+                product_entryId.value = assocArr['product_entryId'];    // load the product_entryId from the db
 
-                productPrice.innerHTML = 'R'+assocArr['price'];
+                productPrice.innerHTML = 'R'+assocArr['price'];         // load the price fro  the db
 
-                //alert(this.responseText);
             } else {
                 responseContainer.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
             }
         };
 
         request.send(data);
-        //event.preventDefault();*/
     }, false);
 
+    // When loading the product page, als=ways auto click the first size
     if(i == 0){
         sizeSwatches[i].click();
     }

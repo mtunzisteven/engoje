@@ -1063,9 +1063,10 @@ form{
                 @include flex();
 
                 & .fa-shopping-cart{
-                    border: $dark-color 1px solid;
-                    padding: 2px 7px;
+                    //border: $dark-color 1px solid;
+                    padding: 0;
                     border-radius:4px;
+                    margin:0;
                 }
 
                 
@@ -1096,6 +1097,11 @@ form{
                 margin:0 5px;
                 height:25px;
                 line-height:25px;
+            }
+
+            & .fa:hover{
+                color: $main-color;
+                background-color:$background-color;
             }
         }
     }
