@@ -900,6 +900,79 @@ div.uploads-container{
 /*------------------------------------------------Forms END
 */
 
+div.cart-display-table{
+    width:90%;
+    @include flex(column);
+    background-color: $background-color;
+    border-radius: 5px;
+    margin: 10px auto;
+
+    & :first-child{
+        background-color: $main-color;
+        color: $background-color;
+
+        & :first-child{
+            background-color: $main-color !important;
+            color: $background-color !important;
+        }
+    }
+
+    & div.seperator{
+        background-color: $dark-background-color;
+        height:1px;
+        width: 100%;
+    }
+
+    & div.cart-display-table-row{
+        width:100%;
+        max-height: 80px;
+        padding:10px 5px;
+        @include flex();
+        //border: 1px solid $main-color;
+        border-radius: 5px;
+
+        & :first-child{
+            background-color: $background-color;
+            color: $dark-color;
+        }
+
+        & div.buttoned-div{
+            @include flex(row, center);
+
+            & input{
+                max-width:24px;
+                text-align:center;
+                border:1px solid $darker-background-color;
+                margin:0;
+
+                &::-webkit-inner-spin-button{
+                    display:none;
+                } 
+            }
+
+            & button{
+                max-width:25px !important;
+                margin:0;
+                padding:0;
+                box-shadow:none;
+                border:1px solid $darker-background-color;
+                height:24px;
+                line-height: 24px;
+            }
+        }
+
+        & div{
+            width:100%;
+            text-align:center;
+            //border: 1px solid $dark-secondary-color;
+
+            & img{
+                width:80px;
+            }
+        }
+    }
+}
+
 //---------------------------------------------------------------
 //                           Tablet                              |
 //---------------------------------------------------------------

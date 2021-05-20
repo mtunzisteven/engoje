@@ -57,20 +57,20 @@ function buildUsersDisplay($users){
   // Build a multi user display view
 function buildCartDisplay($cartDetails){
 
-    $cartDisplay = '<table><tr><th>Product</th><th>Name</th><th>Quantity</th><th>Size</th><th>Price</th></tr>';
+    $cartDisplay = "<div class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Quantity</div><div>Size</div><div>Price</div></div>";
 
     foreach($cartDetails as $cartItem){
 
-        $cartDisplay .= "<tr class='cart-display-info'> ";
-        $cartDisplay .= "<td><img src='$cartItem[imagePath_tn]'></td>"; 
-        $cartDisplay .= "<td>$cartItem[productName]</td>"; 
-        $cartDisplay .= "<td>$cartItem[qty]</td>"; 
-        $cartDisplay .= "<td>$cartItem[sizeValue]</td>"; 
-        $cartDisplay .= "<td>R$cartItem[price]</td></tr>"; 
+        $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-row'> ";
+        $cartDisplay .= "<div><img src='$cartItem[imagePath_tn]'></div>"; 
+        $cartDisplay .= "<div>$cartItem[productName]</div>"; 
+        $cartDisplay .= "<div class='buttoned-div'><button class='button cart-qty-reduce-button'>-</button><input type='number' value='$cartItem[qty]' /><button class='button cart-qty-reduce-button'>+</button></div>"; 
+        $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
+        $cartDisplay .= "<div>R$cartItem[price]</div></div>"; 
 
     }
 
-    $cartDisplay .= '</table>';
+    $cartDisplay .= '</div>';
 
 
    return $cartDisplay;

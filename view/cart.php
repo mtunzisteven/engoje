@@ -9,8 +9,8 @@
         session_start();
     }
 
-    $pageName ="Login"; 
-    $pageShortSummary = "Account";
+    $pageName ="Shop"; 
+    $pageShortSummary = "Cart";
     $pageDescription = "";
 
     ?><!DOCTYPE html>
