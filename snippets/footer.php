@@ -19,4 +19,6 @@
         <span class="footer-span mySignature">Developed and managed by <a target="blank" href="https://mediafrika.co.za" title="View Developer">MEDIAFRIKA</a></span>
     </div>
 </footer>
+<script src="/zalisting/js/counts.js"></script>
 <script src="/zalisting/js/sliders.js"></script>
+

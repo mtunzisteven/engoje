@@ -4,11 +4,6 @@
         session_start();
     }
 
-
-    if(!isset($_SESSION)){
-        session_start();
-    }
-
     $pageName ="Login"; 
     $pageShortSummary = "Account";
     $pageDescription = "";
@@ -32,10 +27,6 @@
                 }
                 if(isset($message)){
                     echo $message;
-                }
-
-                if(isset($_SESSION['message'])){
-                    echo $_SESSION['message'];
                 }
             ?>
 

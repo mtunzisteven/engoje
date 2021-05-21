@@ -4,8 +4,7 @@
 let addToCart = document.querySelector('#add-to-cart-button'); 
 let cartQty = document.querySelector('#add-to-cart-qty');
 let addToCartRespose = document.querySelector('#add-to-cart-response');
-
-
+var cartCount = document.querySelector('#cart-count');
 
 addToCart.addEventListener('click', function(){
 
@@ -21,7 +20,12 @@ addToCart.addEventListener('click', function(){
     request.onload = function() {
         if (request.status == 200) {
 
-            addToCartRespose.innerHTML = this.responseText;
+            let assocArr = JSON.parse(this.responseText);
+            
+            cartCount.innerHTML = assocArr['cartTotal'];
+
+            addToCartRespose.innerHTML = assocArr['add-to-cart-response'];
+
 
         } else {
 

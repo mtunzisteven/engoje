@@ -24,7 +24,6 @@ for(let i = 0; i<form.length; i++){ // loop through them all and add the event L
         request.onload = function() {
             if (request.status == 200) {
                 responseContainer.innerHTML = this.responseText;
-                console.log(this.responseText);
             } else {
                 responseContainer.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
             }

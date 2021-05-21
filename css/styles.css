@@ -1390,10 +1390,42 @@ div.cart-display-table div.cart-display-table-row div img {
         -ms-flex-align: center;
             align-items: center;
   }
-  nav.desktop-nav .fa-item-container .fa-items-container .fa-shopping-cart {
+  nav.desktop-nav .fa-item-container .fa-items-container .fa-shopping-basket {
     padding: 0;
     border-radius: 4px;
-    margin: 0;
+    margin: 0 0 0 -5px;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container .cart-count {
+    position: absolute;
+    z-index: 1000;
+    top: 5px;
+    right: 2.9%;
+    color: #fdfdfd;
+    background-color: #ff4949;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 15px;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container .fa-heart {
+    font-size: 18px !important;
+    margin: 0 0 0 -5px;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container .wishlist-count {
+    position: absolute;
+    z-index: 1000;
+    top: 5px;
+    right: 5.1%;
+    color: #fdfdfd;
+    background-color: #ff4949;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 15px;
   }
   nav.desktop-nav .fa-item-container .fa-items-container a {
     height: 22px;
@@ -1425,15 +1457,15 @@ div.cart-display-table div.cart-display-table-row div img {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    font-size: 22px;
+    font-size: 18px;
     color: #3a3939;
     background-color: #fdfdfd;
     margin: 0 5px;
-    height: 25px;
-    line-height: 25px;
+    height: 20px;
+    line-height: 20px;
   }
   nav.desktop-nav .fa-item-container .fa:hover {
-    color: #0f4392;
+    color: #80a1d1;
     background-color: #fdfdfd;
   }
   /*

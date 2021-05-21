@@ -139,8 +139,26 @@
                     'qty' => $qty
                 ];
 
-                // respond to the Ajax request
-                echo "<p>$qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+                // define cart total and initialize it to a value of 0
+                $_SESSION['cartTotal'] = 0;
+            
+                foreach($_SESSION['cart'] as $cartItems){
+    
+                    // get a total of all the items in the cart
+                    $_SESSION['cartTotal'] += $cartItems['qty'];
+    
+                }
+
+                // add the cart total to the response array
+                $responseText['cartTotal'] = $_SESSION['cartTotal'];
+
+                // add the response text to the response array
+                $responseText['add-to-cart-response'] = "<p>$qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+
+                // send the associative array back to the js Ajax
+                echo json_encode($responseText);
+
+
             }
 
             break;
@@ -174,6 +192,26 @@
             }
 
             include '../view/cart.php';
+
+            break;
+
+        // get the cart total number of items count
+        case 'cart-count':
+
+            // define cart total and initialize it to a value of 0
+            $_SESSION['cartTotal'] = 0;
+
+            if(isset($_SESSION['cart'])){
+                foreach($_SESSION['cart'] as $cartItems){
+    
+                // get a total of all the items in the cart
+                $_SESSION['cartTotal'] += $cartItems['qty'];
+                }
+
+            }
+
+            // return the cart total to ajax request
+            echo $_SESSION['cartTotal'];
 
             break;
         
