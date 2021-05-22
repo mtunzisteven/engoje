@@ -988,6 +988,29 @@ div.cart-display-table{
     }
 }
 
+div.cart-display-table-column{
+    @include flex(row-reverse,space-between);
+    min-width: 25%;
+    margin: -5px 5% 10px 70%;
+    background-color: $background-color;
+
+    & div.cart-total-container{
+        @include flex(row, space-around);
+        width: 55%;
+        max-width:58%;
+        margin: 0;
+    }
+
+    & button{
+        max-width:40%;
+        height: 50px;
+        line-height: 50px;
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
+
 //---------------------------------------------------------------
 //                           Tablet                              |
 //---------------------------------------------------------------

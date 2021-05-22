@@ -57,20 +57,28 @@ function buildUsersDisplay($users){
   // Build a multi user display view
 function buildCartDisplay($cartDetails){
 
-    $cartDisplay = "<div class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Quantity</div><div>Size</div><div>Price</div></div>";
+    $cartDisplay = "<div class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Quantity</div><div>Size</div><div>Price</div><div>Total</div><div>Remove Item</div></div>";
+
+    $grandTotal = 0;
 
     foreach($cartDetails as $cartItem){
+
+        $lineTotal = $cartItem['price']*$cartItem['qty'];
+        $grandTotal += $lineTotal;
 
         $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-row'> ";
         $cartDisplay .= "<div><img src='$cartItem[imagePath_tn]'></div>"; 
         $cartDisplay .= "<div>$cartItem[productName]</div>"; 
         $cartDisplay .= "<div class='buttoned-div'><button class='button cart-qty-reduce-button'>-</button><input type='number' value='$cartItem[qty]' /><button class='button cart-qty-reduce-button'>+</button></div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-        $cartDisplay .= "<div>R$cartItem[price]</div></div>"; 
-
+        $cartDisplay .= "<div>R$cartItem[price]</div>"; 
+        $cartDisplay .= "<div>R$lineTotal</div>"; 
+        $cartDisplay .= "<div><a href='' title='Remove Item'>x</a></div></div>"; 
     }
 
     $cartDisplay .= '</div>';
+    $cartDisplay .= "<div class='cart-display-table-column'><div class='cart-total-container'><h4>Cart Total:</h4><h4> R$grandTotal</h4></div>";
+    $cartDisplay .= "<button class='button cart-buttons'>Update Cart</button></div>";
 
 
    return $cartDisplay;

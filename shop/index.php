@@ -169,13 +169,19 @@
             // create an empty array
             $cartDetails = [];
 
+            //unset($_SESSION['cart']);
+
             // if there are cart session variables available, proceed
             if(isset($_SESSION['cart'])){
 
+                //var_dump($_SESSION['cart']); exit;
+
                 foreach($_SESSION['cart'] as $orderItem){
+
 
                     // Make an array of cart display items, with the exception of the image
                     $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['qty'=>$orderItem['qty']];
+
     
                     // Make an array of all the cart display data including the image
                     $cartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);

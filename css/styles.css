@@ -1252,6 +1252,56 @@ div.cart-display-table div.cart-display-table-row div img {
   width: 80px;
 }
 
+div.cart-display-table-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 25%;
+  margin: -5px 5% 10px 70%;
+  background-color: #fdfdfd;
+}
+
+div.cart-display-table-column div.cart-total-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 55%;
+  max-width: 58%;
+  margin: 0;
+}
+
+div.cart-display-table-column button {
+  max-width: 40%;
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
 @media only screen and (min-width: 550px) {
   /*
 *------------------------------------------------Dashboard
