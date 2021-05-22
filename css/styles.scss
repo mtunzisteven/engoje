@@ -990,19 +990,19 @@ div.cart-display-table{
 
 div.cart-display-table-column{
     @include flex(row-reverse,space-between);
-    min-width: 25%;
-    margin: -5px 5% 10px 70%;
+    min-width: 55%;
+    margin: -5px 5% 10px 40%;
     background-color: $background-color;
 
     & div.cart-total-container{
         @include flex(row, space-around);
-        width: 55%;
-        max-width:58%;
+        width: 35%;
+        max-width:40%;
         margin: 0;
     }
 
     & button{
-        max-width:40%;
+        max-width:30%;
         height: 50px;
         line-height: 50px;
         margin: 0;

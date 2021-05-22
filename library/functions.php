@@ -57,28 +57,33 @@ function buildUsersDisplay($users){
   // Build a multi user display view
 function buildCartDisplay($cartDetails){
 
-    $cartDisplay = "<div class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Quantity</div><div>Size</div><div>Price</div><div>Total</div><div>Remove Item</div></div>";
+    $cartDisplay = "<div class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Quantity</div><div>Total</div><div>Remove Item</div></div>";
 
     $grandTotal = 0;
 
     foreach($cartDetails as $cartItem){
 
-        $lineTotal = $cartItem['price']*$cartItem['qty'];
+        $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
         $grandTotal += $lineTotal;
 
         $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-row'> ";
         $cartDisplay .= "<div><img src='$cartItem[imagePath_tn]'></div>"; 
         $cartDisplay .= "<div>$cartItem[productName]</div>"; 
-        $cartDisplay .= "<div class='buttoned-div'><button class='button cart-qty-reduce-button'>-</button><input type='number' value='$cartItem[qty]' /><button class='button cart-qty-reduce-button'>+</button></div>"; 
+        $cartDisplay .= "<div>$cartItem[colour]</div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
         $cartDisplay .= "<div>R$cartItem[price]</div>"; 
+        $cartDisplay .= "<div class='buttoned-div'><button class='button cart-qty-reduce-button'>-</button><input type='number' value='$cartItem[cart_item_qty]' /><button class='button cart-qty-reduce-button'>+</button></div>"; 
         $cartDisplay .= "<div>R$lineTotal</div>"; 
-        $cartDisplay .= "<div><a href='' title='Remove Item'>x</a></div></div>"; 
+        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><i class='nav-hamburger-close fa fa-times'></i></div></div>"; 
+        $cartDisplay .= "<input type='hidden' id='product_entryId' value='$cartItem[product_entryId]' >"; 
+        
+
     }
 
     $cartDisplay .= '</div>';
     $cartDisplay .= "<div class='cart-display-table-column'><div class='cart-total-container'><h4>Cart Total:</h4><h4> R$grandTotal</h4></div>";
-    $cartDisplay .= "<button class='button cart-buttons'>Update Cart</button></div>";
+    $cartDisplay .= "<button id='update-cart' class='update-cart button cart-buttons'>Update Cart</button>";
+    $cartDisplay .= "<button id='clear-cart' class='clear-cart button cart-buttons'>Clear Cart</button></div>";
 
 
    return $cartDisplay;
@@ -737,5 +742,44 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     $cutomerReviews .= "</table>";
 
     return $cutomerReviews;
+
+   }
+
+   // remove dupplication in cart by compounding the quantities of the same product entry
+   function sumCartQuantities($duplicatedCartDetails){
+
+    for($i = 0; $i < count($duplicatedCartDetails); $i++){
+        
+
+        for($j = 0; $j < count($duplicatedCartDetails); $j++){
+
+            if($duplicatedCartDetails[$j]['product_entryId'] == $duplicatedCartDetails[$i]['product_entryId'] && $i!=$j){
+
+                // sum the quantity
+                $duplicatedCartDetails[$i]['cart_item_qty'] += $duplicatedCartDetails[$j]['cart_item_qty'];
+
+                //remove the duplicate from the iteration by changing its entry id, but leave space taken
+                $duplicatedCartDetails[$j]['product_entryId'] = 'Counted!'.$j;
+
+            }
+
+        }
+    }
+
+
+    for($i = 0; $i <= count($duplicatedCartDetails)+1; $i++){
+
+        if(array_key_exists ( $i , $duplicatedCartDetails)){
+        
+            if($duplicatedCartDetails[$i]['product_entryId'] == 'Counted!'.$i){
+
+                //remove duplicate completely
+                unset($duplicatedCartDetails[$i]);
+            }
+
+        }
+    }
+
+    return $duplicatedCartDetails;
 
    }

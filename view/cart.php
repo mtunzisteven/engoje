@@ -43,4 +43,5 @@
             ?>
         </main>
     </body>
+    <script src='/zalisting/js/deletecartitem.js'></script>
 </html>

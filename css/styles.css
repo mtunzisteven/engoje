@@ -1268,8 +1268,8 @@ div.cart-display-table-column {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-width: 25%;
-  margin: -5px 5% 10px 70%;
+  min-width: 55%;
+  margin: -5px 5% 10px 40%;
   background-color: #fdfdfd;
 }
 
@@ -1288,13 +1288,13 @@ div.cart-display-table-column div.cart-total-container {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 55%;
-  max-width: 58%;
+  width: 35%;
+  max-width: 40%;
   margin: 0;
 }
 
 div.cart-display-table-column button {
-  max-width: 40%;
+  max-width: 30%;
   height: 50px;
   line-height: 50px;
   margin: 0;

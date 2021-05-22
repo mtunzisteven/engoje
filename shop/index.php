@@ -128,35 +128,71 @@
         case 'add-to-cart':
             // sanitize the variables received from Ajax request
             $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
-            $qty = filter_input(INPUT_POST, 'qty', FILTER_SANITIZE_NUMBER_INT);
+            $cart_item_qty = filter_input(INPUT_POST, 'cart_item_qty', FILTER_SANITIZE_NUMBER_INT);
+
 
             // if the variables are none-empty, proceed
             if(!empty($product_entryId) || !empty($qty)){
 
-                // create a session variable with the variables
-                $_SESSION['cart'][] = [
-                    'product_entryId' => $product_entryId, 
-                    'qty' => $qty
-                ];
+                if(isset($_SESSION['userData'])){
 
-                // define cart total and initialize it to a value of 0
-                $_SESSION['cartTotal'] = 0;
-            
-                foreach($_SESSION['cart'] as $cartItems){
+
+                    // date item added to cart
+                    $dateAdded = date('Y-m-d H:i:s');
     
-                    // get a total of all the items in the cart
-                    $_SESSION['cartTotal'] += $cartItems['qty'];
+                    // get product entry details to access the image path below
+                    $productDetails = getShopProductEntry($product_entryId);
     
+                    // get the image path
+                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
+        
+                    $userId = $_SESSION['userData']['userId'];
+    
+                    $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
+
+                    //echo $addToCart; break;
+
+                    if($addToCart){
+
+                        // add the cart total to the response array
+                        $responseText['cartTotal'] = $_SESSION['cartTotal'];
+
+                        // add the response text to the response array
+                        $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+
+                        // send the associative array back to the js Ajax
+                        echo json_encode($responseText);
+
+                    }
+    
+                }else{
+
+                    // create a session variable with the variables
+                    $_SESSION['cart'][] = [
+                        'product_entryId' => $product_entryId, 
+                        'cart_item_qty' => $cart_item_qty
+                    ];
+
+                    // define cart total and initialize it to a value of 0
+                    $_SESSION['cartTotal'] = 0;
+                
+                    foreach($_SESSION['cart'] as $cartItems){
+        
+                        // get a total of all the items in the cart
+                        $_SESSION['cartTotal'] += $cartItems['cart_item_qty'];
+        
+                    }
+
+                    // add the cart total to the response array
+                    $responseText['cartTotal'] = $_SESSION['cartTotal'];
+
+                    // add the response text to the response array
+                    $responseText['add-to-cart-response'] = "<p>$qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+
+                    // send the associative array back to the js Ajax
+                    echo json_encode($responseText);
+
                 }
-
-                // add the cart total to the response array
-                $responseText['cartTotal'] = $_SESSION['cartTotal'];
-
-                // add the response text to the response array
-                $responseText['add-to-cart-response'] = "<p>$qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
-
-                // send the associative array back to the js Ajax
-                echo json_encode($responseText);
 
 
             }
@@ -166,38 +202,79 @@
         // cart page accessing through icon or link in product page
         case 'cart':
 
-            // create an empty array
-            $cartDetails = [];
+            if(isset($_SESSION['userData'])){
 
-            //unset($_SESSION['cart']);
+                $cartItems = getCartItems($_SESSION['userData']['userId']);
 
-            // if there are cart session variables available, proceed
-            if(isset($_SESSION['cart'])){
+                $cartDisplay = buildCartDisplay(sumCartQuantities($cartItems));
 
-                //var_dump($_SESSION['cart']); exit;
-
-                foreach($_SESSION['cart'] as $orderItem){
-
-
-                    // Make an array of cart display items, with the exception of the image
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['qty'=>$orderItem['qty']];
-
-    
-                    // Make an array of all the cart display data including the image
-                    $cartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
-    
-                }
-                
-                // build a cart display
-                $cartDisplay = buildCartDisplay($cartDetails);
 
             }else{
 
-                $message = '<p class="notice">Your cart is empty...</p>';
+                    // create an empty array
+                $duplicatedCartDetails = [];
+
+                //unset($_SESSION['cart']);
+
+                // if there are cart session variables available, proceed
+                if(isset($_SESSION['cart'])){
+
+                    //var_dump($_SESSION['cart']); exit;
+
+                    foreach($_SESSION['cart'] as $orderItem){
+
+
+                        // Make an array of cart display items, with the exception of the image
+                        $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
+
+        
+                        // Make an array of all the cart display data including the image
+                        $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+        
+                    }
+
+                    //var_dump($duplicatedCartDetails); exit;
+                    
+                    // build a cart display
+                    $cartDisplay = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
+
+                }else{
+
+                    $message = '<p class="notice">Your cart is empty...</p>';
+
+                }
+
+            }
+            
+            include '../view/cart.php';
+
+            break;
+
+        // delete one product entry from the cart: Ajax request
+        case 'remove-cart-item':
+
+            // sanitize the variables received from Ajax request
+            $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
+
+            if(isset($_SESSION['cart'])){
+
+                $count = 0;
+
+                while(array_key_exists ( $product_entryId , $_SESSION['cart'])){
+
+                    if($product_entryId == $_SESSION['cart'][$count]['product_entryId']){
+
+                        unset($_SESSION['cart'][$count]);
+
+                    }
+
+                    $count++;
+
+                }
 
             }
 
-            include '../view/cart.php';
+            echo $_SESSION['cart'];
 
             break;
 
@@ -211,9 +288,18 @@
                 foreach($_SESSION['cart'] as $cartItems){
     
                 // get a total of all the items in the cart
-                $_SESSION['cartTotal'] += $cartItems['qty'];
+                $_SESSION['cartTotal'] += $cartItems['cart_item_qty'];
                 }
 
+            }else if(isset($_SESSION['userData'])){
+
+                $cartItems = getCartItems($_SESSION['userData']['userId']);
+
+                foreach($cartItems as $cartItem){
+    
+                    // get a total of all the items in the cart
+                    $_SESSION['cartTotal'] += $cartItem['cart_item_qty'];
+                }
             }
 
             // return the cart total to ajax request

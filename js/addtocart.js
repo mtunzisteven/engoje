@@ -11,7 +11,7 @@ addToCart.addEventListener('click', function(){
     let data = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 
     data.append('product_entryId', product_entryId.value);  // add the product_entryId to data
-    data.append('qty', cartQty.value);                      // add the quantity of products to the data
+    data.append('cart_item_qty', cartQty.value);                      // add the quantity of products to the data
     data.append('action', 'add-to-cart');                   // add the action that will be used by the case selection in the controller
 
     // Send data
@@ -19,6 +19,8 @@ addToCart.addEventListener('click', function(){
     request.open("POST", "http://localhost/zalisting/shop/index.php", false);
     request.onload = function() {
         if (request.status == 200) {
+
+            //alert(this.responseText);
 
             let assocArr = JSON.parse(this.responseText);
             
