@@ -199,10 +199,10 @@ function updateProduct($productName, $productPrice, $productDescription, $produc
 // This function will update product
 function deleteProduct($productId){
     
-    // Create a connection object from the phpmotors connection function
+    // Create a connection object from the zalisting connection function
     $db = zalistingConnect(); 
 
-    // The next line creates the prepared statement using the phpmotors connection      
+    // The next line creates the prepared statement using the zalisting connection      
     $stmt = $db->prepare('DELETE FROM products WHERE productId = :productId');
 
     // Replace the place holder
@@ -290,6 +290,48 @@ function getCartItems($userId){
     return $products;
 }
 
+function deleteCartItem($product_entryId, $userId){
+      
+    // Create a connection object from the zalisting connection function
+    $db = zalistingConnect(); 
+
+    // The next line creates the prepared statement using the zalisting connection      
+    $stmt = $db->prepare('DELETE FROM cart_items WHERE product_entryId = :product_entryId AND userId = :userId');
+
+    // Replace the place holder
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->bindValue(':userId',$userId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // Get number of affected rows
+    $result = $stmt->rowCount();
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $result;
+}
+
+function deleteCartItems($userId){
+      
+    // Create a connection object from the zalisting connection function
+    $db = zalistingConnect(); 
+
+    // The next line creates the prepared statement using the zalisting connection      
+    $stmt = $db->prepare('DELETE FROM cart_items WHERE userId = :userId');
+
+    // Replace the place holder
+    $stmt->bindValue(':userId',$userId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // Get number of affected rows
+    $result = $stmt->rowCount();
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $result;
+}
 /*
 function getVehicleDetails($invId){
     $db = zalistingConnect();

@@ -57,7 +57,7 @@ function buildUsersDisplay($users){
   // Build a multi user display view
 function buildCartDisplay($cartDetails){
 
-    $cartDisplay = "<div class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Quantity</div><div>Total</div><div>Remove Item</div></div>";
+    $cartDisplay = "<div id='cart' class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Quantity</div><div>Total</div><div>Remove Item</div></div>";
 
     $grandTotal = 0;
 
@@ -74,16 +74,14 @@ function buildCartDisplay($cartDetails){
         $cartDisplay .= "<div>R$cartItem[price]</div>"; 
         $cartDisplay .= "<div class='buttoned-div'><button class='button cart-qty-reduce-button'>-</button><input type='number' value='$cartItem[cart_item_qty]' /><button class='button cart-qty-reduce-button'>+</button></div>"; 
         $cartDisplay .= "<div>R$lineTotal</div>"; 
-        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><i class='nav-hamburger-close fa fa-times'></i></div></div>"; 
-        $cartDisplay .= "<input type='hidden' id='product_entryId' value='$cartItem[product_entryId]' >"; 
-        
+        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/shop/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
 
     }
 
     $cartDisplay .= '</div>';
     $cartDisplay .= "<div class='cart-display-table-column'><div class='cart-total-container'><h4>Cart Total:</h4><h4> R$grandTotal</h4></div>";
     $cartDisplay .= "<button id='update-cart' class='update-cart button cart-buttons'>Update Cart</button>";
-    $cartDisplay .= "<button id='clear-cart' class='clear-cart button cart-buttons'>Clear Cart</button></div>";
+    $cartDisplay .= "<a href='/zalisting/shop/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
 
    return $cartDisplay;

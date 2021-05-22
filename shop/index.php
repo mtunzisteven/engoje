@@ -136,7 +136,6 @@
 
                 if(isset($_SESSION['userData'])){
 
-
                     // date item added to cart
                     $dateAdded = date('Y-m-d H:i:s');
     
@@ -154,6 +153,10 @@
 
                     if($addToCart){
 
+        
+                        // get a total of all the items in the cart
+                        $_SESSION['cartTotal'] += $cart_item_qty;
+            
                         // add the cart total to the response array
                         $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
@@ -187,7 +190,7 @@
                     $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                     // add the response text to the response array
-                    $responseText['add-to-cart-response'] = "<p>$qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+                    $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -206,7 +209,13 @@
 
                 $cartItems = getCartItems($_SESSION['userData']['userId']);
 
-                $cartDisplay = buildCartDisplay(sumCartQuantities($cartItems));
+                if($cartItems){
+
+                    $cartDisplay = buildCartDisplay(sumCartQuantities($cartItems));
+
+                }else{
+                    $message = '<p class="notice">Your cart is empty...</p>';
+                }
 
 
             }else{
@@ -250,11 +259,11 @@
 
             break;
 
-        // delete one product entry from the cart: Ajax request
+        // delete one product entry from the cart
         case 'remove-cart-item':
 
             // sanitize the variables received from Ajax request
-            $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
+            $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
 
             if(isset($_SESSION['cart'])){
 
@@ -271,10 +280,22 @@
                     $count++;
 
                 }
+            }
+
+            //echo $product_entryId; exit;
+
+            if(isset($_SESSION['userData'])){
+
+                $removeRow = deleteCartItem($product_entryId, $_SESSION['userData']['userId']);
 
             }
 
-            echo $_SESSION['cart'];
+
+            //echo $removeRow; exit;
+
+                
+            header('Location: /zalisting/shop/?action=cart');
+
 
             break;
 
@@ -304,6 +325,20 @@
 
             // return the cart total to ajax request
             echo $_SESSION['cartTotal'];
+
+            break;
+
+        case 'clear-cart':
+
+            unset($_SESSION['cart']);
+
+            if(isset($_SESSION['userData'])){
+
+                $removeRow = deleteCartItems($_SESSION['userData']['userId']);
+
+            }
+
+            header('Location: /zalisting/shop/?action=cart');
 
             break;
         

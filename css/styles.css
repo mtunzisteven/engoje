@@ -1293,9 +1293,10 @@ div.cart-display-table-column div.cart-total-container {
   margin: 0;
 }
 
-div.cart-display-table-column button {
+div.cart-display-table-column button, div.cart-display-table-column a {
+  display: block;
   max-width: 30%;
-  height: 50px;
+  min-height: 50px;
   line-height: 50px;
   margin: 0;
   font-size: 16px;

@@ -1,17 +1,17 @@
 // declare the variables needed to remove items asynchronously from the cart
-let product_entryId = document.querySelector('#product_entryId');
-var deleteItem = document.querySelector('.remove-cart-item');
+let product_entryId = document.querySelectorAll('.product_entryId');
+let deleteItem = document.querySelectorAll('.remove-cart-item');
+let cartParent = document.querySelector('#cart');
+
 
 
 for(let i = 0; i<deleteItem.length; i++){ // loop through them all and add the event Listener.
 
-    alert('Hey deleteItem!');
-
-    deleteItem[i].addEventListener('click', function(event){
+    deleteItem[i].addEventListener('click', function(){
 
         let data = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 
-        data.append('product_entryId', product_entryId.value);  // add the product_entryId to data
+        data.append('product_entryId', product_entryId[i].value);  // add the product_entryId to data
         data.append('action', 'remove-cart-item');                   // add the action that will be used by the case selection in the controller
 
         // Send data
@@ -21,6 +21,8 @@ for(let i = 0; i<deleteItem.length; i++){ // loop through them all and add the e
             if (request.status == 200) {
 
                 alert(this.responseText);
+
+                document.querySelector(this.responseText)='';
 
             } else {
 

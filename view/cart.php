@@ -18,7 +18,7 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
     <body>
 
-        <main class="content">
+        <main class="content" id='parentContainer'>
             <?php 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
@@ -43,5 +43,4 @@
             ?>
         </main>
     </body>
-    <script src='/zalisting/js/deletecartitem.js'></script>
 </html>
