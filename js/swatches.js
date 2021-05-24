@@ -5,6 +5,7 @@ let product_entryId = document.querySelector('#product_entryId');//             
 let productPrice = document.querySelector('#productPrice');//                            |
 let colourLabel = document.querySelector('#label-colour');//                             |
 let sizeLabel = document.querySelector('#label-size');//                                 |
+let cartQty = document.querySelector('#add-to-cart-qty');//                              |
 //---------------------------------------------------------------------------------------|
 let sizeSwatches = document.querySelectorAll('.size');     // get all divs with class:size
 let colourSwatches = document.querySelectorAll('.colour'); // get all divs with class:colour
@@ -29,6 +30,8 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
             for(let j = 0; j<colourSwatches.length; j++){             
                 colourSwatches[j].style.borderColor = '#d8d5d5';      // go through each colour swatch and make sure it has the default border colour
             }
+
+            cartQty.value = 0;                                        // return the cart amount to zero
 
             for(let j = 0; j<sizeSwatches.length; j++){             
                 sizeSwatches[j].style.borderColor = '#d8d5d5';      // go through each size swatch and make sure it has the default border colour
@@ -140,6 +143,8 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
         for(let j = 0; j<sizeSwatches.length; j++){             
             sizeSwatches[j].style.borderColor = '#d8d5d5';      // go through each swatch and make sure it has the default border colour
         }
+
+        cartQty.value = 0;                                      // return the cart amount to zero
 
         event.target.style.borderColor = '#000000';               // change the border colour of the clicked swatch
 
