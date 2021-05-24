@@ -409,10 +409,10 @@ function buildProductImageUploadForm($product){
 
     $imageUploadForm = "<form class='db-entry-form form-image-upload' action='' method='post' enctype='multipart/form-data'>";
     $imageUploadForm .= "<label for='product_entryId'>$product[colour]: Primary Image</label>";
-    $imageUploadForm .= "<input type='hidden' id='product_entryId' value='$product[product_entryId]' name='product_entryId' />";
+    $imageUploadForm .= "<input type='hidden' value='$product[product_entryId]' name='product_entryId' />";
     $imageUploadForm .= "<input type='hidden' name='imagePrimary' id='priYes' value='1' />";
     $imageUploadForm .= "<label>Upload Image:</label>";
-    $imageUploadForm .= "<input type='file' name='file'>";
+    $imageUploadForm .= "<input type='file' name='file' >";
     $imageUploadForm .= "<input type='submit' class='button' value='Upload'>";
     $imageUploadForm .= "<input type='hidden' name='action' value='upload'>";
     $imageUploadForm .= "</form>";
@@ -426,7 +426,7 @@ function buildSecondaryImageUploadForm($product){
 
     $imageUploadForm = "<form class='db-entry-form form-image-upload' action='' method='post' enctype='multipart/form-data'>";
     $imageUploadForm .= "<label for='product_entryId'>$product[colour]: Galarry Images</label>";
-    $imageUploadForm .= "<input type='hidden' id='product_entryId' value='$product[product_entryId]' name='product_entryId' />";
+    $imageUploadForm .= "<input type='hidden' value='$product[product_entryId]' name='product_entryId' />";
     $imageUploadForm .= "<input type='hidden' name='imagePrimary' id='priNo' value='0' />";
     $imageUploadForm .= "<label>Upload Images:</label>";
     $imageUploadForm .= "<input type='file' name='file' multiple />";

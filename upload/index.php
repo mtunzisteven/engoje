@@ -36,22 +36,6 @@ switch ($action) {
     // Store the incoming product entry id and primary picture indicator
 	$product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_VALIDATE_INT);
 	$imagePrimary = filter_input(INPUT_POST, 'imagePrimary', FILTER_VALIDATE_INT);
-
-    /*$fileName = 'file';
-    $num = 0;
-    do {
-
-        $fileName .= $num;
-
-        // Search for index with set file name
-        if(isset($_FILES[$fileName])){
-            $num = -1;
-        }else{
-            $num++;
-        }
-
-    } while ($num != -1);*/
-
 	
     // Store the name of the uploaded image
     $imageName = $_FILES['file1']['name'];
@@ -91,6 +75,8 @@ switch ($action) {
     
     break;
 
+    // This is handled via Ajax request: uploads.js
+    // For uploading primary images in product creation
     case 'new-upload':
 
         // directory name where uploaded images are stored
@@ -197,39 +183,40 @@ case 'delete':
     $filename = filter_input(INPUT_GET, 'filename', FILTER_SANITIZE_STRING);
     $imageId = filter_input(INPUT_GET, 'imageId', FILTER_VALIDATE_INT);
 
-
+    // get the thumnail of the product to be deleted
     $image = getProductThumbnail($imageId);
-
-    //var_dump($image['imagePath_tn']); exit; 
-
         
     // Build the full path to the image and image thumbnail to be deleted
     $target = $image_dir_path . '/'. $filename;
 
     // careful to include $_SERVER['DOCUMENT ROOT'], other directory cannot be found
     $target_tn = $_SERVER['DOCUMENT_ROOT'] . $image['imagePath_tn']; 
-
-    //var_dump($target); exit; 
         
     // Check that the file exists in that location
     if (file_exists($target)) {
-        // Deletes the file in the folder
+
+        // Deletes the files in the folder
         $result = unlink($target); 
         $result_tn = unlink($target_tn);
 
-        //var_dump($result); exit; 
     }
         
     // Remove from database only if physical file deleted
+    // and no other product entry in the product id
     if ($result) {
+
         $remove = deleteImage($imageId);
     }
         
     // Set a message based on the delete result
     if ($remove) {
+
         $message = "<p class='notice'>$filename was successfully deleted.</p>";
+
     } else {
+
         $message = "<p class='notice'>$filename was NOT deleted.</p>";
+
     }
         
     // Store message to session
@@ -259,6 +246,9 @@ default:
         $uploadForms = $_SESSION['uploadForms'];
 
         unset($_SESSION['uploadForms']);
+
+        include '../view/image-uploads.php';
+        exit;
         
     }else{ // Otherwise, use the normal apload process where you choose the product that is already uploaded.
         
@@ -273,12 +263,10 @@ default:
 
         //var_dump($uploadForms); exit;
 
+        include '../view/image-manager.php';
+        exit;
 
     }
-
-        
-    include '../view/image-manager.php';
-    exit;
     
     break;
    }
