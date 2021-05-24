@@ -405,22 +405,33 @@ function buildImageUploadForm($productSelect){
 
 
 // Build the form for uploading product images
-function buildProductImageUploadForm($productSelect){
+function buildProductImageUploadForm($product){
 
-    $imageUploadForm = "<form class='db-entry-form form-image-upload uploadform'  method='post' enctype='multipart/form-data'>";
-    $imageUploadForm .= "<label for='product_entryId'>Products</label>";
-
-    if(isset($productSelect)){ 
-        $imageUploadForm .= $productSelect;
-    }
-
-    $imageUploadForm .= "<label class='radio'>This is the main image for the product</label>";
-
-    $imageUploadForm .= "<input type='hidden' name='imagePrimary' class='primary' value='1' />";
-
+    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm .= "<label for='product_entryId'>$product[colour]: Primary Image</label>";
+    $imageUploadForm .= "<input type='hidden' id='product_entryId' value='$product[product_entryId]' name='product_entryId' />";
+    $imageUploadForm .= "<input type='hidden' name='imagePrimary' id='priYes' value='1' />";
     $imageUploadForm .= "<label>Upload Image:</label>";
-    $imageUploadForm .= "<input type='file' id='file1' name='file' multiple>";
-    $imageUploadForm .= "<input type='submit' class='button' id='productImageUploadForm' value='Upload'>";
+    $imageUploadForm .= "<input type='file' name='file'>";
+    $imageUploadForm .= "<input type='submit' class='button' value='Upload'>";
+    $imageUploadForm .= "<input type='hidden' name='action' value='upload'>";
+    $imageUploadForm .= "</form>";
+
+    return $imageUploadForm;
+
+}
+
+// Build the form for uploading product images
+function buildSecondaryImageUploadForm($product){
+
+    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm .= "<label for='product_entryId'>$product[colour]: Galarry Images</label>";
+    $imageUploadForm .= "<input type='hidden' id='product_entryId' value='$product[product_entryId]' name='product_entryId' />";
+    $imageUploadForm .= "<input type='hidden' name='imagePrimary' id='priNo' value='0' />";
+    $imageUploadForm .= "<label>Upload Images:</label>";
+    $imageUploadForm .= "<input type='file' name='file' multiple />";
+    $imageUploadForm .= "<input type='submit' class='button' value='Upload'>";
+    $imageUploadForm .= "<input type='hidden' name='action' value='upload'>";
     $imageUploadForm .= "</form>";
 
     return $imageUploadForm;
@@ -567,6 +578,43 @@ function uploadFile($name) {
 
         // Get the file from the temp folder on the server
         $source = $_FILES[$name]['tmp_name'];
+
+        // Sets the new path - images folder in this directory
+        $target = $image_dir_path . '/' . $filename;
+
+        //echo $filename; exit;
+
+        // Moves the file to the target folder : This is a built-in function
+        // $target is the file path ending with the file name. 
+        move_uploaded_file($source, $target);
+
+        // Send file for further processing
+        processImage($image_dir_path, $filename);
+
+        // Sets the path for the image for Database storage
+        $filepath = $image_dir . '/' . $filename;
+        
+        // Returns the path where the file is stored
+        return $filepath;
+    }
+
+   }
+
+   // Handles the file upload process and returns the path
+// The file path is stored into the database
+function uploadFiles($name, $i) {
+    // Gets the paths, full and local directory
+    global $image_dir, $image_dir_path;
+    
+    if (isset($_FILES[$name])) {
+        // Gets the actual file name- e.g: example.png, example.jpg, example.gif
+        $filename = $_FILES[$name]['name'][$i];
+        if (empty($filename)) {
+            return;
+        }
+
+        // Get the file from the temp folder on the server
+        $source = $_FILES[$name]['tmp_name'][$i];
 
         // Sets the new path - images folder in this directory
         $target = $image_dir_path . '/' . $filename;

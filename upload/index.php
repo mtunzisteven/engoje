@@ -77,8 +77,7 @@ switch ($action) {
             
         // Set a message based on the insert result
         if ($result) {
-            echo '<p class="notice">The upload succeeded.</p>';
-            exit;
+            $message = '<p class="notice">The upload succeeded.</p>';
         } else {
             $message = '<p class="notice">Sorry, the upload failed.</p>';
         }
@@ -130,19 +129,69 @@ switch ($action) {
             if ($result) {
 
                 echo '<p class="notice">The upload succeeded.</p>';
-                exit;
             } else {
-                $message = '<p class="notice">Sorry, the upload failed.</p>';
+                echo '<p class="notice">Sorry, the upload failed.</p>';
             }
         }
-            
-        // Store message to session
-        $_SESSION['message'] = $message; 
-
 
         break;
 
-    case 'delete':
+    case 'multi-upload':
+
+        // directory name where uploaded images are stored
+        $image_dir = '/zalisting/images';
+
+        // The path is the full path from the server root
+        $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
+
+
+        $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_VALIDATE_INT);
+        $imagePrimary = filter_input(INPUT_POST, 'imagePrimary', FILTER_VALIDATE_INT);
+
+        $result = 0; // this will serve as the count for every image uploaded.
+
+        for($i = 0; $i < count($_FILES['file']['name']); $i++){
+
+            //echo $files['file']['name']; break;
+
+            // Store the name of the uploaded image
+            $imageName = $_FILES['file']['name'][$i];
+
+            // Check the data base for any name matching this one
+            $imageCheck = checkExistingImage($imageName);
+                
+            if($imageCheck){
+
+                $message = '<p class="notice">An image by that name already exists.</p>';
+
+            } elseif (empty($product_entryId) || empty($imageName)) {
+
+                $message = '<p class="notice">You must add a product and image file for the product.</p>';
+
+            } else {
+
+                // Upload the image, store the returned path to the file
+                $imagePath = uploadFiles('file', $i);
+                    
+                // Insert the image information to the database, get the result
+                $result += storeImages($imagePath, $product_entryId, $imageName, $imagePrimary);
+                    
+                // Set a message based on the insert result
+
+            }
+
+        }
+
+        if ($result == count($_FILES['file']['name'])) {
+
+            echo '<p class="notice">Uploaded files successfully.</p>';
+        } else {
+            echo '<p class="notice">Sorry, the uploads failed.</p>';
+        }
+
+        break;
+
+case 'delete':
 
     // Get the image name and id
     $filename = filter_input(INPUT_GET, 'filename', FILTER_SANITIZE_STRING);
@@ -191,7 +240,7 @@ switch ($action) {
     
     break;
 
-    default:
+default:
 
     // Call function to return image info from database
     $imageArray = getImages();
@@ -228,7 +277,7 @@ switch ($action) {
     }
 
         
-    include '../view/image-uploads.php';
+    include '../view/image-manager.php';
     exit;
     
     break;

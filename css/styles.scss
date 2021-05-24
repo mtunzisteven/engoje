@@ -576,10 +576,6 @@ nav.mobile-nav{
     }
 }
 
-.single-product-shop{
-    padding: 40px 2px;
-}
-
 .shop{
     @include flex(column, center);
     background-color: $background-color;
@@ -655,6 +651,41 @@ nav.mobile-nav{
     }
 }
 
+div.single-product-shop{
+
+    @include flex(column, center);
+    width:96%;
+    max-width: 500px;
+    padding: 40px 2%;
+
+    & div.single-product{
+
+        @include flex(row-reverse, center, flex-start);
+        min-width: 100%;
+        max-width: 100%;
+
+        & img.product-primary-image{
+
+            min-width: 85%;
+            margin: 0 1%;
+        }
+
+        & div.single-product-gallery{
+
+            @include flex(column, center, center);
+            max-width: 10%;
+
+            & img.product-gallery-image{
+
+                max-width: 100%;
+                max-height: auto;
+                margin:0 0 3px 0;
+                cursor: pointer;
+
+            }
+        }
+    }
+}
 /*-----------------------------------------------Product END
 */
 
@@ -701,9 +732,9 @@ form.form-add-to-cart{
     flex-direction:column;
     justify-content: left;
     border:none;
-    width:100%;
+    min-width:100%;
     padding:0;
-    margin:0;
+    margin:30px 0 0 0;
 
     & #product-title{
         color: $main-color;
@@ -1058,8 +1089,52 @@ form{
 
 }
 
+form.form-add-to-cart{
+
+    min-width:35%;
+    padding:0 7.5%;
+    margin: -96px 0 0 0;
+
+}
+
 /*------------------------------------------------Forms END
 */
+
+div.single-product-shop{
+
+    @include flex(row, space-around);
+    width:96%;
+    max-width: 1080px;
+    padding: 40px 2%;
+
+    & div.single-product{
+
+        @include flex(row-reverse, center, flex-start);
+        min-width: 50%;
+        max-width: 50%;
+
+        & img.product-primary-image{
+
+            min-width: 85%;
+            margin: 0 1%;
+        }
+
+        & div.single-product-gallery{
+
+            @include flex(column, center, center);
+            max-width: 10%;
+
+            & img.product-gallery-image{
+
+                max-width: 100%;
+                max-height: auto;
+                margin:0 0 3px 0;
+                cursor: pointer;
+
+            }
+        }
+    }
+}
     
 }
 
@@ -1500,8 +1575,8 @@ form{
 @media only screen and (min-width: 1080px){
 
     .single-product-shop{
-        max-width:80%;
-        padding: 30px 10px;
+        max-width: 96%;
+        padding: 30px 2%;
     }
 
 }

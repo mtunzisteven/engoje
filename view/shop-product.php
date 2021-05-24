@@ -18,47 +18,57 @@
         ?>
         <div class="shop single-product-shop">
             <div class="single-product">
+
                 <?php
 
                 if(isset($productData)){
 
-                echo "<img id='single-product' src='".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
+                echo "<img id='single-product' class='product-primary-image' src='".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
+
+                echo "<div class='single-product-gallery'>";
+
+                foreach($productData as $productrow){
+                    if($productrow['product_entryId'] == $productData[0]['product_entryId']){
+
+                        echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='".$productrow['imagePath_tn']."' alt='Gallery Image'>";
+
+                    }
+                }
+
+                echo "</div>";
 
                 ?>
+
+
+
             </div>
+            <form class="form-add-to-cart" action="" >
 
-            
-            <div class='single-product-details'>
-                <form class="form-add-to-cart" action="" >
+                <?php 
 
-                    <?php 
+                        //var_dump($productData); exit;
+                    
+                        echo "<h1 id='product-title'>".$productData[0]['productName']."</h1>";
+                        echo "<p class='productPrice' id='productPrice' >R".$productData[0]['price']."</p>";
+                        echo "<p  class='productShort-descr'>".$productData[0]['productShortDescr']."</p>";
+                        echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$productData[0]['product_entryId']."' />";
+                        echo "<input type='hidden' id='productId' name='productId' value='$productId' />";
 
-                            //var_dump($productData); exit;
-                        
-                            echo "<h1 id='product-title'>".$productData[0]['productName']."</h1>";
-                            echo "<p class='productPrice' id='productPrice' >R".$productData[0]['price']."</p>";
-                            echo "<p  class='productShort-descr'>".$productData[0]['productShortDescr']."</p>";
-                            echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$productData[0]['product_entryId']."' />";
-                            echo "<input type='hidden' id='productId' name='productId' value='$productId' />";
+                        echo $colours;                            
 
-                            echo $colours;                            
+                        echo $sizes;
 
-                            echo $sizes;
-
-                        }
-                    ?>
-                    <div class="add-to-cart-container">
-                        <input id="add-to-cart-qty" type="number" name="qty" value="0" />
-                        <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
-                    </div>
-                    <div class="add-to-cart-container">
-                        <input id="add-to-wishlist-button" class="button" type="button" value="Add to Wishlist" />
-                    </div>
-                    <div id='add-to-cart-response'></div>
-
-
-                </form>
-            </div>
+                    }
+                ?>
+                <div class="add-to-cart-container">
+                    <input id="add-to-cart-qty" type="number" name="qty" value="0" />
+                    <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
+                </div>
+                <div class="add-to-cart-container">
+                    <input id="add-to-wishlist-button" class="button" type="button" value="Add to Wishlist" />
+                </div>
+                <div id='add-to-cart-response'></div>
+            </form>
         </div>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
     </main>

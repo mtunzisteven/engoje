@@ -1,6 +1,7 @@
 
 //----------------variables for elements that will be bechanged by swatch selection------|
 let primaryImage = document.querySelector('#single-product');//                          |
+var gallery = document.querySelectorAll('.product-gallery-image');//               |
 let product_entryId = document.querySelector('#product_entryId');//                      |
 let productPrice = document.querySelector('#productPrice');//                            |
 let colourLabel = document.querySelector('#label-colour');//                             |
@@ -56,6 +57,13 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
                 if (request.status == 200) {
 
                     let assocArr = JSON.parse(this.responseText);
+
+                    for(let j = 0; j < gallery.length; j++){
+
+                        gallery[j].setAttribute('src', assocArr['galleryPaths_tn'][j]);    
+                        gallery[j].setAttribute('id', assocArr['galleryPaths'][j]);            
+
+                    }
 
                     primaryImage.setAttribute('src', assocArr['imagePath']);
 

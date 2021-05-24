@@ -11,7 +11,7 @@
         header('Location: /zalisting/view/account.php');
     }
 
-    $pageName ="Add Manage"; 
+    $pageName ="Image Manager"; 
     $pageShortSummary = "Dashboard";
     $pageDescription = "Product management dashboard";
 
@@ -79,6 +79,5 @@
             </section>         
         </main>
         <script src="../js/sliders.js"></script>
-        <script src="../js/uploads.js"></script>
     </body>
 </html>

@@ -2,9 +2,8 @@
 // we don't need to declare product_entryId because it is defined in the 
 // swatches.js which is above this file in the html document
 let addToCart = document.querySelector('#add-to-cart-button'); 
-let cartQty = document.querySelector('#add-to-cart-qty');
 let addToCartRespose = document.querySelector('#add-to-cart-response');
-var cartCount = document.querySelector('#cart-count');
+let galleryImages = document.querySelectorAll('.product-gallery-image');
 
 addToCart.addEventListener('click', function(){
 
@@ -37,4 +36,17 @@ addToCart.addEventListener('click', function(){
     };
 
     request.send(data);    
+
 }, false);
+
+
+
+for(let j = 0; j < galleryImages.length; j++){
+
+    galleryImages[j].addEventListener('click', function(event){
+
+        primaryImage.setAttribute('src', event.target.getAttribute('id'));        
+
+    }, false);
+
+}

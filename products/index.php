@@ -224,14 +224,16 @@
                 $productSelect = buildProductSelect($products);
 
                 // get product image upload form
-                //$uploadForm = '';
+                //$uploadForm = ''; 
 
                 $_SESSION['uploadForms'] = '';
 
                 // display as many image upload forms as products added
                 for($i = 0; $i < count($products); $i++){
 
-                    $_SESSION['uploadForms'] .= buildProductImageUploadForm($productSelect);
+                    $_SESSION['uploadForms'] .= buildProductImageUploadForm($products[$i]);
+
+                    $_SESSION['uploadForms'] .= buildSecondaryImageUploadForm($products[$i]);
 
                 }
                 
@@ -318,8 +320,8 @@
 
          break;
         
-        case 'product':
-        default:
+    case 'product':
+    default:
 
             // 
 

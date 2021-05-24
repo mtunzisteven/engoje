@@ -332,28 +332,20 @@ function deleteCartItems($userId){
 
     return $result;
 }
-/*
-function getVehicleDetails($invId){
+
+// Get swatch images for a single product entry by product entry Id
+function getSwatchImages($product_entryId){
     $db = zalistingConnect();
-    $sql = "SELECT images.imgPath, inventory.invModel, inventory.invMake, inventory.invPrice, inventory.invId, inventory.invStock, inventory.invDescription, inventory.invId FROM images INNER JOIN inventory ON images.invId=inventory.invId WHERE images.imgName NOT LIKE '%\-tn%' AND inventory.invId=:invId"; 
+    $sql = 'SELECT imagePath, imagePath_tn FROM images 
+                    WHERE product_entryId = :product_entryId';
+
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
     $stmt->execute();
-    $vehicleDetails = $stmt->fetch(PDO::FETCH_ASSOC);
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
-    return $vehicleDetails;
+
+    //var_dump($productData); exit;
+
+    return $productData;
 }
-
-
-// Get information for all vehicles
-function getVehicles(){
-	$db = zalistingConnect();
-	$sql = 'SELECT invId, invMake, invModel FROM inventory';
-	$stmt = $db->prepare($sql);
-	$stmt->execute();
-	$invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-	$stmt->closeCursor();
-	return $invInfo;
-}
-
-*/
