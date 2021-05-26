@@ -2106,7 +2106,7 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     padding: 5px;
   }
   .shop .side-bar {
-    width: 28%;
+    width: 23%;
     max-width: 28%;
     margin: 20px 10px;
   }
@@ -2115,16 +2115,16 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     margin-top: 2px;
   }
   .shop .shop-products {
-    width: 68%;
-    max-width: 68%;
+    width: 76%;
+    max-width: 77%;
   }
   .shop .shop-products .product {
     color: #3a3939;
     text-align: left;
-    max-width: 184px;
+    max-width: 220px;
   }
   .shop .shop-products .product img {
-    width: 180px;
+    width: 220px;
     margin: 2px;
   }
 }

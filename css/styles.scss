@@ -1537,7 +1537,7 @@ div.single-product-shop{
             padding:5px;
 
             & .side-bar{
-                width:28%;
+                width:23%;
                 max-width:28%;
                 margin:20px 10px;
             
@@ -1549,16 +1549,16 @@ div.single-product-shop{
 
 
             & .shop-products{
-                width:68%;
-                max-width:68%;
+                width:76%;
+                max-width:77%;
 
                 & .product{
                     color:$dark-color;
                     text-align: left;
-                    max-width:184px;
+                    max-width:220px;
 
                     & img{
-                        width:180px;
+                        width:220px;
                         margin: 2px;
 
                     }              
