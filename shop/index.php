@@ -161,11 +161,11 @@
                     // get the image path
                     $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
         
+                    // get the user id of the logged in user
                     $userId = $_SESSION['userData']['userId'];
     
+                    // add the items to the cart
                     $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
-
-                    //echo $addToCart; break;
 
                     if($addToCart){
 
@@ -221,22 +221,70 @@
         // cart page accessing through icon or link in product page
         case 'cart':
 
-            if(isset($_SESSION['userData'])){
+            if(isset($_SESSION['userData'])){ // for logged in users
 
                 $cartItems = getCartItems($_SESSION['userData']['userId']);
 
                 if($cartItems){
 
+                    // delete cart items from session if there are cart items from db
+                    if(isset($_SESSION['cart'])){ 
+
+                        unset($_SESSION['cart']);
+
+                    }
+
+                    // create a display cart variable to use in the view
                     $cartDisplay = buildCartDisplay(sumCartQuantities($cartItems));
+
+                }
+
+                // add the cart items to the db since there user has no cart item data stored there.
+                else if(isset($_SESSION['cart'])){ 
+
+                    foreach($_SESSION['cart'] as $orderItem){
+
+                        // date item added to cart
+                        $dateAdded = date('Y-m-d H:i:s');
+        
+                        // get product entry details to access the image path below
+                        $productDetails = getShopProductEntry($orderItem['product_entryId']);
+        
+                        // get the image path
+                        $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
+            
+                        // get the user id of the logged in user
+                        $userId = $_SESSION['userData']['userId'];
+        
+                        // add the items to the cart
+                        $addToCart = addCartItem($orderItem['product_entryId'], $orderItem['cart_item_qty'], $userId, $imagePath['imagePath_tn'], $dateAdded);
+
+                        // Make an array of cart display items, with the exception of the image
+                        $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
+
+        
+                        // Make an array of all the cart display data including the image
+                        $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+        
+                    }
+
+                    // clear cart item session variable
+                    unset($_SESSION['cart']);
+                    
+                    // create a display cart variable to use in the view
+                    $cartDisplay = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
 
                 }else{
                     $message = '<p class="notice">Your cart is empty...</p>';
                 }
 
 
-            }else{
+            }
+                   
+            //user not logged in so cart session variable will be used exclusively  
+            else{ 
 
-                    // create an empty array
+                // create an empty array
                 $duplicatedCartDetails = [];
 
                 //unset($_SESSION['cart']);
@@ -281,27 +329,41 @@
             // sanitize the variables received from Ajax request
             $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
 
+            // If there are items in the cart
             if(isset($_SESSION['cart'])){
 
-                $count = 0;
+                // if there is one item in the cart
+                if(count($_SESSION['cart']) == 1){
 
-                while(array_key_exists ( $product_entryId , $_SESSION['cart'])){
-
-                    if($product_entryId == $_SESSION['cart'][$count]['product_entryId']){
-
-                        unset($_SESSION['cart'][$count]);
-
-                    }
-
-                    $count++;
+                    // remove it
+                    unset($_SESSION['cart']);
 
                 }
+                
+                // if there are more than 1 item
+                else{
+
+                    for($i = 0; $i < count($_SESSION['cart']); $i++){
+
+                        // go through all the items and find one that has the same product id
+                        if($_SESSION['cart'][$i]['product_entryId'] == $product_entryId){
+    
+                            // delete it
+                            unset($_SESSION['cart'][$i]);
+    
+                        }
+    
+                    }
+
+                }
+
+
             }
 
-            //echo $product_entryId; exit;
-
+            // if the user is logged in
             if(isset($_SESSION['userData'])){
-
+                
+                // remove the cart item
                 $removeRow = deleteCartItem($product_entryId, $_SESSION['userData']['userId']);
 
             }
