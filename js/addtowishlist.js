@@ -16,7 +16,7 @@ addToWishlist.addEventListener('click', function(){
     request.onload = function() {
         if (request.status == 200) {
 
-            alert('send and receive worked!');
+            //alert('send and receive worked!');
 
             let assocArr = JSON.parse(this.responseText);
             

@@ -85,7 +85,7 @@ switch ($action){
                         $responseText['wishlistTotal'] = count($Added);
 
                         // add the response text to the response array
-                        $responseText['add-to-wishlist-response'] = "<p>Product added to <a href='/zalisting/shop?action=wishlist'>wish list</a></p>";
+                        $responseText['add-to-wishlist-response'] = "<p>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                         // send the associative array back to the js Ajax
                         echo json_encode($responseText);
@@ -114,7 +114,7 @@ switch ($action){
                 if($alreadyAdded){// Item already added to wishlist of the user
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p>Product already added to <a href='/zalisting/shop?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                      // define wishlist total and initialize it to a value of 0
                      $_SESSION['wishlistTotal'] = count($_SESSION['wishlist']);
@@ -130,7 +130,6 @@ switch ($action){
                     // create a session variable with the variables
                     $_SESSION['wishlist'][] = [
                         'product_entryId' => $product_entryId, 
-                        'wishlist_item_qty' => 1
                     ];
 
                     // define wishlist total and initialize it to a value of 0
@@ -140,7 +139,7 @@ switch ($action){
                     $responseText['wishlistTotal'] = $_SESSION['wishlistTotal'];
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p>Product added to <a href='/zalisting/shop?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -208,7 +207,7 @@ switch ($action){
         //user not logged in so cart session variable will be used exclusively  
         else{ 
 
-            // if there are cart session variables available, proceed
+            // if there are wishlist session variables available, proceed
             if(isset($_SESSION['wishlist'])){
 
                 foreach($_SESSION['wishlist'] as $orderItem){
@@ -292,7 +291,7 @@ switch ($action){
         }
 
         // redirect to the cart page
-        header('Location: /zalisting/shop/?action=wishlist');
+        header('Location: /zalisting/wishlist/?action=wishlist');
 
 
         break;
@@ -312,7 +311,10 @@ switch ($action){
 
         }else if(isset($_SESSION['wishlist'])){
 
-            $responseText['wishlistTotal'] = $_SESSION['wishlistTotal'];
+            // reindex the array
+            $_SESSION['wishlist'] = array_values($_SESSION['wishlist']);
+
+            $responseText['wishlistTotal'] = count($_SESSION['wishlist']);
 
         }
 
@@ -331,7 +333,7 @@ switch ($action){
 
         }
 
-        header('Location: /zalisting/shop/?action=wishlist');
+        header('Location: /zalisting/wishlist/?action=wishlist');
 
         break;
     
