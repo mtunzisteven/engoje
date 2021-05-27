@@ -71,8 +71,9 @@
             </form>
         </div>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
+        <script src='/zalisting/js/swatches.js'></script>
+        <script src='/zalisting/js/addtocart.js'></script>
+        <script src="/zalisting/js/addtowishlist.js"></script>
     </main>
  </body>
- <script src='/zalisting/js/swatches.js'></script>
- <script src='/zalisting/js/addtocart.js'></script>
 </html>

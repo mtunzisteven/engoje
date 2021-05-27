@@ -4,23 +4,22 @@
 let addToCart = document.querySelector('#add-to-cart-button'); 
 let addToCartRespose = document.querySelector('#add-to-cart-response');
 let galleryImages = document.querySelectorAll('.product-gallery-image');
-let addToWishlist = document.querySelector('#add-to-wishlist-button');
 
 addToCart.addEventListener('click', function(){
 
-    let data = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+    let addtocartData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 
-    data.append('product_entryId', product_entryId.value);  // add the product_entryId to data
-    data.append('cart_item_qty', cartQty.value);                      // add the quantity of products to the data
-    data.append('action', 'add-to-cart');                   // add the action that will be used by the case selection in the controller
+    addtocartData.append('product_entryId', product_entryId.value);  // add the product_entryId to data
+    addtocartData.append('cart_item_qty', cartQty.value);                      // add the quantity of products to the data
+    addtocartData.append('action', 'add-to-cart');                   // add the action that will be used by the case selection in the controller
 
     // Send data
     var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost/zalisting/shop/index.php", false);
+    request.open("POST", "http://localhost/zalisting/cart/index.php", false);
     request.onload = function() {
         if (request.status == 200) {
 
-            //alert(this.responseText);
+            alert(this.responseText);
 
             let assocArr = JSON.parse(this.responseText);
             
@@ -36,10 +35,9 @@ addToCart.addEventListener('click', function(){
         }
     };
 
-    request.send(data);    
+    request.send(addtocartData);    
 
 }, false);
-
 
 // update main dispolay image when the gallary image is clicked
 for(let j = 0; j < galleryImages.length; j++){
@@ -51,37 +49,3 @@ for(let j = 0; j < galleryImages.length; j++){
     }, false);
 
 }
-
-
-addToWishlist.addEventListener('click', function(){
-
-    let data2 = new FormData();                              // create a new formData object to send data aysnchronously to the controller
-
-    data2.append('product_entryId', product_entryId.value);  // add the product_entryId to data
-    data2.append('action', 'add-to-wishlist');                   // add the action that will be used by the case selection in the controller
-
-    // Send data
-    var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost/zalisting/shop/index.php", false);
-    request.onload = function() {
-        if (request.status == 200) {
-
-            //alert(this.responseText);
-
-            let assocArr = JSON.parse(this.responseText);
-            
-            wishlistCount.innerHTML = assocArr['wishlistTotal'];
-
-            addToCartRespose.innerHTML = assocArr['add-to-wishlist-response'];
-
-
-        } else {
-
-            addToCartRespose.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
-
-        }
-    };
-
-    request.send(data2);    
-
-}, false);

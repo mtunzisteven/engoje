@@ -43,4 +43,5 @@
             ?>
         </main>
     </body>
+    <script src="/zalisting/js/updateCart.js"></script>
 </html>

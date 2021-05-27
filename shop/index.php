@@ -142,6 +142,7 @@ switch ($action){
 
     // add to cart request: Ajax request
     case 'add-to-cart':
+
         // sanitize the variables received from Ajax request
         $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
         $cart_item_qty = filter_input(INPUT_POST, 'cart_item_qty', FILTER_SANITIZE_NUMBER_INT);
@@ -152,55 +153,85 @@ switch ($action){
 
             if(isset($_SESSION['userData'])){
 
-                // date item added to cart
-                $dateAdded = date('Y-m-d H:i:s');
+                $cartItems = getCartItems($_SESSION['userData']['userId']);
 
-                // get product entry details to access the image path below
-                $productDetails = getShopProductEntry($product_entryId);
+                // if value exists in the db don't bother adding it
+                if(!checkIfValueExists($cartItems, 'product_entryId', $product_entryId)){
 
-                // get the image path
-                $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
-    
-                // get the user id of the logged in user
-                $userId = $_SESSION['userData']['userId'];
+                    // date item added to cart
+                    $dateAdded = date('Y-m-d H:i:s');
 
-                // add the items to the cart
-                $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
+                    // get product entry details to access the image path below
+                    $productDetails = getShopProductEntry($product_entryId);
 
-                if($addToCart){
-
-    
-                    // get a total of all the items in the cart
-                    $_SESSION['cartTotal'] += $cart_item_qty;
+                    // get the image path
+                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
         
-                    // add the cart total to the response array
-                    $responseText['cartTotal'] = $_SESSION['cartTotal'];
+                    // get the user id of the logged in user
+                    $userId = $_SESSION['userData']['userId'];
 
-                    // add the response text to the response array
-                    $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+                    // add the items to the cart
+                    $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
 
-                    // send the associative array back to the js Ajax
-                    echo json_encode($responseText);
+                    if($addToCart){
 
+        
+                        // get a total of all the items in the cart using the count of items 
+                        // in the db after adding the recent item
+                        $_SESSION['cartTotal'] = sumValues(getCartItems($userId), 'cart_item_qty');
+            
+                        // add the cart total to the response array
+                        $responseText['cartTotal'] = $_SESSION['cartTotal'];
+
+                        // add the response text to the response array
+                        $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/shop?action=cart'>cart</a></p>";
+
+                        // send the associative array back to the js Ajax
+                        echo json_encode($responseText);
+
+                        unset($_SESSION['cart']);
+
+                    }
+                }else{
+
+                    $cartItems = getCartItems($_SESSION['userData']['userId']);
+
+                    if($cartItems){
+    
+                        //var_dump($cartUpdateArr); exit;
+    
+                        $_SESSION['cartTotal'] = 0;
+    
+    
+                        for($i = 0; $i < count($cartItems); $i++){
+    
+        
+                            $updateCartQty = updateCartQty($cartItems[$i]['cart_itemId'], $cart_item_qty);
+            
+                        }
+
+                        // sum all item quantities
+                        $_SESSION['cartTotal'] = sumValues($cartItems, 'cart_item_qty');
+                    }
                 }
 
             }else{
+
+                // reindex the array
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+
+                // define cart total and initialize it to a value of 0
+                $_SESSION['cartTotal'] = 0;
+                
+                // get a total of all the items in the cart
+                $_SESSION['cartTotal'] = sumValues($_SESSION['cart'], 'cart_item_qty');
+
 
                 // create a session variable with the variables
                 $_SESSION['cart'][] = [
                     'product_entryId' => $product_entryId, 
                     'cart_item_qty' => $cart_item_qty
                 ];
-
-                // define cart total and initialize it to a value of 0
-                $_SESSION['cartTotal'] = 0;
-            
-                foreach($_SESSION['cart'] as $cartItems){
-    
-                    // get a total of all the items in the cart
-                    $_SESSION['cartTotal'] += $cartItems['cart_item_qty'];
-    
-                }
 
                 // add the cart total to the response array
                 $responseText['cartTotal'] = $_SESSION['cartTotal'];
@@ -215,6 +246,77 @@ switch ($action){
 
 
         }
+
+        break;
+
+    case 'update-cart':
+
+        $cartUpdateArr = explode(",", $_POST['cartUpdateArr']);
+
+        // filter external input array
+        $cartUpdateArr  = filter_var_array($cartUpdateArr);
+
+        //print_r($cartUpdateArr); exit;
+
+        if(isset($cartUpdateArr)){
+
+            if(isset($_SESSION['cart'])){
+
+                // set cart total to zero
+                $_SESSION['cartTotal'] = 0;
+
+                for($j = 0; $j < count($cartUpdateArr ); $j++){
+
+                    // index of the item that has the same value as that of the item to update
+                    $cartIndex = getIndexFromArr($_SESSION['cart'], 'cart_item_qty', $cartUpdateArr[$j]);
+
+                    echo 'index: '.$index; exit;
+
+                }
+
+
+
+                for($i = 0; $i < count($_SESSION['cart']); $i++){
+
+                    $_SESSION['cart'][$i]['cart_item_qty'] = $cartUpdateArr[$i];
+
+
+                    $_SESSION['cartTotal'] += $cartUpdateArr[$i];
+
+                }
+
+                echo $_SESSION['cartTotal'];
+
+            }else if(isset($_SESSION['userData'])){
+
+                $cartItems = getCartItems($_SESSION['userData']['userId']);
+
+                if($cartItems){
+
+                    //var_dump($cartUpdateArr); exit;
+
+                    $_SESSION['cartTotal'] = 0;
+
+
+                    for($i = 0; $i < count($cartItems); $i++){
+
+
+                        $cartItems[$i]['cart_item_qty'] = $cartUpdateArr[$i];
+
+                        $updateCartQty = updateCartQty($cartItems[$i]['cart_itemId'], $cartItems[$i]['cart_item_qty']);
+    
+                        $_SESSION['cartTotal'] += $cartUpdateArr[$i];
+
+                    }
+
+                    echo $_SESSION['cartTotal'];
+    
+                }
+
+            }
+
+        }
+
 
         break;
 
@@ -293,7 +395,11 @@ switch ($action){
             // if there are cart session variables available, proceed
             if(isset($_SESSION['cart'])){
 
-                //var_dump($_SESSION['cart']); exit;
+                // reindex the array
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+                
+
+                var_dump($_SESSION['cart']); exit;
 
                 foreach($_SESSION['cart'] as $orderItem){
 
@@ -731,3 +837,52 @@ switch ($action){
 
         include '../view/shop.php';
     }
+
+
+// sum db array items
+function sumValues($array, $key){
+
+    $sum = 0;
+
+    foreach($array as $item){
+
+        $sum += $item[$key];
+    }
+
+    return $sum;
+}
+
+
+// check if item value in array items exist
+function checkIfValueExists($array, $key, $value){
+
+    $result = 0;
+
+    foreach($array as $item){
+
+        if($item[$key] == $value){
+
+            $result = 1;
+
+        }
+    }
+
+    return $result;
+}
+
+// check if item value in array items exist
+function getIndexFromArr($array, $key, $value){
+
+    $index = false;
+
+    for($i = 0; $i < count($array); $i++){
+
+        if($array[$i][$key] == $value){
+
+            $index = $i;
+
+        }
+    }
+
+    return $index;
+}

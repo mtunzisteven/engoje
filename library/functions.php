@@ -71,17 +71,17 @@ function buildCartDisplay($cartDetails){
         $cartDisplay .= "<div>$cartItem[productName]</div>"; 
         $cartDisplay .= "<div>$cartItem[colour]</div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-        $cartDisplay .= "<div>R$cartItem[price]</div>"; 
-        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty' value='$cartItem[cart_item_qty]' /><button class='button oneUp'>+</button></div>"; 
-        $cartDisplay .= "<div>R$lineTotal</div>"; 
-        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/shop/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
+        $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
+        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty' name='cart_item_qty' value='$cartItem[cart_item_qty]' /><button class='button oneUp'>+</button></div>"; 
+        $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
+        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
 
     }
 
     $cartDisplay .= '</div>';
-    $cartDisplay .= "<div class='cart-display-table-column'><div class='cart-total-container'><h4>Cart Total:</h4><h4> R$grandTotal</h4></div>";
-    $cartDisplay .= "<button id='update-cart' class='update-cart button cart-buttons'>Update Cart</button>";
-    $cartDisplay .= "<a href='/zalisting/shop/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
+    $cartDisplay .= "<div class='cart-display-table-column'><div class='cart-total-container'><h4>Cart Total: R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
+    $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
+    $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
 
    return $cartDisplay;
@@ -100,11 +100,11 @@ function buildWishlistDisplay($wishlistDetails){
         $wishlistDisplay .= "<div>$wishlistItem[colour]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[sizeValue]</div>"; 
         $wishlistDisplay .= "<div>R$wishlistItem[price]</div>"; 
-        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/shop/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
+        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
 
     }
 
-    $wishlistDisplay .= "<a href='/zalisting/shop/index.php?action=clear-wishlist' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
+    $wishlistDisplay .= "<a href='/zalisting/wishlist/index.php?action=clear-wishlist' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
     return $wishlistDisplay;
 

@@ -3,12 +3,12 @@
 //-----------------------------------------------------------
 var cartCount = document.querySelector('#cart-count');
 
-let data = new FormData();                              // create a new formData object to send data aysnchronously to the controller
-data.append('action', 'cart-count');                    // add the action that will be used by the case selection in the controller
+let cartCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+cartCountData.append('action', 'cart-count');                    // add the action that will be used by the case selection in the controller
 
 // Send data
 var request = new XMLHttpRequest();
-request.open("POST", "http://localhost/zalisting/shop/index.php", false);
+request.open("POST", "http://localhost/zalisting/cart/index.php", false);
 request.onload = function() {
     if (request.status == 200) {
 
@@ -22,11 +22,11 @@ request.onload = function() {
     }
 };
 
-request.send(data); 
+request.send(cartCountData); 
  
 
 // ----------------------------------------------------------
-//                 Cart page count updating                 |
+//                 Cart page count updating                  |
 //-----------------------------------------------------------
 var oneUp = document.querySelectorAll('.oneUp');
 var oneDown = document.querySelectorAll('.oneDown');
@@ -55,18 +55,17 @@ for(let i = 0; i < cartItemQty.length; i++){
     }, false);
 }
 
-
 // ----------------------------------------------------------
 //               Wishlist Icon count updating                |
 //-----------------------------------------------------------
 var wishlistCount = document.querySelector('#wishlist-count');
 
-let data2 = new FormData();                              // create a new formData object to send data aysnchronously to the controller
-data2.append('action', 'wishlist-count');                    // add the action that will be used by the case selection in the controller
+let wishlistCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+wishlistCountData.append('action', 'wishlist-count');                    // add the action that will be used by the case selection in the controller
 
 // Send data
 var request = new XMLHttpRequest();
-request.open("POST", "http://localhost/zalisting/shop/index.php", false);
+request.open("POST", "http://localhost/zalisting/wishlist/index.php", false);
 request.onload = function() {
     if (request.status == 200) {
 
@@ -80,4 +79,4 @@ request.onload = function() {
     }
 };
 
-request.send(data2); 
+request.send(wishlistCountData); 
