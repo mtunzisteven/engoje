@@ -23,7 +23,7 @@
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
 
-                echo "<h1 class='title'>Cart</h1>";
+                echo "<h1 class='title'>Wish List</h1>";
 
 
                 if (isset($_SESSION['message'])) {
@@ -34,8 +34,8 @@
                     echo $message;
                 }
 
-                if(isset($wishListDisplay)){
-                    echo $wishListDisplay;
+                if(isset($wishlistDisplay)){
+                    echo $wishlistDisplay;
                 }
 
                 require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; 

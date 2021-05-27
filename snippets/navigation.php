@@ -14,11 +14,11 @@
             <?php 
                 if(isset($_SESSION['userData']['userFirstName'])){
                     echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='nav-hamburger-account fa fa-user'></i></a>";
-                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/shop?action=wishlist' title='Wishlist'><div class='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/shop?action=wishlist' title='Wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
                     echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/shop?action=cart'><div class='cart-count' id='cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
                 } else{
                     echo "<a class='account account-button' href='/zalisting/accounts/index.php?action=login'>Login</a>";
-                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/shop?action=wishlist' title='Wishlist'><div class='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/shop?action=wishlist' title='Wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
                     echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/shop?action=cart'><div class='cart-count'  id='cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
 
                 } 

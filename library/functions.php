@@ -54,7 +54,7 @@ function buildUsersDisplay($users){
    return $userRows;
   }
 
-  // Build a multi user display view
+// Build a cart view display view
 function buildCartDisplay($cartDetails){
 
     $cartDisplay = "<div id='cart' class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Quantity</div><div>Total</div><div>Remove Item</div></div>";
@@ -72,7 +72,7 @@ function buildCartDisplay($cartDetails){
         $cartDisplay .= "<div>$cartItem[colour]</div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
         $cartDisplay .= "<div>R$cartItem[price]</div>"; 
-        $cartDisplay .= "<div class='buttoned-div'><button class='button cart-qty-reduce-button'>-</button><input type='number' value='$cartItem[cart_item_qty]' /><button class='button cart-qty-reduce-button'>+</button></div>"; 
+        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty' value='$cartItem[cart_item_qty]' /><button class='button oneUp'>+</button></div>"; 
         $cartDisplay .= "<div>R$lineTotal</div>"; 
         $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/shop/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
 
@@ -85,6 +85,29 @@ function buildCartDisplay($cartDetails){
 
 
    return $cartDisplay;
+  }
+
+  // Build a cart view display view
+function buildWishlistDisplay($wishlistDetails){
+
+    $wishlistDisplay = "<div id='cart' class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Remove Item</div></div>";
+
+    foreach($wishlistDetails as $wishlistItem){
+
+        $wishlistDisplay .= "<div class='seperator'></div><div class='cart-display-table-row'> ";
+        $wishlistDisplay .= "<div><img src='$wishlistItem[imagePath_tn]'></div>"; 
+        $wishlistDisplay .= "<div>$wishlistItem[productName]</div>"; 
+        $wishlistDisplay .= "<div>$wishlistItem[colour]</div>"; 
+        $wishlistDisplay .= "<div>$wishlistItem[sizeValue]</div>"; 
+        $wishlistDisplay .= "<div>R$wishlistItem[price]</div>"; 
+        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/shop/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='nav-hamburger-close fa fa-times'></i></a></div></div>";         
+
+    }
+
+    $wishlistDisplay .= "<a href='/zalisting/shop/index.php?action=clear-wishlist' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
+
+    return $wishlistDisplay;
+
   }
   
 
