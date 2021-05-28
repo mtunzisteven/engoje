@@ -19,8 +19,6 @@ addToCart.addEventListener('click', function(){
     request.onload = function() {
         if (request.status == 200) {
 
-            alert(this.responseText);
-
             let assocArr = JSON.parse(this.responseText);
             
             cartCount.innerHTML = assocArr['cartTotal'];

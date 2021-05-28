@@ -13,7 +13,6 @@ request.onload = function() {
     if (request.status == 200) {
 
         cartCount.innerHTML = this.responseText;
-        //alert(this.responseText);
 
     } else {
 
