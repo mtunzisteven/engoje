@@ -49,6 +49,13 @@ $p  : 15px Arial, sans-serif;
 
 }
 
+@mixin buttonshover(){
+    color:$background-color;
+    background-color: $light-main-color;
+    box-shadow: 1px 2px 8px 3px $dark_color;
+
+}
+
 @mixin product-image($width:70%){
     width:$width;
     height:auto;
@@ -58,7 +65,7 @@ $p  : 15px Arial, sans-serif;
 }
 
 @mixin product-count($top, $right){
-    position:absolute;
+    position:relative;
     z-index: 1000;
     top:$top;
     right: $right;
@@ -167,8 +174,12 @@ body{
         max-width:150px !important;
     }
 
-    .button{
+    & .button{
         @include buttons($secondary-color);
+    }
+
+    & .button:hover{
+        @include buttonshover();
     }
 }
 
@@ -716,7 +727,12 @@ form{
     & .login-reg-button{
         @include buttons($main-color, 65.5%);
         height: 30px;
-        line-height: 30px;    }
+        line-height: 30px;    
+    }
+
+    & .login-reg-button:hover{
+        @include buttonshover();
+    }
 
     & .detail-span{
         text-align: center;
@@ -953,15 +969,34 @@ div.cart-display-table{
     border-radius: 5px;
     margin: 10px auto;
 
-    & :first-child{
+    & .cart-display-table-row{
         background-color: $main-color;
         color: $background-color;
+        width:99.5%;
+        max-height: 80px;
+        padding:10px 5px;
+        @include flex();
+        border-radius: 3px;
 
-        & :first-child{
-            background-color: $main-color !important;
-            color: $background-color !important;
+        & div{
+
+            width:100%;
+            text-align:center;
+
+        }
+
+
+        & i.remove-item-x{
+            color:$secondary-color;
+            background-color: $background-color;
+        }
+
+        & i.remove-item-x:hover{
+            color: $light-main-color;
         }
     }
+
+
 
     & div.seperator{
         background-color: $dark-background-color;
@@ -969,18 +1004,13 @@ div.cart-display-table{
         width: 100%;
     }
 
-    & div.cart-display-table-row{
+    & div.cart-display-table-rows{
         width:100%;
         max-height: 80px;
         padding:10px 5px;
         @include flex();
         //border: 1px solid $main-color;
         border-radius: 5px;
-
-        & :first-child{
-            background-color: $background-color;
-            color: $dark-color;
-        }
 
         & div.buttoned-div{
             @include flex(row, center);
@@ -1012,11 +1042,26 @@ div.cart-display-table{
             text-align:center;
             //border: 1px solid $dark-secondary-color;
 
-            & img{
-                width:80px;
+            & a{
+                display:block;
+                min-width: 100%;
+
+                & img{
+                    background-color: $background-color;
+                    min-width:80px;
+                    max-width: 81px;
+                }
             }
+
         }
     }
+}
+
+.wishlist-buttons{
+    display:block;
+    max-width: 130px;
+    margin:20px auto;
+    padding: 15px;
 }
 
 div.cart-display-table-column{
@@ -1026,10 +1071,14 @@ div.cart-display-table-column{
     background-color: $background-color;
 
     & div.cart-total-container{
-        @include flex(row, space-around);
+        @include flex(row, center);
         width: 35%;
         max-width:40%;
         margin: 0;
+
+        & h4.grand-total{
+            text-align: left;
+        }
     }
 
     & button, a{
@@ -1175,26 +1224,36 @@ div.single-product-shop{
 
             & .fa-items-container{
                 @include flex();
+                min-height:40px;
+                line-height: 40px;
 
-                & .fa-shopping-basket{
-                    //border: $dark-color 1px solid;
-                    padding: 0;
-                    border-radius:4px;
-                    margin:0 0 0 -5px;
+                & .shopping-cart{
+                    margin:0 0 15px 2px;
+
+                    & .fa-shopping-basket{
+                        //border: $dark-color 1px solid;
+                        padding: 0;
+                        border-radius:4px;
+                        margin:0 0 0 -11px;
+                    }
+                    
+                    & .cart-count{
+                        @include product-count(3px, 0.9%);
+                    }
                 }
                 
-                & .cart-count{
-                    @include product-count(5px, 2.9%);
-                }
+                & .shopping-wishlist{
+                    margin:0 0 15px 10px;
+                    
+                    & .fa-heart{
+                        font-size: 18px !important;
+                        margin:0 0 0 -11px;
 
-                & .fa-heart{
-                    font-size: 18px !important;
-                    margin:0 0 0 -5px;
+                    }
 
-                }
-
-                & .wishlist-count{
-                    @include product-count(5px, 5.1%);
+                    & .wishlist-count{
+                        @include product-count(3px, 2.1%);
+                    }
                 }
                 
                 & a{

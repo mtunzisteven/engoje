@@ -127,6 +127,13 @@ body .button {
   cursor: pointer;
 }
 
+body .button:hover {
+  color: #fdfdfd;
+  background-color: #80a1d1;
+  -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
+          box-shadow: 1px 2px 8px 3px #3a3939;
+}
+
 input, textarea, button, a {
   cursor: pointer;
 }
@@ -902,6 +909,13 @@ form .login-reg-button {
   line-height: 30px;
 }
 
+form .login-reg-button:hover {
+  color: #fdfdfd;
+  background-color: #80a1d1;
+  -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
+          box-shadow: 1px 2px 8px 3px #3a3939;
+}
+
 form .detail-span {
   text-align: center;
   color: #DD1717;
@@ -1228,14 +1242,42 @@ div.cart-display-table {
   margin: 10px auto;
 }
 
-div.cart-display-table :first-child {
+div.cart-display-table .cart-display-table-row {
   background-color: #0f4392;
   color: #fdfdfd;
+  width: 99.5%;
+  max-height: 80px;
+  padding: 10px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 3px;
 }
 
-div.cart-display-table :first-child :first-child {
-  background-color: #0f4392 !important;
-  color: #fdfdfd !important;
+div.cart-display-table .cart-display-table-row div {
+  width: 100%;
+  text-align: center;
+}
+
+div.cart-display-table .cart-display-table-row i.remove-item-x {
+  color: #ff4949;
+  background-color: #fdfdfd;
+}
+
+div.cart-display-table .cart-display-table-row i.remove-item-x:hover {
+  color: #80a1d1;
 }
 
 div.cart-display-table div.seperator {
@@ -1244,7 +1286,7 @@ div.cart-display-table div.seperator {
   width: 100%;
 }
 
-div.cart-display-table div.cart-display-table-row {
+div.cart-display-table div.cart-display-table-rows {
   width: 100%;
   max-height: 80px;
   padding: 10px 5px;
@@ -1266,12 +1308,7 @@ div.cart-display-table div.cart-display-table-row {
   border-radius: 5px;
 }
 
-div.cart-display-table div.cart-display-table-row :first-child {
-  background-color: #fdfdfd;
-  color: #3a3939;
-}
-
-div.cart-display-table div.cart-display-table-row div.buttoned-div {
+div.cart-display-table div.cart-display-table-rows div.buttoned-div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1289,18 +1326,18 @@ div.cart-display-table div.cart-display-table-row div.buttoned-div {
           align-items: center;
 }
 
-div.cart-display-table div.cart-display-table-row div.buttoned-div input {
+div.cart-display-table div.cart-display-table-rows div.buttoned-div input {
   max-width: 24px;
   text-align: center;
   border: 1px solid #d8d5d5;
   margin: 0;
 }
 
-div.cart-display-table div.cart-display-table-row div.buttoned-div input::-webkit-inner-spin-button {
+div.cart-display-table div.cart-display-table-rows div.buttoned-div input::-webkit-inner-spin-button {
   display: none;
 }
 
-div.cart-display-table div.cart-display-table-row div.buttoned-div button {
+div.cart-display-table div.cart-display-table-rows div.buttoned-div button {
   max-width: 25px !important;
   margin: 0;
   padding: 0;
@@ -1311,13 +1348,27 @@ div.cart-display-table div.cart-display-table-row div.buttoned-div button {
   line-height: 24px;
 }
 
-div.cart-display-table div.cart-display-table-row div {
+div.cart-display-table div.cart-display-table-rows div {
   width: 100%;
   text-align: center;
 }
 
-div.cart-display-table div.cart-display-table-row div img {
-  width: 80px;
+div.cart-display-table div.cart-display-table-rows div a {
+  display: block;
+  min-width: 100%;
+}
+
+div.cart-display-table div.cart-display-table-rows div a img {
+  background-color: #fdfdfd;
+  min-width: 80px;
+  max-width: 81px;
+}
+
+.wishlist-buttons {
+  display: block;
+  max-width: 130px;
+  margin: 20px auto;
+  padding: 15px;
 }
 
 div.cart-display-table-column {
@@ -1351,14 +1402,19 @@ div.cart-display-table-column div.cart-total-container {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   width: 35%;
   max-width: 40%;
   margin: 0;
+}
+
+div.cart-display-table-column div.cart-total-container h4.grand-total {
+  text-align: left;
 }
 
 div.cart-display-table-column button, div.cart-display-table-column a {
@@ -1579,17 +1635,22 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    min-height: 40px;
+    line-height: 40px;
   }
-  nav.desktop-nav .fa-item-container .fa-items-container .fa-shopping-basket {
+  nav.desktop-nav .fa-item-container .fa-items-container .shopping-cart {
+    margin: 0 0 15px 2px;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container .shopping-cart .fa-shopping-basket {
     padding: 0;
     border-radius: 4px;
-    margin: 0 0 0 -5px;
+    margin: 0 0 0 -11px;
   }
-  nav.desktop-nav .fa-item-container .fa-items-container .cart-count {
-    position: absolute;
+  nav.desktop-nav .fa-item-container .fa-items-container .shopping-cart .cart-count {
+    position: relative;
     z-index: 1000;
-    top: 5px;
-    right: 2.9%;
+    top: 3px;
+    right: 0.9%;
     color: #fdfdfd;
     background-color: #ff4949;
     width: 15px;
@@ -1599,15 +1660,18 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     text-align: center;
     border-radius: 15px;
   }
-  nav.desktop-nav .fa-item-container .fa-items-container .fa-heart {
-    font-size: 18px !important;
-    margin: 0 0 0 -5px;
+  nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist {
+    margin: 0 0 15px 10px;
   }
-  nav.desktop-nav .fa-item-container .fa-items-container .wishlist-count {
-    position: absolute;
+  nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist .fa-heart {
+    font-size: 18px !important;
+    margin: 0 0 0 -11px;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist .wishlist-count {
+    position: relative;
     z-index: 1000;
-    top: 5px;
-    right: 5.1%;
+    top: 3px;
+    right: 2.1%;
     color: #fdfdfd;
     background-color: #ff4949;
     width: 15px;
