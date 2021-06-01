@@ -13,7 +13,7 @@
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header-top.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/shop-hero.php';
         ?>

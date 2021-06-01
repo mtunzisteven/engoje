@@ -83,6 +83,9 @@ function buildCartDisplay($cartDetails){
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
+    $cartDisplay .= "<a href='/zalisting/checkout/index.php' class='clear-cart button wishlist-buttons'>Checkout</a>";
+
+
 
    return $cartDisplay;
   }
@@ -108,6 +111,60 @@ function buildWishlistDisplay($wishlistDetails){
     $wishlistDisplay .= "<a href='/zalisting/wishlist/index.php?action=clear-wishlist' class='clear-cart button wishlist-buttons'>Clear Wish List</a>";
 
     return $wishlistDisplay;
+
+  }
+
+  // Build a cart view display view
+function buildCheckoutDisplay($checkoutDetails, $userDetails){
+
+    $grandTotal = 0;
+
+    $checkoutDisplay = "<form id='checkout' class='checkout-display-form'>";
+
+    $checkoutDisplay .= "<div id='address-column'> <h2 id='address-column-title'>Shipping Information:</h2>";
+
+        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[userFirstName] $userDetails[userLastName]</div>"; 
+        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressLineOne]</div>"; 
+        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressLineTwo]</div>"; 
+        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressCity]</div>";         
+        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressZipCode]</div>"; 
+        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[userEmail]</div>"; 
+        $checkoutDisplay .= "<div class='checkout-label'>0$userDetails[userPhone]</div>"; 
+        $checkoutDisplay .= "<div class='checkout-label button'>Ship to different address</div>";
+        $checkoutDisplay .= "<div class='seperator'></div>"; 
+        $checkoutDisplay .= "<div class='checkout-address address-two' id='ship-address'></div>";    
+    
+    $checkoutDisplay .= "</div>";         
+    $checkoutDisplay .= "<div id='cart-summary-column'><div class='cart-items-summary'>";  
+    
+    // labels
+    $checkoutDisplay .= "<div class='cart-item cart-item-summary-label'><div class='summary-product-names header-labels'>Product</div>"; 
+    $checkoutDisplay .= "<div class='summary-product-qty header-labels'>Quantity</div>"; 
+    $checkoutDisplay .= "<div class='summary-product-price header-labels'>Price</div></div>"; 
+
+    foreach($checkoutDetails as $cartItem){
+
+        $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
+        $grandTotal += $lineTotal;
+
+
+
+        $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
+        $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
+        $checkoutDisplay .= "<div class='summary-product-price'>R$cartItem[price]</div></div>"; 
+
+    }
+
+    $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping Fee:  </div><div>R0</div></div>"; 
+    $checkoutDisplay .= "<div class='seperator'></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 class='cart-total'>R$grandTotal</h2></div>"; 
+    $checkoutDisplay .= '</div>';
+    $checkoutDisplay .= '</div>';
+    $checkoutDisplay .= '</form>';
+    $checkoutDisplay .= "<a href='/zalisting/cart/?action=cart' class='checkout-back button'>Back to Cart</a>";
+
+
+    return $checkoutDisplay;
 
   }
   
@@ -136,7 +193,6 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 
    return $productRows;
   }
-
 
 //  Build User Update Admin Nav display
 function buildUserUpdateNav(){
@@ -171,9 +227,7 @@ function buildUserDisplay($userInfo){
     $userDisplay .= "<input type='hidden' name='action' value='update-user' />";
     $userDisplay .= "<input type='hidden' name='userId' value='$userInfo[userId]' />";
 
-
     $userDisplay .= "</form>";
-
 
    return $userDisplay;
   }
@@ -248,6 +302,7 @@ function buildAddresses($addresses, $addressFound){
         $address .="<p class='detail-span-bold' >No address added...</p>";
         $address .="</div>";
     }else{ 
+
         foreach($addresses as $eachAddress){
 
             if($eachAddress['addressType']==1){
