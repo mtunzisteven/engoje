@@ -4,6 +4,7 @@
 /*
 *---------------------------------Fonts
 */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Handlee&family=Nunito+Sans&display=swap");
 /*
 *---------------------------------mixins
 */
@@ -24,6 +25,22 @@ body main {
   background-color: #f0f0f0;
 }
 
+body h1 {
+  font: 500 35px "Cinzel", serif;
+}
+
+body h2 {
+  font: 400 30px "Nunito", sans-serif;
+}
+
+body h3 {
+  font: 400 25px "Nunito", sans-serif;
+}
+
+body h4 {
+  font: 400 20px "Nunito", sans-serif;
+}
+
 body .admin-main {
   background-color: #80a1d1;
 }
@@ -37,9 +54,8 @@ body .detail-span-bold {
 
 body .notice {
   color: #3a3939;
-  font-size: 22px;
-  font-weight: 500;
-  font-style: normal;
+  font: 200 20px "Handlee", sans-serif;
+  text-align: center;
 }
 
 body .table-holder {
@@ -54,12 +70,14 @@ body table {
   width: 90%;
   margin: 0 0 50px 15px;
   border: 1px solid #80a1d1;
+  font: 200 15px "Nunito", sans-serif;
 }
 
 body table th, body table td {
   padding: 8px;
   border-left: 1px solid #80a1d1;
   border-right: 1px solid #80a1d1;
+  font: 200 15px "Nunito", sans-serif;
 }
 
 body table th .image-tn, body table td .image-tn {
@@ -125,6 +143,7 @@ body .button {
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
   cursor: pointer;
+  font: 200 15px "Nunito", sans-serif;
 }
 
 body .button:hover {
@@ -172,6 +191,15 @@ li {
 a {
   text-decoration: none;
   color: #0f4392;
+  font: 200 15px "Nunito", sans-serif;
+}
+
+p {
+  font: 200 15px "Nunito", sans-serif;
+}
+
+div {
+  font: 200 15px "Nunito", sans-serif;
 }
 
 h1.title {
@@ -426,6 +454,30 @@ nav.mobile-nav .show a.nav-list-link {
 
 .shop-hero {
   background-color: #ff4949;
+}
+
+div#checkout-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 40%;
+  margin: 5px auto;
+}
+
+div#checkout-header img {
+  display: block;
 }
 
 /*------------------------------------------------Header-bottom END
@@ -744,6 +796,8 @@ nav.mobile-nav .show a.nav-list-link {
   text-align: center;
   padding: 2px 5px;
   margin: 2px 0;
+  font: 500 35px "Cinzel", serif;
+  font-size: 18px;
 }
 
 .shop .shop-products .product .productName-link:hover {
@@ -755,6 +809,8 @@ nav.mobile-nav .show a.nav-list-link {
   color: #3a3939;
   padding: 2px 5px;
   margin: 2px 0;
+  font: 200 15px "Nunito", sans-serif;
+  font-size: 15px;
 }
 
 .shop .shop-products .product h5 {
@@ -1860,18 +1916,18 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     line-height: 40px;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-cart {
-    margin: 0 0 15px 2px;
+    margin: 0 0 25px 2px;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-cart .fa-shopping-basket {
     padding: 0;
     border-radius: 4px;
-    margin: 0 0 0 -11px;
+    margin: 0;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-cart .cart-count {
     position: relative;
     z-index: 1000;
     top: 3px;
-    right: 0.9%;
+    right: -10px;
     color: #fdfdfd;
     background-color: #ff4949;
     width: 15px;
@@ -1882,17 +1938,17 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     border-radius: 15px;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist {
-    margin: 0 0 15px 10px;
+    margin: 0 0 23px 0;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist .fa-heart {
     font-size: 18px !important;
-    margin: 0 0 0 -11px;
+    margin: 0;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist .wishlist-count {
     position: relative;
     z-index: 1000;
     top: 3px;
-    right: 2.1%;
+    right: -45%;
     color: #fdfdfd;
     background-color: #ff4949;
     width: 15px;
@@ -1912,6 +1968,11 @@ div.cart-display-table-column button, div.cart-display-table-column a {
   }
   nav.desktop-nav .fa-item-container .fa-items-container a.user {
     background-color: #fdfdfd;
+    padding-bottom: 0;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container a.user .fa-user {
+    margin: 0 0 -5px 2px;
+    font-size: 20px;
   }
   nav.desktop-nav .fa-item-container .fa-items-container a.account {
     background-color: #fa9595;

@@ -17,10 +17,16 @@ $light-box-shadow: 0 0 10px 1px $darker-background-color;
 /*
 *---------------------------------Fonts
 */
-$h1 : 35px Arial, sans-serif;
-$h2 : 30px Arial, sans-serif;
-$h3 : 25px Arial, sans-serif;
-$p  : 15px Arial, sans-serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Handlee&family=Nunito+Sans&display=swap');
+
+$h1 : 500 35px 'Cinzel', serif;
+$h2 : 400 30px 'Nunito', sans-serif;
+$h3 : 400 25px 'Nunito', sans-serif;
+$h4 : 400 20px 'Nunito', sans-serif;
+$p  : 200 15px 'Nunito', sans-serif;
+$button  : 200 15px 'Nunito', sans-serif;
+$notices  : 200 20px 'Handlee', sans-serif;
 
 /*
 *---------------------------------mixins
@@ -98,6 +104,22 @@ body{
     
     }
 
+    & h1{
+        font: $h1;
+    }
+
+    & h2{
+        font:$h2;
+    }
+
+    & h3{
+        font:$h3;
+    }
+
+    & h4{
+        font:$h4;
+    }
+
     & .admin-main{
         background-color: $light-main-color;
     }
@@ -111,9 +133,9 @@ body{
 
     & .notice{
         color:$dark-color;
-        font-size: 22px;
-        font-weight: 500;
-        font-style: normal;
+        font: $notices;
+        text-align:center;
+        
     }
 
     & .table-holder{
@@ -128,13 +150,13 @@ body{
         width: 90%;
         margin:0 0 50px 15px;
         border: 1px solid $light-main-color;
-
-
+        font: $p;
 
         & th,td{
             padding: 8px;
             border-left: 1px solid $light-main-color;
             border-right: 1px solid $light-main-color;
+            font: $p;
 
             & .image-tn{
                 width:60px;
@@ -176,6 +198,7 @@ body{
 
     & .button{
         @include buttons($secondary-color);
+        font: $button;
     }
 
     & .button:hover{
@@ -216,6 +239,15 @@ li{
 a{
     text-decoration: none;
     color:$main-color;
+    font: $p;
+}
+
+p{
+    font: $p;
+}
+
+div{
+    font: $p;
 }
 
 h1.title{
@@ -373,6 +405,16 @@ nav.mobile-nav{
 
 .shop-hero{
     background-color: $secondary-color;
+}
+
+div#checkout-header{
+    @include flex();
+    max-width: 40%;
+    margin: 5px auto;
+
+    & img{
+        display:block;
+    }
 }
 
 /*------------------------------------------------Header-bottom END
@@ -632,6 +674,9 @@ nav.mobile-nav{
                     text-align: center;
                     padding:2px 5px;
                     margin:2px 0;
+                    font: $h1;
+                    font-size: 18px;
+
                 }
             }
 
@@ -645,6 +690,8 @@ nav.mobile-nav{
                 color:$dark-color;
                 padding:2px 5px;
                 margin:2px 0;
+                font: $p;
+                font-size: 15px;
             }
 
             & h5{
@@ -1368,31 +1415,32 @@ div.single-product-shop{
                 line-height: 40px;
 
                 & .shopping-cart{
-                    margin:0 0 15px 2px;
+                    margin:0 0 25px 2px;
 
                     & .fa-shopping-basket{
-                        //border: $dark-color 1px solid;
                         padding: 0;
                         border-radius:4px;
-                        margin:0 0 0 -11px;
+                        margin:0;
+
                     }
                     
                     & .cart-count{
-                        @include product-count(3px, 0.9%);
+                        @include product-count(3px, -10px);
+
                     }
                 }
                 
                 & .shopping-wishlist{
-                    margin:0 0 15px 10px;
+                    margin:0 0 23px 0;
                     
                     & .fa-heart{
                         font-size: 18px !important;
-                        margin:0 0 0 -11px;
+                        margin:0;
 
                     }
 
                     & .wishlist-count{
-                        @include product-count(3px, 2.1%);
+                        @include product-count(3px, -45%);
                     }
                 }
                 
@@ -1407,6 +1455,13 @@ div.single-product-shop{
 
                 & a.user{
                     background-color:$background-color;
+                    padding-bottom: 0;
+
+                    & .fa-user{
+                        margin:0 0 -5px 2px;
+                        font-size:20px;
+
+                    }
                 }
 
                 & a.account{

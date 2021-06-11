@@ -4,11 +4,6 @@
         session_start();
     }
 
-
-    if(!isset($_SESSION)){
-        session_start();
-    }
-
     $pageName ="Shop"; 
     $pageShortSummary = "Checkout";
     $pageDescription = "";
@@ -21,7 +16,7 @@
         <main class="content" id='parentContainer'>
             <?php 
 
-                echo "<h1 class='title'>Checkout</h1>";
+                echo "<div id='checkout-header'><img src='/zalisting/images/logo.jpg' alt='logo image'><h1 class='title'>Checkout</h1></div>";
 
 
                 if (isset($_SESSION['message'])) {
