@@ -57,6 +57,20 @@ switch ($action){
 
             $checkoutDisplay = buildCheckoutDisplay($checkoutDetails, $userDetails);
 
+            // if there is an order previously abondoned at checkout
+            if(null != checkCheckout($userId)){
+
+                // clear checkout order in db
+                deleteCheckoutOrder($userId);
+
+            }
+
+            // date customer went into checkout page
+            $checkoutDate = date('Y-m-d H:i:s');
+
+            // add checkout order in db
+            addCheckoutOrder($userId, $checkoutDate);
+
         }
 
         include '../view/checkout.php';

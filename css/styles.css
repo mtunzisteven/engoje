@@ -153,6 +153,10 @@ body .button:hover {
           box-shadow: 1px 2px 8px 3px #3a3939;
 }
 
+.active {
+  color: #ff4949;
+}
+
 input, textarea, button, a {
   cursor: pointer;
 }
@@ -293,6 +297,11 @@ nav.mobile-nav .nav-hamburger-top .nav-logo-hello-container {
           align-items: center;
 }
 
+nav.mobile-nav .nav-hamburger-top img {
+  max-width: 80px;
+  height: 35px;
+}
+
 nav.mobile-nav .fa-item-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -345,6 +354,12 @@ nav.mobile-nav .nav-menu-logo {
           align-items: center;
   height: 30px;
   line-height: 30px;
+}
+
+nav.mobile-nav .nav-menu-logo img {
+  max-width: 80px;
+  height: 28px;
+  margin: 0 0 0 8px;
 }
 
 nav.mobile-nav .nav-menu-logo .fa {
@@ -435,6 +450,14 @@ nav.mobile-nav .show a.nav-list-link {
   padding-left: 15px;
 }
 
+nav.mobile-nav .show a.nav-list-link:hover {
+  color: #80a1d1;
+}
+
+nav.mobile-nav .show a.active {
+  color: #DD1717;
+}
+
 /*-----------------------------------------------Nav Menu
 */
 /*
@@ -478,6 +501,8 @@ div#checkout-header {
 
 div#checkout-header img {
   display: block;
+  width: 70px;
+  height: auto;
 }
 
 /*------------------------------------------------Header-bottom END
@@ -1856,11 +1881,22 @@ div.cart-display-table-column button, div.cart-display-table-column a {
     height: 25px;
     line-height: 25px;
   }
+  nav.desktop-nav .nav-right-block img {
+    max-height: 35px;
+    margin: 0 50px 0 0;
+  }
   nav.desktop-nav .nav-right-block li {
     padding: 10px;
   }
   nav.desktop-nav .nav-right-block li a {
     color: #3a3939;
+    font-weight: 600;
+  }
+  nav.desktop-nav .nav-right-block li a:hover {
+    color: #80a1d1;
+  }
+  nav.desktop-nav .nav-right-block li a.active {
+    color: #ff4949;
   }
   nav.desktop-nav .nav-desktop-items {
     display: -webkit-box;

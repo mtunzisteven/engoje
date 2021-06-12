@@ -17,6 +17,8 @@ require_once '../model/products-model.php';
 require_once '../model/uploads-model.php';
 // Get the products cart model for use as needed
 require_once '../model/cart-model.php';
+// Get the products orders model for use as needed
+require_once '../model/orders-model.php';
 
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
@@ -287,6 +289,7 @@ switch ($action){
 
             }else{
                 $message = '<p class="notice">Your cart is empty...</p>';
+
             }
 
 
@@ -330,6 +333,20 @@ switch ($action){
 
                 $message = '<p class="notice">Your cart is empty...</p>';
 
+                // When the cart is empty and the user is logged in
+                // we need to make sure we don;t have an abandoned
+                // cart item in the checkout table still lingering
+                if(isset($_SESSION['userData'])){
+
+                    // if there is an order previously abondoned at checkout
+                    if(null != checkCheckout($_SESSION['userData']['userId'])){
+
+                        // clear checkout order in db
+                        deleteCheckoutOrder($_SESSION['userData']['userId']);
+
+                    }
+
+                }
             }
 
         }
@@ -384,6 +401,14 @@ switch ($action){
             // remove the cart item
             $removeRow = deleteCartItem($product_entryId, $_SESSION['userData']['userId']);
 
+            // if there is an order previously abondoned at checkout
+            if(null != checkCheckout($_SESSION['userData']['userId'])){
+
+                // clear checkout order in db
+                deleteCheckoutOrder($_SESSION['userData']['userId']);
+
+            }
+
         }
 
         // redirect to the cart page
@@ -428,6 +453,16 @@ switch ($action){
         if(isset($_SESSION['userData'])){
 
             $removeRow = deleteCartItems($_SESSION['userData']['userId']);
+
+
+                // if there is an order previously abondoned at checkout
+                if(null != checkCheckout($_SESSION['userData']['userId'])){
+
+                    // clear checkout order in db
+                    deleteCheckoutOrder($_SESSION['userData']['userId']);
+
+                }
+
 
         }
 
