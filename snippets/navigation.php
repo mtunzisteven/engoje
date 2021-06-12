@@ -33,7 +33,7 @@
                     }
 
                 } else{
-                    echo "<a class='account account-button' href='/zalisting/accounts/index.php?action=login'>Login</a>";
+                    echo "<a class='account account-button  button' href='/zalisting/accounts/index.php?action=login'>Login</a>";
                     echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
                     echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count'  id='cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
 

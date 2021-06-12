@@ -937,7 +937,7 @@ form.form-add-to-cart{
     & .productPrice{
         font-size: 18px;
         color: $main-color;
-        font-weight:600;
+        font-weight:300;
         text-align:left;
         min-width:100%;
     }
@@ -1194,6 +1194,7 @@ div.cart-display-table{
 
             width:100%;
             text-align:center;
+            font-weight: 700;
 
         }
 
@@ -1246,6 +1247,8 @@ div.cart-display-table{
                 border:1px solid $darker-background-color;
                 height:24px;
                 line-height: 24px;
+                font-weight: 200;
+
             }
         }
 
@@ -1274,6 +1277,7 @@ div.cart-display-table{
     max-width: 130px;
     margin:20px auto;
     padding: 15px;
+    font-weight: 200;
 }
 
 div.cart-display-table-column{
@@ -1300,7 +1304,8 @@ div.cart-display-table-column{
         line-height: 50px;
         margin: 0;
         font-size: 16px;
-        font-weight: 700;
+        font-weight: 200;
+
     }
 }
 
@@ -1427,8 +1432,7 @@ div.single-product-shop{
                 padding:10px;
                 
                 & a{
-                    color:$dark-color;
-                    font-weight: 600;
+                    color:$dark-color; 
                 }
 
                 & a:hover{
@@ -1486,10 +1490,15 @@ div.single-product-shop{
                 & a{
                     height:22px;
                     line-height:22px;
-                    font-size:15px;
+                    font-size:12px;
                     color:$background-color;
-                    padding:5px 8px;
+                    padding:1px 8px;
                     border-radius: 3px;
+                    box-shadow: none;
+                }
+                & .account-button:hover{
+                    background-color:$light-main-color;
+                    box-shadow: 0 0 5px 1px $dark-color;
                 }
 
                 & a.user{

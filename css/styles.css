@@ -1161,7 +1161,7 @@ form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button:hover {
 form.form-add-to-cart .productPrice {
   font-size: 18px;
   color: #0f4392;
-  font-weight: 600;
+  font-weight: 300;
   text-align: left;
   min-width: 100%;
 }
@@ -1571,6 +1571,7 @@ div.cart-display-table .cart-display-table-row {
 div.cart-display-table .cart-display-table-row div {
   width: 100%;
   text-align: center;
+  font-weight: 700;
 }
 
 div.cart-display-table .cart-display-table-row i.remove-item-x {
@@ -1648,6 +1649,7 @@ div.cart-display-table div.cart-display-table-rows div.buttoned-div button {
   border: 1px solid #d8d5d5;
   height: 24px;
   line-height: 24px;
+  font-weight: 200;
 }
 
 div.cart-display-table div.cart-display-table-rows div {
@@ -1671,6 +1673,7 @@ div.cart-display-table div.cart-display-table-rows div a img {
   max-width: 130px;
   margin: 20px auto;
   padding: 15px;
+  font-weight: 200;
 }
 
 div.cart-display-table-column {
@@ -1726,7 +1729,7 @@ div.cart-display-table-column button, div.cart-display-table-column a {
   line-height: 50px;
   margin: 0;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 200;
 }
 
 @media only screen and (min-width: 550px) {
@@ -1890,7 +1893,6 @@ div.cart-display-table-column button, div.cart-display-table-column a {
   }
   nav.desktop-nav .nav-right-block li a {
     color: #3a3939;
-    font-weight: 600;
   }
   nav.desktop-nav .nav-right-block li a:hover {
     color: #80a1d1;
@@ -1997,10 +1999,17 @@ div.cart-display-table-column button, div.cart-display-table-column a {
   nav.desktop-nav .fa-item-container .fa-items-container a {
     height: 22px;
     line-height: 22px;
-    font-size: 15px;
+    font-size: 12px;
     color: #fdfdfd;
-    padding: 5px 8px;
+    padding: 1px 8px;
     border-radius: 3px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container .account-button:hover {
+    background-color: #80a1d1;
+    -webkit-box-shadow: 0 0 5px 1px #3a3939;
+            box-shadow: 0 0 5px 1px #3a3939;
   }
   nav.desktop-nav .fa-item-container .fa-items-container a.user {
     background-color: #fdfdfd;
