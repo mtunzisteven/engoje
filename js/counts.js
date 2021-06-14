@@ -2,6 +2,7 @@
 //                 Cart Icon count updating                 |
 //-----------------------------------------------------------
 var cartCount = document.querySelector('#cart-count');
+var mcartCount = document.querySelector('#mobile-cart-count');
 
 let cartCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 cartCountData.append('action', 'cart-count');                    // add the action that will be used by the case selection in the controller
@@ -13,6 +14,7 @@ request.onload = function() {
     if (request.status == 200) {
 
         cartCount.innerHTML = this.responseText;
+        mcartCount.innerHTML = this.responseText;
 
     } else {
 
@@ -58,6 +60,7 @@ for(let i = 0; i < cartItemQty.length; i++){
 //               Wishlist Icon count updating                |
 //-----------------------------------------------------------
 var wishlistCount = document.querySelector('#wishlist-count');
+var mwishlistCount = document.querySelector('#mobile-wishlist-count');
 
 let wishlistCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 wishlistCountData.append('action', 'wishlist-count');                    // add the action that will be used by the case selection in the controller
@@ -69,6 +72,7 @@ request.onload = function() {
     if (request.status == 200) {
 
         wishlistCount.innerHTML = this.responseText;
+        mwishlistCount.innerHTML = this.responseText;
         //alert(this.responseText);
 
     } else {

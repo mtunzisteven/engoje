@@ -38,6 +38,8 @@ updateCart.addEventListener('click', function(event){
             //alert(this.responseText);
 
             cartCount.innerHTML = this.responseText;
+            mcartCount.innerHTML = this.responseText;
+
 
         } 
     };
