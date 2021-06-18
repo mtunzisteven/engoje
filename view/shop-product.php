@@ -1,10 +1,10 @@
 <?php 
-    if(!isset($products)){
+    if(!isset($_SESSION['productData'])){
         header('Location: /zalisting/shop');
     }
 
     $pageName ="Shop"; 
-    $pageShortSummary = "";
+    $pageShortSummary = $_SESSION['productData'][0]['productName'];
     $pageDescription = "";
 
 ?><!DOCTYPE html>
@@ -21,14 +21,14 @@
 
                 <?php
 
-                if(isset($productData)){
+                if(isset($_SESSION['productData'])){
 
-                echo "<img id='single-product' class='product-primary-image' src='".$productData[0]['imagePath']."' alt='".$productData[0]['productName']."'>";
+                echo "<img id='single-product' class='product-primary-image' src='".$_SESSION['productData'][0]['imagePath']."' alt='".$_SESSION['productData'][0]['productName']."'>";
 
                 echo "<div class='single-product-gallery'>";
 
-                foreach($productData as $productrow){
-                    if($productrow['product_entryId'] == $productData[0]['product_entryId']){
+                foreach($_SESSION['productData'] as $productrow){
+                    if($productrow['product_entryId'] == $_SESSION['productData'][0]['product_entryId']){
 
                         echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='".$productrow['imagePath_tn']."' alt='Gallery Image'>";
 
@@ -46,17 +46,17 @@
 
                 <?php 
 
-                        //var_dump($productData); exit;
+                        //var_dump($_SESSION['productData']); exit;
                     
-                        echo "<h1 id='product-title'>".$productData[0]['productName']."</h1>";
-                        echo "<p class='productPrice' id='productPrice' >R".$productData[0]['price']."</p>";
-                        echo "<p  class='productShort-descr'>".$productData[0]['productShortDescr']."</p>";
-                        echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$productData[0]['product_entryId']."' />";
-                        echo "<input type='hidden' id='productId' name='productId' value='$productId' />";
+                        echo "<h1 id='product-title'>".$_SESSION['productData'][0]['productName']."</h1>";
+                        echo "<p class='productPrice' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p>";
+                        echo "<p  class='productShort-descr'>".$_SESSION['productData'][0]['productShortDescr']."</p>";
+                        echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$_SESSION['productData'][0]['product_entryId']."' />";
+                        echo "<input type='hidden' id='productId' name='productId' value='".$_SESSION['productData'][0]['productId']."' />";
 
-                        echo $colours;                            
+                        echo $_SESSION['colours'];                            
 
-                        echo $sizes;
+                        echo $_SESSION['sizes'];
 
                     }
                 ?>

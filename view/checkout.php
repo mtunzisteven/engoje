@@ -27,8 +27,8 @@
                     echo $message;
                 }
 
-                if(isset($checkoutDisplay)){
-                    echo $checkoutDisplay;
+                if(isset($_SESSION['checkoutDisplay'])){
+                    echo $_SESSION['checkoutDisplay'];
                 }                
             ?>
         </main>

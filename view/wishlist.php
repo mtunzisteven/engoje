@@ -34,8 +34,8 @@
                     echo $message;
                 }
 
-                if(isset($wishlistDisplay)){
-                    echo $wishlistDisplay;
+                if(isset($_SESSION['wishlistDisplay'])){
+                    echo $_SESSION['wishlistDisplay'];
                 }
 
                 require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; 

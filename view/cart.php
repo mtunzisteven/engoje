@@ -34,8 +34,8 @@
                     echo $message;
                 }
 
-                if(isset($cartDisplay)){
-                    echo $cartDisplay;
+                if(isset($_SESSION['cartDisplay'])){
+                    echo $_SESSION['cartDisplay'];
                 }
 
                 require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; 

@@ -150,95 +150,6 @@ switch ($action){
 
         break;
 
-    // cart page accessing through icon or link in product page
-    case 'wishlist':
-
-        // create an empty array
-        $duplicatedWishlistDetails = [];
-
-        if(isset($_SESSION['userData'])){ // for logged in users
-
-            $wishlistItems = getWishlistItems($_SESSION['userData']['userId']);
-
-            if($wishlistItems){
-
-                // delete cart items from session if there are cart items from db
-                if(isset($_SESSION['wishlist'])){ 
-
-                    unset($_SESSION['wishlist']);
-
-                }
-
-                // create a display cart variable to use in the view
-                $wishlistDisplay = buildWishlistDisplay($wishlistItems);
-
-            }
-
-            // if user logged in and no wishlist exists for the user in db
-            // but there is in the session
-            else if(isset($_SESSION['wishlist'])){ 
-
-                foreach($_SESSION['wishlist'] as $orderItem){
-    
-                    // get product entry details to access the image path below
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']);
-    
-                    // get the thumbnail image path
-                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
-            
-                    // Make an array of all the cart display data including the image
-                    $duplicatedWishlistDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
-    
-                }
-
-                // clear cart item session variable
-                unset($_SESSION['wishlist']);
-                
-                // create a display cart variable to use in the view
-                $wishlistDisplay = buildWishlistDisplay($duplicatedWishlistDetails);
-
-            }else{
-                $message = '<p class="notice">Your wish list is empty...</p>';
-            }
-
-
-        }
-                
-        //user not logged in so cart session variable will be used exclusively  
-        else{ 
-
-            // if there are wishlist session variables available, proceed
-            if(isset($_SESSION['wishlist'])){
-
-                foreach($_SESSION['wishlist'] as $orderItem){
-
-
-                    // Make an array of cart display items, with the exception of the image
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']);
-
-    
-                    // Make an array of all the cart display data including the image
-                    $duplicatedWishlistDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
-    
-                }
-
-                //var_dump($duplicatedWishlistDetails); exit;
-                
-                // build a cart display
-                $wishlistDisplay = buildWishlistDisplay($duplicatedWishlistDetails);
-
-            }else{
-
-                $message = '<p class="notice">Your wish list is empty...</p>';
-
-            }
-
-        }
-        
-        include '../view/wishlist.php';
-
-        break;
-
     // delete one product entry from the cart
     case 'remove-wishlist-item':                   
 
@@ -250,6 +161,10 @@ switch ($action){
     
             // remove the cart item
             $removeRow = deleteWishlistItem($product_entryId, $_SESSION['userData']['userId']);
+
+            // remove wishlist display session variable
+            unset($_SESSION['wishlistDisplay']);
+
 
         }else if(isset($_SESSION['wishlist'])){
 
@@ -329,20 +244,106 @@ switch ($action){
 
         if(isset($_SESSION['userData'])){
 
+            // remove from db wishlist_items
             $removeRow = deleteWishlistItems($_SESSION['userData']['userId']);
+
+            // remove wishlist display session variable
+            unset($_SESSION['wishlistDisplay']);
 
         }
 
-        header('Location: /zalisting/wishlist/?action=wishlist');
+        header('Location: /zalisting/wishlist/');
 
         break;
     
     default:
 
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products);
+    // cart page accessing through icon or link in product page
+    case 'wishlist':
 
-        include '../view/shop.php';
+        // create an empty array
+        $duplicatedWishlistDetails = [];
+
+        if(isset($_SESSION['userData'])){ // for logged in users
+
+            $wishlistItems = getWishlistItems($_SESSION['userData']['userId']);
+
+            if($wishlistItems){
+
+                // delete cart items from session if there are cart items from db
+                if(isset($_SESSION['wishlist'])){ 
+
+                    unset($_SESSION['wishlist']);
+
+                }
+
+                // create a display cart variable to use in the view
+                $_SESSION['wishlistDisplay'] = buildWishlistDisplay($wishlistItems);
+
+            }
+
+            // if user logged in and no wishlist exists for the user in db
+            // but there is in the session
+            else if(isset($_SESSION['wishlist'])){ 
+
+                foreach($_SESSION['wishlist'] as $orderItem){
+    
+                    // get product entry details to access the image path below
+                    $productDetails = getShopProductEntry($orderItem['product_entryId']);
+    
+                    // get the thumbnail image path
+                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
+            
+                    // Make an array of all the cart display data including the image
+                    $duplicatedWishlistDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+    
+                }
+
+                // clear cart item session variable
+                unset($_SESSION['wishlist']);
+                
+                // create a display cart variable to use in the view
+                $_SESSION['wishlistDisplay'] = buildWishlistDisplay($duplicatedWishlistDetails);
+
+            }else{
+                $_SESSION['message'] = '<p class="notice">Your wish list is empty...</p>';
+            }
+
+
+        }
+                
+        //user not logged in so cart session variable will be used exclusively  
+        else{ 
+
+            // if there are wishlist session variables available, proceed
+            if(isset($_SESSION['wishlist'])){
+
+                foreach($_SESSION['wishlist'] as $orderItem){
+
+
+                    // Make an array of cart display items, with the exception of the image
+                    $productDetails = getShopProductEntry($orderItem['product_entryId']);
+
+    
+                    // Make an array of all the cart display data including the image
+                    $duplicatedWishlistDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+    
+                }
+
+                //var_dump($duplicatedWishlistDetails); exit;
+                
+                // build a cart display
+                $_SESSION['wishlistDisplay'] = buildWishlistDisplay($duplicatedWishlistDetails);
+
+            }else{
+
+                $_SESSION['message'] = '<p class="notice">Your wish list is empty...</p>';
+
+            }
+
+        }
+
+        header('Location: /Zalisting/shop/wishlist/');  
     }
 
 

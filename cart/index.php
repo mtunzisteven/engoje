@@ -230,131 +230,6 @@ switch ($action){
 
         break;
 
-    // cart page accessing through icon or link in product page
-    case 'cart':
-
-        if(isset($_SESSION['userData'])){ // for logged in users
-
-            $cartItems = getCartItems($_SESSION['userData']['userId']);
-
-            if($cartItems){
-
-                // delete cart items from session if there are cart items from db
-                if(isset($_SESSION['cart'])){ 
-
-                    unset($_SESSION['cart']);
-
-
-                }
-
-                // create a display cart variable to use in the view
-                $cartDisplay = buildCartDisplay(sumCartQuantities($cartItems));
-
-            }
-
-            // add the cart items to the db since there user has no cart item data stored there.
-            else if(isset($_SESSION['cart'])){ 
-
-                foreach($_SESSION['cart'] as $orderItem){
-
-                    // date item added to cart
-                    $dateAdded = date('Y-m-d H:i:s');
-    
-                    // get product entry details to access the image path below
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']);
-    
-                    // get the image path
-                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
-        
-                    // get the user id of the logged in user
-                    $userId = $_SESSION['userData']['userId'];
-    
-                    // add the items to the cart
-                    $addToCart = addCartItem($orderItem['product_entryId'], $orderItem['cart_item_qty'], $userId, $imagePath['imagePath_tn'], $dateAdded);
-
-                    // Make an array of cart display items, with the exception of the image
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
-
-    
-                    // Make an array of all the cart display data including the image
-                    $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
-    
-                }
-
-                // clear cart item session variable
-                unset($_SESSION['cart']);
-                
-                // create a display cart variable to use in the view
-                $cartDisplay = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
-
-            }else{
-                $message = '<p class="notice">Your cart is empty...</p>';
-
-            }
-
-
-        }
-                
-        //user not logged in so cart session variable will be used exclusively  
-        else{ 
-
-            // create an empty array
-            $duplicatedCartDetails = [];
-
-            //unset($_SESSION['cart']);
-
-            // if there are cart session variables available, proceed
-            if(isset($_SESSION['cart'])){
-
-                // reindex the array
-                $_SESSION['cart'] = array_values($_SESSION['cart']);
-                
-
-                //var_dump($_SESSION['cart']); exit;
-
-                foreach($_SESSION['cart'] as $orderItem){
-
-
-                    // Make an array of cart display items, with the exception of the image
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
-
-    
-                    // Make an array of all the cart display data including the image
-                    $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
-    
-                }
-
-                //var_dump($duplicatedCartDetails); exit;
-                
-                // build a cart display
-                $cartDisplay = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
-
-            }else{
-
-                $message = '<p class="notice">Your cart is empty...</p>';
-
-                // When the cart is empty and the user is logged in
-                // we need to make sure we don;t have an abandoned
-                // cart item in the checkout table still lingering
-                if(isset($_SESSION['userData'])){
-
-                    // if there is an order previously abondoned at checkout
-                    if(null != checkCheckout($_SESSION['userData']['userId'])){
-
-                        // clear checkout order in db
-                        deleteCheckoutOrder($_SESSION['userData']['userId']);
-
-                    }
-
-                }
-            }
-
-        }
-        
-        include '../view/cart.php';
-
-        break;
-
     // delete one product entry from the cart
     case 'remove-cart-item':
 
@@ -369,6 +244,9 @@ switch ($action){
 
                 // remove it
                 unset($_SESSION['cart']);
+
+                // delete cart display session variable
+                unset($_SESSION['cartDisplay']);
 
             }
             
@@ -401,6 +279,9 @@ switch ($action){
             // remove the cart item
             $removeRow = deleteCartItem($product_entryId, $_SESSION['userData']['userId']);
 
+            // delete cart display session variable
+            unset($_SESSION['cartDisplay']);
+
             // if there is an order previously abondoned at checkout
             if(null != checkCheckout($_SESSION['userData']['userId'])){
 
@@ -412,7 +293,7 @@ switch ($action){
         }
 
         // redirect to the cart page
-        header('Location: /zalisting/cart/?action=cart');
+        header('Location: /zalisting/cart/');
 
 
         break;
@@ -452,7 +333,11 @@ switch ($action){
 
         if(isset($_SESSION['userData'])){
 
+            //delete in db cart_items
             $removeRow = deleteCartItems($_SESSION['userData']['userId']);
+
+            // delete cart display session variable
+            unset($_SESSION['cartDisplay']);
 
 
                 // if there is an order previously abondoned at checkout
@@ -466,16 +351,132 @@ switch ($action){
 
         }
 
-        header('Location: /zalisting/cart/?action=cart');
+        header('Location: /zalisting/cart/');
 
         break;
-    
+
+    // cart page accessing through icon or link in product page
     default:
 
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products);
+        if(isset($_SESSION['userData'])){ // for logged in users
 
-        include '../view/shop.php';
+            $cartItems = getCartItems($_SESSION['userData']['userId']);
+
+            if($cartItems){
+
+                // delete cart items from session if there are cart items from db
+                if(isset($_SESSION['cart'])){ 
+
+                    unset($_SESSION['cart']);
+
+
+                }
+
+                // create a display cart variable to use in the view
+                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($cartItems));
+
+            }
+
+            // add the cart items to the db since there user has no cart item data stored there.
+            else if(isset($_SESSION['cart'])){ 
+
+                foreach($_SESSION['cart'] as $orderItem){
+
+                    // date item added to cart
+                    $dateAdded = date('Y-m-d H:i:s');
+    
+                    // get product entry details to access the image path below
+                    $productDetails = getShopProductEntry($orderItem['product_entryId']);
+    
+                    // get the image path
+                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
+        
+                    // get the user id of the logged in user
+                    $userId = $_SESSION['userData']['userId'];
+    
+                    // add the items to the cart
+                    $addToCart = addCartItem($orderItem['product_entryId'], $orderItem['cart_item_qty'], $userId, $imagePath['imagePath_tn'], $dateAdded);
+
+                    // Make an array of cart display items, with the exception of the image
+                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
+
+    
+                    // Make an array of all the cart display data including the image
+                    $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+    
+                }
+
+                // clear cart item session variable
+                unset($_SESSION['cart']);
+                
+                // create a display cart variable to use in the view
+                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
+
+            }else{
+                $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>';
+
+            }
+
+
+        }
+                
+        //user not logged in so cart session variable will be used exclusively  
+        else{ 
+
+            // create an empty array
+            $duplicatedCartDetails = [];
+
+            //unset($_SESSION['cart']);
+
+            // if there are cart session variables available, proceed
+            if(isset($_SESSION['cart'])){
+
+                // reindex the array
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+                
+
+                //var_dump($_SESSION['cart']); exit;
+
+                foreach($_SESSION['cart'] as $orderItem){
+
+
+                    // Make an array of cart display items, with the exception of the image
+                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
+
+    
+                    // Make an array of all the cart display data including the image
+                    $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+    
+                }
+
+                //var_dump($duplicatedCartDetails); exit;
+                
+                // build a cart display
+                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
+
+            }else{
+
+                $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>';
+
+                // When the cart is empty and the user is logged in
+                // we need to make sure we don;t have an abandoned
+                // cart item in the checkout table still lingering
+                if(isset($_SESSION['userData'])){
+
+                    // if there is an order previously abondoned at checkout
+                    if(null != checkCheckout($_SESSION['userData']['userId'])){
+
+                        // clear checkout order in db
+                        deleteCheckoutOrder($_SESSION['userData']['userId']);
+
+                    }
+
+                }
+            }
+
+        }
+        
+        header('Location: /Zalisting/shop/cart/');  
     }
 
 

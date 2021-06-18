@@ -161,7 +161,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails){
     $checkoutDisplay .= '</div>';
     $checkoutDisplay .= '</div>';
     $checkoutDisplay .= '</form>';
-    $checkoutDisplay .= "<a href='/zalisting/cart/?action=cart' class='checkout-back button'>Back to Cart</a>";
+    $checkoutDisplay .= "<a href='/zalisting/cart/' class='checkout-back button'>Back to Cart</a>";
 
 
     return $checkoutDisplay;

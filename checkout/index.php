@@ -55,7 +55,7 @@ switch ($action){
 
             $checkoutDetails = getCartItems($userId);
 
-            $checkoutDisplay = buildCheckoutDisplay($checkoutDetails, $userDetails);
+            $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails);
 
             // if there is an order previously abondoned at checkout
             if(null != checkCheckout($userId)){
@@ -73,6 +73,6 @@ switch ($action){
 
         }
 
-        include '../view/checkout.php';
+        header('Location: /zalisting/shop/checkout/');
 
 }
