@@ -2,6 +2,7 @@
 //                 Add to Wishlist updating                  |
 //-----------------------------------------------------------
 let addToWishlist = document.querySelector('#add-to-wishlist-button');
+var mwishlistCount = document.querySelector('#mobile-wishlist-count');
 
 addToWishlist.addEventListener('click', function(){
 
@@ -19,6 +20,8 @@ addToWishlist.addEventListener('click', function(){
             let assocArr = JSON.parse(this.responseText);
             
             wishlistCount.innerHTML = assocArr['wishlistTotal'];
+            mwishlistCount.innerHTML = assocArr['wishlistTotal'];
+
 
             addToCartRespose.innerHTML = assocArr['add-to-wishlist-response'];
 
