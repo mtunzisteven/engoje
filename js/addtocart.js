@@ -21,9 +21,11 @@ addToCart.addEventListener('click', function(){
         if (request.status == 200) {
 
             let assocArr = JSON.parse(this.responseText);
-            
-            cartCount.innerHTML = assocArr['cartTotal'];
-            mcartCount.innerHTML = assocArr['cartTotal'];
+
+            let response = assocArr['cartTotal'];
+
+            cartCount.innerHTML = response;
+            mcartCount.innerHTML = response;
 
             addToCartRespose.innerHTML = assocArr['add-to-cart-response'];
 

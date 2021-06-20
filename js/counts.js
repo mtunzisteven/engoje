@@ -13,8 +13,10 @@ request.open("POST", "http://localhost/zalisting/cart/index.php", false);
 request.onload = function() {
     if (request.status == 200) {
 
-        cartCount.innerHTML = this.responseText;
-        mcartCount.innerHTML = this.responseText;
+        let response = this.responseText;
+
+        cartCount.innerHTML = response;
+        mcartCount.innerHTML = response;
 
     } else {
 
