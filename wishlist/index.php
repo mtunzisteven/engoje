@@ -54,7 +54,7 @@ switch ($action){
                     $responseText['wishlistTotal'] = count($Added);
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -85,7 +85,7 @@ switch ($action){
                         $responseText['wishlistTotal'] = count($Added);
 
                         // add the response text to the response array
-                        $responseText['add-to-wishlist-response'] = "<p>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                        $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                         // send the associative array back to the js Ajax
                         echo json_encode($responseText);
@@ -114,7 +114,7 @@ switch ($action){
                 if($alreadyAdded){// Item already added to wishlist of the user
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                      // define wishlist total and initialize it to a value of 0
                      $_SESSION['wishlistTotal'] = count($_SESSION['wishlist']);
@@ -139,7 +139,7 @@ switch ($action){
                     $responseText['wishlistTotal'] = $_SESSION['wishlistTotal'];
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -173,6 +173,10 @@ switch ($action){
 
                 // remove it
                 unset($_SESSION['wishlist']);
+
+                // remove wishlist display session variable
+                unset($_SESSION['wishlistDisplay']);
+        
 
             }
             
@@ -240,7 +244,14 @@ switch ($action){
 
     case 'clear-wishlist':
 
-        unset($_SESSION['wishlist']);
+        if(isset($_SESSION['wishlist'])){
+
+            // remove wishlist display session variable
+            unset($_SESSION['wishlist']);
+            // remove wishlist display session variable
+            unset($_SESSION['wishlistDisplay']);
+
+        }
 
         if(isset($_SESSION['userData'])){
 

@@ -71,8 +71,12 @@ switch ($action){
             // add checkout order in db
             addCheckoutOrder($userId, $checkoutDate);
 
+            header('Location: /zalisting/shop/checkout/');
+        }else{
+
+            header('Location: /zalisting/accounts/?action=login');
+
         }
 
-        header('Location: /zalisting/shop/checkout/');
 
 }

@@ -139,6 +139,13 @@ body{
         
     }
 
+    & p.adding-alert{
+        position: relative;
+        font: $notices;
+        font-size: 16px;
+        margin:-18px 0;
+    }
+
     & .table-holder{
         max-height:500px;
         overflow:scroll;
@@ -931,12 +938,12 @@ form.form-add-to-cart{
         & .swatch-single-item{
             margin: 5px 10px 5px 0;
             padding:3px;
-            font-size: 10px;
-            width: 25px;
-            height:25px;
-            line-height: 25px;
+            font-size: 12px;
+            width: 35px;
+            height:15px;
+            line-height: 15px;
             border:2px solid $darker-background-color;
-            border-radius: 30px;
+            border-radius: 3px;
             text-align: center;
             overflow: hidden;
             resize: none;
@@ -1935,6 +1942,7 @@ div.single-product-shop{
                 margin:0;
 
                 & .shop-products{
+                    justify-content: left;
                     width:100%;
                     max-width:100%;
 
@@ -1942,6 +1950,7 @@ div.single-product-shop{
                         color:$dark-color;
                         text-align: left;
                         max-width:220px;
+                        margin: 5px;
 
                         & img{
                             width:220px;

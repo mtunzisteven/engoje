@@ -70,7 +70,6 @@ switch ($action){
                     $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
 
                     if($addToCart){
-
         
                         // get a total of all the items in the cart using the count of items 
                         // in the db after adding the recent item
@@ -80,7 +79,7 @@ switch ($action){
                         $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                         // add the response text to the response array
-                        $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                        $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
 
                         // send the associative array back to the js Ajax
                         echo json_encode($responseText);
@@ -114,7 +113,7 @@ switch ($action){
                     $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                     // add the response text to the response array
-                    $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                    $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -142,7 +141,7 @@ switch ($action){
                 $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                 // add the response text to the response array
-                $responseText['add-to-cart-response'] = "<p>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
 
                 // send the associative array back to the js Ajax
                 echo json_encode($responseText);
@@ -329,7 +328,14 @@ switch ($action){
 
     case 'clear-cart':
 
-        unset($_SESSION['cart']);
+        if(isset($_SESSION['cart'])){
+
+            // remove cart display session variable
+            unset($_SESSION['cart']);
+            // remove cart display session variable
+            unset($_SESSION['cartDisplay']);
+            
+        }
 
         if(isset($_SESSION['userData'])){
 
