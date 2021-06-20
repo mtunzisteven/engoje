@@ -2,7 +2,7 @@
 
 //  
 
-// Get one product entry by id
+// Get one product entries
 function getShopProducts(){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
@@ -14,6 +14,27 @@ function getShopProducts(){
                     WHERE images.imagePrimary = 1';
                     #GROUP BY product_entry.productId'; Uncomment to only show one product_entry per product on shop page
     $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return $productData;
+}
+
+// Get one product entries by pagination
+function getShopPaginations($lim, $offset){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE images.imagePrimary = 1  ORDER BY RAND() LIMIT :lim OFFSET :offset';
+                    #GROUP BY product_entry.productId'; Uncomment to only show one product_entry per product on shop page
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
     $stmt->execute();
     $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();

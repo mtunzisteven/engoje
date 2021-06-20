@@ -53,6 +53,7 @@
                 </section>
             </section>            
         </main>
+        <script src="/zalisting/js/counts.js"></script>
         <script src="/zalisting/js/sliders.js"></script>
     </body>
 </html>

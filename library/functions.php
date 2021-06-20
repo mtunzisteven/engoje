@@ -577,9 +577,9 @@ function buildproductDisplay($product){
 }
 
 // Build a product block
-function buildproductsDisplay($products){
+function buildproductsDisplay($products, $offset){
 
-    $dv ="";
+    $dv ="<div class='shop-products'>";
 
     if(isset($products)){
                         
@@ -589,6 +589,11 @@ function buildproductsDisplay($products){
 
         }
     }
+
+    $dv .="</div>";
+
+    $dv .= "<div class='pagination-conatiner'> <a href='/zalisting/shop/?action=prev&offset=$offset' class='pagination prev'>&#8592; Previous </a>";
+    $dv .= "<a href='/zalisting/shop/?action=next&offset=$offset' class='pagination next'> Next &#8594; </a> </div>";
 
 return $dv;
 

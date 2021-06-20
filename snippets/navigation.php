@@ -4,8 +4,8 @@
         <ul class="nav-desktop-items">
             <li class="nav-list-item"><a href=" /zalisting/" class="nav-list-link <?php if($pageName=="Home"){echo 'active';} ?>">HOME</a></li>
             <li class="nav-list-item"><a href=" /zalisting/shop" class="nav-list-link <?php if($pageName=="Shop" || $pageName=="Cart" || $pageName=="Checkout" || $pageName=="Wishlist"){echo 'active';} ?>">SHOP</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">SALE</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">NEW</a></li>
+            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">NEW</a></li>
+            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">SALE</a></li>
         </ul>
     </div>
     <div class="fa-item-container">
@@ -101,8 +101,8 @@
         <ul class="nav-mobile-items">
             <li class="nav-list-item"><a href=" /zalisting/" class="nav-list-link <?php if($pageName=="Home"){echo 'active';} ?>">HOME</a></li>
             <li class="nav-list-item"><a href=" /zalisting/shop" class="nav-list-link <?php if($pageName=="Shop"){echo 'active';} ?>">SHOP</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">SALE</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">NEW</a></li>
+            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">NEW</a></li>
+            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">SALE</a></li>
         </ul>
         
 

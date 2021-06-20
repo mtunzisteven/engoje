@@ -1,6 +1,6 @@
 <?php 
     $pageName ="Home"; 
-    $pageShortSummary = "";
+    $pageShortSummary = "ZA Listing";
     $pageDescription = "";
 
 ?><!DOCTYPE html>

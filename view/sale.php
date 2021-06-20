@@ -3,7 +3,7 @@
         header('Location: /zalisting/shop');
     }
 
-    $pageName ="Shop"; 
+    $pageName ="Sale"; 
     $pageShortSummary = "ZA Listing";
     $pageDescription = "";
 
@@ -23,7 +23,7 @@
             </div>
 
             
-            <div class='shop-products-archive'>
+            <div class='shop-products'>
                 <?php 
 
                     // Display the shop products

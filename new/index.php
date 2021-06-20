@@ -22,4 +22,4 @@ $productsDisplay = buildproductsDisplay($products);
 
 //var_dump($productsDisplay); exit;
 
-include '../view/sale.php';
+include '../view/new.php';

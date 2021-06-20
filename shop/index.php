@@ -19,8 +19,12 @@ require_once '../model/uploads-model.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
+//initial pagination
+$lim = 8;
+$offset = 0;
+
 // Fetch all products and bring them to scope of all cases
-$products = getShopProducts();
+$products = getShopPaginations($lim, $offset);
 
 
 $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
@@ -140,10 +144,46 @@ switch ($action){
 
         break;
 
+    case 'next':
+
+        $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+
+        $offset += 8;
+
+        // get next offset
+        $products = getShopPaginations($lim, $offset);        
+
+        // Build a products archive
+        $productsDisplay = buildproductsDisplay($products, $offset);
+
+        include '../view/shop.php';
+
+        break;
+
+    case 'prev':
+
+        $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+
+        if($offset > 0){
+
+            $offset -= 8;
+
+        }
+
+        // get next offset
+        $products = getShopPaginations($lim, $offset);        
+
+        // Build a products archive
+        $productsDisplay = buildproductsDisplay($products, $offset);
+
+        include '../view/shop.php';
+
+        break;
+
     default:
 
         // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products);
+        $productsDisplay = buildproductsDisplay($products, $offset);
 
         include '../view/shop.php';
     }
