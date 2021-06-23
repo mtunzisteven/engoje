@@ -2270,12 +2270,15 @@ footer.main-footer div.footer-bottom-block a:hover {
   nav.desktop-nav .fa-item-container .fa-items-container a {
     height: 22px;
     line-height: 22px;
-    font-size: 12px;
+    font-size: 14px;
     color: #081f42;
     padding: 1px 8px;
     border-radius: 3px;
     -webkit-box-shadow: none;
             box-shadow: none;
+  }
+  nav.desktop-nav .fa-item-container .fa-items-container a:hover {
+    color: #80a1d1;
   }
   nav.desktop-nav .fa-item-container .fa-items-container a.user {
     background-color: #fdfdfd;
@@ -2284,6 +2287,7 @@ footer.main-footer div.footer-bottom-block a:hover {
   nav.desktop-nav .fa-item-container .fa-items-container a.user .fa-user {
     margin: 0 0 -5px 2px;
     font-size: 20px;
+    display: inline;
   }
   nav.desktop-nav .fa-item-container .fa {
     display: -webkit-box;

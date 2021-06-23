@@ -52,7 +52,7 @@
     </div>
 
     <div class="bottom-nav-container">
-        <a class='nav-hamburger-account user' href='/zalisting/shop' title='Your Account'><i class='nav-hamburger-account fa fa-home'></i></a>
+        <a class='nav-hamburger-account user' href='/zalisting/shop' title='Your Account'><i class="fas fa-store-alt"></i></a>
         <?php 
             if(isset($_SESSION['userData']['userFirstName'])){
                 

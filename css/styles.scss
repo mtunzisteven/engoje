@@ -1693,11 +1693,15 @@ div.single-product-shop{
                 & a{
                     height:22px;
                     line-height:22px;
-                    font-size:12px;
+                    font-size:14px;
                     color:$dark-main-color;
                     padding:1px 8px;
                     border-radius: 3px;
                     box-shadow: none;
+                }
+
+                & a:hover{
+                    color:$light-main-color;
                 }
 
                 & a.user{
@@ -1707,7 +1711,7 @@ div.single-product-shop{
                     & .fa-user{
                         margin:0 0 -5px 2px;
                         font-size:20px;
-
+                        display: inline;
                     }
                 }
 
