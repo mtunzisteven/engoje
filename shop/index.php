@@ -20,13 +20,23 @@ require_once '../model/uploads-model.php';
 $adminSideNav = buildAdminSideNav();
 
 //initial pagination
-$lim = 20;
+$lim = 4;
 $offset = 0;
 
 // Fetch all products and bring them to scope of all cases
 $products = getShopPaginations($lim, $offset);
 
+// Get the number of products in db
+$allProducts = getShopProducts();
 
+//var_dump($allProducts); exit;
+
+// Get the total number products in db
+$productsQty = count($allProducts);
+
+//echo $productsQty; exit;
+
+// sanitize action variable
 $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
 if ($action == NULL){
     $action = filter_input(INPUT_GET, 'action',FILTER_SANITIZE_STRING);
@@ -148,13 +158,13 @@ switch ($action){
 
         $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
 
-        $offset += 20;
+        $offset += $lim;
 
         // get next offset
         $products = getShopPaginations($lim, $offset);        
 
         // Build a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset);
+        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
 
         include '../view/shop.php';
 
@@ -166,7 +176,7 @@ switch ($action){
 
         if($offset > 0){
 
-            $offset -= 20;
+            $offset -= $lim;
 
         }
 
@@ -174,7 +184,7 @@ switch ($action){
         $products = getShopPaginations($lim, $offset);        
 
         // Build a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset);
+        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
 
         include '../view/shop.php';
 
@@ -183,7 +193,7 @@ switch ($action){
     default:
 
         // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset);
+        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
 
         include '../view/shop.php';
     }

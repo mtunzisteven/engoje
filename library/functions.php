@@ -577,7 +577,14 @@ function buildproductDisplay($product){
 }
 
 // Build a product block
-function buildproductsDisplay($products, $offset){
+function buildproductsDisplay($products, $offset, $lim, $productsQty){
+
+    $pageNum = ($offset+$lim)/$lim;
+
+    $possiblePages = ceil($productsQty/$lim); 
+
+
+    //echo $pageNum; exit;
 
     $dv ="<div class='shop-products'>";
 
@@ -590,10 +597,69 @@ function buildproductsDisplay($products, $offset){
         }
     }
 
+    $noborderPaginationP = '';
+    $p = '&#8592; Previous';
+    $prevLink = "/zalisting/shop/?action=prev&offset=$offset";
+
+    $n = 'Next &#8594;';
+    $noborderPaginationN = '';
+    $nextLink = "/zalisting/shop/?action=next&offset=$offset";
+
+
+    if($pageNum == $possiblePages){
+
+        $noborderPaginationN = 'no-border';
+        $n = '';
+        $nextLink = "#";
+
+
+    }else if($pageNum == 1){
+
+        $noborderPaginationP = 'no-border';
+        $p = '';
+        $prevLink = "#";
+
+    }
+
     $dv .="</div>";
 
-    $dv .= "<div class='pagination-conatiner'> <a href='/zalisting/shop/?action=prev&offset=$offset' class='pagination prev'>&#8592; Previous </a>";
-    $dv .= "<a href='/zalisting/shop/?action=next&offset=$offset' class='pagination next'> Next &#8594; </a> </div>";
+    $dv .= "<div class='pagination-container'> <a href='$prevLink' class='pagination $noborderPaginationP prev'>$p </a>";
+
+    if($pageNum >= 3){
+
+        $dv .= "<a href='/zalisting/shop/?action=prev&offset=$lim' class='pagination pagination-number'> 1 </a>";
+        $dv .= "<h2>...&nbsp</h2>";
+
+    }
+
+    for($i = $pageNum; $i < $pageNum+4; $i++){
+
+        $focus = '';
+
+        $numOffset = (($i+1)*$lim)-$lim;
+
+        //echo $possiblePages; exit;
+
+        if($pageNum == $i){
+
+            $focus = 'active-pagination';   
+
+        }
+        
+        if($i <= $possiblePages){
+
+            $dv .= "<a href='/zalisting/shop/?action=prev&offset=$numOffset' class='pagination pagination-number $focus'> $i </a>";
+
+        }
+    }
+
+    if($possiblePages > $pageNum){
+
+        $dv .= "<h2>... &nbsp</h2>";
+
+    }
+
+    $dv .= "<a href='$nextLink' class='pagination $noborderPaginationN next'> $n </a> </div>";
 
 return $dv;
 

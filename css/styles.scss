@@ -708,7 +708,7 @@ div#checkout-header{
         width:85%;
         margin:0;
 
-        & div.pagination-conatiner{
+        & div.pagination-container{
             @include flex(row, center, center);
             padding: 10px 0;
             margin: 20px 0 50px 0;
@@ -737,6 +737,27 @@ div#checkout-header{
 
             
             & a.pagination:focus{
+                box-shadow: 0 0 5px 3px $light-secondary-color;
+            }
+
+            & a.pagination-number{
+                max-width: 20px;
+            }
+
+            & a.no-border{
+                border:none;
+                background-color: $background-color;
+            }
+
+            & a.no-border:hover{
+                background-color: $background-color;
+            }
+
+            & a.no-border:focus{
+                box-shadow: none;
+            }
+
+            & a.active-pagination{
                 box-shadow: 0 0 5px 3px $light-secondary-color;
             }
 
@@ -1681,7 +1702,7 @@ div.single-product-shop{
                     
                     & .fa-heart{
                         font-size: 18px !important;
-                        margin:0;
+                        margin: -2px 0 0 0;
 
                     }
 

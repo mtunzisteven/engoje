@@ -848,7 +848,7 @@ div#checkout-header img {
   margin: 0;
 }
 
-.shop div.shop-products-archive div.pagination-conatiner {
+.shop div.shop-products-archive div.pagination-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -871,7 +871,7 @@ div#checkout-header img {
   border-top: 1px #d8d5d5 solid;
 }
 
-.shop div.shop-products-archive div.pagination-conatiner a.pagination {
+.shop div.shop-products-archive div.pagination-container a.pagination {
   display: block;
   margin: 0 10px;
   color: #3a3939;
@@ -883,11 +883,34 @@ div#checkout-header img {
   text-align: center;
 }
 
-.shop div.shop-products-archive div.pagination-conatiner a.pagination:hover {
+.shop div.shop-products-archive div.pagination-container a.pagination:hover {
   background-color: #d8d5d5;
 }
 
-.shop div.shop-products-archive div.pagination-conatiner a.pagination:focus {
+.shop div.shop-products-archive div.pagination-container a.pagination:focus {
+  -webkit-box-shadow: 0 0 5px 3px #fa9595;
+          box-shadow: 0 0 5px 3px #fa9595;
+}
+
+.shop div.shop-products-archive div.pagination-container a.pagination-number {
+  max-width: 20px;
+}
+
+.shop div.shop-products-archive div.pagination-container a.no-border {
+  border: none;
+  background-color: #fdfdfd;
+}
+
+.shop div.shop-products-archive div.pagination-container a.no-border:hover {
+  background-color: #fdfdfd;
+}
+
+.shop div.shop-products-archive div.pagination-container a.no-border:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.shop div.shop-products-archive div.pagination-container a.active-pagination {
   -webkit-box-shadow: 0 0 5px 3px #fa9595;
           box-shadow: 0 0 5px 3px #fa9595;
 }
@@ -2251,7 +2274,7 @@ footer.main-footer div.footer-bottom-block a:hover {
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist .fa-heart {
     font-size: 18px !important;
-    margin: 0;
+    margin: -2px 0 0 0;
   }
   nav.desktop-nav .fa-item-container .fa-items-container .shopping-wishlist .wishlist-count {
     position: relative;
