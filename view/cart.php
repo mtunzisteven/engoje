@@ -18,7 +18,7 @@
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
     <body>
 
-        <main class="content" id='parentContainer'>
+        <main class="content short-content" id='parentContainer'>
             <?php 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 

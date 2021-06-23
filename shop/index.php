@@ -20,7 +20,7 @@ require_once '../model/uploads-model.php';
 $adminSideNav = buildAdminSideNav();
 
 //initial pagination
-$lim = 8;
+$lim = 20;
 $offset = 0;
 
 // Fetch all products and bring them to scope of all cases
@@ -148,7 +148,7 @@ switch ($action){
 
         $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
 
-        $offset += 8;
+        $offset += 20;
 
         // get next offset
         $products = getShopPaginations($lim, $offset);        
@@ -166,7 +166,7 @@ switch ($action){
 
         if($offset > 0){
 
-            $offset -= 8;
+            $offset -= 20;
 
         }
 

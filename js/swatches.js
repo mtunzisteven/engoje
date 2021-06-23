@@ -40,7 +40,7 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
 
             document.querySelector('#label-size').innerHTML = '';   // remove the size on the size label
 
-            event.target.style.borderColor = '#000000';               // change the border colour of the clicked swatch
+            event.target.style.borderColor = '#fa9595';               // change the border colour of the clicked swatch
 
             let data = new FormData();                                // create a new formData object to send data aysnchronously to the controller
 
@@ -154,7 +154,7 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
 
         cartQty.value = 0;                                      // return the cart amount to zero
 
-        event.target.style.borderColor = '#000000';               // change the border colour of the clicked swatch
+        event.target.style.borderColor = '#fa9595';               // change the border colour of the clicked swatch
 
         let data = new FormData();                                // create a new formData object to send data aysnchronously to the controller
 

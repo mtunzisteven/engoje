@@ -23,10 +23,42 @@
     }
 
     switch ($action){
-        case 'something':
-         
-         break;
+        case 'fb':
+
+            include "view/feedback.php";
+
+            break;
+
+        case 'fbr':
+
+            $feedback = filter_input(INPUT_POST, 'feedback',FILTER_SANITIZE_STRING);
+
+            $experience = filter_input(INPUT_POST, 'experince',FILTER_SANITIZE_STRING);
+
+            $feedbackDate = date('Y-m-d H:i:s');
+
+            if(!empty($feedback) && !empty($experience)){
+
+                $result = addUserFeedback($_SESSION['userData']['userId'], $experience, $feedback, $feedbackDate);
+
+                if($result){
+
+                    $_SESSION['message'] = "<p class='notice detail-span-bold'>Feedback received. Thank you for your feedback ".$_SESSION['userData']['userFirstName']."!</p>";
+                
+                }else{
+
+                    $_SESSION['message'] = "<p class='notice detail-span-bold'>We could not record your feedback. Please try again later ".$_SESSION['userData']['userFirstName']."!</p>";
+
+                }
+            }
+            //var_dump($_SESSION['userData']['userFirstName']); exit;
+
+
+            include "view/feedback.php";
+
+            break;
         
         default:
-         include 'view/home.php';
+
+            include 'view/home.php';
        }

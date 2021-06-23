@@ -32,8 +32,17 @@
                         echo $productsDisplay;
 
                     }
+
+                    echo "</div>";
+
+                    if(isset($_SESSION['userData'])){
+                        echo "<div class='feedback'><a class='feedback-link' href='/zalisting/?action=fb'>Feedback</a></div>";
+                    }
                 ?>
-            </div>
+             
+
+            
+
         </div>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
     </main>

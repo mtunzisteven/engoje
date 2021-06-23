@@ -70,8 +70,8 @@
             //var_dump($_POST['colours']); exit;
 
             $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
-            $productShortDescr = filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING);
-            $productDescription = filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING);
+            $productShortDescr = nl2br(filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
+            $productDescription = nl2br(filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
             $_SESSION['categoryId'] = $_POST['categoryId'];
             $colourIds = $_POST['colourIds'];
             $sizeIds = $_POST['sizeIds'];
