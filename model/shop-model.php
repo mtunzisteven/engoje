@@ -42,6 +42,75 @@ function getShopPaginations($lim, $offset){
     return $productData;
 }
 
+// Get product entries by pagination and size
+function getShopColourPaginations($lim, $offset, $colour){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE images.imagePrimary = 1 AND colour.colour = :colour ORDER BY RAND() LIMIT :lim OFFSET :offset';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return $productData;
+}
+
+// Get product entries by pagination and size
+function getShopSizePaginations($lim, $offset, $size){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE images.imagePrimary = 1 AND size.sizeValue = :size ORDER BY RAND() LIMIT :lim OFFSET :offset';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return $productData;
+}
+
+// Get product entries by pagination and size
+function getShopPriceePaginations($lim, $offset, $minPrice, $maxPrice){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM product_entry 
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE images.imagePrimary = 1 AND :minPrice <= product_entry.price AND product_entry.price <= :maxPrice ORDER BY RAND() LIMIT :lim OFFSET :offset';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return $productData;
+}
+
+
+
 // Get products by common product Id
 function getShopProduct($productId){
     $db = zalistingConnect();
@@ -150,7 +219,7 @@ function getShopSwatchProduct($productId){
     return $productData;
 }
 
-// Get vehicles by categoryId 
+// Get product by categoryId 
 function getProductByCategory($categoryId){ 
     $db = zalistingConnect(); 
     $sql = ' SELECT * FROM product WHERE categoryId = :categoryId'; 
@@ -161,19 +230,6 @@ function getProductByCategory($categoryId){
     $stmt->closeCursor(); 
     return $product; 
    }
-
-// Get car info using category ids and Image Primary level
-function getCategoryProduct($categoryId, $imgPrimary){
-    $db = zalistingConnect(); 
-    $sql = "SELECT images.imgPath, inventory.invModel, inventory.invMake, inventory.invPrice, inventory.invId FROM images INNER JOIN inventory ON images.invId=inventory.invId WHERE images.imgName LIKE '%\-tn%' AND images.imgPrimary=:imgPrimary AND inventory.classificationId=:classificationId"; 
-    $stmt = $db->prepare($sql); 
-    $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_INT); 
-    $stmt->bindValue(':imgPrimary', $imgPrimary, PDO::PARAM_INT); 
-    $stmt->execute(); 
-    $categoryProduct = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-    $stmt->closeCursor(); 
-    return $categoryProduct; 
-}
 
 // Get product information by productId
 function getProductItemInfo($productId){
@@ -186,34 +242,6 @@ function getProductItemInfo($productId){
     $stmt->closeCursor();
     return $productInfo;
    }
-
-// This function will update product
-function updateProduct($productName, $productPrice, $productDescription, $productCreationDate, $reviewId, $variationId, $categoryId){
-    
-    // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
-
-    // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare('UPDATE inventory SET $productName, $productPrice, $productDescription, $productCreationDate, $reviewId, $variationId, $categoryId WHERE productId = :productId');
-
-    // Replace the place holders
-    $stmt->bindValue(':productName',$productName, PDO::PARAM_STR);
-    $stmt->bindValue(':productPrice',$productPrice, PDO::PARAM_STR);
-    $stmt->bindValue(':productDescription',$productDescription, PDO::PARAM_STR);
-    $stmt->bindValue(':productCreationDate',$productCreationDate, PDO::PARAM_STR);
-    $stmt->bindValue(':reviewId',$reviewId, PDO::PARAM_STR);
-    $stmt->bindValue(':variationId',$variationId, PDO::PARAM_STR);
-    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
-
-    // The next line runs the prepared statement 
-    $stmt->execute(); 
-    // Get number of affected rows
-    $result = $stmt->rowCount();
-    // The next line closes the interaction with the database 
-    $stmt->closeCursor(); 
-
-    return $result;
-}
 
 // This function will update product
 function deleteProduct($productId){

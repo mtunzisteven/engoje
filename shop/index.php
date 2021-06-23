@@ -20,7 +20,7 @@ require_once '../model/uploads-model.php';
 $adminSideNav = buildAdminSideNav();
 
 //initial pagination
-$lim = 4;
+$lim = 24;
 $offset = 0;
 
 // Fetch all products and bring them to scope of all cases
@@ -190,7 +190,56 @@ switch ($action){
 
         break;
 
+    case "colour-filter":
+
+        $colour = "black";
+
+        $products = getShopColourPaginations($lim, $offset, $colour);
+
+        // BUild a products archive
+        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        include '../view/shop.php';
+
+        break;
+
+    case "size-filter":
+
+        $colour = "black";
+
+        $products = getShopColourPaginations($lim, $offset, $size);
+
+        // BUild a products archive
+        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        include '../view/shop.php';
+
+        break;
+
+    case "price-filter":
+
+        $minPrice = 200;
+
+        $maxPrice = 220;
+
+
+        $products = getShopPriceePaginations($lim, $offset, $minPrice, $maxPrice);
+
+        // BUild a products archive
+        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        include '../view/shop.php';
+
+        break;
+
     default:
+
+        $minPrice = 200;
+
+        $maxPrice = 220;
+
+
+        $products = getShopPriceePaginations($lim, $offset, $minPrice, $maxPrice);
 
         // BUild a products archive
         $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
