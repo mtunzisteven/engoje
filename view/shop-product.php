@@ -21,14 +21,35 @@
 
                 <?php
 
+                $index = 0;
+                $count = 0;
+
                 if(isset($_SESSION['productData'])){
 
-                echo "<img id='single-product' class='product-primary-image' src='".$_SESSION['productData'][0]['imagePath']."' alt='".$_SESSION['productData'][0]['productName']."'>";
+                    /*foreach($_SESSION['productData'] as $product){
+
+                        $count += 1;
+
+
+                        if($product['colour'] == $_SESSION['colour']){
+
+                            $index = $count;
+
+                            //var_dump($_SESSION['productData'][$index]); exit;
+
+
+                        }else{
+
+                        }
+                    }*/
+
+
+                echo "<img id='single-product' class='product-primary-image' src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."'>";
 
                 echo "<div class='single-product-gallery'>";
 
                 foreach($_SESSION['productData'] as $productrow){
-                    if($productrow['product_entryId'] == $_SESSION['productData'][0]['product_entryId']){
+                    if($productrow['product_entryId'] == $_SESSION['productData'][$index]['product_entryId']){
 
                         echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='".$productrow['imagePath_tn']."' alt='Gallery Image'>";
 

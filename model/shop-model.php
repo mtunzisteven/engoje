@@ -87,7 +87,7 @@ function getShopSizePaginations($lim, $offset, $size){
 }
 
 // Get product entries by pagination and size
-function getShopPriceePaginations($lim, $offset, $minPrice, $maxPrice){
+function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId

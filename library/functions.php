@@ -533,8 +533,8 @@ function buildProductSwatchesDisplay($products, $swatch){
 
     foreach($products as $product){
 
-
-        if(!strpos($swatchDisplay, ' '.$product[$swatch].' ') && $product[$swatch]!='N/A'){ // When substring:$product[$swatch] is not found in the string: $swatchString, execute block
+        // When substring:$product[$swatch] is not found in the string: $swatchString, execute block
+        if(!strpos($swatchDisplay, ' '.$product[$swatch].' ') && $product[$swatch]!='N/A'){ 
             
             if($label == 'size'){
 
@@ -567,8 +567,8 @@ function buildproductDisplay($product){
         
     }
 
-    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]' ><img src='$path' alt='".$product['productName']."' /></a>";
-    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&colour=$product[colour]' ><img src='$path' alt='".$product['productName']."' /></a>";
+    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
     $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
     $dv .= "<h4 class='productPrice' >R$product[price]</h4></div>";
 
@@ -579,12 +579,11 @@ function buildproductDisplay($product){
 // Build a product block
 function buildproductsDisplay($products, $offset, $lim, $productsQty){
 
+    // The page number 
     $pageNum = ($offset+$lim)/$lim;
 
+    // get the total amount of pages to display all products
     $possiblePages = ceil($productsQty/$lim); 
-
-
-    //echo $pageNum; exit;
 
     $dv ="<div class='shop-products'>";
 

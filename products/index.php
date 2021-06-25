@@ -81,7 +81,7 @@
 
             if(empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
 
-                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product.</p>";
+                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't add the Product.</p>";
 
             }else{
 
@@ -154,8 +154,7 @@
 
             if(!empty($_POST['sku']) || !empty($_POST['price']) || !empty($_POST['qty']) || !empty($_POST['sizeValue']) || !empty($_POST['colour']) || !empty($_SESSION['categoryId'])){
 
-                //var_dump($_POST['colour']); exit;
-
+                // Get the product id of the product that was last added(recently added)
                 $productId = getLastProductId();
 
                 // Get sizes array from datalist inputs

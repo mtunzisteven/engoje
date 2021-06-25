@@ -47,8 +47,10 @@ switch ($action){
     // Single product view with details
     case 'product':
 
-        // sanitize shared product id
+        // sanitize shared product id & colour
         $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
+        $_SESSION['colour'] = filter_input(INPUT_GET, 'colour', FILTER_SANITIZE_STRING);
+
         
         //get all the product details for using shared productId
         $_SESSION['productData'] = getShopProduct($productId);
@@ -218,13 +220,6 @@ switch ($action){
 
     case "price-filter":
 
-        $minPrice = 200;
-
-        $maxPrice = 220;
-
-
-        $products = getShopPriceePaginations($lim, $offset, $minPrice, $maxPrice);
-
         // BUild a products archive
         $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
 
@@ -233,13 +228,6 @@ switch ($action){
         break;
 
     default:
-
-        $minPrice = 200;
-
-        $maxPrice = 220;
-
-
-        $products = getShopPriceePaginations($lim, $offset, $minPrice, $maxPrice);
 
         // BUild a products archive
         $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
