@@ -8,36 +8,44 @@ let galleryImages = document.querySelectorAll('.product-gallery-image');
 
 addToCart.addEventListener('click', function(){
 
-    let addtocartData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+        if(cartQty.value > 0){
+        let addtocartData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 
-    addtocartData.append('product_entryId', product_entryId.value);  // add the product_entryId to data
-    addtocartData.append('cart_item_qty', cartQty.value);                      // add the quantity of products to the data
-    addtocartData.append('action', 'add-to-cart');                   // add the action that will be used by the case selection in the controller
+        addtocartData.append('product_entryId', product_entryId.value);  // add the product_entryId to data
+        addtocartData.append('cart_item_qty', cartQty.value);                      // add the quantity of products to the data
+        addtocartData.append('action', 'add-to-cart');                   // add the action that will be used by the case selection in the controller
 
-    // Send data
-    var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost/zalisting/cart/index.php", false);
-    request.onload = function() {
-        if (request.status == 200) {
+        // Send data
+        var request = new XMLHttpRequest();
+        request.open("POST", "http://localhost/zalisting/cart/index.php", false);
+        request.onload = function() {
+            if (request.status == 200) {
 
-            let assocArr = JSON.parse(this.responseText);
+                let assocArr = JSON.parse(this.responseText);
 
-            let response = assocArr['cartTotal'];
+                let response = assocArr['cartTotal'];
 
-            cartCount.innerHTML = response;
-            mcartCount.innerHTML = response;
+                cartCount.innerHTML = response;
+                mcartCount.innerHTML = response;
 
-            addToCartRespose.innerHTML = assocArr['add-to-cart-response'];
+                addToCartRespose.innerHTML = assocArr['add-to-cart-response'];
 
 
-        } else {
+            } else {
 
-            addToCartRespose.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
+                addToCartRespose.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
 
-        }
-    };
+            }
+        };
 
-    request.send(addtocartData);    
+        request.send(addtocartData);    
+    }
+    
+    else if(cartQty.value < 1){
+
+        addToCartRespose.innerHTML = "<p class='adding-alert'>Error: Cart amount less than 1.</p>";
+
+    }
 
 }, false);
 
