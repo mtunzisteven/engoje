@@ -8,6 +8,7 @@ $light-main-color:#80a1d1;
 $secondary-color: #ff4949;
 $dark-secondary-color: #DD1717;
 $light-secondary-color: #fa9595;
+$green_colour: #008000;
 $background-color:#fdfdfd;
 $darker-background-color:#d8d5d5;
 $dark-background-color:#f0f0f0;
@@ -87,6 +88,15 @@ $notices  : 200 20px 'Handlee', sans-serif;
     border-radius: 15px;
 }
 
+@mixin invalidinput(){
+    border: 1px solid $dark-secondary-color;
+    box-shadow: 0 0 10px 0 $dark-secondary-color;
+}
+
+@mixin validinput(){
+    border: 1px solid $green_colour;
+    box-shadow: 0 0 10px 0 $green_colour;
+}
 
 /*
 *------------------------------------------------------------------------CSS
@@ -908,6 +918,22 @@ form{
         width:65%;
         height:28px;
         margin:2px 0 15px 0;
+    }
+
+    & input:focus{
+        outline:none;
+    }
+
+    & input.validity:focus:invalid{
+        @include invalidinput();
+    }
+
+    & input.validity:focus:valid{
+        @include validinput();
+    }
+
+    & input#email:focus:valid{
+        @include validinput();
     }
 
     & .button{

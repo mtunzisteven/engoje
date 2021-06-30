@@ -51,10 +51,10 @@ $pageDescription = "";
                 <input class="reg-inputs" type="text" name="userLastName" required placeholder="Enter your last name" />
                 
                 <label class="reg-label">Email Address</label>
-                <input class="reg-inputs" type="email" name="userEmail" required placeholder="Enter a valid email address" />
+                <input class="reg-inputs validity" type="email" name="userEmail" required placeholder="Enter a valid email address" />
                 
                 <label class="reg-label">Password</label>
-                <input class="reg-inputs" type="password" name="userPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
+                <input class="reg-inputs validity" type="password" name="userPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
                 <span class="detail-span">Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
 
                 

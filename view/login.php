@@ -32,7 +32,7 @@
 
             <form class="login-form" method="post" action="../accounts/index.php">
                 <label class="login-label">Email Address</label>
-                <input class="login-inputs" type="email" name="userEmail" required placeholder="Enter a valid email address" value="<?php if(isset($userEmail)){echo $userEmail;}  ?>" />
+                <input class="login-inputs validity" type="email" name="userEmail" required placeholder="Enter a valid email address" value="<?php if(isset($userEmail)){echo $userEmail;}  ?>" />
                 
                 <label class="login-label">Password</label>
                 <input class="login-inputs" type="password" name="userPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Enter your password" />

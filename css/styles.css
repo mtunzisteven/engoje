@@ -1124,6 +1124,28 @@ form input {
   margin: 2px 0 15px 0;
 }
 
+form input:focus {
+  outline: none;
+}
+
+form input.validity:focus:invalid {
+  border: 1px solid #DD1717;
+  -webkit-box-shadow: 0 0 10px 0 #DD1717;
+          box-shadow: 0 0 10px 0 #DD1717;
+}
+
+form input.validity:focus:valid {
+  border: 1px solid #008000;
+  -webkit-box-shadow: 0 0 10px 0 #008000;
+          box-shadow: 0 0 10px 0 #008000;
+}
+
+form input#email:focus:valid {
+  border: 1px solid #008000;
+  -webkit-box-shadow: 0 0 10px 0 #008000;
+          box-shadow: 0 0 10px 0 #008000;
+}
+
 form .button {
   display: block;
   width: 65.5%;

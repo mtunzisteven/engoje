@@ -8,7 +8,7 @@ let galleryImages = document.querySelectorAll('.product-gallery-image');
 
 addToCart.addEventListener('click', function(){
 
-        if(cartQty.value > 0){
+    if(cartQty.value > 0){
         let addtocartData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 
         addtocartData.append('product_entryId', product_entryId.value);  // add the product_entryId to data
