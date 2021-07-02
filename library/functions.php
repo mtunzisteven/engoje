@@ -67,12 +67,12 @@ function buildCartDisplay($cartDetails){
         $grandTotal += $lineTotal;
 
         $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $cartDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$cartItem[productId]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+        $cartDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
         $cartDisplay .= "<div>$cartItem[productName]</div>"; 
         $cartDisplay .= "<div>$cartItem[colour]</div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
         $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
-        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty' name='cart_item_qty' value='$cartItem[cart_item_qty]' min='2' /><button class='button oneUp'>+</button></div>"; 
+        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
         $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
         $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
@@ -552,7 +552,6 @@ function buildProductSwatchesDisplay($products, $swatch){
 
     //var_dump($swatchDisplay); exit;
 
-
     return $swatchDisplay;
 
 }
@@ -567,8 +566,8 @@ function buildproductDisplay($product){
         
     }
 
-    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&colour=$product[colour]' ><img src='$path' alt='".$product['productName']."' /></a>";
-    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><img src='$path' alt='".$product['productName']."' /></a>";
+    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
     $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
     $dv .= "<h4 class='productPrice' >R$product[price]</h4></div>";
 

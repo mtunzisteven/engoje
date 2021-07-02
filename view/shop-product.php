@@ -26,23 +26,21 @@
 
                 if(isset($_SESSION['productData'])){
 
-                    /*foreach($_SESSION['productData'] as $product){
+                    foreach($_SESSION['productData'] as $product){
 
-                        $count += 1;
+                        if($product['product_entryId'] == $_SESSION['product_entryId']){
 
+                            $index = $count; 
 
-                        if($product['colour'] == $_SESSION['colour']){
-
-                            $index = $count;
-
-                            //var_dump($_SESSION['productData'][$index]); exit;
-
-
-                        }else{
+                            break; 
 
                         }
-                    }*/
 
+                        $count += 1;
+                        
+                    }
+
+                    //var_dump($_SESSION['productData'][$index]) echo $index; exit;
 
                 echo "<img id='single-product' class='product-primary-image' src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."'>";
 
@@ -74,6 +72,7 @@
                         echo "<p  class='productShort-descr'>".$_SESSION['productData'][0]['productShortDescr']."</p>";
                         echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$_SESSION['productData'][0]['product_entryId']."' />";
                         echo "<input type='hidden' id='productId' name='productId' value='".$_SESSION['productData'][0]['productId']."' />";
+                        echo "<input type='hidden' id='colourChoice' name='".$_SESSION['colourChoice']."' value='".$_SESSION['colourChoice']."' />";
 
                         echo $_SESSION['colours'];                            
 
@@ -82,7 +81,7 @@
                     }
                 ?>
                 <div class="add-to-cart-container">
-                    <input id="add-to-cart-qty" type="number" name="qty" value="0" />
+                    <input id="add-to-cart-qty" class='validity' type="number" name="qty" value="0" min=1 />
                     <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
                 </div>
                 <div class="add-to-cart-container">

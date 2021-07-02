@@ -10,6 +10,8 @@ let cartQty = document.querySelector('#add-to-cart-qty');//                     
 //---------------------------------------------------------------------------------------|
 let sizeSwatches = document.querySelectorAll('.size');     // get all divs with class:size
 let colourSwatches = document.querySelectorAll('.colour'); // get all divs with class:colour
+let colourChoice = document.querySelector('#colourChoice'); // get the colour choice from input
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                      //
@@ -81,9 +83,10 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
             //event.preventDefault();
         }, false);
 
-        // When loading the page, always auto click the first colour
-        if(i == 0){
-            colourSwatches[i].click();
+        // When loading the page, always auto click the respective colour
+        if(swatchColour == colourChoice.getAttribute("name")){
+
+            colourSwatches[i].click();;
         }
 }
 

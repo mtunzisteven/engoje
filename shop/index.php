@@ -49,7 +49,9 @@ switch ($action){
 
         // sanitize shared product id & colour
         $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
-        $_SESSION['colour'] = filter_input(INPUT_GET, 'colour', FILTER_SANITIZE_STRING);
+        $_SESSION['product_entryId'] = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_STRING);
+        $_SESSION['colourChoice'] = filter_input(INPUT_GET, 'colour', FILTER_SANITIZE_STRING);
+
 
         
         //get all the product details for using shared productId
