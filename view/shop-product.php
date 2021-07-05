@@ -92,7 +92,6 @@
         </div>
         <script src='/zalisting/js/swatches.js'></script>
         <script type='module' src='/zalisting/js/singleproduct.js'></script>
-        <script type='module' src="/zalisting/js/addtowishlist.js"></script>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
     </main>
  </body>
