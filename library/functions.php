@@ -159,9 +159,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails){
     $checkoutDisplay .= "<div class='seperator'></div>"; 
     $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 class='cart-total'>R$grandTotal</h2></div>"; 
     $checkoutDisplay .= '</div>';
-    $checkoutDisplay .= '</div>';
-    $checkoutDisplay .= '</form>';
-    $checkoutDisplay .= "<a href='/zalisting/cart/' class='checkout-back button'>Back to Cart</a>";
+
 
 
     return $checkoutDisplay;
@@ -661,6 +659,55 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty){
 
 return $dv;
 
+}
+
+// build a shop side bar display
+function buildShopSidebar(/*$categories,*/ $minPriceAll, $maxPriceAll, $minPrice, $maxPrice/*, $colours, $sizes*/){
+
+    $sidebar = '';
+
+    // categories section
+    /*foreach($categories as $category){
+
+    }*/
+
+
+    // price section
+
+    $maxMin = $minPriceAll +1;
+    $minMax = $maxPriceAll -1;
+
+    if(!empty($minPrice) && !empty($maxPrice)){
+
+        $maxMin = $minPrice +1;
+        $minMax = $maxPrice -1;
+
+    }else{ // When the input values have not been entered, use default db values 
+
+        $minPrice = $minPriceAll;
+        $maxPrice = $maxPriceAll;
+
+    }
+
+    $sidebar .= "<div class='seperator'>&nbsp;</div>";
+
+    $sidebar .= "<form class='sidebar-section' method='POST' action='/zalisting/sidebar'>";
+    $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min='$minPriceAll' max='$minMax' class='sidebar-price validity' /></label>";
+    $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min='$maxMin' max='$maxPriceAll' class='sidebar-price validity' /></label>";
+    $sidebar .= "<input type='submit' value='submit'  class='button'>";
+    $sidebar .= "</form>";
+
+    // colour section
+    /*foreach($colours as $colour){
+        
+    }
+
+    // size section
+    foreach($sizes as $size){
+        
+    }*/
+
+    return $sidebar;
 }
 
 

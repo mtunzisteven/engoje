@@ -27,6 +27,10 @@ body main {
   background-color: #f0f0f0;
 }
 
+body main .paypal-button-number-0 {
+  display: none !important;
+}
+
 body h1 {
   font: 500 35px "Cinzel", serif;
 }
@@ -1781,6 +1785,37 @@ form.feedback-form input.button {
   margin: 20px auto 10px auto;
   max-width: 120px;
   font: 200 15px "Nunito", sans-serif;
+}
+
+.sidebar-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  min-width: 98%;
+  padding: 1%;
+  margin: 0;
+  border: none;
+}
+
+.sidebar-section input[type=number] {
+  height: 20px;
+  text-align: center;
+}
+
+.sidebar-section input.button {
+  max-width: 100px;
 }
 
 /*------------------------------------------------Forms END

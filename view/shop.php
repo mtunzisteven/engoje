@@ -19,8 +19,30 @@
         ?>
         <div class="shop">
             <div class="side-bar">
-                <h2>Side Bar</h2>
+
+            <?php
+
+                // Display the shop products
+                if(isset($sidebarDisplay)){
+                
+                    if(isset($_SESSION['$sidebarDisplay'])){
+
+                        echo $_SESSION['$sidebarDisplay'];
+
+                        unset($_SESSION['$sidebarDisplay']);
+
+                    }else{
+                        echo $sidebarDisplay;
+                    }
+
+                }
+
+
+            ?>
+
             </div>
+
+
 
             
             <div class='shop-products-archive'>
@@ -30,6 +52,12 @@
                     if(isset($productsDisplay)){
                     
                         echo $productsDisplay;
+
+                    }
+                    // Display the shop products from filtered sidebar
+                    if(isset($_SESSION['$productsDisplay'])){
+
+                        echo $_SESSION['$productsDisplay'];
 
                     }
 

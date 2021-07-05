@@ -115,6 +115,10 @@ body{
         margin:0 auto;
         overflow-x: hidden;   
         background-color: $dark-background-color;
+
+        & .paypal-button-number-0{
+            display: none !important;
+        }
     
     }
 
@@ -1364,7 +1368,23 @@ form.feedback-form{
         max-width: 120px;
         font: $p;
     }
+}
 
+.sidebar-section{
+    @include flex(row, space-between, flex-end);
+    min-width: 98%;
+    padding: 1%;
+    margin:0;
+    border: none;
+
+    & input[type=number]{
+        height: 20px;
+        text-align: center;
+    }
+
+    & input.button{
+        max-width: 100px;
+    }
 
 }
 

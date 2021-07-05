@@ -243,6 +243,34 @@ function getProductItemInfo($productId){
     return $productInfo;
    }
 
+// Get all products max price value
+function getmaxPrice(){
+    $db = zalistingConnect();
+    $sql = 'SELECT price FROM product_entry ORDER BY price DESC LIMIT 1';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $max = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //echo $max['price']; exit;
+
+    return $max['price'];
+}
+
+// Get all products min price value
+function getminPrice(){
+    $db = zalistingConnect();
+    $sql = 'SELECT price FROM product_entry ORDER BY price ASC LIMIT 1';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $min = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //echo $min['price']; exit;
+
+    return $min['price'];
+}
+
 // This function will update product
 function deleteProduct($productId){
     

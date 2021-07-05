@@ -1,8 +1,4 @@
-// ----------------------------------------------------------
-//                 Add to Wishlist updating                  |
-//-----------------------------------------------------------
-let addToWishlist = document.querySelector('#add-to-wishlist-button');
-var mwishlistCount = document.querySelector('#mobile-wishlist-count');
+import {jsonRequest} from "./jsonrequests.js";
 
 addToWishlist.addEventListener('click', function(){
 
@@ -11,28 +7,11 @@ addToWishlist.addEventListener('click', function(){
     addtowishlistData.append('product_entryId', product_entryId.value);  // add the product_entryId to data
     addtowishlistData.append('action', 'add-to-wishlist');                   // add the action that will be used by the case selection in the controller
 
+
+    let url = "http://localhost/zalisting/wishlist/index.php";
+
     // Send data
-    var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost/zalisting/wishlist/index.php", false);
-    request.onload = function() {
-        if (request.status == 200) {
-
-            let assocArr = JSON.parse(this.responseText);
-            
-            wishlistCount.innerHTML = assocArr['wishlistTotal'];
-            mwishlistCount.innerHTML = assocArr['wishlistTotal'];
-
-
-            addToCartRespose.innerHTML = assocArr['add-to-wishlist-response'];
-
-
-        } else {
-
-            addToCartRespose.innerHTML = "Error " + request.status + " occurred when trying to upload your file.<br \/>";
-
-        }
-    };
-
-    request.send(addtowishlistData);    
+    // Use fetch request from module.
+    jsonRequest(url, addtowishlistData, wishlistCount, mwishlistCount, 'wishlistTotal', addToCartRespose, 'add-to-wishlist-response');
 
 }, false);

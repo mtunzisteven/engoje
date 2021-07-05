@@ -34,7 +34,18 @@ $allProducts = getShopProducts();
 // Get the total number products in db
 $productsQty = count($allProducts);
 
-//echo $productsQty; exit;
+// get price max and min from db
+$maxPriceAll = getmaxPrice();
+$minPriceAll = getminPrice();
+
+// input max and min price values
+$maxPrice = 100;
+$minPrice = 110;
+
+// build side bar display
+$sidebarDisplay = buildShopSidebar($minPriceAll, $maxPriceAll,$minPrice, $maxPrice);
+
+//echo $minPrice; exit;
 
 // sanitize action variable
 $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
@@ -188,41 +199,6 @@ switch ($action){
         $products = getShopPaginations($lim, $offset);        
 
         // Build a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
-
-        include '../view/shop.php';
-
-        break;
-
-    case "colour-filter":
-
-        $colour = "black";
-
-        $products = getShopColourPaginations($lim, $offset, $colour);
-
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
-
-        include '../view/shop.php';
-
-        break;
-
-    case "size-filter":
-
-        $colour = "black";
-
-        $products = getShopColourPaginations($lim, $offset, $size);
-
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
-
-        include '../view/shop.php';
-
-        break;
-
-    case "price-filter":
-
-        // BUild a products archive
         $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
 
         include '../view/shop.php';
