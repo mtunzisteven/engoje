@@ -1003,7 +1003,7 @@ div#checkout-header img {
 .shop div.feedback {
   position: absolute;
   z-index: 998;
-  top: 900px;
+  top: 450px;
   right: 0;
   margin: 0 -30px 0 0;
   background-color: #ff4949;
@@ -1797,29 +1797,107 @@ form.feedback-form input.button {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  min-width: 98%;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 94%;
   padding: 1%;
   margin: 0;
   border: none;
 }
 
-.sidebar-section input[type=number] {
-  height: 20px;
+.sidebar-section label {
+  font: 200 15px "Nunito", sans-serif;
+  font-size: 14px;
+  color: #929292;
+}
+
+.sidebar-section label input[type=number] {
+  height: 15px;
   text-align: center;
+  border: 1px solid #d8d5d5;
+}
+
+.sidebar-section label.swatch-label {
+  font-size: 0;
+}
+
+.sidebar-section div.swatch-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 100%;
+  margin: 0;
+}
+
+.sidebar-section div.swatch-container .swatch-single-item {
+  margin: 5px 10px 5px 0;
+  padding: 3px;
+  font-size: 12px;
+  width: 25px;
+  height: 10px;
+  line-height: 15px;
+  border: 1px solid #d8d5d5;
+  border-radius: 0;
+  text-align: center;
+  overflow: hidden;
+  resize: none;
+  cursor: pointer;
+}
+
+.sidebar-section div.swatch-container .swatch-single-item:focus {
+  outline: none;
+}
+
+.sidebar-section div.swatch-container .swatch-single-item:hover {
+  border: 1px solid #80a1d1;
 }
 
 .sidebar-section input.button {
   max-width: 100px;
+  height: 15px;
+  margin: 0 0 10px 0;
+  line-height: 2px;
+  padding: 15px 5px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 /*------------------------------------------------Forms END
 */
+div.seperator {
+  height: 1px;
+  min-width: 100%;
+  background-color: #d8d5d5;
+  margin: 0 0 10px 0;
+}
+
+h5.filter-titles {
+  font: 400 20px "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #929292;
+  margin: 15px 0 0 0;
+  padding: 25px 0 0 0;
+}
+
 div.cart-display-table {
   width: 90%;
   display: -webkit-box;

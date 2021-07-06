@@ -32,49 +32,79 @@ $allProducts = getShopProducts();
 // Get the total number products in db
 $productsQty = count($allProducts);
 
-// get price max and min from db
-$maxPriceAll = getmaxPrice();
-$minPriceAll = getminPrice();
+// get colours and sizes from db
+$colours = getColours();
+$sizes = getSizes();
 
 //echo $productsQty; exit;
 
 // sanitize action variable
-$action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
-if ($action == NULL){
-    $action = filter_input(INPUT_GET, 'action',FILTER_SANITIZE_STRING);
+$filter = filter_input(INPUT_POST, 'filter',FILTER_SANITIZE_STRING);
+if ($filter == NULL){
+    $filter = filter_input(INPUT_GET, 'filter',FILTER_SANITIZE_STRING);
 }
 
-switch ($action){
+switch ($filter){
 
     case "colour-filter":
 
-        $colour = "black";
+        // get the input colour value
+        $colour = filter_input(INPUT_GET, 'colour',FILTER_SANITIZE_STRING);
+
+        //echo $colour; exit;
 
         $products = getShopColourPaginations($lim, $offset, $colour);
 
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+        //var_dump($products); exit;
 
-        include '../view/shop.php';
+        // BUild a products archive
+        $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        header('Location: /zalisting/shop/?action=filters');
 
         break;
 
     case "size-filter":
 
-        $size = "black";
+        // get the input size value
+        $size = filter_input(INPUT_GET, 'size',FILTER_SANITIZE_STRING);
 
         $products = getShopSizePaginations($lim, $offset, $size);
 
         // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+        $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
 
-        include '../view/shop.php';
+        header('Location: /zalisting/shop/?action=filters');
 
         break;
 
     case "price-filter":
 
+        // get the input price values
+        $minPrice = filter_input(INPUT_GET, 'minPrice',FILTER_SANITIZE_NUMBER_INT);
+        $maxPrice = filter_input(INPUT_GET, 'maxPrice',FILTER_SANITIZE_NUMBER_INT);
 
+        //echo $maxPrice; exit;
+
+        // get filtered products form db
+        $products = getShopPricePaginations($lim, $offset, $minPrice, $maxPrice);
+
+        //var_dump($products); exit;
+
+        if(!empty($products)){
+
+            // BUild a products archive
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        }else{
+
+            // BUild a products archive
+            $_SESSION['productsDisplay'] = '<p class="notice"><br/>No products found...</p>';
+
+        }
+
+
+        header('Location: /zalisting/shop/?action=filters');
 
         break;
 
@@ -87,7 +117,8 @@ switch ($action){
         var_dump($_POST); exit;
 
         // build side bar display
-        $_SESSION['$sidebarDisplay'] = buildShopSidebar($minPriceAll, $maxPriceAll,$minPrice, $maxPrice);
+        $_SESSION['$sidebarDisplay'] = buildShopSidebarPrice($minPrice, $maxPrice);
+
 
         // get filtered products form db
         $products = getShopPricePaginations($lim, $offset, $minPrice, $maxPrice);

@@ -25,11 +25,11 @@
                 // Display the shop products
                 if(isset($sidebarDisplay)){
                 
-                    if(isset($_SESSION['$sidebarDisplay'])){
+                    if(isset($_SESSION['sidebarDisplay'])){
 
-                        echo $_SESSION['$sidebarDisplay'];
+                        echo $_SESSION['sidebarDisplay'];
 
-                        unset($_SESSION['$sidebarDisplay']);
+                        unset($_SESSION['sidebarDisplay']);
 
                     }else{
                         echo $sidebarDisplay;
@@ -55,9 +55,10 @@
 
                     }
                     // Display the shop products from filtered sidebar
-                    if(isset($_SESSION['$productsDisplay'])){
+                    if(isset($_SESSION['productsDisplay'])){
 
-                        echo $_SESSION['$productsDisplay'];
+                        echo $_SESSION['productsDisplay'];
+                        unset($_SESSION['productsDisplay']); //Delete the filter display once displayed
 
                     }
 
@@ -75,4 +76,5 @@
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
     </main>
  </body>
+ <script src="/zalisting/js/shopswatch.js"></script>
 </html>

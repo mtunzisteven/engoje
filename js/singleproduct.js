@@ -1,5 +1,5 @@
-import{plisten} from "./addtocart.js";
-import{wlisten} from "./addtowishlist.js";
+import{plisten} from "./addto/addtocart.js";
+import{wlisten} from "./addto/addtowishlist.js";
 
 
 let addToCart = document.querySelector('#add-to-cart-button'); 

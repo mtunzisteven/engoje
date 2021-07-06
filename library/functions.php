@@ -662,53 +662,62 @@ return $dv;
 }
 
 // build a shop side bar display
-function buildShopSidebar(/*$categories,*/ $minPriceAll, $maxPriceAll, $minPrice, $maxPrice/*, $colours, $sizes*/){
+function buildShopSidebarPrice($minPrice, $maxPrice){
 
     $sidebar = '';
-
-    // categories section
-    /*foreach($categories as $category){
-
-    }*/
-
-
     // price section
-
-    $maxMin = $minPriceAll +1;
-    $minMax = $maxPriceAll -1;
-
-    if(!empty($minPrice) && !empty($maxPrice)){
-
-        $maxMin = $minPrice +1;
-        $minMax = $maxPrice -1;
-
-    }else{ // When the input values have not been entered, use default db values 
-
-        $minPrice = $minPriceAll;
-        $maxPrice = $maxPriceAll;
-
-    }
-
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-
-    $sidebar .= "<form class='sidebar-section' method='POST' action='/zalisting/sidebar'>";
-    $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min='$minPriceAll' max='$minMax' class='sidebar-price validity' /></label>";
-    $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min='$maxMin' max='$maxPriceAll' class='sidebar-price validity' /></label>";
-    $sidebar .= "<input type='submit' value='submit'  class='button'>";
+    $sidebar .= "<h5 class='filter-titles'>Filter by Price</h5>";
+    $sidebar .= "<div class='seperator'>&nbsp;</div>";
+    $sidebar .= "<form class='sidebar-section' action='/zalisting/sidebar'>";
+    $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' /></label>";
+    $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min=0 class='sidebar-price validity' /></label>";
+    $sidebar .= "<input type='submit' value='filter'  class='button'>";
+    $sidebar .= "<input type='hidden' name='filter' value='price-filter' >";
     $sidebar .= "</form>";
 
-    // colour section
-    /*foreach($colours as $colour){
-        
-    }
+    return $sidebar;
 
-    // size section
-    foreach($sizes as $size){
-        
-    }*/
+}
+
+function buildShopSidebarColour($products, $colour){
+
+    // colour section
+    $sidebar  = "<h5 class='filter-titles'>Filter by Colour</h5>";
+    $sidebar .= "<div class='seperator'>&nbsp;</div>";
+    $sidebar .= "<form id='colourform' class='sidebar-section' action='/zalisting/sidebar'>";
+    $sidebar .= buildProductSwatchesDisplay($products, $colour);
+    $sidebar .= "<input type='hidden' name='colour' value=''>";
+    $sidebar .= "<input type='hidden' name='filter' value='colour-filter' >";
+    $sidebar .= "</form>";
 
     return $sidebar;
+
 }
+
+function buildShopSidebarSize($products, $size){
+
+    // colour section
+    $sidebar  = "<h5 class='filter-titles'>Filter by Size</h5>";
+    $sidebar .= "<div class='seperator'>&nbsp;</div>";
+    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/zalisting/sidebar'>";
+    $sidebar .= buildProductSwatchesDisplay($products, $size);
+    $sidebar .= "<input type='hidden' name='size' value=''>";
+    $sidebar .= "<input type='hidden' name='filter' value='size-filter' >";
+    $sidebar .= "</form>";
+
+    return $sidebar;
+
+}
+/*
+
+    // size section
+    $sidebar .= "<div class='seperator'>&nbsp;</div>";
+    $sidebar .= "<h5 class='filter-titles'>Filter by Size</h5>";
+    $sidebar .= buildProductSwatchesDisplay($products, $sizes);
+
+    return $sidebar;
+}*/
 
 
 /* * ********************************

@@ -34,16 +34,19 @@ $allProducts = getShopProducts();
 // Get the total number products in db
 $productsQty = count($allProducts);
 
-// get price max and min from db
-$maxPriceAll = getmaxPrice();
-$minPriceAll = getminPrice();
+// get colours and sizes from db
+$colours = getColours();
+$sizes = getSizes();
 
 // input max and min price values
-$maxPrice = 100;
-$minPrice = 110;
+$maxPrice = '';
+$minPrice = '';
 
-// build side bar display
-$sidebarDisplay = buildShopSidebar($minPriceAll, $maxPriceAll,$minPrice, $maxPrice);
+// build sidebar display
+$sidebarDisplay = buildShopSidebarPrice($minPrice, $maxPrice);
+$sidebarDisplay .= buildShopSidebarColour($products, 'colour');
+$sidebarDisplay .= buildShopSidebarSize($products, 'sizeValue');
+
 
 //echo $minPrice; exit;
 
@@ -200,6 +203,12 @@ switch ($action){
 
         // Build a products archive
         $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        include '../view/shop.php';
+
+        break;
+
+    case 'filters':
 
         include '../view/shop.php';
 

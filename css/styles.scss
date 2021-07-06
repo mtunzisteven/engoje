@@ -848,7 +848,7 @@ div#checkout-header{
     & div.feedback{
         position: absolute;
         z-index: 998;
-        top: 900px;
+        top: 450px;
         right: 0;
         margin: 0 -30px 0 0;
         background-color: $secondary-color;
@@ -1371,25 +1371,90 @@ form.feedback-form{
 }
 
 .sidebar-section{
-    @include flex(row, space-between, flex-end);
-    min-width: 98%;
+    @include flex(row, left, center);
+    min-width: 94%;
     padding: 1%;
     margin:0;
     border: none;
 
-    & input[type=number]{
-        height: 20px;
-        text-align: center;
+    & label{
+        font: $p;
+        font-size: 14px;
+        color: $light-dark-color;
+
+        & input[type=number]{
+            height: 15px;
+            text-align: center;
+            border:1px solid $darker-background-color;
+
+        }
     }
+
+    & label.swatch-label{
+        font-size:0;
+    }
+
+    & div.swatch-container{
+        @include flex(row, left, center);
+        flex-wrap: wrap;
+        max-width: 100%;
+        margin:0;
+
+
+        & .swatch-single-item{
+            margin: 5px 10px 5px 0;
+            padding:3px;
+            font-size: 12px;
+            width: 25px;
+            height:10px;
+            line-height: 15px;
+            border:1px solid $darker-background-color;
+            border-radius: 0;
+            text-align: center;
+            overflow: hidden;
+            resize: none;
+            cursor: pointer;
+        }
+
+        &  .swatch-single-item:focus{
+            outline:none;
+        }
+
+        & .swatch-single-item:hover{
+            border:1px solid $light-main-color;
+        }
+    }
+
 
     & input.button{
         max-width: 100px;
+        height: 15px;
+        margin:0 0 10px 0;
+        line-height: 2px;
+        padding: 15px 5px;
+        box-shadow: none;
     }
 
 }
 
 /*------------------------------------------------Forms END
 */
+
+div.seperator{
+    height: 1px;
+    min-width:100%;
+    background-color: $darker-background-color;
+    margin: 0 0 10px 0;
+}
+
+h5.filter-titles{
+    font: $h4;
+    font-size: 16px;
+    font-weight: 700;
+    color: $light-dark-color;
+    margin: 15px 0 0 0;
+    padding: 25px 0 0 0;
+}
 
 div.cart-display-table{
     width:90%;
