@@ -19,33 +19,41 @@ require_once '../model/uploads-model.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
+//unset($_SESSION['sizeFilter'], $_SESSION['categoryFilter'], $_SESSION['colourFilter'], $_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter'], $_SESSION['productQty']);
+
 //initial pagination
-$lim = 24;
+$lim = 4;
 $offset = 0;
 
 // Fetch all products and bring them to scope of all cases
 $products = getShopPaginations($lim, $offset);
 
-// Get the number of products in db
+// all shop products
 $allProducts = getShopProducts();
 
-//var_dump($allProducts); exit;
+// get categories from db
+$category = getCategories();
 
-// Get the total number products in db
-$productsQty = count($allProducts);
+if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
 
-// get colours and sizes from db
-$colours = getColours();
-$sizes = getSizes();
+    // input max and min price values
+    $maxPrice = $_SESSION['maxPriceFilter'];
+    $minPrice = $_SESSION['minPriceFilter'];
 
-// input max and min price values
-$maxPrice = '';
-$minPrice = '';
+}else{
+
+    // input max and min price values
+    $maxPrice = getmaxPrice();
+    $minPrice = 0;
+
+}
+
 
 // build sidebar display
-$sidebarDisplay = buildShopSidebarPrice($minPrice, $maxPrice);
-$sidebarDisplay .= buildShopSidebarColour($products, 'colour');
-$sidebarDisplay .= buildShopSidebarSize($products, 'sizeValue');
+$sidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
+$sidebarDisplay .= buildShopSidebarColour($allProducts, 'colour');
+$sidebarDisplay .= buildShopSidebarSize($allProducts, 'sizeValue');
+$sidebarDisplay .= buildShopSidebarCategory($category);
 
 
 //echo $minPrice; exit;
@@ -86,8 +94,8 @@ switch ($action){
         
         break;
 
-    // when a colour swatch is selected - Ajax request
-    case 'colour-swatch':
+// when a colour swatch is selected - Ajax request
+case 'colour-swatch':
     // sanitize the received variables
     $productId = filter_input(INPUT_POST, 'productId', FILTER_SANITIZE_NUMBER_INT);
     $colour = filter_input(INPUT_POST, 'colour', FILTER_SANITIZE_STRING);
@@ -135,8 +143,8 @@ switch ($action){
 
     break;
 
-    // when a size swatch is selected - Ajax request
-    case 'size-swatch':
+// when a size swatch is selected - Ajax request
+case 'size-swatch':
         $productId = filter_input(INPUT_POST, 'productId', FILTER_SANITIZE_NUMBER_INT);
         $colour = filter_input(INPUT_POST, 'colour', FILTER_SANITIZE_STRING);
         $size = filter_input(INPUT_POST, 'size', FILTER_SANITIZE_STRING);
@@ -179,10 +187,22 @@ switch ($action){
         $offset += $lim;
 
         // get next offset
-        $products = getShopPaginations($lim, $offset);        
+        $products = filters($products, $lim, $offset);
 
-        // Build a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+        if(!empty($products)){
+
+            // reset quantity for paginations
+            $productsQty = $_SESSION['productQty'];
+
+            // BUild a products archive
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        }else{
+
+            // BUild a products archive
+            $productsDisplay = '<p class="notice"><br/>No products found...</p>';
+
+        }
 
         include '../view/shop.php';
 
@@ -199,10 +219,24 @@ switch ($action){
         }
 
         // get next offset
-        $products = getShopPaginations($lim, $offset);        
+        $products = filters($products, $lim, $offset);
 
-        // Build a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+    
+        if(!empty($products)){
+
+            
+            // reset quantity for paginations
+            $productsQty = $_SESSION['productQty'];
+
+            // BUild a products archive
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        }else{
+
+            // BUild a products archive
+            $productsDisplay = '<p class="notice"><br/>No products found...</p>';
+
+        }
 
         include '../view/shop.php';
 
@@ -216,9 +250,174 @@ switch ($action){
 
     default:
 
-        // BUild a products archive
-        $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+        $products = filters($products, $lim, $offset);
+
+        if(!empty($products)){
+
+            // reset quantity for paginations
+            $productsQty = $_SESSION['productQty'];
+
+            // BUild a products archive
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+
+        }else{
+
+            // BUild a products archive
+            $productsDisplay = '<p class="notice"><br/>No products found...</p>';
+
+        }
 
         include '../view/shop.php';
     }
 
+
+function filters($products, $lim, $offset){
+
+    // colour price category size
+    if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['colourFilter']) && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopSizeColourCategoryPrice($_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopSizeColourCategoryPricePaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    }  // colour price category
+    else if(isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['colourFilter']) && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopColourCategoryPrice($_SESSION['colourFilter'], $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopColourCategoryPricePaginations($lim, $offset, $_SESSION['colourFilter'], $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    }  // size price category
+    else if(isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['sizeFilter']) && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopSizeCategoryPrice($_SESSION['sizeFilter'], $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopSizeCategoryPricePaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    }
+    // colour price size
+    else if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['colourFilter']) && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopSizeColourPrice($_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopSizeColourPricePaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    } // colour price 
+    else if(isset( $_SESSION['colourFilter']) && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopColourPrice($_SESSION['colourFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopColourPricePaginations($lim, $offset, $_SESSION['colourFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    }   // price size
+    else if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopSizePrice($_SESSION['sizeFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopSizePricePaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    }   // price category
+    else if(isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+        
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopCategoryPrice($_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopCategoryPricePaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    } // size colour category
+    else if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['colourFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopSizeColourCategory($_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['categoryFilter']));
+
+        // get next offset
+        return getShopSizeColourCategoryPaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['categoryFilter']);
+
+    } // colour category
+    else if( isset($_SESSION['colourFilter']) && isset( $_SESSION['categoryFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopCategoryColour($_SESSION['categoryFilter'], $_SESSION['colourFilter']));
+
+        // get next offset
+        return getShopCategoryColourPaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['colourFilter']);
+
+    } // size category
+    else if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopCategorySize($_SESSION['categoryFilter'], $_SESSION['sizeFilter']));
+
+        // get next offset
+        return getShopCategorySizePaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['sizeFilter']);
+
+    } // size colour
+    else if(isset( $_SESSION['colourFilter']) && isset( $_SESSION['sizeFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopSizeColour( $_SESSION['sizeFilter'], $_SESSION['colourFilter']));
+
+        // get next offset
+        return getShopSizeColourPaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter']);
+
+    }  // price
+    else if(isset($_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getProductsByPrice($_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']));
+
+        // get next offset
+        return getShopPricePaginations($lim, $offset, $_SESSION['minPriceFilter'], $_SESSION['maxPriceFilter']);
+
+    }  // size
+    else if(isset($_SESSION['sizeFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getProductsBySize($_SESSION['sizeFilter']));
+
+        // get next offset
+        return getShopSizePaginations($lim, $offset, $_SESSION['sizeFilter']);
+
+    }  // category
+    else if(isset($_SESSION['categoryFilter'])){
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopCategory($_SESSION['categoryFilter']));
+
+        // get next offset
+        return getShopCategoryPaginations($lim, $offset, $_SESSION['categoryFilter']);
+
+    }  // colour
+    else if(isset($_SESSION['colourFilter'])){
+
+        //echo $_SESSION['colourFilter']; exit;
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getProductsByColour($_SESSION['colourFilter']));
+
+        // get next offset
+        return getShopColourPaginations($lim, $offset, $_SESSION['colourFilter']);
+
+    } // all products   
+    else{
+
+        // get total prod quantity in filter
+        $_SESSION['productQty'] = count(getShopProducts());
+
+        return $products;
+
+    }
+}

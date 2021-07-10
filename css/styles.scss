@@ -714,6 +714,10 @@ div#checkout-header{
 
     & .side-bar{
         width:85%;
+        border: 1px solid $darker-background-color;
+        border-radius: 3px;
+        margin:10px 10px;
+
     }
 
 
@@ -848,7 +852,7 @@ div#checkout-header{
     & div.feedback{
         position: absolute;
         z-index: 998;
-        top: 450px;
+        top: 850px;
         right: 0;
         margin: 0 -30px 0 0;
         background-color: $secondary-color;
@@ -1437,6 +1441,35 @@ form.feedback-form{
 
 }
 
+.category-form{
+    @include flex(column, left, center);
+
+    & label{
+        @include flex(row, left, center);
+        font: $p;
+        font-size: 14px;
+        color: $light-dark-color;
+        padding: 5px 0;
+        min-width: 100%;
+        cursor: pointer;
+
+
+        & input[type=radio]{
+            margin: 0 15px 0 0;
+            padding: 0;
+            max-width:0;
+        }
+    }
+
+    & label:hover{
+        color: $light-secondary-color;
+    }
+
+    & label:focus{
+        color: $light-main-color;
+    }
+}
+
 /*------------------------------------------------Forms END
 */
 
@@ -1452,8 +1485,12 @@ h5.filter-titles{
     font-size: 16px;
     font-weight: 700;
     color: $light-dark-color;
-    margin: 15px 0 0 0;
+    margin: 15px 0 0 5px;
     padding: 25px 0 0 0;
+}
+
+h5.filter-titles.price{
+    padding: 0;
 }
 
 div.cart-display-table{
@@ -2171,9 +2208,9 @@ div.single-product-shop{
             padding:5px;
 
             & .side-bar{
+                min-height: 1317px;
                 width:23%;
                 max-width:28%;
-                margin:20px 10px;
             
                 & h2  {
                         text-align: center;
@@ -2186,6 +2223,7 @@ div.single-product-shop{
                 @include flex(column, space-between, center);
                 width:76%;
                 margin:0;
+                
 
                 & .shop-products{
                     justify-content: left;

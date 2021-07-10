@@ -662,12 +662,32 @@ return $dv;
 }
 
 // build a shop side bar display
+function buildShopSidebarCategory($categories){
+
+    // category section
+    $sidebar  = "<h5 class='filter-titles'>Filter by Categories</h5>";
+    $sidebar .= "<div class='seperator'>&nbsp;</div>";
+    $sidebar .= "<form class='sidebar-section category-form' action='/zalisting/sidebar'>";
+
+    foreach ($categories as $category) {
+
+        $sidebar .= "<label for='$category[categoryName]'><input type='radio' name='category' class='radioCategories' id='$category[categoryName]' value='$category[categoryName]' />$category[categoryName]</label>";
+
+    }
+    $sidebar .= "<input type='hidden' name='filter' value='category-filter' >";
+    $sidebar .= "</form>";    
+
+
+    return $sidebar;
+
+}
+
+// build a shop side bar display
 function buildShopSidebarPrice($minPrice, $maxPrice){
 
     $sidebar = '';
     // price section
-    $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<h5 class='filter-titles'>Filter by Price</h5>";
+    $sidebar .= "<h5 class='filter-titles price'>Filter by Price</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
     $sidebar .= "<form class='sidebar-section' action='/zalisting/sidebar'>";
     $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' /></label>";
@@ -1033,3 +1053,68 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     return $duplicatedCartDetails;
 
    }
+
+// colour and size filter
+function colourSizeFilter($lim, $offset){
+
+    if(isset( $_SESSION['colourFilter']) && isset( $_SESSION['sizeFilter'])){
+
+        return getShopSizeColourPaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter']);
+
+    }
+}
+
+// colour and category filter
+function colourCategoryFilter($lim, $offset){
+
+    if(isset( $_SESSION['colourFilter']) && isset( $_SESSION['categoryFilter'])){
+
+        return getShopCategoryColourPaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['colourFilter']);
+
+    }
+}
+
+// colour and category filter
+function sizeCategoryFilter($lim, $offset){
+
+    if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])){
+
+        return getShopCategorySizePaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['sizeFilter']);
+
+    }
+}
+
+// size colour and category filter
+function sizeColourCategoryFilter($lim, $offset){
+
+    if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['colourFilter'])){
+
+        return getShopSizeColourCategoryPaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['categoryFilter']);
+
+    }
+}
+
+// size colour and category filter
+function filter($lim, $offset){
+
+    if(!empty(sizeColourCategoryFilter($lim, $offset))){
+
+        return sizeColourCategoryFilter($lim, $offset);
+    }
+    else if(empty(sizeColourCategoryFilter($lim, $offset)) && !empty(sizeCategoryFilter($lim, $offset))){
+
+        return sizeCategoryFilter($lim, $offset);
+
+    }
+    else if(empty(sizeColourCategoryFilter($lim, $offset)) && !empty(colourCategoryFilter($lim, $offset))){
+
+        return colourCategoryFilter($lim, $offset);
+
+    }
+    else if(empty(sizeColourCategoryFilter($lim, $offset)) && !empty(colourSizeFilter($lim, $offset))){
+
+        return colourSizeFilter($lim, $offset);
+
+    }
+
+}

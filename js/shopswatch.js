@@ -1,23 +1,62 @@
-
-let colourSwatches = document.querySelectorAll('.colour');          // get all divs with class:colour
+//////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                      //
+//                                   Swatches Code                                      //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+// get all divs with class:colour
+let colourSwatches = document.querySelectorAll('.colour');          
 let colourForm = document.querySelector('#colourform');
 let colourChosen = colourForm['colour'];
 
-let sizeSwatches = document.querySelectorAll('.size');              // get all divs with class:size
+// set colour swatch event listener
+sidebarSwatcher(colourSwatches, colourForm,  colourChosen);
+
+
+// get all divs with class:size
+let sizeSwatches = document.querySelectorAll('.size');              
 let sizeForm = document.querySelector('#sizeform');
 let sizeChosen = sizeForm['size'];
 
-sidebarSwatcher(colourSwatches, colourForm,  colourChosen);
-
+// set size swatch event listener
 sidebarSwatcher(sizeSwatches, sizeForm,  sizeChosen);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                      //
-//                              Colour Swatches Code                                    //
+//                                 Categories Code                                      //
 //                                                                                      //
 //////////////////////////////////////////////////////////////////////////////////////////
 
+let formCat =  document.querySelector('.category-form');
+let selectCat = document.querySelector('#category');
+let radioCats = document.querySelectorAll('.radioCategories');
+
+sidebarCategories(radioCats,  formCat);
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                      //
+//                                  functions Code                                      //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+// color and size swatches event listener function
+function sidebarCategories(radioButtons,  formCat){
+
+    for(let i = 0; i<radioButtons.length; i++){ // loop through them all and add the event Listener.
+
+        radioButtons[i].addEventListener('click', function(event) { // add an even listener for when any swatch is clicked.
+
+            formCat.submit();  // submit form
+        
+        }, false);
+
+    }
+
+}
+
+
+// color and size swatches event listener function
 function sidebarSwatcher(swatches, form,  choice){
         
     for(let i = 0; i<swatches.length; i++){ // loop through them all and add the event Listener.
