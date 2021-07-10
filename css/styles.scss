@@ -720,11 +720,41 @@ div#checkout-header{
 
     }
 
-
     & div.shop-products-archive{
         @include flex(column, space-between, center);
         width:85%;
         margin:0;
+        padding:0;
+        border: 1px solid $darker-background-color;
+        border-radius: 3px;
+
+        & div.shop-products-filtersOrder{
+            @include flex(row, space-between, center);
+            min-width: 98%;
+            margin: -3px 5px 6px 5px;
+            padding:0 5px;
+
+            & div.shop-products-filters{
+                @include flex(row, space-between, center);
+                min-width: 60%;
+
+                & div.filter{
+                    @include flex(row, space-between, center);
+                    font: $p;
+                    color: $light-dark-color;
+
+                    & div.filter-value{
+                        font: $p;
+                        color: $dark-color;
+                        margin:0 5px;
+                        padding:3px 5px;
+                        border-radius: 3px;
+                        box-shadow: inset 0 0 5px 0 $light-dark-color;
+
+                    }
+                }
+            }
+        }
 
         & div.pagination-container{
             @include flex(row, center, center);
@@ -2222,7 +2252,7 @@ div.single-product-shop{
             & div.shop-products-archive{
                 @include flex(column, space-between, center);
                 width:76%;
-                margin:0;
+                margin:10px 0 0 0;
                 
 
                 & .shop-products{

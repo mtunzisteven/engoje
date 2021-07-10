@@ -582,7 +582,50 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty){
     // get the total amount of pages to display all products
     $possiblePages = ceil($productsQty/$lim); 
 
-    $dv ="<div class='shop-products'>";
+    $dv  ="";
+
+    if(isset( $_SESSION['sizeFilter']) || isset( $_SESSION['categoryFilter'])  || isset( $_SESSION['colourFilter']) || (isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter']))){
+
+        $dv .= "<div class='seperator'>&nbsp;</div>";
+
+        $dv .="<div class='shop-products-filtersOrder'>";
+
+        $dv .="<div class='shop-products-filters'>";
+
+        if(isset( $_SESSION['sizeFilter'])){
+
+            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><i class='fa fa-times'></i></div>";
+
+        }
+        if(isset( $_SESSION['colourFilter'])){
+
+            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <i class='fa fa-times'></i></div>";
+
+        }        
+        if(isset( $_SESSION['categoryFilter'])){
+
+            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><i class='fa fa-times'></i></div>";
+
+        }
+        if(isset( $_SESSION['minPriceFilter']) && isset( $_SESSION['maxPriceFilter'])){
+
+            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><i class='fa fa-times'></i></div>";
+
+        }
+
+        $dv .="</div>"; // Filters
+
+        $dv .="<div class='shop-products-orderby'>";
+
+        $dv .="</div>"; // orderBy
+
+        $dv .="</div>"; // orderBy and Filters
+
+        $dv .= "<div class='seperator'>&nbsp;</div>";
+
+    }
+
+    $dv .="<div class='shop-products'>";
 
     if(isset($products)){
                         
@@ -1053,68 +1096,3 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     return $duplicatedCartDetails;
 
    }
-
-// colour and size filter
-function colourSizeFilter($lim, $offset){
-
-    if(isset( $_SESSION['colourFilter']) && isset( $_SESSION['sizeFilter'])){
-
-        return getShopSizeColourPaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter']);
-
-    }
-}
-
-// colour and category filter
-function colourCategoryFilter($lim, $offset){
-
-    if(isset( $_SESSION['colourFilter']) && isset( $_SESSION['categoryFilter'])){
-
-        return getShopCategoryColourPaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['colourFilter']);
-
-    }
-}
-
-// colour and category filter
-function sizeCategoryFilter($lim, $offset){
-
-    if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])){
-
-        return getShopCategorySizePaginations($lim, $offset, $_SESSION['categoryFilter'], $_SESSION['sizeFilter']);
-
-    }
-}
-
-// size colour and category filter
-function sizeColourCategoryFilter($lim, $offset){
-
-    if(isset( $_SESSION['sizeFilter']) && isset( $_SESSION['categoryFilter'])  && isset( $_SESSION['colourFilter'])){
-
-        return getShopSizeColourCategoryPaginations($lim, $offset, $_SESSION['sizeFilter'], $_SESSION['colourFilter'], $_SESSION['categoryFilter']);
-
-    }
-}
-
-// size colour and category filter
-function filter($lim, $offset){
-
-    if(!empty(sizeColourCategoryFilter($lim, $offset))){
-
-        return sizeColourCategoryFilter($lim, $offset);
-    }
-    else if(empty(sizeColourCategoryFilter($lim, $offset)) && !empty(sizeCategoryFilter($lim, $offset))){
-
-        return sizeCategoryFilter($lim, $offset);
-
-    }
-    else if(empty(sizeColourCategoryFilter($lim, $offset)) && !empty(colourCategoryFilter($lim, $offset))){
-
-        return colourCategoryFilter($lim, $offset);
-
-    }
-    else if(empty(sizeColourCategoryFilter($lim, $offset)) && !empty(colourSizeFilter($lim, $offset))){
-
-        return colourSizeFilter($lim, $offset);
-
-    }
-
-}
