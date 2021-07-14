@@ -190,10 +190,13 @@ function getAddressbyType($userId, $addressType){
 }
 
 // This is for updating Addresses by address typ
-function updateAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
+function updateAddress($addressName, $addressNumber, $addressEmail, $addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
     $db = zalistingConnect();
-    $sql = "UPDATE addresses SET addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId AND addressType = :addressType";
+    $sql = "UPDATE addresses SET addressName=:addressName, addressNumber=:addressNumber, addressEmail=:addressEmail, addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId AND addressType = :addressType";
     $stmt = $db->prepare($sql);
+    $stmt->bindValue(':addressName', $addressName, PDO::PARAM_STR);
+    $stmt->bindValue(':addressNumber', $addressNumber, PDO::PARAM_INT);
+    $stmt->bindValue(':addressEmail', $addressEmail, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineOne', $addressLineOne, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineTwo', $addressLineTwo, PDO::PARAM_STR);
     $stmt->bindValue(':addressCity', $addressCity, PDO::PARAM_STR);

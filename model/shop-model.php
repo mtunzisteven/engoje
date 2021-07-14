@@ -23,6 +23,7 @@ function getShopProducts(){
 
 // Get one product entries by pagination
 function getShopPaginations($lim, $offset){
+    
     $db = zalistingConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
@@ -30,7 +31,9 @@ function getShopPaginations($lim, $offset){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1  ORDER BY RAND() LIMIT :lim OFFSET :offset';
+                    WHERE images.imagePrimary = 1  
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
                     #GROUP BY product_entry.productId'; Uncomment to only show one product_entry per product on shop page
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -51,7 +54,10 @@ function getShopColourPaginations($lim, $offset, $colour){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 AND colour.colour = :colour ORDER BY RAND() LIMIT :lim OFFSET :offset';
+                    WHERE images.imagePrimary = 1 
+                    AND colour.colour = :colour 
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -73,7 +79,10 @@ function getShopSizePaginations($lim, $offset, $size){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 AND size.sizeValue = :size ORDER BY RAND() LIMIT :lim OFFSET :offset';
+                    WHERE images.imagePrimary = 1 
+                    AND size.sizeValue = :size 
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -100,7 +109,10 @@ function getShopCategoryPaginations($lim, $offset, $category){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 AND categories.categoryName = :category ORDER BY RAND() LIMIT :lim OFFSET :offset';
+                    WHERE images.imagePrimary = 1 
+                    AND categories.categoryName = :category 
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -125,8 +137,8 @@ function getShopCategorySizePaginations($lim, $offset, $category, $size){
                     WHERE images.imagePrimary = 1 
                     AND categories.categoryName = :category 
                     AND size.sizeValue = :size
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -153,8 +165,8 @@ function getShopCategoryColourPaginations($lim, $offset, $category, $colour){
                     WHERE images.imagePrimary = 1 
                     AND categories.categoryName = :category 
                     AND colour.colour = :colour
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -181,8 +193,8 @@ function getShopSizeColourPaginations($lim, $offset, $size, $colour){
                     WHERE images.imagePrimary = 1 
                     AND size.sizeValue = :size 
                     AND colour.colour = :colour
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -210,8 +222,8 @@ function getShopSizeColourCategoryPaginations($lim, $offset, $size, $colour, $ca
                     AND size.sizeValue = :size 
                     AND colour.colour = :colour
                     AND categories.categoryName = :category
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -243,8 +255,8 @@ function getShopSizeColourCategoryPricePaginations($lim, $offset, $size, $colour
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -276,8 +288,8 @@ function getShopSizeColourPricePaginations($lim, $offset, $size, $colour, $minPr
                     AND colour.colour = :colour
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -308,8 +320,8 @@ function getShopSizeCategoryPricePaginations($lim, $offset, $size, $category, $m
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -340,8 +352,8 @@ function getShopColourCategoryPricePaginations($lim, $offset, $colour, $category
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -371,8 +383,8 @@ function getShopSizePricePaginations($lim, $offset, $size, $minPrice, $maxPrice)
                     AND size.sizeValue = :size 
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -401,8 +413,8 @@ function getShopColourPricePaginations($lim, $offset, $colour, $minPrice, $maxPr
                     AND colour.colour = :colour
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -431,8 +443,8 @@ function getShopCategoryPricePaginations($lim, $offset, $category, $minPrice, $m
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
                     AND :maxPrice > product_entry.price
-                    ORDER BY RAND() 
-                    LIMIT :lim OFFSET :offset';
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -465,7 +477,8 @@ function getShopCategory($category){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 AND categories.categoryName = :category ORDER BY RAND()';
+                    WHERE images.imagePrimary = 1 
+                    AND categories.categoryName = :category ';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':category',$category, PDO::PARAM_STR);
@@ -487,8 +500,7 @@ function getShopCategorySize($category, $size){
                     JOIN size ON product_entry.sizeId = size.sizeId
                     WHERE images.imagePrimary = 1 
                     AND categories.categoryName = :category 
-                    AND size.sizeValue = :size
-                    ORDER BY RAND() ';
+                    AND size.sizeValue = :size';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':category',$category, PDO::PARAM_STR);
@@ -512,8 +524,7 @@ function getShopCategoryColour($category, $colour){
                     JOIN size ON product_entry.sizeId = size.sizeId
                     WHERE images.imagePrimary = 1 
                     AND categories.categoryName = :category 
-                    AND colour.colour = :colour
-                    ORDER BY RAND() ';
+                    AND colour.colour = :colour';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':category',$category, PDO::PARAM_STR);
@@ -537,8 +548,7 @@ function getShopSizeColour($size, $colour){
                     JOIN size ON product_entry.sizeId = size.sizeId
                     WHERE images.imagePrimary = 1 
                     AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    ORDER BY RAND() ';
+                    AND colour.colour = :colour';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size',$size, PDO::PARAM_STR);
@@ -563,8 +573,7 @@ function getShopSizeColourCategory($size, $colour, $category){
                     WHERE images.imagePrimary = 1 
                     AND size.sizeValue = :size 
                     AND colour.colour = :colour
-                    AND categories.categoryName = :category
-                    ORDER BY RAND() ';
+                    AND categories.categoryName = :category';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size',$size, PDO::PARAM_STR);
@@ -593,8 +602,7 @@ function getShopSizeColourCategoryPrice($size, $colour, $category, $minPrice, $m
                     AND colour.colour = :colour
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND()';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size',$size, PDO::PARAM_STR);
@@ -623,8 +631,7 @@ function getShopSizeColourPrice($size, $colour, $minPrice, $maxPrice){
                     AND size.sizeValue = :size 
                     AND colour.colour = :colour
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND() ';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size',$size, PDO::PARAM_STR);
@@ -652,8 +659,7 @@ function getShopSizeCategoryPrice($size, $category, $minPrice, $maxPrice){
                     AND size.sizeValue = :size 
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND() ';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size',$size, PDO::PARAM_STR);
@@ -681,8 +687,7 @@ function getShopColourCategoryPrice($colour, $category, $minPrice, $maxPrice){
                     AND colour.colour = :colour
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND() ';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
@@ -709,8 +714,7 @@ function getShopSizePrice($size, $minPrice, $maxPrice){
                     WHERE images.imagePrimary = 1 
                     AND size.sizeValue = :size 
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND()';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size',$size, PDO::PARAM_STR);
@@ -736,8 +740,7 @@ function getShopColourPrice( $colour, $minPrice, $maxPrice){
                     WHERE images.imagePrimary = 1 
                     AND colour.colour = :colour
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND() ';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
@@ -763,8 +766,7 @@ function getShopCategoryPrice($category, $minPrice, $maxPrice){
                     WHERE images.imagePrimary = 1 
                     AND categories.categoryName = :category
                     AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY RAND()';
+                    AND :maxPrice > product_entry.price';
 
     $stmt = $db->prepare($sql);
 
@@ -792,7 +794,9 @@ function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 AND :minPrice <= product_entry.price AND product_entry.price <= :maxPrice ORDER BY RAND() LIMIT :lim OFFSET :offset';
+                    WHERE images.imagePrimary = 1 
+                    AND :minPrice <= product_entry.price 
+                    AND product_entry.price <= :maxPrice';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -860,7 +864,8 @@ function getColourSwatchShopProduct($productId, $colour){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE product_entry.productId = :productId AND colour.colour = :colour';
+                    WHERE product_entry.productId = :productId 
+                    AND colour.colour = :colour';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
@@ -882,7 +887,9 @@ function getSizeSwatchedShopProduct($productId, $colour, $size){
                     JOIN categories ON product_entry.categoryId = categories.categoryId
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE product_entry.productId = :productId AND colour.colour = :colour AND size.sizeValue = :size';
+                    WHERE product_entry.productId = :productId 
+                    AND colour.colour = :colour 
+                    AND size.sizeValue = :size';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':productId',$productId, PDO::PARAM_INT);
@@ -1014,7 +1021,11 @@ function getProductsByColour($colour){
 
 function getProductsByPrice($minPrice, $maxPrice){
     $db = zalistingConnect();
-    $sql = 'SELECT * FROM product_entry WHERE price >= :minPrice AND price <= :maxPrice)';
+    
+    $sql = 'SELECT * FROM product_entry 
+            WHERE price >= :minPrice 
+            AND price <= :maxPrice';
+
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':minPrice', $minPrice, PDO::PARAM_INT);
     $stmt->bindValue(':maxPrice', $maxPrice, PDO::PARAM_INT);

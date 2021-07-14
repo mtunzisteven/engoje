@@ -1,7 +1,9 @@
 <?php
 
-// This is the images uload controller
+// session expire reset: 180 sec
+session_cache_expire();
 
+// This is the images uload controller
 session_start();
 
 require_once '../library/connections.php';

@@ -875,7 +875,7 @@ div#checkout-header img {
       -ms-flex-align: center;
           align-items: center;
   min-width: 98%;
-  margin: -3px 5px 6px 5px;
+  margin: -6px 5px 5px 5px;
   padding: 0 5px;
 }
 
@@ -889,9 +889,9 @@ div#checkout-header img {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -916,6 +916,7 @@ div#checkout-header img {
           align-items: center;
   font: 200 15px "Nunito", sans-serif;
   color: #929292;
+  margin: 0 25px 0 0;
 }
 
 .shop div.shop-products-archive div.shop-products-filtersOrder div.shop-products-filters div.filter div.filter-value {
@@ -924,8 +925,12 @@ div#checkout-header img {
   margin: 0 5px;
   padding: 3px 5px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 5px 0 #929292;
-          box-shadow: inset 0 0 5px 0 #929292;
+  -webkit-box-shadow: inset 0 0 5px 0 #fa9595;
+          box-shadow: inset 0 0 5px 0 #fa9595;
+}
+
+.shop div.shop-products-archive div.shop-products-filtersOrder div.shop-products-filters div.filter a:hover {
+  color: #ff4949;
 }
 
 .shop div.shop-products-archive div.pagination-container {
@@ -1570,7 +1575,24 @@ div.uploads-container .media-display ul#image-library .media-delete-button {
   width: 100%;
 }
 
-form.checkout-display-form {
+form.payfast-form {
+  border: none;
+  min-width: 100%;
+}
+
+form.payfast-form input.button {
+  padding: 5px 1%;
+  width: 98%;
+  min-height: 25px;
+  line-height: 20px;
+  background-color: #ff4949;
+}
+
+form.payfast-form input.button:hover {
+  background-color: #80a1d1;
+}
+
+div.checkout-display-form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1590,13 +1612,14 @@ form.checkout-display-form {
       -ms-flex-align: start;
           align-items: flex-start;
   border: none;
-  min-width: 85%;
   width: 90%;
+  min-width: 85%;
   background-color: #fdfdfd;
   padding: 50px 2.5%;
+  margin: 0 auto;
 }
 
-form.checkout-display-form #address-column {
+div.checkout-display-form .address-column {
   min-width: 90%;
   width: 95%;
   border-radius: 3px;
@@ -1606,21 +1629,51 @@ form.checkout-display-form #address-column {
   margin: 5px auto;
 }
 
-form.checkout-display-form #address-column h2#address-column-title {
-  margin-top: 0;
-  padding-top: 0;
+div.checkout-display-form .address-column h2.address-column-title {
+  margin: 20px 0 5px 0;
+  padding: 0;
   font-size: 22px;
   color: #0f4392;
 }
 
-form.checkout-display-form #address-column div.checkout-label {
-  color: #3a3939;
-  font-size: 16px;
-  text-align: left;
-  padding: 0 0 5px 0;
+div.checkout-display-form .address-column div.ship-address {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-form.checkout-display-form #address-column div.button {
+div.checkout-display-form .address-column div.ship-address div.ship-to {
+  margin: 0;
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 10px;
+  background-color: #ff4949;
+  border: 3px solid #081f42;
+}
+
+div.checkout-display-form .address-column div.ship-address div.ship-address-label {
+  font: 200 15px "Nunito", sans-serif;
+  color: #3a3939;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+div.checkout-display-form .address-column div.button {
   width: 100%;
   color: #fdfdfd;
   text-align: center;
@@ -1628,7 +1681,7 @@ form.checkout-display-form #address-column div.button {
   padding: 5px;
 }
 
-form.checkout-display-form #cart-summary-column {
+div.checkout-display-form .cart-summary-column {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1654,7 +1707,7 @@ form.checkout-display-form #cart-summary-column {
   border: 1px solid #d8d5d5;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary {
+div.checkout-display-form .cart-summary-column .cart-items-summary {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1677,7 +1730,7 @@ form.checkout-display-form #cart-summary-column .cart-items-summary {
   padding-bottom: 15px;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary div.summary-product-shipping {
+div.checkout-display-form .cart-summary-column .cart-items-summary div.summary-product-shipping {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1698,13 +1751,13 @@ form.checkout-display-form #cart-summary-column .cart-items-summary div.summary-
   padding: 10px 15.5% 10px 0;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary div.seperator {
+div.checkout-display-form .cart-summary-column .cart-items-summary div.seperator {
   height: 1px;
   width: 100%;
   background-color: #d8d5d5;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1724,27 +1777,27 @@ form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item {
   width: 100%;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div {
   padding: 10px;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div.summary-product-names {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div.summary-product-names {
   min-width: 35%;
   width: 50%;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div.summary-product-qty {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div.summary-product-qty {
   min-width: 30%;
   width: 35%;
   text-align: center;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div.summary-product-price {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div.summary-product-price {
   min-width: 30%;
   width: 35%;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item-summary-label {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item-summary-label {
   color: #fdfdfd;
   background-color: #0f4392;
   border-radius: 5px 5px 0 0;
@@ -1753,14 +1806,14 @@ form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item-s
   padding: 0;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item-summary-label div.header-labels {
+div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item-summary-label div.header-labels {
   line-height: 50px;
   font-size: 22px;
   font-weight: 900;
   padding: 10px;
 }
 
-form.checkout-display-form #cart-summary-column .cart-items-summary div.summary-product-total {
+div.checkout-display-form .cart-summary-column .cart-items-summary div.summary-product-total {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2010,6 +2063,92 @@ form.feedback-form input.button {
 
 .category-form label:focus {
   color: #80a1d1;
+}
+
+div.address-form-container {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  height: 60%;
+  width: 80%;
+  z-index: 1000;
+}
+
+div.address-form-container form.new-address-form {
+  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 80%;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #ff4949;
+  -webkit-box-shadow: 0 0 50px 1px #3a3939;
+          box-shadow: 0 0 50px 1px #3a3939;
+}
+
+div.address-form-container form.new-address-form div.cancel-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 100%;
+  margin: 0 0 15px 0;
+}
+
+div.address-form-container form.new-address-form div.cancel-container i {
+  max-width: 18px;
+  font-size: 16px;
+  color: #fdfdfd;
+  cursor: pointer;
+}
+
+div.address-form-container form.new-address-form div.label {
+  font: 200 15px "Nunito", sans-serif;
+  color: #fdfdfd;
+  text-align: left;
+  min-width: 100%;
+}
+
+div.address-form-container form.new-address-form input {
+  min-width: 100%;
+  max-height: 16px;
+  margin: 0 auto 15px auto;
+}
+
+div.address-form-container form.new-address-form input[type=button] {
+  max-height: none;
+  margin-top: 20px;
+  background-color: #80a1d1;
+}
+
+div.address-form-container form.new-address-form input[type=button]:hover {
+  background-color: #DD1717;
+  -webkit-box-shadow: 0 0 5px 0 #fdfdfd;
+          box-shadow: 0 0 5px 0 #fdfdfd;
 }
 
 /*------------------------------------------------Forms END
@@ -3104,7 +3243,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     width: 220px;
     margin: 2px;
   }
-  form.checkout-display-form {
+  div.checkout-display-form {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3124,31 +3263,58 @@ footer.main-footer div.footer-bottom-block a:hover {
     min-width: 60%;
     width: 80%;
   }
-  form.checkout-display-form #address-column {
+  div.checkout-display-form .address-column {
     min-width: 40%;
     width: 40%;
     padding: 15px;
   }
-  form.checkout-display-form #address-column h2#address-column-title {
-    margin-top: 0;
-    padding-top: 0;
-    font-size: 22px;
-    color: #0f4392;
-  }
-  form.checkout-display-form #address-column div.checkout-label {
+  div.checkout-display-form .address-column div.ship-address-label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font: 200 15px "Nunito", sans-serif;
     color: #3a3939;
-    font-size: 16px;
     text-align: left;
-    padding: 0 0 5px 0;
+    padding: 0;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
   }
-  form.checkout-display-form #address-column div.button {
-    min-width: 70%;
+  div.checkout-display-form .address-column div.ship-address-label div.ship-to {
+    margin: 0;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 10px;
+    border: 2px solid #ff4949;
+  }
+  div.checkout-display-form .address-column h2.address-column-title {
+    font-size: 22px;
+  }
+  div.checkout-display-form .address-column div.button {
+    min-width: 50%;
+    max-width: 220px;
     color: #fdfdfd;
+    background-color: #80a1d1;
     text-align: center;
     margin-top: 15px;
     padding: 5px;
   }
-  form.checkout-display-form #cart-summary-column {
+  div.checkout-display-form .address-column div.button:hover {
+    background-color: #ff4949;
+  }
+  div.checkout-display-form .cart-summary-column {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3173,7 +3339,15 @@ footer.main-footer div.footer-bottom-block a:hover {
     border-radius: 5px;
     border: 1px solid #d8d5d5;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary {
+  div.checkout-display-form .cart-summary-column form.payfast-form input[type=submit] {
+    max-width: 200px;
+    height: 30px;
+    background-color: #80a1d1;
+  }
+  div.checkout-display-form .cart-summary-column form.payfast-form input[type=submit]:hover {
+    background-color: #ff4949;
+  }
+  div.checkout-display-form .cart-summary-column .cart-items-summary {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3195,7 +3369,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     width: 100%;
     padding-bottom: 15px;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary div.summary-product-shipping {
+  div.checkout-display-form .cart-summary-column .cart-items-summary div.summary-product-shipping {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3215,12 +3389,12 @@ footer.main-footer div.footer-bottom-block a:hover {
     width: 79.5%;
     padding: 10px 15.5% 10px 0;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary div.seperator {
+  div.checkout-display-form .cart-summary-column .cart-items-summary div.seperator {
     height: 1px;
     width: 100%;
     background-color: #d8d5d5;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3239,23 +3413,23 @@ footer.main-footer div.footer-bottom-block a:hover {
     padding: 0 2%;
     width: 100%;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div {
     padding: 10px;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div.summary-product-names {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div.summary-product-names {
     min-width: 35%;
     width: 50%;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div.summary-product-qty {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div.summary-product-qty {
     min-width: 30%;
     width: 35%;
     text-align: center;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item div.summary-product-price {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item div.summary-product-price {
     min-width: 30%;
     width: 35%;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item-summary-label {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item-summary-label {
     color: #fdfdfd;
     background-color: #0f4392;
     border-radius: 5px 5px 0 0;
@@ -3263,13 +3437,13 @@ footer.main-footer div.footer-bottom-block a:hover {
     height: 50px;
     padding: 0;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary .cart-item-summary-label div.header-labels {
+  div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item-summary-label div.header-labels {
     line-height: 50px;
     font-size: 22px;
     font-weight: 900;
     padding: 10px;
   }
-  form.checkout-display-form #cart-summary-column .cart-items-summary div.summary-product-total {
+  div.checkout-display-form .cart-summary-column .cart-items-summary div.summary-product-total {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -3291,6 +3465,9 @@ footer.main-footer div.footer-bottom-block a:hover {
     padding: 10px 12% 0 5%;
     margin-bottom: 0;
   }
+  div.address-form-container {
+    top: 15%;
+  }
   a.checkout-back {
     display: block;
     height: 40px;
@@ -3300,7 +3477,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     text-align: center;
   }
   main.short-content nav {
-    margin-bottom: 120px;
+    margin-bottom: 40px;
   }
   main.short-content footer {
     margin-top: 150px;

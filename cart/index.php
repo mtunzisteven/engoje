@@ -1,5 +1,8 @@
 <?php
 
+// session expire reset: 180 sec
+session_cache_expire();
+
 //This is the shop controller for the site
 session_start();
 
@@ -374,8 +377,6 @@ switch ($action){
                 if(isset($_SESSION['cart'])){ 
 
                     unset($_SESSION['cart']);
-
-
                 }
 
                 // create a display cart variable to use in the view

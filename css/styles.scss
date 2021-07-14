@@ -731,17 +731,18 @@ div#checkout-header{
         & div.shop-products-filtersOrder{
             @include flex(row, space-between, center);
             min-width: 98%;
-            margin: -3px 5px 6px 5px;
+            margin: -6px 5px 5px 5px;
             padding:0 5px;
 
             & div.shop-products-filters{
-                @include flex(row, space-between, center);
+                @include flex(row, left, center);
                 min-width: 60%;
 
                 & div.filter{
                     @include flex(row, space-between, center);
                     font: $p;
                     color: $light-dark-color;
+                    margin: 0 25px 0 0;
 
                     & div.filter-value{
                         font: $p;
@@ -749,8 +750,12 @@ div#checkout-header{
                         margin:0 5px;
                         padding:3px 5px;
                         border-radius: 3px;
-                        box-shadow: inset 0 0 5px 0 $light-dark-color;
+                        box-shadow: inset 0 0 5px 0 $light-secondary-color;
 
+                    }
+
+                    & a:hover{
+                        color: $secondary-color;
                     }
                 }
             }
@@ -1215,16 +1220,34 @@ div.uploads-container{
     }
 }
 
-form.checkout-display-form{
-    @include flex(column);
+form.payfast-form{
+    border:none;
+    min-width: 100%;
+
+    & input.button{
+        padding: 5px 1%;
+        width:98%;
+        min-height: 25px;
+        line-height: 20px;
+        background-color: $secondary-color;
+    }
+
+    & input.button:hover{
+        background-color: $light-main-color;
+    }
+}
+
+div.checkout-display-form{
+    @include flex(column, space-between, center);
     align-items: flex-start;
     border: none;
-    min-width: 85%;
     width: 90%; 
+    min-width: 85%;
     background-color: $background-color;
     padding: 50px 2.5%;
+    margin: 0 auto;
 
-    & #address-column{
+    & .address-column{
         min-width: 90%;
         width: 95%;
         border-radius: 3px;
@@ -1233,20 +1256,36 @@ form.checkout-display-form{
         padding: 15px 2.5%;
         margin: 5px auto;
 
-        & h2#address-column-title{
-            margin-top: 0;
-            padding-top: 0;
+        & h2.address-column-title{
+            margin: 20px 0 5px 0;
+            padding: 0;
             font-size: 22px;
             color: $main-color;
         }
 
-        & div.checkout-label{
-            color: $dark-color;
-            font-size: 16px;
-            text-align: left;
-            padding: 0 0 5px 0; 
-        }
+        & div.ship-address{
+            @include flex();
 
+            & div.ship-to{
+                margin: 0;
+                min-width: 10px;
+                min-height: 10px;
+                border-radius: 10px;
+                background-color: $secondary-color;
+                border: 3px solid $dark-main-color;
+            }
+
+            & div.ship-address-label{
+                font: $p;
+                color: $dark-color;
+                text-align: left;
+                padding: 0; 
+                margin: 0; 
+                padding: 0; 
+                max-width: 100%;
+            }
+        }   
+              
         & div.button{
             width: 100%;
             color: $background-color;
@@ -1257,7 +1296,7 @@ form.checkout-display-form{
         }
     }
 
-    & #cart-summary-column{
+    & .cart-summary-column{
         @include flex(column, left);
         align-items: flex-start;
         min-width: 100%;
@@ -1497,6 +1536,63 @@ form.feedback-form{
 
     & label:focus{
         color: $light-main-color;
+    }
+}
+
+div.address-form-container{
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    height: 60%;
+    width: 80%;
+    z-index: 1000;
+
+    & form.new-address-form{
+        border:none;
+        @include flex(column, left, center);
+        max-width: 80%;
+        padding: 20px;
+        margin:0 auto;
+        background-color: $secondary-color;
+        box-shadow: 0 0 50px 1px $dark-color;
+
+        & div.cancel-container{
+            @include flex();
+            min-width: 100%;
+            margin: 0 0 15px 0;
+
+            & i{
+                max-width: 18px;
+                font-size: 16px;
+                color: $background-color;
+                cursor: pointer;
+            }
+        }
+
+        & div.label{
+            font: $p;
+            color: $background-color;
+            text-align: left;
+            min-width: 100%;
+
+        }
+
+        & input{
+            min-width: 100%;
+            max-height: 16px;
+            margin: 0 auto 15px auto;
+        }
+
+        & input[type=button]{
+            max-height: none;
+            margin-top: 20px;
+            background-color: $light-main-color;
+        }
+
+        & input[type=button]:hover{
+            background-color: $dark-secondary-color;
+            box-shadow:0 0 5px 0 $background-color;
+        }
     }
 }
 
@@ -2276,42 +2372,57 @@ div.single-product-shop{
             }
         }
 
-        form.checkout-display-form{
+        div.checkout-display-form{
             @include flex(row, space-between, start);
             border: none;
             min-width: 60%;
             width: 80%;
         
-            & #address-column{
+            & .address-column{
                 min-width: 40%;
                 width: 40%;
                 padding: 15px;
-        
-                & h2#address-column-title{
-                    margin-top: 0;
-                    padding-top: 0;
-                    font-size: 22px;
-                    color: $main-color;
-                }
-        
-                & div.checkout-label{
+
+                & div.ship-address-label{
+                    @include flex();
+                    font: $p;
                     color: $dark-color;
-                    font-size: 16px;
                     text-align: left;
-                    padding: 0 0 5px 0; 
-                }
+                    padding: 0; 
+                    margin: 0; 
+                    padding: 0; 
+                    max-width: 100%;
         
+                    & div.ship-to{
+                        margin: 0;
+                        min-width: 10px;
+                        min-height: 10px;
+                        border-radius: 10px;
+                        border: 2px solid $secondary-color;
+                    }
+                }   
+        
+                & h2.address-column-title{
+                    font-size: 22px;
+                }
+                
                 & div.button{
-                    min-width: 70%;
+                    min-width: 50%;
+                    max-width: 220px;
                     color: $background-color;
+                    background-color: $light-main-color;
                     text-align: center;
                     margin-top: 15px;
                     padding: 5px;
         
                 }
+
+                & div.button:hover{
+                    background-color: $secondary-color;
+                }
             }
         
-            & #cart-summary-column{
+            & .cart-summary-column{
                 @include flex(column, left);
                 align-items: flex-start;
                 min-width: 49%;
@@ -2319,6 +2430,19 @@ div.single-product-shop{
                 font-size: 17px;
                 border-radius: 5px;
                 border: 1px solid $darker-background-color;
+
+                & form.payfast-form{
+
+                    & input[type=submit]{
+                        max-width:200px;
+                        height: 30px;
+                        background-color: $light-main-color;
+                    }
+
+                    & input[type=submit]:hover{
+                        background-color: $secondary-color;
+                    }
+                }
         
                 & .cart-items-summary{
                     @include flex(column);
@@ -2399,6 +2523,10 @@ div.single-product-shop{
         
             }
         }
+
+        div.address-form-container{
+            top: 15%;
+        }
         
         // button below this checkout form
         a.checkout-back{
@@ -2411,10 +2539,10 @@ div.single-product-shop{
         
         }
 
-        & main.short-content{
+        main.short-content{
         
             & nav{
-                margin-bottom: 120px;
+                margin-bottom: 40px;
             }
 
             & footer{

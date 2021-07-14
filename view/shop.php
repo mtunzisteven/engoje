@@ -54,6 +54,7 @@
                         echo $productsDisplay;
 
                     }
+                    
                     // Display the shop products from filtered sidebar
                     if(isset($_SESSION['productsDisplay'])){
 

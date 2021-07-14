@@ -1,5 +1,8 @@
 <?php
 
+// session expire reset: 180 sec
+session_cache_expire();
+
 //This is the shop controller for the site
 session_start();
 
@@ -186,6 +189,9 @@ case 'size-swatch':
 
         $offset += $lim;
 
+        // Fetch all products and bring them to scope of all cases
+        $products = getShopPaginations($lim, $offset);
+
         // get next offset
         $products = filters($products, $lim, $offset);
 
@@ -215,8 +221,10 @@ case 'size-swatch':
         if($offset > 0){
 
             $offset -= $lim;
-
         }
+
+        // Fetch all products and bring them to scope of all cases
+        $products = getShopPaginations($lim, $offset);
 
         // get next offset
         $products = filters($products, $lim, $offset);

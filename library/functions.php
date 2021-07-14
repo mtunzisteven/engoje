@@ -61,7 +61,19 @@ function buildCartDisplay($cartDetails){
 
     $grandTotal = 0;
 
+    $items = [];
+    $key = 1;
+
     foreach($cartDetails as $cartItem){
+
+        $items[$cartItem['product_entryId']] = [
+            
+            "name" => $cartItem['productName'],
+            "colour" => $cartItem['colour'],
+            "size" => $cartItem['sizeValue'],
+            "qty" => $cartItem['cart_item_qty']
+
+    ];
 
         $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
         $grandTotal += $lineTotal;
@@ -83,7 +95,7 @@ function buildCartDisplay($cartDetails){
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
-    $cartDisplay .= "<a href='/zalisting/checkout/index.php' class='clear-cart button wishlist-buttons'>Checkout</a>";
+    $cartDisplay .= "<a href='/zalisting/checkout/index.php?order=".json_encode($items)."' class='clear-cart button wishlist-buttons'>Checkout</a>";
 
 
 
@@ -115,27 +127,56 @@ function buildWishlistDisplay($wishlistDetails){
   }
 
   // Build a cart view display view
-function buildCheckoutDisplay($checkoutDetails, $userDetails){
+function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId){
+
+    //var_dump($userDetails); exit;
 
     $grandTotal = 0;
 
-    $checkoutDisplay = "<form id='checkout' class='checkout-display-form'>";
+    $checkoutDisplay = "<div id='checkout' class='checkout-display-form' >";
+    $checkoutDisplay .= "<div class='address-column'>";
 
-    $checkoutDisplay .= "<div id='address-column'> <h2 id='address-column-title'>Shipping Information:</h2>";
+    // manually sort address using concartination
+    $addresses1 = '';
+    $addresses2 = '';
 
-        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[userFirstName] $userDetails[userLastName]</div>"; 
-        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressLineOne]</div>"; 
-        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressLineTwo]</div>"; 
-        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressCity]</div>";         
-        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[addressZipCode]</div>"; 
-        $checkoutDisplay .= "<div class='checkout-label'>$userDetails[userEmail]</div>"; 
-        $checkoutDisplay .= "<div class='checkout-label'>0$userDetails[userPhone]</div>"; 
-        $checkoutDisplay .= "<div class='checkout-label button'>Ship to different address</div>";
-        $checkoutDisplay .= "<div class='seperator'></div>"; 
-        $checkoutDisplay .= "<div class='checkout-address address-two' id='ship-address'></div>";    
-    
-    $checkoutDisplay .= "</div>";         
-    $checkoutDisplay .= "<div id='cart-summary-column'><div class='cart-items-summary'>";  
+
+    foreach($userDetails as $user){
+        
+        if($user['addressType'] == 2){
+
+            $addresses1 .= "<h2 class='address-column-title'>Billing Address:</h2>";
+            $addresses1 .= "<div class='checkout-label'>$user[addressName]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>0$user[addressNumber]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressEmail]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressLineOne]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressLineTwo]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressCity]</div>";         
+            $addresses1 .= "<div class='checkout-label'>$user[addressZipCode]</div>";             
+        }
+        
+        if($user['addressType'] == 1){
+
+            $addresses2 .= "<h2 class='address-column-title'>Shipping Address:</h2>";
+            $addresses2 .= "<div class='checkout-label'>$user[addressName]</div>"; 
+            $addresses2 .= "<div class='checkout-label'>0$user[addressNumber]</div>"; 
+            $addresses2 .= "<div class='checkout-label'>$user[addressEmail]</div>"; 
+            $addresses2 .= "<div class='checkout-label'>$user[addressLineOne]</div>"; 
+            $addresses2 .= "<div class='checkout-label'>$user[addressLineTwo]</div>"; 
+            $addresses2 .= "<div class='checkout-label'>$user[addressCity]</div>";         
+            $addresses2 .= "<div class='checkout-label'>$user[addressZipCode]</div>";  
+
+        }
+    }
+
+    // concartinate addresses in the correct order
+    $checkoutDisplay .= $addresses1.$addresses2;      
+
+    $checkoutDisplay .= "<div id='new-address' class='button new-address'>Change Shipping Address</div>";  
+
+    $checkoutDisplay .= "</div>";      
+        
+    $checkoutDisplay .= "<div class='cart-summary-column'><div class='cart-items-summary'>";  
     
     // labels
     $checkoutDisplay .= "<div class='cart-item cart-item-summary-label'><div class='summary-product-names header-labels'>Product</div>"; 
@@ -155,12 +196,73 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails){
 
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                            Payfatst                                                //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // Construct variables
+        $cartTotal = $grandTotal;// This amount needs to be sourced from your application
+
+        $data = array(
+            // Merchant details
+            'merchant_id' => '13258122',
+            'merchant_key' => 'bcdu5x8q91980',
+            'return_url' => 'http://www.zalisting.com/return.php',
+            'cancel_url' => 'http://www.zalisting.com/cancel.php',
+            'notify_url' => 'http://www.zalisting.com/notify.php',
+            // Buyer details
+            'name_first' => "$userDetails[0][userFirstName]",
+            'name_last'  => "$userDetails[0][userLastName]",
+            'email_address'=> "$userDetails[0][userEmail]",
+            // Transaction details
+            'm_payment_id' => $orderId, //Unique payment ID to pass through to notify_url
+            'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
+            'item_name' => "Order#$orderId"
+        );
+    
+        $signature = generateSignature($data);
+        $data['signature'] = $signature;
+    
+        // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
+        $testingMode = true;
+        $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
+        $htmlForm = '<form id="payfastForm" class="payfast-form" action="https://'.$pfHost.'/eng/process" method="post">';
+        foreach($data as $name=> $value)
+        {
+            $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
+        }
+        $htmlForm .= '<input id="payfastButton" type="button" class="button" value="Pay Now" /></form>';
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                         Payfatst   End                                             //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping Fee:  </div><div>R0</div></div>"; 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
     $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 class='cart-total'>R$grandTotal</h2></div>"; 
-    $checkoutDisplay .= '</div>';
+    $checkoutDisplay .= "</div>$htmlForm</div></div>";
+    $checkoutDisplay .= "<a href='/zalisting/cart/' class='button checkout-back'>Back to Cart</a>"; 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                           Pop up form                                              //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/zalisting/checkout/?action=new-shipping-address' method='POST'>";
+    $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
 
+    $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
+
+    $checkoutDisplay .= "<div class='label'> Contact Pnone Number: </div> <input type='tel' name='addressNumber required' />"; 
+    $checkoutDisplay .= "<div class='label'> Contact Email: </div> <input type='email' name='addressEmail' required />";  
+    $checkoutDisplay .= "<div class='label'> Address Line 1: </div> <input type='text' name='addressLineOne' required />"; 
+    $checkoutDisplay .= "<div class='label'> Address Line 2: </div> <input type='text' name='addressLineTwo' required />"; 
+    $checkoutDisplay .= "<div class='label'> City: </div> <input type='text' name='addressCity' required />";  
+    $checkoutDisplay .= "<div class='label'> Zip Code: </div> <input type='text' name='addressZipCode' required />"; 
+
+    $checkoutDisplay .= "<input type='hidden' name='orderNumber' value='$orderId' />"; 
+    $checkoutDisplay .= "<input type='hidden' name='userId' value='$userDetails[0][userId]' />"; 
+    $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
+    $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  
+    $checkoutDisplay .= "</form></div>"; 
 
     return $checkoutDisplay;
 
@@ -594,22 +696,22 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty){
 
         if(isset( $_SESSION['sizeFilter'])){
 
-            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><i class='fa fa-times'></i></div>";
+            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><a href='/zalisting/sidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['colourFilter'])){
 
-            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <i class='fa fa-times'></i></div>";
+            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <a href='/zalisting/sidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
 
         }        
         if(isset( $_SESSION['categoryFilter'])){
 
-            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><i class='fa fa-times'></i></div>";
+            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><a href='/zalisting/sidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['minPriceFilter']) && isset( $_SESSION['maxPriceFilter'])){
 
-            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><i class='fa fa-times'></i></div>";
+            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><a href='/zalisting/sidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
 
         }
 
@@ -1096,3 +1198,25 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     return $duplicatedCartDetails;
 
    }
+
+
+/**
+ * @param array $data
+ * @param null $passPhrase
+ * @return string
+ */
+function generateSignature($data, $passPhrase = null) {
+    // Create parameter string
+    $pfOutput = '';
+    foreach( $data as $key => $val ) {
+        if($val !== '') {
+            $pfOutput .= $key .'='. urlencode( trim( $val ) ) .'&';
+        }
+    }
+    // Remove last ampersand
+    $getString = substr( $pfOutput, 0, -1 );
+    if( $passPhrase !== null ) {
+        $getString .= '&passphrase='. urlencode( trim( $passPhrase ) );
+    }
+    return md5( $getString );
+} 

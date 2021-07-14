@@ -1,5 +1,8 @@
 <?php
 
+// session expire reset: 180 sec
+session_cache_expire();
+
 //This is the shop controller for the site
 session_start();
 
@@ -169,6 +172,41 @@ switch ($filter){
 
         break;
 
+    case "deletePriceFilter":
+
+        unset($_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter']);
+
+        header('Location: /zalisting/shop/');
+
+
+        break;
+
+    case "deleteSizeFilter":
+
+        unset($_SESSION['sizeFilter']);
+
+        header('Location: /zalisting/shop/');
+
+
+        break;
+
+    case "deleteColourFilter":
+
+        unset($_SESSION['colourFilter']);
+
+        header('Location: /zalisting/shop/');
+
+
+        break;
+
+    case "deleteCategoryFilter":
+
+        unset($_SESSION['categoryFilter']);
+
+        header('Location: /zalisting/shop/');
+
+
+        break;
 
     default:
 

@@ -1,5 +1,8 @@
 <?php
 
+// session expire reset: 180 sec
+session_cache_expire();
+
 //This is the products controller for the site
     session_start();
 
