@@ -42,32 +42,42 @@ cancel.addEventListener('click', function(){
 let payfastForm = document.querySelector('#payfastForm');
 let payfastButton = document.querySelector('#payfastButton');
 
+
+
 // process order and submit payfast form
 payfastButton.addEventListener('click', function(){
 
-        fetch(url, {
-            method: 'POST',
-            body: bodyData
-        })
-        .then(response=>{
-            if(response.ok){
-                return response;
-            }
-            throw Error(response.statusText);
-        })
-        .then(response=>response.json())
-        .then(data=>{
+    let url = "/zalisting/checkout/?action=paynow";
+
+    let orderData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
     
-            let response = data[countStr];
+    orderData.append('order', payfastForm['order'].value);  // add the product_entryId to data
+    orderData.append('action', 'paynow');                   // add the action that will be used by the case selection in the controller
+
+
+    fetch(url, {
+        method: 'POST',
+        body: orderData
+    })
+    .then(response=>{
+        if(response.ok){
+            return response;
+        }
+        throw Error(response.statusText);
+    })
+    .then(response=>response.text())
+    .then(text=>{
+
+        alert(text);
+
+        /*countEl.innerHTML = response;
+        mcountEl.innerHTML = response;
+
+        responseEl.innerHTML = data[responseStr];*/
+
+    }) 
+    .catch(error=> console.log(error))
     
-            countEl.innerHTML = response;
-            mcountEl.innerHTML = response;
-    
-            responseEl.innerHTML = data[responseStr];
-    
-        }) 
-        .catch(error=> console.log(error))
-    
-    payfastForm.submit();
+    //payfastForm.submit();
 
 }, false)

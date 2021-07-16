@@ -2433,13 +2433,13 @@ div.single-product-shop{
 
                 & form.payfast-form{
 
-                    & input[type=submit]{
+                    & input[type=button]{
                         max-width:200px;
                         height: 30px;
                         background-color: $light-main-color;
                     }
 
-                    & input[type=submit]:hover{
+                    & input[type=button]:hover{
                         background-color: $secondary-color;
                     }
                 }

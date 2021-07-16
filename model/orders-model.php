@@ -120,27 +120,27 @@ function deleteCheckoutOrder($userId){
 // Add an incomplete order that will be removed as soon as the 
 // customer proceeds to buy the items by paying for this order, empties cart
 // or when the user revises the order. Only one per user may be added
-function addOrder($userId, $product_entryIds, $shipping_MethodId, $orderDate){
+function addOrder($userId, $order_items, $shipping_MethodId, $orderDate){
     // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
                             orders (
                                 userId, 
-                                product_entryIds, 
+                                order_items, 
                                 shipping_MethodId, 
                                 orderDate
                                 ) 
                             VALUES (
                                 :userId, 
-                                :product_entryIds, 
+                                :order_items, 
                                 :shipping_MethodId, 
                                 :orderDate)'
                             );
 
     // Replace the place holders
     $stmt->bindValue(':userId',$userId, PDO::PARAM_INT);
-    $stmt->bindValue(':product_entryIds',$product_entryIds, PDO::PARAM_STR);
+    $stmt->bindValue(':order_items',$order_items, PDO::PARAM_STR);
     $stmt->bindValue(':shipping_MethodId',$shipping_MethodId, PDO::PARAM_INT);    
     $stmt->bindValue(':orderDate',$orderDate, PDO::PARAM_STR);    
 
@@ -162,4 +162,70 @@ function addOrder($userId, $product_entryIds, $shipping_MethodId, $orderDate){
         return $id;
 
     }
+}
+
+
+
+// This is for updating product entry qty when shopper clicks pay now button
+function updateQty($product_entryId, $amount){
+    $db = zalistingConnect();
+
+    //echo $product_entryId; exit;
+
+    // first check that the qty is still available for the item wanted
+    $sql = "SELECT amount FROM product_entry WHERE product_entryId = :product_entryId";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $enoughStock = true;
+    $orderAmount = $amount;
+
+    // if there is stcok available
+    if($result['amount'] > 0){
+
+        // if stock is enough for the order
+        if($result['amount'] >= $amount){
+
+            $amount = $result['amount'] - $amount; // only remove order amount from the order
+
+        }
+        // if stock is avaolable but smaller than the order amount
+        else if($result['amount'] < $amount){
+
+            $amount = 0; // all amount available taken by order
+
+            $orderAmount = $result['amount']; // specify amount in order
+
+            $enoughStock = false; // speciify that stock was not enough
+
+
+        }
+
+
+        $sql = "UPDATE product_entry SET amount=:amount WHERE product_entryId = :product_entryId";
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+        $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $rowsChanged = $stmt->rowCount(); 
+        $stmt->closeCursor();
+
+        //var_dump($rowsChanged+[$orderAmount, $enoughStock]); exit;
+
+        return [$rowsChanged, $orderAmount, $enoughStock];
+
+    }else{
+
+        $enoughStock = false; // speciify that stock was not enough
+
+        //var_dump([0, $orderAmount, $enoughStock]); exit;
+
+        return [0, $orderAmount, $enoughStock]; // no stock
+
+    }
+
 }

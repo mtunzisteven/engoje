@@ -194,8 +194,9 @@ function updateAddress($addressName, $addressNumber, $addressEmail, $addressLine
     $db = zalistingConnect();
     $sql = "UPDATE addresses SET addressName=:addressName, addressNumber=:addressNumber, addressEmail=:addressEmail, addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId AND addressType = :addressType";
     $stmt = $db->prepare($sql);
+
     $stmt->bindValue(':addressName', $addressName, PDO::PARAM_STR);
-    $stmt->bindValue(':addressNumber', $addressNumber, PDO::PARAM_INT);
+    $stmt->bindValue(':addressNumber', $addressNumber, PDO::PARAM_STR);
     $stmt->bindValue(':addressEmail', $addressEmail, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineOne', $addressLineOne, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineTwo', $addressLineTwo, PDO::PARAM_STR);

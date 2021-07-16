@@ -61,19 +61,23 @@ function buildCartDisplay($cartDetails){
 
     $grandTotal = 0;
 
-    $items = [];
-    $key = 1;
+    $items = "";
+
+    $counter = count($cartDetails); // help exclude comma at end of items
 
     foreach($cartDetails as $cartItem){
 
-        $items[$cartItem['product_entryId']] = [
-            
-            "name" => $cartItem['productName'],
-            "colour" => $cartItem['colour'],
-            "size" => $cartItem['sizeValue'],
-            "qty" => $cartItem['cart_item_qty']
+        if($counter > 1){
 
-    ];
+            $items .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['sizeValue'].",".$cartItem['cart_item_qty'].",";
+        
+        }elseif($counter == 1){
+
+            $items .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['sizeValue'].",".$cartItem['cart_item_qty'];
+
+        }
+        
+        $counter -= 1;
 
         $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
         $grandTotal += $lineTotal;
@@ -95,7 +99,7 @@ function buildCartDisplay($cartDetails){
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
-    $cartDisplay .= "<a href='/zalisting/checkout/index.php?order=".json_encode($items)."' class='clear-cart button wishlist-buttons'>Checkout</a>";
+    $cartDisplay .= "<a href='/zalisting/checkout/index.php?order=$items' class='clear-cart button wishlist-buttons'>Checkout</a>";
 
 
 
@@ -127,7 +131,7 @@ function buildWishlistDisplay($wishlistDetails){
   }
 
   // Build a cart view display view
-function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId){
+function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
 
     //var_dump($userDetails); exit;
 
@@ -145,26 +149,26 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId){
         
         if($user['addressType'] == 2){
 
-            $addresses1 .= "<h2 class='address-column-title'>Billing Address:</h2>";
-            $addresses1 .= "<div class='checkout-label'>$user[addressName]</div>"; 
-            $addresses1 .= "<div class='checkout-label'>0$user[addressNumber]</div>"; 
-            $addresses1 .= "<div class='checkout-label'>$user[addressEmail]</div>"; 
-            $addresses1 .= "<div class='checkout-label'>$user[addressLineOne]</div>"; 
-            $addresses1 .= "<div class='checkout-label'>$user[addressLineTwo]</div>"; 
-            $addresses1 .= "<div class='checkout-label'>$user[addressCity]</div>";         
-            $addresses1 .= "<div class='checkout-label'>$user[addressZipCode]</div>";             
-        }
-        
-        if($user['addressType'] == 1){
-
             $addresses2 .= "<h2 class='address-column-title'>Shipping Address:</h2>";
             $addresses2 .= "<div class='checkout-label'>$user[addressName]</div>"; 
-            $addresses2 .= "<div class='checkout-label'>0$user[addressNumber]</div>"; 
+            $addresses2 .= "<div class='checkout-label'>$user[addressNumber]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressEmail]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressLineOne]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressLineTwo]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressCity]</div>";         
-            $addresses2 .= "<div class='checkout-label'>$user[addressZipCode]</div>";  
+            $addresses2 .= "<div class='checkout-label'>$user[addressZipCode]</div>";             
+        }
+        
+        if($user['addressType'] == 1){
+
+            $addresses1 .= "<h2 class='address-column-title'>Billing Address:</h2>";
+            $addresses1 .= "<div class='checkout-label'>$user[addressName]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressNumber]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressEmail]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressLineOne]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressLineTwo]</div>"; 
+            $addresses1 .= "<div class='checkout-label'>$user[addressCity]</div>";         
+            $addresses1 .= "<div class='checkout-label'>$user[addressZipCode]</div>";  
 
         }
     }
@@ -226,11 +230,12 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId){
         // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
         $testingMode = true;
         $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
-        $htmlForm = '<form id="payfastForm" class="payfast-form" action="https://'.$pfHost.'/eng/process" method="post">';
+        $htmlForm = '<form id="payfastForm" class="payfast-form" action="https://'.$pfHost.'/eng/process" method="post">'; 
         foreach($data as $name=> $value)
         {
             $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
         }
+        $htmlForm .= "<input id='order' type='hidden' name='order' value='$order' />";
         $htmlForm .= '<input id="payfastButton" type="button" class="button" value="Pay Now" /></form>';
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -251,7 +256,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId){
 
     $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
 
-    $checkoutDisplay .= "<div class='label'> Contact Pnone Number: </div> <input type='tel' name='addressNumber required' />"; 
+    $checkoutDisplay .= "<div class='label'> Contact Phone Number: </div> <input type='tel' name='addressNumber' required />"; 
     $checkoutDisplay .= "<div class='label'> Contact Email: </div> <input type='email' name='addressEmail' required />";  
     $checkoutDisplay .= "<div class='label'> Address Line 1: </div> <input type='text' name='addressLineOne' required />"; 
     $checkoutDisplay .= "<div class='label'> Address Line 2: </div> <input type='text' name='addressLineTwo' required />"; 
