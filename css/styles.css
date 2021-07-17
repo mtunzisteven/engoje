@@ -2365,7 +2365,7 @@ div.cart-display-table div.cart-display-table-rows div a img {
   font-weight: 200;
 }
 
-div.cart-display-table-column {
+div.cart-display-table-row2 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2382,11 +2382,11 @@ div.cart-display-table-column {
       -ms-flex-align: center;
           align-items: center;
   min-width: 55%;
-  margin: -5px 5% 10px 40%;
+  margin: 0 5% 10px 40%;
   background-color: #fdfdfd;
 }
 
-div.cart-display-table-column div.cart-total-container {
+div.cart-display-table-row2 div.cart-total-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2407,11 +2407,11 @@ div.cart-display-table-column div.cart-total-container {
   margin: 0;
 }
 
-div.cart-display-table-column div.cart-total-container h4.grand-total {
+div.cart-display-table-row2 div.cart-total-container h4.grand-total {
   text-align: left;
 }
 
-div.cart-display-table-column button, div.cart-display-table-column a {
+div.cart-display-table-row2 button, div.cart-display-table-row2 a {
   display: block;
   max-width: 30%;
   min-height: 50px;
@@ -2472,6 +2472,95 @@ footer.main-footer div.footer-bottom-block a {
 
 footer.main-footer div.footer-bottom-block a:hover {
   color: #fa9595;
+}
+
+.cart-display-table-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fdfdfd;
+  border-radius: 3px;
+  min-width: 55%;
+  max-width: 90%;
+  padding: 0;
+  margin: 0 5% 0 40%;
+  text-align: right;
+}
+
+.cart-display-table-column h4.shipping-methods {
+  min-width: 95%;
+  padding: 0 5% 0 0;
+  text-align: right;
+}
+
+.cart-display-table-column form.cart-checkout-form {
+  border: none;
+  text-align: right;
+  min-width: 99%;
+  padding: 0;
+  max-width: 100%;
+}
+
+.cart-display-table-column form.cart-checkout-form div.shipping-methods-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  min-width: 95%;
+  padding: 0 5% 0 0;
+  max-width: 100%;
+}
+
+.cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 99%;
+  max-width: 100px;
+}
+
+.cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio] {
+  max-width: 12px;
+}
+
+.cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio]:checked {
+  color: #ff4949;
+  background-color: #ff4949;
 }
 
 @media only screen and (min-width: 550px) {

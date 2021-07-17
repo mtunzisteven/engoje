@@ -1691,7 +1691,6 @@ div.cart-display-table{
         max-height: 80px;
         padding:10px 5px;
         @include flex();
-        //border: 1px solid $main-color;
         border-radius: 5px;
 
         & div.buttoned-div{
@@ -1749,10 +1748,10 @@ div.cart-display-table{
     font-weight: 200;
 }
 
-div.cart-display-table-column{
+div.cart-display-table-row2{
     @include flex(row-reverse,space-between);
     min-width: 55%;
-    margin: -5px 5% 10px 40%;
+    margin: 0 5% 10px 40%;
     background-color: $background-color;
 
     & div.cart-total-container{
@@ -1828,6 +1827,55 @@ footer.main-footer{
         & a:hover{
             color: $light-secondary-color;
         }
+    }
+}
+
+.cart-display-table-column{
+    @include flex(column,right, center);
+    background-color: $background-color;
+    border-radius: 3px;
+    min-width: 55%;
+    max-width: 90%;
+    padding: 0;
+    margin: 0 5% 0 40%;
+    text-align: right;
+
+    & h4.shipping-methods{
+        min-width: 95%;
+        padding: 0 5% 0 0;
+        text-align: right;
+    }
+
+    & form.cart-checkout-form{
+        border: none;
+        text-align: right;
+        min-width: 99%;
+        padding: 0;
+        max-width:100%;
+
+        & div.shipping-methods-container{
+            @include flex(column, right, flex-end);
+            min-width: 95%;
+            padding: 0 5% 0 0;
+            max-width: 100%;
+
+            & label.checkout-to-label{
+                @include flex(row, space-between, center);
+                min-width: 99%;
+                max-width:100px;
+    
+                & input[type=radio]{
+                    max-width: 12px;
+                }
+    
+                & input[type=radio]:checked{
+                    color: $secondary-color;
+                    background-color: $secondary-color;
+    
+                }
+    
+            }   
+        } 
     }
 }
 

@@ -152,10 +152,38 @@ function deleteCheckoutOrder($userId){
     return $result;
 }
 
+// get shipping info for the shipping method 
+function getShipping($shippingId){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM  shipping_method 
+                    WHERE shippingId = :shippingId 
+                    ';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':shippingId', $shippingId, PDO::PARAM_INT);
+    $stmt->execute();
+    $products = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $products;
+}
+
+// get shipping all methods 
+function getShippingMethods(){
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM  shipping_method ';
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $products;
+}
+
+
 // Add an incomplete order that will be removed as soon as the 
 // customer proceeds to buy the items by paying for this order, empties cart
 // or when the user revises the order. Only one per user may be added
-function addOrder($userId, $order_items, $shipping_MethodId, $orderDate){
+function addOrder($userId, $order_items, $shippingId, $orderDate){
     // Create a connection object from the zalist connection function
     $db = zalistingConnect(); 
     // The next line creates the prepared statement using the zalist connection      
@@ -163,20 +191,20 @@ function addOrder($userId, $order_items, $shipping_MethodId, $orderDate){
                             orders (
                                 userId, 
                                 order_items, 
-                                shipping_MethodId, 
+                                shippingId, 
                                 orderDate
                                 ) 
                             VALUES (
                                 :userId, 
                                 :order_items, 
-                                :shipping_MethodId, 
+                                :shippingId, 
                                 :orderDate)'
                             );
 
     // Replace the place holders
     $stmt->bindValue(':userId',$userId, PDO::PARAM_INT);
     $stmt->bindValue(':order_items',$order_items, PDO::PARAM_STR);
-    $stmt->bindValue(':shipping_MethodId',$shipping_MethodId, PDO::PARAM_INT);    
+    $stmt->bindValue(':shippingId',$shippingId, PDO::PARAM_INT);    
     $stmt->bindValue(':orderDate',$orderDate, PDO::PARAM_STR);    
 
     // The next line runs the prepared statement 
@@ -258,7 +286,8 @@ function updateQty($product_entryId, $amount){
         $enoughStock = false; // speciify that stock was not enough
 
         //var_dump([0, $orderAmount, $enoughStock]); exit;
-
+        
+        $stmt->closeCursor();
         return [0, $orderAmount, $enoughStock]; // no stock
 
     }
