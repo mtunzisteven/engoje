@@ -63,22 +63,18 @@ function buildCartDisplay($cartDetails){
 
     $items = "";
 
-    $counter = count($cartDetails); // help exclude comma at end of items
-
     foreach($cartDetails as $cartItem){
 
-        if($counter > 1){
+        if($items == ""){
 
-            $items .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['sizeValue'].",".$cartItem['cart_item_qty'].",";
+            $items .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
         
-        }elseif($counter == 1){
+        }else{
 
-            $items .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['sizeValue'].",".$cartItem['cart_item_qty'];
+            $items .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
 
         }
         
-        $counter -= 1;
-
         $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
         $grandTotal += $lineTotal;
 
@@ -236,6 +232,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
             $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
         }
         $htmlForm .= "<input id='order' type='hidden' name='order' value='$order' />";
+        $htmlForm .= "<input id='orderTotal' type='hidden' name='orderTotal' value='$grandTotal' />";
         $htmlForm .= '<input id="payfastButton" type="button" class="button" value="Pay Now" /></form>';
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,10 +246,10 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
     $checkoutDisplay .= "<a href='/zalisting/cart/' class='button checkout-back'>Back to Cart</a>"; 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                           Pop up form                                              //
+    //                                           Pop up forms                                             //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/zalisting/checkout/?action=new-shipping-address' method='POST'>";
-    $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
+    $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
 
     $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
 
@@ -267,6 +264,16 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
     $checkoutDisplay .= "<input type='hidden' name='userId' value='$userDetails[0][userId]' />"; 
     $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
     $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  
+    $checkoutDisplay .= "</form></div>"; 
+
+    // confirm adjusted order pop up
+    $checkoutDisplay .= "<div id='popupCard' class='hidden'><form class=' new-address-form' >";
+    $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelPayfastConfirm' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
+
+    $checkoutDisplay .= "<div id='popupCardtext'> </div>"; 
+
+
+    $checkoutDisplay .= "<div class='confirmConfirm'> <input type='button' class='button' id='popupCardNo' value='Cancel' /> <input type='button' class='button' id='popupCardYes' value='Proceed' /> </div>";  
     $checkoutDisplay .= "</form></div>"; 
 
     return $checkoutDisplay;

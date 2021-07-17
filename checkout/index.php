@@ -68,6 +68,7 @@ switch ($action){
     case 'paynow':
 
         $order_items = $_POST['order'];
+        $order_Total = $_POST['orderTotal'];
 
         if(!empty($order_items)){
 
@@ -80,71 +81,125 @@ switch ($action){
 
             $adjustedOrder = []; // Holds reduced order amounts order information
 
-            $noStockMessage = "We've run out of stock of the following:\n";
+            /////////////////////////////////////////////////////////////////////////////////////
+            //        pop up message strings initiated for the respective scenarios            //
+            /////////////////////////////////////////////////////////////////////////////////////
 
-            $adjustedStockMessage = "We've adjusted your order amounts for the following due to stock availability changes:\n";
+            // out of stock string initiated here
+            $noStockMessage = "<p class='notice detail-span-bold center'>We've run out of stock of the following:";
 
+            // short and adjusted stock string initiated here
+            $adjustedStockMessage = "<p class='notice detail-span-bold center'>We've adjusted your order amounts for the following due to stock availability changes:";
+
+            // order_items is found in the cartDisplay builder function 
+            // It is and array that holds specified information
+            // It is easier to use it instead of an associated array. INDEXES:
+            // index 1 : product_entryId
+            // index 2 : name
+            // index 3 : color
+            // index 4 : price
+            // index 5 : qty
 
             for($i = 0; $i < $length; $i+=5){
 
-                // check and modify qty
+                // check and modify qty. 
+                // updatge done in the model between relevant queries within 
+                // the function used below: updateQty().
                 $updateQty = updateQty($arr[$i], $arr[$i+4]);
 
                 // if item out of stock
                 if(!$updateQty[0]){
 
                     // product name and product_entry id of item out of stock
-                    $outOfStock[] = ['name'=>$arr[$i+1], 'product_entryId'=>$arr[$i]];
+                    $outOfStock[] = ['name'=>$arr[$i+1], 'product_entryId'=>$arr[$i], 'color' => $arr[$i+2]];
 
+                    // remove the cost of the item out of stock 
+                    $order_Total -= $arr[$i+3]*$arr[$i+4];
 
                 }
 
+                // When the qty received from updateQty in the model is not the same as order qty
+                // This happens when stock is less than order amount in cx's order.
                 else if($updateQty[1] != $arr[$i+4]){
 
                     // product name and product_entry id of item adjusted order amount
-                    $adjustedOrder[] = ['name'=>$arr[$i+1], 'product_entryId'=>$arr[$i], 'newQty'=>$updateQty[1]];
+                    $adjustedOrder[] = ['name'=>$arr[$i+1], 'product_entryId'=>$arr[$i], 'newQty'=>$updateQty[1], 'color' => $arr[$i+2]];
+
+                    // remove the cost of the item adjusted out of order 
+                    $order_Total -= $arr[$i+3]*($arr[$i+4]-$updateQty[1]);
 
                 }
 
             }
 
-            /////////////////////////////////////////////////////////////////////////////////////
-            //            Use the following to capture messages from changes in order          //
-            /////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //            Use the following to capture messages from changes in order for each order item         //
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // When an order item is out of order
             foreach($outOfStock as $item){
 
-                $noStockMessage .= $item['name']."\n"; 
+                // Load message for pop up card
+                $noStockMessage .= "<br/>".$item['name']." - ".$item['color']; 
 
             }
 
+            // when an order item has lower quanity than ordered amount
             foreach($adjustedOrder as $item){
 
-                $adjustedStockMessage .= $item['name']." | New Qty:".$item['newQty']."\n"; 
+                // Load message for pop up card
+                $adjustedStockMessage .= "<br/>".$item['name']." - ".$item['color']." | New Qty: ".$item['newQty']; 
 
             }
 
             // items out of stock
             $_SESSION['outOfStock '] = $outOfStock;
 
+            // fetch request response associated array created
+            $response = [];
+
+            // first fetch request response associative array item loaded into array 
+            $response['orderTotal'] = $order_Total;
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //                   specific Messages to display for shortage or out of stock scenario                   //
+            //        specify the total order amount when order affected n\by shortage or out of stock items          //
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // out of stock items and stock amount adjustment in order
             if(!empty($outOfStock) && !empty($adjustedOrder)){
 
-                echo $noStockMessage."\n".$adjustedStockMessage;
+                // second fetch request response associative array item loaded into array 
+                $response['message'] = $noStockMessage."\n".$adjustedStockMessage."<br/><br/>New Order Total: $order_Total</p>";
 
             }
+
+            // only stock amount adjustment in order, none out of stock
             else if(empty($outOfStock) && !empty($adjustedOrder)){
 
-                echo $adjustedStockMessage;
+                // second fetch request response associative array item loaded into array 
+                $response['message'] = $adjustedStockMessage."<br/><br/>New Order Total: $order_Total</p>";
 
             }
+
+            // out of stock items in order, no adjsutments
             else if(!empty($outOfStock) && empty($adjustedOrder)){
 
-                echo $noStockMessage;
+                // second fetch request response associative array item loaded into array 
+                $response['message'] = $noStockMessage."<br/><br/>New Order Total: $order_Total</p>";
 
-            }else{
+            }
 
-                echo "Success!";
+            // no out of stock items or stock amount adjustment in order. Perfect order!
+            else{
+
+                $response['message'] = 1;
                     
             }
+
+            // response to checkout fetch request
+            echo json_encode($response);
             
         }
 
@@ -154,18 +209,20 @@ switch ($action){
     
     default:
 
+        // When this is a logged in user
         if($_SESSION['userData']){
 
+            // receive order string from cart
             $order_items = $_GET['order'];
 
+            // get the user id of the logged in user
             $userId = $_SESSION['userData']['userId'];
 
-            //var_dump($userId); exit;
-
+            // get user address details for the user 
+            // in checkout model using their id
             $userDetails = getUserDetails($userId);
 
-            //var_dump($userDetails); exit;
-
+            // fetch all user cart items in db
             $checkoutDetails = getCartItems($userId);
 
             // date customer went into checkout page
@@ -174,37 +231,51 @@ switch ($action){
             // add checkout order in db
             addCheckoutOrder($userId, $checkoutDate);
 
+            // this is the pep shipping id for now 
+            // this is also free shipping
+            // will be fetched from cartdisplay
+            // once all other methods are added
+            // from the cartDisplay get query like: 'order'
             $shippingMethodId = 1;
 
-            //unset($_SESSION['orderId']); //exit;
+            // when an order has been added to the db for this user
+            if(isset($_SESSION['orderId']) ){
 
+                // fetch the order from the bd and compare it with the current order
+                $db_order_items = getOrderItems($_SESSION['orderId']);
 
-            if(isset($_SESSION['orderId'])){
+                // if they are identical, go on and display the checkout view
+                // turn db_order_items to string because it comes back as ana array
+                if($order_items == implode(" ",$db_order_items)){
 
-                // create an order using the model function below.
-                $orderId = $_SESSION['orderId'];
+                    // build the checkout display
+                    $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items);
 
-                $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items);
+                } else{ // if they do not match, delete the db order and restart the process
 
+                    if(deleteOrder($_SESSION['orderId'])){
+
+                        // create an order using the model function below.
+                        $_SESSION['orderId'] = addOrder($userId, $order_items, $shippingMethodId, $checkoutDate);
+
+                        // build the checkout display
+                        $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items);
+
+                    }
+
+                }
 
             }else{
 
                 // create an order using the model function below.
                 $_SESSION['orderId'] = addOrder($userId, $order_items, $shippingMethodId, $checkoutDate);
 
+                // build the checkout display
                 $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items);
 
 
             }
 
-
-            // if there is an order previously abondoned at checkout
-            if(null != checkCheckout($userId)){
-
-                // clear checkout order in db
-                deleteCheckoutOrder($userId);
-
-            }
             header("Location: /zalisting/shop/checkout/?order=$_SESSION[orderId]");
         }else{
 

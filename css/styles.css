@@ -2094,7 +2094,7 @@ div.address-form-container form.new-address-form {
   max-width: 80%;
   padding: 20px;
   margin: 0 auto;
-  background-color: #ff4949;
+  background-color: #fa9595;
   -webkit-box-shadow: 0 0 50px 1px #3a3939;
           box-shadow: 0 0 50px 1px #3a3939;
 }
@@ -2149,6 +2149,44 @@ div.address-form-container form.new-address-form input[type=button]:hover {
   background-color: #DD1717;
   -webkit-box-shadow: 0 0 5px 0 #fdfdfd;
           box-shadow: 0 0 5px 0 #fdfdfd;
+}
+
+div.address-form-container form.new-address-form div#popupCardtext {
+  color: #fdfdfd;
+  font: 200 15px "Nunito", sans-serif;
+  font-weight: 700;
+}
+
+div.address-form-container form.new-address-form p.detail-span-bold center {
+  margin: 5px 0 0 0;
+  text-align: left;
+  color: #fdfdfd;
+  font-size: 12px;
+}
+
+div.address-form-container form.new-address-form div.confirmConfirm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 70%;
+  margin: 10px auto 5px auto;
+}
+
+div.address-form-container form.new-address-form div.confirmConfirm input.button {
+  max-width: 100px;
+  min-width: 0;
 }
 
 /*------------------------------------------------Forms END

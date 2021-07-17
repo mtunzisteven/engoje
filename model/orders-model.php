@@ -46,6 +46,41 @@ function getCheckout($userId){
     return $products;
 }
 
+// Get the order items string for the order 
+function getOrderItems($orderId){
+    $db = zalistingConnect();
+    $sql = 'SELECT order_items FROM orders WHERE orderId = :orderId';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':orderId', $orderId, PDO::PARAM_INT);
+    $stmt->execute();
+    $items = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $items;
+}
+
+// delete the order using order id
+function deleteOrder($orderId){
+      
+    // Create a connection object from the zalisting connection function
+    $db = zalistingConnect(); 
+
+    // The next line creates the prepared statement using the zalisting connection      
+    $stmt = $db->prepare('DELETE FROM orders WHERE orderId = :orderId');
+
+    // Replace the place holder
+    $stmt->bindValue(':orderId',$orderId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // Get number of affected rows
+    $result = $stmt->rowCount();
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $result;
+}
+
 // Get the checkout order for the user 
 function checkCheckout($userId){
     $db = zalistingConnect();

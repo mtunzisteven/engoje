@@ -8,7 +8,7 @@ let newAddressButton = document.querySelector('#new-address');
 let hiddenFormContainer = document.querySelector('#HidenformC');
 let newAddress = document.querySelector('#newAddress');
 let newaddressform = document.querySelector('.new-address-form');
-let cancel = document.querySelector('.cancelNewAddress');
+let cancel = document.querySelector('#cancelNewAddress');
 
 
 // open new address form
@@ -28,6 +28,7 @@ newAddress.addEventListener('click', function(){
 }, false)
 
 // close new address form
+
 cancel.addEventListener('click', function(){
 
     hiddenFormContainer.setAttribute('class', 'hidden');
@@ -41,8 +42,12 @@ cancel.addEventListener('click', function(){
 
 let payfastForm = document.querySelector('#payfastForm');
 let payfastButton = document.querySelector('#payfastButton');
-
-
+let popupCard = document.querySelector('#popupCard');
+let popupCardtext = document.querySelector('#popupCardtext');
+let popupCardNo = document.querySelector('#popupCardNo');
+let popupCardYes = document.querySelector('#popupCardYes');
+let cancelPayfastConfirm = document.querySelector('#cancelPayfastConfirm');
+let orderTotal = payfastForm['amount'];
 
 // process order and submit payfast form
 payfastButton.addEventListener('click', function(){
@@ -52,6 +57,7 @@ payfastButton.addEventListener('click', function(){
     let orderData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
     
     orderData.append('order', payfastForm['order'].value);  // add the product_entryId to data
+    orderData.append('orderTotal', payfastForm['orderTotal'].value);  // add the product_entryId to data
     orderData.append('action', 'paynow');                   // add the action that will be used by the case selection in the controller
 
 
@@ -65,19 +71,58 @@ payfastButton.addEventListener('click', function(){
         }
         throw Error(response.statusText);
     })
-    .then(response=>response.text())
-    .then(text=>{
+    .then(response=>response.json())
+    .then(data=>{
 
-        alert(text);
+        if(data['message'] == 1){
 
-        /*countEl.innerHTML = response;
-        mcountEl.innerHTML = response;
+            payfastForm.submit();
 
-        responseEl.innerHTML = data[responseStr];*/
+        }else{
 
+            popupCard.setAttribute('class', 'address-form-container');
+            popupCardtext.innerHTML = data['message'];
+
+            // close and submit new address form
+            popupCardYes.addEventListener('click', function(){
+
+                popupCard.setAttribute('class', 'hidden');
+
+                // update cart total to pay
+                orderTotal.value = data['orderTotal'];
+
+                // make payment if there's anything to pay for.
+                if(orderTotal.value != 0){
+
+                    // submit form
+                    payfastForm.submit();
+
+                }else{
+
+                    // close pop up
+                    popupCard.setAttribute('class', 'hidden');
+                    
+                }
+
+
+            }, false)
+
+            // close new form
+            popupCardNo.addEventListener('click', function(){
+
+                popupCard.setAttribute('class', 'hidden');
+
+            }, false)
+
+            // close new address form
+            cancelPayfastConfirm.addEventListener('click', function(){
+
+                popupCard.setAttribute('class', 'hidden');
+
+            }, false)
+
+        }
     }) 
     .catch(error=> console.log(error))
     
-    //payfastForm.submit();
-
 }, false)

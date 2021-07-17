@@ -1553,7 +1553,7 @@ div.address-form-container{
         max-width: 80%;
         padding: 20px;
         margin:0 auto;
-        background-color: $secondary-color;
+        background-color: $light-secondary-color;
         box-shadow: 0 0 50px 1px $dark-color;
 
         & div.cancel-container{
@@ -1592,6 +1592,30 @@ div.address-form-container{
         & input[type=button]:hover{
             background-color: $dark-secondary-color;
             box-shadow:0 0 5px 0 $background-color;
+        }
+
+        & div#popupCardtext{
+            color: $background-color;
+            font: $p;
+            font-weight: 700;
+        }
+
+        & p.detail-span-bold center{
+            margin: 5px 0 0 0;
+            text-align: left;
+            color: $background-color;
+            font-size: 12px;
+        }
+
+        & div.confirmConfirm{
+            @include flex();
+            min-width: 70%;
+            margin: 10px auto 5px auto;
+
+            & input.button{
+                max-width: 100px;
+                min-width: 0;
+            }
         }
     }
 }
