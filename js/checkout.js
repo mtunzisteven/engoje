@@ -47,7 +47,8 @@ let popupCardtext = document.querySelector('#popupCardtext');
 let popupCardNo = document.querySelector('#popupCardNo');
 let popupCardYes = document.querySelector('#popupCardYes');
 let cancelPayfastConfirm = document.querySelector('#cancelPayfastConfirm');
-let orderTotal = payfastForm['amount'];
+let orderTotal = payfastForm['amount'].value;
+let shippingFee = document.querySelector('#shipping-fee').value;
 
 // process order and submit payfast form
 payfastButton.addEventListener('click', function(){
@@ -56,7 +57,6 @@ payfastButton.addEventListener('click', function(){
 
     let orderData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
     
-    orderData.append('order', payfastForm['order'].value);  // add the product_entryId to data
     orderData.append('orderTotal', payfastForm['orderTotal'].value);  // add the product_entryId to data
     orderData.append('action', 'paynow');                   // add the action that will be used by the case selection in the controller
 
@@ -87,12 +87,12 @@ payfastButton.addEventListener('click', function(){
             popupCardYes.addEventListener('click', function(){
 
                 popupCard.setAttribute('class', 'hidden');
-
+                
                 // update cart total to pay
-                orderTotal.value = data['orderTotal'];
+                orderTotal = data['orderTotal'];
 
                 // make payment if there's anything to pay for.
-                if(orderTotal.value != 0){
+                if(orderTotal != shippingFee){
 
                     // submit form
                     payfastForm.submit();

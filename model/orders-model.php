@@ -216,7 +216,7 @@ function addOrder($userId, $order_items, $shippingId, $orderDate){
 
     if($result){
 
-        // Get number of affected rows
+        // Get the id of the last row
         $id = $db->lastInsertId();
 
         // The next line closes the interaction with the database 
@@ -227,69 +227,53 @@ function addOrder($userId, $order_items, $shippingId, $orderDate){
     }
 }
 
-
-
-// This is for updating product entry qty when shopper clicks pay now button
-function updateQty($product_entryId, $amount){
+// The price per item on the db product_entry
+function getProduct_entryAmount($product_entryId){
     $db = zalistingConnect();
 
-    //echo $product_entryId; exit;
-
-    // first check that the qty is still available for the item wanted
     $sql = "SELECT amount FROM product_entry WHERE product_entryId = :product_entryId";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
 
-    $enoughStock = true;
-    $orderAmount = $amount;
-
-    // if there is stcok available
-    if($result['amount'] > 0){
-
-        // if stock is enough for the order
-        if($result['amount'] >= $amount){
-
-            $amount = $result['amount'] - $amount; // only remove order amount from the order
-
-        }
-        // if stock is avaolable but smaller than the order amount
-        else if($result['amount'] < $amount){
-
-            $amount = 0; // all amount available taken by order
-
-            $orderAmount = $result['amount']; // specify amount in order
-
-            $enoughStock = false; // speciify that stock was not enough
+    return  $result;
+}
 
 
-        }
+// The price per item on the db product_entry
+function getCartEntriesForCheckout($userId){
+    $db = zalistingConnect();
 
+    $sql = "SELECT* FROM cart_items
+                    JOIN product_entry ON cart_items.product_entryId = product_entry.product_entryId
+                    JOIN colour ON colour.colourId = product_entry.colourId
+                    JOIN products ON products.productId = product_entry.productId
+                    WHERE userId = :userId";
 
-        $sql = "UPDATE product_entry SET amount=:amount WHERE product_entryId = :product_entryId";
-        $stmt = $db->prepare($sql);
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
 
-        $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
-        $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+    return  $result;
+}
 
-        $stmt->execute();
-        $rowsChanged = $stmt->rowCount(); 
-        $stmt->closeCursor();
+// This is for updating product entry qty when shopper clicks pay now button
+function updateQty($product_entryId, $amount){
+    $db = zalistingConnect();
 
-        //var_dump($rowsChanged+[$orderAmount, $enoughStock]); exit;
+    $sql = "UPDATE product_entry SET amount=:amount WHERE product_entryId = :product_entryId";
+    $stmt = $db->prepare($sql);
 
-        return [$rowsChanged, $orderAmount, $enoughStock];
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
 
-    }else{
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
 
-        $enoughStock = false; // speciify that stock was not enough
-
-        //var_dump([0, $orderAmount, $enoughStock]); exit;
-        
-        $stmt->closeCursor();
-        return [0, $orderAmount, $enoughStock]; // no stock
-
-    }
-
+    return $rowsChanged;
 }

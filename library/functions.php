@@ -55,23 +55,23 @@ function buildUsersDisplay($users){
   }
 
 // Build a cart view display view
-function buildCartDisplay($cartDetails){
+function buildCartDisplay($cartDetails, $shippingInfo){
 
     $cartDisplay = "<div id='cart' class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Quantity</div><div>Total</div><div>Remove Item</div></div>";
 
     $grandTotal = 0;
 
-    $items = "";
+    $_SESSION['order'] = "";
 
     foreach($cartDetails as $cartItem){
 
-        if($items == ""){
+        if($_SESSION['order'] == ""){
 
-            $items .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+            $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
         
         }else{
 
-            $items .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+            $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
 
         }
         
@@ -91,11 +91,22 @@ function buildCartDisplay($cartDetails){
     }
 
     $cartDisplay .= '</div>';
-    $cartDisplay .= "<div class='cart-display-table-column'><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
+    $cartDisplay .= "<div class='cart-display-table-row2'><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
-    $cartDisplay .= "<a href='/zalisting/checkout/index.php?order=$items' class='clear-cart button wishlist-buttons'>Checkout</a>";
+    $cartDisplay .= "<div class='cart-display-table-column'><h4 class='shipping-methods'>Shipping Methods</h4>";
+    $cartDisplay .= "<form class='cart-checkout-form' action='/zalisting/checkout/'>";
+    $cartDisplay .= "<div class='shipping-methods-container'>"; 
+
+    foreach($shippingInfo as $shippingMethod){
+
+        $cartDisplay .= "<label class='checkout-to-label'><input type='radio' name='shippingId' value='$shippingMethod[shippingId]' /> $shippingMethod[name]: $shippingMethod[price]</label>";
+
+    }
+    
+
+    $cartDisplay .= "<input type='submit' class='clear-cart button wishlist-buttons' value='Checkout' /> </form></div>";
 
 
 
@@ -127,11 +138,11 @@ function buildWishlistDisplay($wishlistDetails){
   }
 
   // Build a cart view display view
-function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
+function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo){
 
     //var_dump($userDetails); exit;
 
-    $grandTotal = 0;
+    $grandTotal = $shippingInfo['price'];
 
     $checkoutDisplay = "<div id='checkout' class='checkout-display-form' >";
     $checkoutDisplay .= "<div class='address-column'>";
@@ -196,6 +207,13 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
 
     }
 
+    $checkoutDisplay .= "<div class='seperator'></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping  </div><div>$shippingInfo[name]: R$shippingInfo[price]</div></div>"; 
+    $checkoutDisplay .= "<div class='seperator'></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 class='cart-total'>R$grandTotal</h2></div>"; 
+    $checkoutDisplay .= "<input type='hidden' id='shipping-fee' value='$shippingInfo[price]' />"; 
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                            Payfatst                                                //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,11 +257,8 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order){
     //                                         Payfatst   End                                             //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping Fee:  </div><div>R0</div></div>"; 
-    $checkoutDisplay .= "<div class='seperator'></div>"; 
-    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 class='cart-total'>R$grandTotal</h2></div>"; 
     $checkoutDisplay .= "</div>$htmlForm</div></div>";
-    $checkoutDisplay .= "<a href='/zalisting/cart/' class='button checkout-back'>Back to Cart</a>"; 
+    $checkoutDisplay .= "<a href='/zalisting/cart/?action=cart' class='button checkout-back'>Back to Cart</a>"; 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                           Pop up forms                                             //

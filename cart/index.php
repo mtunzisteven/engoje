@@ -158,12 +158,13 @@ switch ($action){
 
     case 'update-cart':
 
+        // turn string into array
         $cartUpdateArr = explode(",", $_POST['cartUpdateArr']);
 
         // filter external input array
         $cartUpdateArr  = filter_var_array($cartUpdateArr);
 
-        //print_r($cartUpdateArr); exit;
+        $_SESSION['cartUpdateArr'] = $cartUpdateArr;
 
         if(isset($cartUpdateArr)){
 
@@ -222,7 +223,7 @@ switch ($action){
                     }
 
                     echo $_SESSION['cartTotal'];
-    
+                    exit;
                 }
 
             }
@@ -284,14 +285,6 @@ switch ($action){
             // delete cart display session variable
             unset($_SESSION['cartDisplay']);
 
-            // if there is an order previously abondoned at checkout
-            if(null != checkCheckout($_SESSION['userData']['userId'])){
-
-                // clear checkout order in db
-                deleteCheckoutOrder($_SESSION['userData']['userId']);
-
-            }
-
         }
 
         // redirect to the cart page
@@ -348,16 +341,6 @@ switch ($action){
             // delete cart display session variable
             unset($_SESSION['cartDisplay']);
 
-
-                // if there is an order previously abondoned at checkout
-                if(null != checkCheckout($_SESSION['userData']['userId'])){
-
-                    // clear checkout order in db
-                    deleteCheckoutOrder($_SESSION['userData']['userId']);
-
-                }
-
-
         }
 
         header('Location: /zalisting/cart/');
@@ -366,6 +349,9 @@ switch ($action){
 
     // cart page accessing through icon or link in product page
     default:
+
+        // fetch shipping information
+        $shippingInfo = getShippingMethods();
 
         if(isset($_SESSION['userData'])){ // for logged in users
 
@@ -380,7 +366,7 @@ switch ($action){
                 }
 
                 // create a display cart variable to use in the view
-                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($cartItems));
+                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($cartItems), $shippingInfo);
 
             }
 
@@ -417,7 +403,7 @@ switch ($action){
                 unset($_SESSION['cart']);
                 
                 // create a display cart variable to use in the view
-                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
+                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails), $shippingInfo);
 
             }else{
                 $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>';
@@ -459,26 +445,11 @@ switch ($action){
                 //var_dump($duplicatedCartDetails); exit;
                 
                 // build a cart display
-                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails));
+                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails), $shippingInfo);
 
             }else{
 
                 $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>';
-
-                // When the cart is empty and the user is logged in
-                // we need to make sure we don;t have an abandoned
-                // cart item in the checkout table still lingering
-                if(isset($_SESSION['userData'])){
-
-                    // if there is an order previously abondoned at checkout
-                    if(null != checkCheckout($_SESSION['userData']['userId'])){
-
-                        // clear checkout order in db
-                        deleteCheckoutOrder($_SESSION['userData']['userId']);
-
-                    }
-
-                }
             }
 
         }
