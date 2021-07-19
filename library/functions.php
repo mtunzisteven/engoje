@@ -203,7 +203,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 
         $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
         $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
-        $checkoutDisplay .= "<div class='summary-product-price'>R$cartItem[price]</div></div>"; 
+        $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['price']*$cartItem['cart_item_qty']."</div></div>"; 
 
     }
 
@@ -221,6 +221,12 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
         // Construct variables
         $cartTotal = $grandTotal;// This amount needs to be sourced from your application
 
+        // get name from billing address and split it into first and last name
+        $fullName = explode(" ",$userDetails[0]['addressName']);
+
+        $firstName = $fullName[0];
+        $lastName = $fullName[1];
+
         $data = array(
             // Merchant details
             'merchant_id' => '13258122',
@@ -229,9 +235,9 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
             'cancel_url' => 'http://www.zalisting.com/cancel.php',
             'notify_url' => 'http://www.zalisting.com/notify.php',
             // Buyer details
-            'name_first' => "$userDetails[0][userFirstName]",
-            'name_last'  => "$userDetails[0][userLastName]",
-            'email_address'=> "$userDetails[0][userEmail]",
+            'name_first' => $firstName,
+            'name_last'  => $lastName,
+            'email_address'=> $userDetails[0]['addressEmail'],
             // Transaction details
             'm_payment_id' => $orderId, //Unique payment ID to pass through to notify_url
             'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
@@ -250,6 +256,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
             $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
         }
         $htmlForm .= "<input id='order' type='hidden' name='order' value='$order' />";
+        // this is not for payfast, but for internal use.
         $htmlForm .= "<input id='orderTotal' type='hidden' name='orderTotal' value='$grandTotal' />";
         $htmlForm .= '<input id="payfastButton" type="button" class="button" value="Pay Now" /></form>';
 
@@ -276,7 +283,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     $checkoutDisplay .= "<div class='label'> Zip Code: </div> <input type='text' name='addressZipCode' required />"; 
 
     $checkoutDisplay .= "<input type='hidden' name='orderNumber' value='$orderId' />"; 
-    $checkoutDisplay .= "<input type='hidden' name='userId' value='$userDetails[0][userId]' />"; 
+    $checkoutDisplay .= "<input type='hidden' name='userId' value='".$userDetails[0]['userId']."' />"; 
     $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
     $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  
     $checkoutDisplay .= "</form></div>"; 

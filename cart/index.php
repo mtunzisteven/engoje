@@ -176,15 +176,8 @@ switch ($action){
                 // set cart total to zero
                 $_SESSION['cartTotal'] = 0;
 
-                for($j = 0; $j < count($cartUpdateArr ); $j++){
 
-                    // index of the item that has the same value as that of the item to update
-                    $cartIndex = getIndexFromArr($_SESSION['cart'], 'cart_item_qty', $cartUpdateArr[$j]); 
-
-                }
-
-
-
+                // update the cart quantities of each item
                 for($i = 0; $i < count($_SESSION['cart']); $i++){
 
                     $_SESSION['cart'][$i]['cart_item_qty'] = $cartUpdateArr[$i];
@@ -355,8 +348,12 @@ switch ($action){
 
         if(isset($_SESSION['userData'])){ // for logged in users
 
+            // get cart items from the db
             $cartItems = getCartItems($_SESSION['userData']['userId']);
 
+            var_dump($cartItems);
+
+            // they are found, proceed
             if($cartItems){
 
                 // delete cart items from session if there are cart items from db

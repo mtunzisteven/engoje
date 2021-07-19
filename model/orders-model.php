@@ -241,7 +241,6 @@ function getProduct_entryAmount($product_entryId){
     return  $result;
 }
 
-
 // The price per item on the db product_entry
 function getCartEntriesForCheckout($userId){
     $db = zalistingConnect();
@@ -256,6 +255,24 @@ function getCartEntriesForCheckout($userId){
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return  $result;
+}
+
+// The price per item on the db product_entry
+function getCartQuantityForCheckout($userId, $product_entryId){
+    $db = zalistingConnect();
+
+    $sql = "SELECT cart_item_qty FROM cart_items
+                    WHERE userId = :userId
+                    AND product_entryId = :product_entryId";
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
 
     return  $result;

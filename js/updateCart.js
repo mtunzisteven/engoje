@@ -29,21 +29,27 @@ updateCart.addEventListener('click', function(event){
     cartUpdateData.append('cartUpdateArr', cartUpdateArr);                    // add the action that will be used by the case selection in the controller
 
 
-    // Send data
-    var request = new XMLHttpRequest();
-    request.open("POST", "http://localhost/zalisting/cart/index.php", false);
-    request.onload = function() {
-        if (request.status == 200) {
+    let url = "http://localhost/zalisting/cart/index.php";
 
-            //alert(this.responseText);
+    fetch(url, {
+        method: 'POST',
+        body: cartUpdateData
+    })
+    .then(response=>{
+        if(response.ok){
+            return response;
+        }
+        throw Error(response.statusText);
+    })
+    .then(response=>response.text())
+    .then(text=> {
+        
+        alert(text);
 
-            cartCount.innerHTML = this.responseText;
-            mcartCount.innerHTML = this.responseText;
+        cartCount.innerHTML = text;
+        mcartCount.innerHTML = text;
+    })
 
 
-        } 
-    };
-
-    request.send(cartUpdateData); 
 
 }, false);

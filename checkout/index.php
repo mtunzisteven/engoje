@@ -65,14 +65,54 @@ switch ($action){
 
         break;
 
-    case 'paynow':
+    case 'reverse-qty-deduction':
 
         if(isset($_SESSION['userData'])){
 
-            // get the list of items in cart for the user
-            $order_items = getCartEntriesForCheckout($_SESSION['userData']['userId']);
+            //string must be made an array 
+            $order_items = explode(",", $_SESSION['order']);
+
+            if(!empty($order_items)){
+
+                /////////////////////////////////////////////////////////////////////////////////////
+                //             reverse order stock amount reduction done at checkout               //
+                /////////////////////////////////////////////////////////////////////////////////////
+
+                for($i = 0; $i < count($order_items); $i+=5){
+
+
+                    // id for the item in the db
+                    $product_entryId = $order_items[$i];
+                    // amount of this item to be purchased
+                    $purchaseAmount = intval($order_items[$i+4]);
+
+                    // amount available in the db
+                    $amount = getProduct_entryAmount($product_entryId);
+
+                    $amount = intval($amount['amount']);
+
+                    $reversedAmount = $amount + $purchaseAmount;
+
+
+                    // updatge done in the model within 
+                    // the function used below: updateQty().
+                    updateQty($product_entryId, $reversedAmount);
+                }
+            }
+        }
+
+        break;
+
+    case 'paynow':
+
+
+        if(isset($_SESSION['userData'])){
+
+            //string must be made an array 
+            $order_items = explode(",", $_SESSION['order']);
 
             $order_Total = $_POST['orderTotal'];
+
 
             if(!empty($order_items)){
 
@@ -99,27 +139,34 @@ switch ($action){
                 // index 4 : price
                 // index 5 : qty
 
-                foreach($order_items as $order_item){
+                for($i = 0; $i < count($order_items); $i+=5){
 
 
                     // id for the item in the db
-                    $product_entryId = $order_item['product_entryId'];
-                    // amount of this item to be purchased
-                    $purchaseAmount = $order_item['cart_item_qty'];
-                    // price of the item
-                    $price = $order_item['price'];
-                    // amount of the item available in the db
-                    $amount = $order_item['amount'];
-                    // colour of the item available in the db
-                    $colour = $order_item['colour'];
+                    $product_entryId = $order_items[$i];
                     // name of the item available in the db
-                    $name = $order_item['productName'];
+                    $name = $order_items[$i+1];
+                    // colour of the item available in the db
+                    $colour = $order_items[$i+2];
+                    // price of the item
+                    $price = intval($order_items[$i+3]);
+                    // amount of this item to be purchased
+                    $purchaseAmount = intval($order_items[$i+4]);
+
+                    $initialPurchaseAmount = $purchaseAmount;
+
+                    //echo "id: $product_entryId, name: $name, colour: $colour, price: $price, qty: $purchaseAmount, "; exit;
+
+                    // amount available in the db
+                    $amount = getProduct_entryAmount($product_entryId);
+
+                    $amount = intval($amount['amount']);
 
                     // amount remaining in the db of the item: will use the variable later
-                    $dbAmountRemaining = 0;
+                    $dbAmountRemaining;
 
                     // Item out of stock
-                    $stockAvailable = true;
+                    $stockAvailable = 1;
 
                     // if there is stock available
                     if($amount > 0){
@@ -137,6 +184,9 @@ switch ($action){
 
                             $purchaseAmount = $amount; // specify amount in order
 
+                            // no more stock available but available for current order
+                            $stockAvailable = 2;
+
 
                         }
 
@@ -148,7 +198,7 @@ switch ($action){
 
 
                         // Item out of stock
-                        $stockAvailable = false;
+                        $stockAvailable = 0;
 
                     }
 
@@ -165,17 +215,17 @@ switch ($action){
 
                     // When the qty received from db is less than the order qty
                     // This happens when stock is less than order amount in cx's order.
-                    else if($dbAmountRemaining == 0 && $purchaseAmount != 0){
+                    else if($dbAmountRemaining == 0 && $stockAvailable == 2){
 
                         // product name and product_entry id of item adjusted order amount
                         $adjustedOrder[] = ['name'=>$name, 'product_entryId'=>$product_entryId, 'newQty'=>$purchaseAmount, 'colour' => $colour];
 
                         // remove the cost of the item adjusted out of order 
-                        $order_Total -= $price*$purchaseAmount;
+                        $order_Total = $order_Total - $price*($initialPurchaseAmount - $purchaseAmount);
 
                     }
 
-                }
+                } 
 
                 //echo "Post increment: ".$order_Total; exit;
 
@@ -264,26 +314,26 @@ switch ($action){
         //string must be made an array 
         $_SESSION['order']= explode(",", $_SESSION['order']);
 
-        // initialize updater
-        // iteration index.
-        $j = 0;
 
         // iterate through array and update purchase order amounts
         // every 4th element is an amount of an item in the order
         // each order info takes up 5 elements in the array
         for($i = 4; $i < count($_SESSION['order']); $i+=5){
 
-            // actual update of quantities done by this line.
-            $_SESSION['order'][$i] = $_SESSION['cartUpdateArr'][$j];
+            $product_entryId = $_SESSION['order'][$i-4];
 
-            // increment updater
-            // iteration index.
-            $j += 1;
+            // fetch all the cart items for this user
+            $cartItemsQty = getCartQuantityForCheckout($_SESSION['userData']['userId'], $product_entryId)['cart_item_qty'];
+
+            // actual update of quantities done by this line.
+            $_SESSION['order'][$i] = $cartItemsQty;
 
         }
 
         // array turned back into a string
         $_SESSION['order']  = implode(",", $_SESSION['order']);
+
+        //var_dump($_SESSION['order']); exit;
 
         /*var_dump($_SESSION['cartUpdateArr'])."\n"; 
         var_dump($_SESSION['order']); exit;*/
@@ -300,6 +350,9 @@ switch ($action){
 
             // receive order string from cart
             $shippingId = $_GET['shippingId'];
+
+            // create session variable version for ../shop/checkout/ controller
+            $_SESSION['shippingId'] = $shippingId;
 
             // get the user id of the logged in user
             $userId = $_SESSION['userData']['userId'];
@@ -340,7 +393,6 @@ switch ($action){
                         $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
 
                     }
-
                 }
 
             }else{
@@ -355,6 +407,7 @@ switch ($action){
             }
 
             header("Location: /zalisting/shop/checkout/?order=$_SESSION[orderId]");
+
         }else{
 
             header('Location: /zalisting/accounts/?action=login');

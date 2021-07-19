@@ -7,25 +7,24 @@ var mcartCount = document.querySelector('#mobile-cart-count');
 let cartCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 cartCountData.append('action', 'cart-count');                    // add the action that will be used by the case selection in the controller
 
-// Send data
-var request = new XMLHttpRequest();
-request.open("POST", "http://localhost/zalisting/cart/index.php", false);
-request.onload = function() {
-    if (request.status == 200) {
+let url = "http://localhost/zalisting/cart/index.php";
 
-        let response = this.responseText;
-
-        cartCount.innerHTML = response;
-        mcartCount.innerHTML = response;
-
-    } else {
-
-        addToCartRespose.innerHTML = "";
-
+fetch(url, {
+    method: 'POST',
+    body: cartCountData
+})
+.then(response=>{
+    if(response.ok){
+        return response;
     }
-};
-
-request.send(cartCountData); 
+    throw Error(response.statusText);
+})
+.then(response=>response.text())
+.then(text=> {
+    
+    cartCount.innerHTML = text;
+    mcartCount.innerHTML = text;
+})
  
 
 // ----------------------------------------------------------
@@ -67,21 +66,21 @@ var mwishlistCount = document.querySelector('#mobile-wishlist-count');
 let wishlistCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 wishlistCountData.append('action', 'wishlist-count');                    // add the action that will be used by the case selection in the controller
 
-// Send data
-var request = new XMLHttpRequest();
-request.open("POST", "http://localhost/zalisting/wishlist/index.php", false);
-request.onload = function() {
-    if (request.status == 200) {
+let url = "http://localhost/zalisting/wishlist/index.php";
 
-        wishlistCount.innerHTML = this.responseText;
-        mwishlistCount.innerHTML = this.responseText;
-        //alert(this.responseText);
-
-    } else {
-
-        addToCartRespose.innerHTML = "";
-
+fetch(url, {
+    method: 'POST',
+    body: wishlistCountData
+})
+.then(response=>{
+    if(response.ok){
+        return response;
     }
-};
-
-request.send(wishlistCountData); 
+    throw Error(response.statusText);
+})
+.then(response=>response.text())
+.then(text=> {
+    
+    wishlistCount.innerHTML = text;
+    mwishlistCount.innerHTML = text;
+})

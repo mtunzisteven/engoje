@@ -47,17 +47,16 @@ let popupCardtext = document.querySelector('#popupCardtext');
 let popupCardNo = document.querySelector('#popupCardNo');
 let popupCardYes = document.querySelector('#popupCardYes');
 let cancelPayfastConfirm = document.querySelector('#cancelPayfastConfirm');
-let orderTotal = payfastForm['amount'].value;
 let shippingFee = document.querySelector('#shipping-fee').value;
 
 // process order and submit payfast form
 payfastButton.addEventListener('click', function(){
 
-    let url = "/zalisting/checkout/?action=paynow";
+    let url = "/zalisting/checkout/";
 
     let orderData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
     
-    orderData.append('orderTotal', payfastForm['orderTotal'].value);  // add the product_entryId to data
+    orderData.append('orderTotal', payfastForm['amount'].value);             // add the payment total to data
     orderData.append('action', 'paynow');                   // add the action that will be used by the case selection in the controller
 
 
@@ -88,11 +87,11 @@ payfastButton.addEventListener('click', function(){
 
                 popupCard.setAttribute('class', 'hidden');
                 
-                // update cart total to pay
-                orderTotal = data['orderTotal'];
+                // update cart total to pay on form
+                payfastForm['amount'].value = data['orderTotal'];
 
                 // make payment if there's anything to pay for.
-                if(orderTotal != shippingFee){
+                if(payfastForm['amount'].value != shippingFee){
 
                     // submit form
                     payfastForm.submit();
@@ -107,10 +106,25 @@ payfastButton.addEventListener('click', function(){
 
             }, false)
 
+            let reverseData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+            reverseData.append('action', 'reverse-qty-deduction');                   // add the action that will be used by the case selection in the controller
+
+
             // close new form
             popupCardNo.addEventListener('click', function(){
 
                 popupCard.setAttribute('class', 'hidden');
+
+                fetch(url, {
+                    method: 'POST',
+                    body: reverseData
+                })
+                .then(response=>{
+                    if(response.ok){
+                        return response;
+                    }
+                    throw Error(response.statusText);
+                })
 
             }, false)
 
@@ -118,6 +132,17 @@ payfastButton.addEventListener('click', function(){
             cancelPayfastConfirm.addEventListener('click', function(){
 
                 popupCard.setAttribute('class', 'hidden');
+
+                fetch(url, {
+                    method: 'POST',
+                    body: reverseData
+                })
+                .then(response=>{
+                    if(response.ok){
+                        return response;
+                    }
+                    throw Error(response.statusText);
+                })
 
             }, false)
 
