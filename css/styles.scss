@@ -138,6 +138,13 @@ body{
         font:$h4;
     }
 
+    & .strong{
+        font:$p;
+        font-size: 22px;
+        font-weight: 700;
+        color: $dark-color;
+    }
+
     & .admin-main{
         background-color: $light-main-color;
     }
@@ -1841,31 +1848,36 @@ footer.main-footer{
     text-align: right;
 
     & h4.shipping-methods{
-        min-width: 95%;
-        padding: 0 5% 0 0;
+        padding: 0 25px 0 0;
+        margin-bottom: 0;
+        width: 95%;
         text-align: right;
     }
 
     & form.cart-checkout-form{
         border: none;
         text-align: right;
-        min-width: 99%;
+        min-width: 93%;
         padding: 0;
-        max-width:100%;
+        max-width:95%;
+        margin: 0 15px 0 0;
 
         & div.shipping-methods-container{
             @include flex(column, right, flex-end);
-            min-width: 95%;
-            padding: 0 5% 0 0;
+            width: 25%;
+            padding: 0 0 0 70%;
             max-width: 100%;
+            margin: 0 0 0 auto;
 
             & label.checkout-to-label{
                 @include flex(row, space-between, center);
-                min-width: 99%;
-                max-width:100px;
-    
+                min-width: 149px;
+                max-width: 150px;
+                line-height: 24px;
+
                 & input[type=radio]{
                     max-width: 12px;
+                    margin-top: 15px;
                 }
     
                 & input[type=radio]:checked{
@@ -1876,6 +1888,16 @@ footer.main-footer{
     
             }   
         } 
+
+        & input[type=submit]{
+            min-width: 300px;
+            min-height: 60px;
+            line-height: 24px;
+            font-size: 24px;
+            font-weight: 500;
+            margin: 0 0 20px auto;
+
+        }
     }
 }
 

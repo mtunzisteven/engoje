@@ -1046,6 +1046,18 @@ function getProductsBySize($size){
     return $products;
 }
 
+// get product entry qty
+function getProductQty($product_entryId){
+    $db = zalistingConnect();
+    $sql = 'SELECT amount FROM product_entry WHERE  product_entryId = :product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $qty = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $qty;
+}
+
 // Get swatch images for a single product entry by product entry Id
 function getSwatchImages($product_entryId){
     $db = zalistingConnect();

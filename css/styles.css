@@ -47,6 +47,13 @@ body h4 {
   font: 400 20px "Nunito", sans-serif;
 }
 
+body .strong {
+  font: 200 15px "Nunito", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #3a3939;
+}
+
 body .admin-main {
   background-color: #80a1d1;
 }
@@ -2500,17 +2507,19 @@ footer.main-footer div.footer-bottom-block a:hover {
 }
 
 .cart-display-table-column h4.shipping-methods {
-  min-width: 95%;
-  padding: 0 5% 0 0;
+  padding: 0 25px 0 0;
+  margin-bottom: 0;
+  width: 95%;
   text-align: right;
 }
 
 .cart-display-table-column form.cart-checkout-form {
   border: none;
   text-align: right;
-  min-width: 99%;
+  min-width: 93%;
   padding: 0;
-  max-width: 100%;
+  max-width: 95%;
+  margin: 0 15px 0 0;
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container {
@@ -2529,9 +2538,10 @@ footer.main-footer div.footer-bottom-block a:hover {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  min-width: 95%;
-  padding: 0 5% 0 0;
+  width: 25%;
+  padding: 0 0 0 70%;
   max-width: 100%;
+  margin: 0 0 0 auto;
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label {
@@ -2550,17 +2560,28 @@ footer.main-footer div.footer-bottom-block a:hover {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-width: 99%;
-  max-width: 100px;
+  min-width: 149px;
+  max-width: 150px;
+  line-height: 24px;
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio] {
   max-width: 12px;
+  margin-top: 15px;
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio]:checked {
   color: #ff4949;
   background-color: #ff4949;
+}
+
+.cart-display-table-column form.cart-checkout-form input[type=submit] {
+  min-width: 300px;
+  min-height: 60px;
+  line-height: 24px;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0 0 20px auto;
 }
 
 @media only screen and (min-width: 550px) {

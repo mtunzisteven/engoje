@@ -80,6 +80,7 @@
 
                     }
                 ?>
+                <div id='add-to-cart-stock'></div>
                 <div class="add-to-cart-container">
                     <input id="add-to-cart-qty" class='validity' type="number" name="qty" value="0" min=1 />
                     <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />

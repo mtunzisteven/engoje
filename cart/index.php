@@ -46,38 +46,79 @@ switch ($action){
 
 
         // if the variables are none-empty, proceed
-        if(!empty($product_entryId) || !empty($qty)){
+        if(!empty($product_entryId) || !empty($cart_item_qty)){
 
-            // for all logged in users use the code block below
-            if(isset($_SESSION['userData'])){
+            // get the qty of the item in the db
+            $amount = getProductQty($product_entryId);
 
-                // get all cart items for the user
-                $cartItems = getCartItems($_SESSION['userData']['userId']);
+            // only add it into cart if it is in stock
+            if($amount['amount'] > 0){
 
-                // if value exists in the db don't bother adding it
-                if(!checkIfValueExists($cartItems, 'product_entryId', $product_entryId)){
+                // for all logged in users use the code block below
+                if(isset($_SESSION['userData'])){
 
-                    // date item added to cart
-                    $dateAdded = date('Y-m-d H:i:s');
+                    // get all cart items for the user
+                    $cartItems = getCartItems($_SESSION['userData']['userId']);
 
-                    // get product entry details to access the image path below
-                    $productDetails = getShopProductEntry($product_entryId);
+                    // if product_entry exists in the db cart items table for the user don't bother adding it
+                    if(!checkIfValueExists($cartItems, 'product_entryId', $product_entryId)){
 
-                    // get the image path
-                    $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
-        
-                    // get the user id of the logged in user
-                    $userId = $_SESSION['userData']['userId'];
+                        // date item added to cart
+                        $dateAdded = date('Y-m-d H:i:s');
 
-                    // add the items to the cart
-                    $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
+                        // get product entry details to access the image path below
+                        $productDetails = getShopProductEntry($product_entryId);
 
-                    if($addToCart){
-        
-                        // get a total of all the items in the cart using the count of items 
-                        // in the db after adding the recent item
-                        $_SESSION['cartTotal'] = sumAllValues(getCartItems($userId), 'cart_item_qty');
+                        // get the image path
+                        $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
             
+                        // get the user id of the logged in user
+                        $userId = $_SESSION['userData']['userId'];
+
+                        // add the items to the cart
+                        $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
+
+                        if($addToCart){
+            
+                            // get a total of all the items in the cart using the count of items 
+                            // in the db after adding the recent item
+                            $_SESSION['cartTotal'] = sumAllValues(getCartItems($userId), 'cart_item_qty');
+                
+                            // add the cart total to the response array
+                            $responseText['cartTotal'] = $_SESSION['cartTotal'];
+
+                            // add the response text to the response array
+                            $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+
+                            // send the associative array back to the js Ajax
+                            echo json_encode($responseText);
+
+                            unset($_SESSION['cart']);
+
+                        }
+                    }
+                    // if the item already found in db for the same user, don't add it again, just increase its quantity
+                    else{
+
+                        //var_dump($cartUpdateArr); exit;
+
+                        // get the index of the item that matches the value in the db
+                        $itemIndex = getIndexFromArr($cartItems, 'product_entryId', $product_entryId);
+
+                        // get the new total amount of this item
+                        $newQty = sumValues($cartItems, 'cart_item_qty', $cart_item_qty);
+        
+                        // update the db item with the new quantity from above
+                        $updateCartQty = updateCartQty($cartItems[$itemIndex]['cart_itemId'], $newQty);
+
+                        // get all cart items for the user
+                        $updatedCartItems = getCartItems($_SESSION['userData']['userId']);
+            
+                        if($updatedCartItems){
+
+                        // sum all item quantities
+                        $_SESSION['cartTotal'] = sumAllValues($updatedCartItems, 'cart_item_qty');
+
                         // add the cart total to the response array
                         $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
@@ -87,30 +128,24 @@ switch ($action){
                         // send the associative array back to the js Ajax
                         echo json_encode($responseText);
 
-                        unset($_SESSION['cart']);
+                        }
+
 
                     }
-                }// if the item already found in db for the same user, don't add it again, just increase its quantity
-                else{
 
-                    //var_dump($cartUpdateArr); exit;
+                }else {
 
-                    // get the index of the item that matches the value in the db
-                    $itemIndex = getIndexFromArr($cartItems, 'product_entryId', $product_entryId);
+                    // add an item to the cart session variable
+                    $_SESSION['cart'][] = [
+                        'product_entryId' => $product_entryId, 
+                        'cart_item_qty' => $cart_item_qty
+                    ];
 
-                    // get the new total amount of this item
-                    $newQty = sumValues($cartItems, 'cart_item_qty', $cart_item_qty);
-    
-                    // update the db item with the new quantity from above
-                    $updateCartQty = updateCartQty($cartItems[$itemIndex]['cart_itemId'], $newQty);
-
-                    // get all cart items for the user
-                    $updatedCartItems = getCartItems($_SESSION['userData']['userId']);
-        
-                    if($updatedCartItems){
-
-                    // sum all item quantities
-                    $_SESSION['cartTotal'] = sumAllValues($updatedCartItems, 'cart_item_qty');
+                    // reindex the array
+                    $_SESSION['cart'] = array_values($_SESSION['cart']);
+                    
+                    // get a total of all the items in the cart
+                    $_SESSION['cartTotal'] = sumAllValues($_SESSION['cart'], 'cart_item_qty');
 
                     // add the cart total to the response array
                     $responseText['cartTotal'] = $_SESSION['cartTotal'];
@@ -121,37 +156,25 @@ switch ($action){
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
 
-                    }
-
-
                 }
 
-            }else {
+            }else{ //if item is out of stock, return info
 
                 // add an item to the cart session variable
                 $_SESSION['cart'][] = [
                     'product_entryId' => $product_entryId, 
-                    'cart_item_qty' => $cart_item_qty
+                    'cart_item_qty' => 0
                 ];
-
-                // reindex the array
-                $_SESSION['cart'] = array_values($_SESSION['cart']);
-                
-                // get a total of all the items in the cart
-                $_SESSION['cartTotal'] = sumAllValues($_SESSION['cart'], 'cart_item_qty');
 
                 // add the cart total to the response array
                 $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
-                // add the response text to the response array
-                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                $responseText['add-to-cart-response'] = "<p class='notice'>Out of stock!</p>";
 
                 // send the associative array back to the js Ajax
                 echo json_encode($responseText);
 
             }
-
-
         }
 
         break;

@@ -41,7 +41,7 @@
                 require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; 
                 
             ?>
+                <script src="/zalisting/js/updateCart.js"></script>
         </main>
     </body>
-    <script src="/zalisting/js/updateCart.js"></script>
 </html>

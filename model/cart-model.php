@@ -59,6 +59,20 @@ function getCartItems($userId){
     return $products;
 }
 
+// get the cart item for the specified cart_itemId
+function getCartItem($cart_itemId){
+    $db = zalistingConnect();
+    $sql = 'SELECT * FROM cart_items 
+                    WHERE cart_itemId = :cart_itemId';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':cart_itemId', $cart_itemId, PDO::PARAM_INT);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $products;
+}
+
 // update cart item quantity
 function updateCartQty($cart_itemId, $cart_item_qty){
 

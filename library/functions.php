@@ -95,18 +95,18 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
-    $cartDisplay .= "<div class='cart-display-table-column'><h4 class='shipping-methods'>Shipping Methods</h4>";
+    $cartDisplay .= "<div class='cart-display-table-column'><h4 class='shipping-methods'>Select Shipping Method:</h4>";
     $cartDisplay .= "<form class='cart-checkout-form' action='/zalisting/checkout/'>";
     $cartDisplay .= "<div class='shipping-methods-container'>"; 
 
     foreach($shippingInfo as $shippingMethod){
 
-        $cartDisplay .= "<label class='checkout-to-label'><input type='radio' name='shippingId' value='$shippingMethod[shippingId]' /> $shippingMethod[name]: $shippingMethod[price]</label>";
+        $cartDisplay .= "<label class='checkout-to-label'><input type='radio' name='shippingId' value='$shippingMethod[shippingId]' /> $shippingMethod[name]: R$shippingMethod[price]</label>";
 
     }
     
-
-    $cartDisplay .= "<input type='submit' class='clear-cart button wishlist-buttons' value='Checkout' /> </form></div>";
+    $cartDisplay .= "<h4 id='grand-ship-total'><div class='strong'>Grand Total:</div> R$grandTotal</h4>";
+    $cartDisplay .= "</div><input type='submit' class='clear-cart button wishlist-buttons' value='Checkout' /> </form></div>";
 
 
 
@@ -121,7 +121,7 @@ function buildWishlistDisplay($wishlistDetails){
     foreach($wishlistDetails as $wishlistItem){
 
         $wishlistDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $wishlistDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$wishlistItem[productId]' ><img src='$wishlistItem[imagePath_tn]'></a></div>"; 
+        $wishlistDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$wishlistItem[productId]' ><img src='$wishlistItem[imagePath_tn]' alt='product image'></a></div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[productName]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[colour]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[sizeValue]</div>"; 
