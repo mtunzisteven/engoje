@@ -44,8 +44,6 @@ updateCart.addEventListener('click', function(event){
     .then(response=>response.text())
     .then(text=> {
         
-        alert(text);
-
         cartCount.innerHTML = text;
         mcartCount.innerHTML = text;
     })

@@ -22,6 +22,5 @@ export function jsonRequest(url, bodyData, countEl, mcountEl, countStr, response
         responseEl.innerHTML = data[responseStr];
 
     }) 
-    .catch(error=> console.log(error))
 
 }

@@ -50,15 +50,19 @@ switch ($action){
 
             // get the qty of the item in the db
             $amount = getProductQty($product_entryId);
+            $amount = $amount['amount'];
 
             // only add it into cart if it is in stock
-            if($amount['amount'] > 0){
+            if($amount > 0){
 
                 // for all logged in users use the code block below
                 if(isset($_SESSION['userData'])){
 
-                    // get all cart items for the user
-                    $cartItems = getCartItems($_SESSION['userData']['userId']);
+                    // get the user id of the logged in user
+                    $userId = $_SESSION['userData']['userId'];
+
+                    // get allcart items for this user
+                    $cartItems = getCartItems($userId);
 
                     // if product_entry exists in the db cart items table for the user don't bother adding it
                     if(!checkIfValueExists($cartItems, 'product_entryId', $product_entryId)){
@@ -70,20 +74,19 @@ switch ($action){
                         $productDetails = getShopProductEntry($product_entryId);
 
                         // get the image path
-                        $imagePath = getImage($productDetails['productId'], $productDetails['colour']);
-            
-                        // get the user id of the logged in user
-                        $userId = $_SESSION['userData']['userId'];
+                        $imagePath = getImage($productDetails['productId'], $productDetails['colour']); 
 
                         // add the items to the cart
                         $addToCart = addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath['imagePath_tn'], $dateAdded);
 
                         if($addToCart){
+
+                            // get all cart items for the user
+                            $updatedCartItems = getCartItems($userId);
             
-                            // get a total of all the items in the cart using the count of items 
-                            // in the db after adding the recent item
-                            $_SESSION['cartTotal'] = sumAllValues(getCartItems($userId), 'cart_item_qty');
-                
+                            // sum all item quantities
+                            $_SESSION['cartTotal'] = sumAllValues($updatedCartItems, 'cart_item_qty');
+
                             // add the cart total to the response array
                             $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
@@ -93,47 +96,76 @@ switch ($action){
                             // send the associative array back to the js Ajax
                             echo json_encode($responseText);
 
-                            unset($_SESSION['cart']);
 
                         }
-                    }
-                    // if the item already found in db for the same user, don't add it again, just increase its quantity
-                    else{
 
-                        //var_dump($cartUpdateArr); exit;
+                    }else{// if the item already found in db for the same user, don't add it again, just increase its quantity
 
-                        // get the index of the item that matches the value in the db
-                        $itemIndex = getIndexFromArr($cartItems, 'product_entryId', $product_entryId);
+                        // get the qty of the item in the db cart already added
+                        $cartAmount = getCartItemQty($product_entryId, $userId);
+                        $cartAmount = $cartAmount['cart_item_qty'];
 
-                        // get the new total amount of this item
-                        $newQty = sumValues($cartItems, 'cart_item_qty', $cart_item_qty);
-        
-                        // update the db item with the new quantity from above
-                        $updateCartQty = updateCartQty($cartItems[$itemIndex]['cart_itemId'], $newQty);
+                        // if not all items in stock have already been added or bought
+                        if($amount > $cartAmount){
 
-                        // get all cart items for the user
-                        $updatedCartItems = getCartItems($_SESSION['userData']['userId']);
+                            // get all cart items for the user
+                            $cartItems = getCartItems($userId);
+
+                            // get the index of the item that matches the value in the db
+                            $itemIndex = getIndexFromArr($cartItems, 'product_entryId', $product_entryId);
+
+                            // get the new total amount of this item
+                            $newQty = sumValues($cartItems, 'cart_item_qty', $cart_item_qty);
             
-                        if($updatedCartItems){
+                            // update the db item with the new quantity from above
+                            $updateCartQty = updateCartQty($cartItems[$itemIndex]['cart_itemId'], $newQty);
 
-                        // sum all item quantities
-                        $_SESSION['cartTotal'] = sumAllValues($updatedCartItems, 'cart_item_qty');
+                            // get all cart items for the user
+                            $updatedCartItems = getCartItems($userId);
+                
+                            if($updatedCartItems){
 
-                        // add the cart total to the response array
-                        $responseText['cartTotal'] = $_SESSION['cartTotal'];
+                                // sum all item quantities
+                                $_SESSION['cartTotal'] = sumAllValues($updatedCartItems, 'cart_item_qty');
 
-                        // add the response text to the response array
-                        $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                                // add the cart total to the response array
+                                $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
-                        // send the associative array back to the js Ajax
-                        echo json_encode($responseText);
+                                // add the response text to the response array
+                                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
 
+                                // send the associative array back to the js Ajax
+                                echo json_encode($responseText);
+
+                            }else{
+
+                                // add the cart total to the response array
+                                $responseText['cartTotal'] = $_SESSION['cartTotal'];
+
+                                // add the response text to the response array
+                                $responseText['add-to-cart-response'] = "<p class='adding-alert'>Error! Product not added.</p>";
+
+                                // send the associative array back to the js Ajax
+                                echo json_encode($responseText);
+
+                            }
+
+                        }else{//if the max items in db is added, return info
+
+                    
+
+                            // add the cart total to the response array
+                            $responseText['cartTotal'] = $_SESSION['cartTotal'];
+    
+                            $responseText['add-to-cart-response'] = "<p class='adding-alert'>Only $amount in stock!</p>";
+    
+                            // send the associative array back to the js Ajax
+                            echo json_encode($responseText);
+    
                         }
+                    }                    
 
-
-                    }
-
-                }else {
+                }else { // if user not signed in, user cart session variable
 
                     // add an item to the cart session variable
                     $_SESSION['cart'][] = [
@@ -160,16 +192,10 @@ switch ($action){
 
             }else{ //if item is out of stock, return info
 
-                // add an item to the cart session variable
-                $_SESSION['cart'][] = [
-                    'product_entryId' => $product_entryId, 
-                    'cart_item_qty' => 0
-                ];
-
                 // add the cart total to the response array
                 $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
-                $responseText['add-to-cart-response'] = "<p class='notice'>Out of stock!</p>";
+                $responseText['add-to-cart-response'] = "<p class='adding-alert'>Out of stock!</p>";
 
                 // send the associative array back to the js Ajax
                 echo json_encode($responseText);
@@ -374,7 +400,7 @@ switch ($action){
             // get cart items from the db
             $cartItems = getCartItems($_SESSION['userData']['userId']);
 
-            var_dump($cartItems);
+            //var_dump($cartItems);
 
             // they are found, proceed
             if($cartItems){
