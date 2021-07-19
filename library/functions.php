@@ -210,8 +210,9 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
     $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping  </div><div>$shippingInfo[name]: R$shippingInfo[price]</div></div>"; 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
-    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 class='cart-total'>R$grandTotal</h2></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 id='grand-total-display' class='cart-total'>R$grandTotal</h2></div>"; 
     $checkoutDisplay .= "<input type='hidden' id='shipping-fee' value='$shippingInfo[price]' />"; 
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -266,6 +267,8 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 
     $checkoutDisplay .= "</div>$htmlForm</div></div>";
     $checkoutDisplay .= "<a href='/zalisting/cart/?action=cart' class='button checkout-back'>Back to Cart</a>"; 
+    $checkoutDisplay .= "<a id='redirect' class='hidden' href='/zalisting/checkout/' class='button checkout-back'>redirect</a>"; 
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                           Pop up forms                                             //

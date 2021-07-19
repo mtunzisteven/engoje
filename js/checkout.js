@@ -48,6 +48,7 @@ let popupCardNo = document.querySelector('#popupCardNo');
 let popupCardYes = document.querySelector('#popupCardYes');
 let cancelPayfastConfirm = document.querySelector('#cancelPayfastConfirm');
 let shippingFee = document.querySelector('#shipping-fee').value;
+let reload = document.querySelector('#redirect');
 
 // process order and submit payfast form
 payfastButton.addEventListener('click', function(){
@@ -100,6 +101,8 @@ payfastButton.addEventListener('click', function(){
 
                     // close pop up
                     popupCard.setAttribute('class', 'hidden');
+
+                    reload.click();
                     
                 }
 
@@ -126,6 +129,8 @@ payfastButton.addEventListener('click', function(){
                     throw Error(response.statusText);
                 })
 
+                reload.click();
+
             }, false)
 
             // close new address form
@@ -143,6 +148,8 @@ payfastButton.addEventListener('click', function(){
                     }
                     throw Error(response.statusText);
                 })
+
+                reload.click();
 
             }, false)
 

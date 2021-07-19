@@ -105,16 +105,15 @@ switch ($action){
 
     case 'paynow':
 
-
         if(isset($_SESSION['userData'])){
 
             //string must be made an array 
-            $order_items = explode(",", $_SESSION['order']);
+            $_SESSION['order'] = explode(",", $_SESSION['order']);
 
             $order_Total = $_POST['orderTotal'];
 
 
-            if(!empty($order_items)){
+            if(!empty($_SESSION['order'])){
 
                 $outOfStock = []; // Holds out of stock order information
 
@@ -139,19 +138,19 @@ switch ($action){
                 // index 4 : price
                 // index 5 : qty
 
-                for($i = 0; $i < count($order_items); $i+=5){
+                for($i = 0; $i < count($_SESSION['order']); $i+=5){
 
 
                     // id for the item in the db
-                    $product_entryId = $order_items[$i];
+                    $product_entryId = $_SESSION['order'][$i];
                     // name of the item available in the db
-                    $name = $order_items[$i+1];
+                    $name = $_SESSION['order'][$i+1];
                     // colour of the item available in the db
-                    $colour = $order_items[$i+2];
+                    $colour = $_SESSION['order'][$i+2];
                     // price of the item
-                    $price = intval($order_items[$i+3]);
+                    $price = intval($_SESSION['order'][$i+3]);
                     // amount of this item to be purchased
-                    $purchaseAmount = intval($order_items[$i+4]);
+                    $purchaseAmount = intval($_SESSION['order'][$i+4]);
 
                     $initialPurchaseAmount = $purchaseAmount;
 
@@ -184,15 +183,19 @@ switch ($action){
 
                             $purchaseAmount = $amount; // specify amount in order
 
+                            $_SESSION['order'][$i+4] = $amount; // also update the session variable order string amount
+
                             // no more stock available but available for current order
                             $stockAvailable = 2;
 
 
                         }
 
-                        // updatge done in the model within 
-                        // the function used below: updateQty().
+                        // updatge product quantity remaining in the db
                         updateQty($product_entryId, $dbAmountRemaining);
+
+                        // update the cart amounts to reflect the above changes as well
+                        updateCheckoutCartQty($product_entryId, $purchaseAmount, $_SESSION['userData']['userId']); 
 
                     }else{
 
@@ -226,6 +229,10 @@ switch ($action){
                     }
 
                 } 
+
+
+                // array turned back into a string
+                $_SESSION['order']  = implode(",", $_SESSION['order']);
 
                 //echo "Post increment: ".$order_Total; exit;
 
@@ -291,6 +298,8 @@ switch ($action){
                 // no out of stock items or stock amount adjustment in order. Perfect order!
                 else{
 
+                    unset($_SESSION['shippingId'], $_SESSION['cart'], $_SESSION['orderId'], $_SESSION['order']);
+
                     $response['message'] = 1;
                         
                 }
@@ -303,16 +312,17 @@ switch ($action){
 
         break;
 
-    case 'checkout':
+case 'checkout':
     
     default:
 
+    if(isset($_SESSION['order'])){
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                          updating the order string with cart update amounts                            //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //string must be made an array 
-        $_SESSION['order']= explode(",", $_SESSION['order']);
+        $_SESSION['order'] = explode(",", $_SESSION['order']);
 
 
         // iterate through array and update purchase order amounts
@@ -348,11 +358,12 @@ switch ($action){
             // receive order string from cart
             $order_items = $_SESSION['order'];
 
-            // receive order string from cart
-            $shippingId = $_GET['shippingId'];
+            if(isset($_GET['shippingId'])){ // When coming from cart, this will be true. Not required if reloading, as session var will be set
 
-            // create session variable version for ../shop/checkout/ controller
-            $_SESSION['shippingId'] = $shippingId;
+                // receive order string from cart
+                $_SESSION['shippingId']= $_GET['shippingId'];
+
+            }
 
             // get the user id of the logged in user
             $userId = $_SESSION['userData']['userId'];
@@ -367,7 +378,7 @@ switch ($action){
             // date customer went into checkout page
             $checkoutDate = date('Y-m-d H:i:s');
 
-            $shippingInfo = getShipping($shippingId);
+            $shippingInfo = getShipping($_SESSION['shippingId']);
 
             // when an order has been added to the db for this user
             if(isset($_SESSION['orderId']) ){
@@ -387,7 +398,7 @@ switch ($action){
                     if(deleteOrder($_SESSION['orderId'])){
 
                         // create an order using the model function below.
-                        $_SESSION['orderId'] = addOrder($userId, $order_items, $shippingId, $checkoutDate);
+                        $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate);
 
                         // build the checkout display
                         $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
@@ -398,7 +409,7 @@ switch ($action){
             }else{
 
                 // create an order using the model function below.
-                $_SESSION['orderId'] = addOrder($userId, $order_items, $shippingId, $checkoutDate);
+                $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate);
 
                 // build the checkout display
                 $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
@@ -406,13 +417,17 @@ switch ($action){
 
             }
 
-            header("Location: /zalisting/shop/checkout/?order=$_SESSION[orderId]");
+                header("Location: /zalisting/shop/checkout/?order=$_SESSION[orderId]");
 
+            }else{
+
+                header('Location: /zalisting/accounts/?action=login');
+
+            }
         }else{
 
-            header('Location: /zalisting/accounts/?action=login');
+            header("Location: /zalisting/shop/cart/");
 
         }
-
 
 }

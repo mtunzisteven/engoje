@@ -294,3 +294,24 @@ function updateQty($product_entryId, $amount){
 
     return $rowsChanged;
 }
+
+// This is for updating product entry qty when shopper clicks pay now button
+function updateCheckoutCartQty($product_entryId, $amount, $userId){
+    $db = zalistingConnect();
+
+    $sql = "UPDATE cart_items 
+                            SET cart_item_qty=:amount 
+                            WHERE product_entryId = :product_entryId
+                            AND userId = :userId";
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+
+    return $rowsChanged;
+}
