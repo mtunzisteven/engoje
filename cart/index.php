@@ -293,6 +293,11 @@ switch ($action){
                 // delete cart display session variable
                 unset($_SESSION['cartDisplay']);
 
+                // delete order
+                deleteOrder($_SESSION['orderId']);
+
+                unset($_SESSION['orderId']);
+
             }
             
             // if there are more than 1 item
@@ -326,6 +331,12 @@ switch ($action){
 
             // delete cart display session variable
             unset($_SESSION['cartDisplay']);
+
+            
+            // delete order
+            deleteOrder($_SESSION['orderId']);
+
+            unset($_SESSION['orderId']);
 
         }
 
@@ -372,6 +383,12 @@ switch ($action){
             unset($_SESSION['cart']);
             // remove cart display session variable
             unset($_SESSION['cartDisplay']);
+
+            // delete order
+            deleteOrder($_SESSION['orderId']);
+
+            unset($_SESSION['orderId']);
+
             
         }
 
@@ -382,6 +399,11 @@ switch ($action){
 
             // delete cart display session variable
             unset($_SESSION['cartDisplay']);
+
+            // delete order
+            deleteOrder($_SESSION['orderId']);
+
+            unset($_SESSION['orderId']);
 
         }
 

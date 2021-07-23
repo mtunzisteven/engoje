@@ -7,9 +7,9 @@ var mcartCount = document.querySelector('#mobile-cart-count');
 let cartCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 cartCountData.append('action', 'cart-count');                    // add the action that will be used by the case selection in the controller
 
-let url = "http://localhost/zalisting/cart/index.php";
+let curl = "http://localhost/zalisting/cart/index.php";
 
-fetch(url, {
+fetch(curl, {
     method: 'POST',
     body: cartCountData
 })
@@ -66,9 +66,9 @@ var mwishlistCount = document.querySelector('#mobile-wishlist-count');
 let wishlistCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 wishlistCountData.append('action', 'wishlist-count');                    // add the action that will be used by the case selection in the controller
 
-let url = "http://localhost/zalisting/wishlist/index.php";
+let wurl = "http://localhost/zalisting/wishlist/index.php";
 
-fetch(url, {
+fetch(wurl, {
     method: 'POST',
     body: wishlistCountData
 })
