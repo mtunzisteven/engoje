@@ -2,15 +2,15 @@
 // ----------------------------------------------------------
 //                Cart Items count updating                  |
 //-----------------------------------------------------------
-var updateCart = document.querySelector('#update-cart');
-var lineTotals = document.querySelectorAll('.line-total');
-var prices = document.querySelectorAll('.price');
-var grandTotal = document.querySelector('#grand-total');
+let updateCart = document.querySelector('#update-cart');
+let lineTotals = document.querySelectorAll('.line-total');
+let prices = document.querySelectorAll('.price');
+let grandTotal = document.querySelector('#grand-total');
 
 updateCart.addEventListener('click', function(event){
     let totalHolder = 0;
 
-    var cartUpdateArr = [];
+    const cartUpdateArr = [];
 
     for(let i = 0; i < cartItemQty.length; i++){
 
@@ -51,3 +51,25 @@ updateCart.addEventListener('click', function(event){
 
 
 }, false);
+
+
+// cart ship + total Payment calculation vars
+let grandShipTotalText = document.querySelector('#grand-ship-total');
+let shipRadioOptions = document.querySelectorAll('.shippingId');
+
+// do this for each shipping method
+shipRadioOptions.forEach(shipoption => {
+
+    // listen out for when it is clicked 
+    shipoption.addEventListener('click', function(){
+
+        // get the innerText in grand total defined above and sum it with the value of the hidden input element with
+        // the same shipping id as the shipping method selected. id name of the input is a combination of 'shipppingId' and the actual id.
+        let total = parseInt(grandTotal.innerHTML) + parseInt(document.querySelector('#shippingId'+shipoption.value).value);
+
+        // set the inner text axactly as it is in the html with a new total calculated above.
+        grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
+
+    }, false)
+    
+});
