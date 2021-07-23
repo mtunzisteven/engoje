@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2021 at 02:07 AM
+-- Generation Time: Jul 23, 2021 at 06:04 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -29,6 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `addresses` (
   `addressId` int(11) UNSIGNED NOT NULL,
+  `addressName` varchar(86) NOT NULL,
+  `addressEmail` varchar(86) NOT NULL,
+  `addressNumber` varchar(10) NOT NULL,
   `addressLineOne` varchar(225) NOT NULL,
   `addressLineTwo` varchar(225) DEFAULT NULL,
   `addressCity` varchar(82) NOT NULL,
@@ -41,15 +44,15 @@ CREATE TABLE `addresses` (
 -- Dumping data for table `addresses`
 --
 
-INSERT INTO `addresses` (`addressId`, `addressLineOne`, `addressLineTwo`, `addressCity`, `addressZipCode`, `addressType`, `userId`) VALUES
-(26, '4 Dazana Street', 'Mbuqe Extension', 'Umtata', '5000', '1', 1),
-(27, '40 James Herbert Road', 'Caversham', 'Zobe', '3610', '2', 1),
-(28, '40 James Herbert Road', 'Caversham', 'Pinetown', '3610', '1', 2),
-(29, '40 James Herbert Road', 'Caversham', 'Pinetown', '3610', '2', 2),
-(30, '1 Amand Place', '49 Marrian Manor', 'Marianhill Park', '3610', '1', 4),
-(31, '40 James Herbert Road', 'Caversham', 'Pinetown', '3610', '2', 4),
-(32, '3801 White Oryx Street', 'West', 'Boksburg', '1459', '1', 3),
-(33, '3801 White Oryx Street', 'West', 'Boksburg', '1459', '1', 3);
+INSERT INTO `addresses` (`addressId`, `addressName`, `addressEmail`, `addressNumber`, `addressLineOne`, `addressLineTwo`, `addressCity`, `addressZipCode`, `addressType`, `userId`) VALUES
+(26, 'MS Mavuma', 'st.vuma@gmail.com', '814511932', '4 Dazana Street', 'Mbuqe Extension', 'Umtata', '5000', '1', 1),
+(27, 'Mtunzi Mavuma', 'mtunzisteven@gmail.com', '0814511932', '40 James Herbert Road', '58 Knightsbridge', 'Pinetown', '3610', '2', 1),
+(28, '', '', '0', '40 James Herbert Road', 'Caversham', 'Pinetown', '3610', '1', 2),
+(29, '', '', '0', '40 James Herbert Road', 'Caversham', 'Pinetown', '3610', '2', 2),
+(30, '', '', '0', '1 Amand Place', '49 Marrian Manor', 'Marianhill Park', '3610', '1', 4),
+(31, '', '', '0', '40 James Herbert Road', 'Caversham', 'Pinetown', '3610', '2', 4),
+(32, '', '', '0', '3801 White Oryx Street', 'West', 'Boksburg', '1459', '1', 3),
+(33, '', '', '0', '3801 White Oryx Street', 'West', 'Boksburg', '1459', '1', 3);
 
 -- --------------------------------------------------------
 
@@ -91,7 +94,9 @@ INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
 (8, 'shoes'),
 (9, 'hats'),
 (10, 'dresses'),
-(11, 'rompers');
+(11, 'rompers'),
+(12, 'Womens Cardigans'),
+(13, 'Womens Hoodies');
 
 -- --------------------------------------------------------
 
@@ -162,7 +167,13 @@ INSERT INTO `images` (`imageId`, `imageName`, `imagePath`, `imagePath_tn`, `imag
 (72, '3_27d5e884-7c31-488b-8e56-066ff0ceddc7_1024x1024@2x.jpg', '/zalisting/images/3_27d5e884-7c31-488b-8e56-066ff0ceddc7_1024x1024@2x.jpg', '/zalisting/images/3_27d5e884-7c31-488b-8e56-066ff0ceddc7_1024x1024@2x-tn.jpg', 1, 174),
 (73, '5bd97027f0d07_1024x1024@2x.jpg', '/zalisting/images/5bd97027f0d07_1024x1024@2x.jpg', '/zalisting/images/5bd97027f0d07_1024x1024@2x-tn.jpg', 0, 174),
 (74, '8_2f0b1dc0-1ab5-46d3-bf40-ef5857befb53_1024x1024@2x.jpg', '/zalisting/images/8_2f0b1dc0-1ab5-46d3-bf40-ef5857befb53_1024x1024@2x.jpg', '/zalisting/images/8_2f0b1dc0-1ab5-46d3-bf40-ef5857befb53_1024x1024@2x-tn.jpg', 0, 174),
-(75, '10_68bf9d47-9835-462d-a100-3923191b53c0_grande.jpg', '/zalisting/images/10_68bf9d47-9835-462d-a100-3923191b53c0_grande.jpg', '/zalisting/images/10_68bf9d47-9835-462d-a100-3923191b53c0_grande-tn.jpg', 0, 174);
+(75, '10_68bf9d47-9835-462d-a100-3923191b53c0_grande.jpg', '/zalisting/images/10_68bf9d47-9835-462d-a100-3923191b53c0_grande.jpg', '/zalisting/images/10_68bf9d47-9835-462d-a100-3923191b53c0_grande-tn.jpg', 0, 174),
+(77, 'casual cardigan2.jpg', '/zalisting/images/casual cardigan2.jpg', '/zalisting/images/casual cardigan2-tn.jpg', 1, 183),
+(78, 'casual cardigan3.jpg', '/zalisting/images/casual cardigan3.jpg', '/zalisting/images/casual cardigan3-tn.jpg', 1, 182),
+(80, 'casual cardigan1.jpg', '/zalisting/images/casual cardigan1.jpg', '/zalisting/images/casual cardigan1-tn.jpg', 1, 181),
+(81, 'leopard print hood2.jpg', '/zalisting/images/leopard print hood2.jpg', '/zalisting/images/leopard print hood2-tn.jpg', 1, 185),
+(82, 'leopard print hood1.jpg', '/zalisting/images/leopard print hood1.jpg', '/zalisting/images/leopard print hood1-tn.jpg', 1, 186),
+(83, 'beanieSet.jfif', '/zalisting/images/beanieSet.jfif', '/zalisting/images/beanieSet-tn.jfif', 1, 187);
 
 -- --------------------------------------------------------
 
@@ -172,10 +183,11 @@ INSERT INTO `images` (`imageId`, `imageName`, `imagePath`, `imagePath_tn`, `imag
 
 CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL,
-  `orderSKU` varchar(22) NOT NULL,
   `userId` int(11) DEFAULT NULL,
-  `productId` int(11) NOT NULL,
+  `order_items` varchar(265) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `shippingId` int(11) NOT NULL,
   `orderStatus` varchar(22) NOT NULL DEFAULT 'processing',
+  `orderTracking` varchar(86) DEFAULT NULL,
   `orderDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -201,7 +213,10 @@ INSERT INTO `products` (`productId`, `productName`, `productShortDescr`, `produc
 (310, 'Minnie Dress', 'Red, black, and red dress.', 'Red, black, and red dress.', '2021-05-24 11:56:54'),
 (311, 'Baby Romper', 'Baby Romper in different colours.', 'Baby Romper in different colours.', '2021-05-24 12:02:02'),
 (312, 'Formal Dress', 'Formal dress for babies and toddlers.', 'Formal dress for babies and toddlers.', '2021-05-24 12:16:56'),
-(314, 'Rabbit hood', 'Rabbit hood baby jacket', 'Rabbit hood baby jacket', '2021-05-24 13:19:58');
+(314, 'Rabbit hood', 'Rabbit hood baby jacket', 'Rabbit hood baby jacket', '2021-05-24 13:19:58'),
+(316, 'Casual Cardigan', 'Casual Cardigan \r\nCardigan Coat \r\nMultiple colours', 'Casual Cardigan \r\nCardigan Coat \r\nMultiple colours', '2021-06-19 06:23:59'),
+(317, 'Casual Hood', 'Leopard Print \r\nMultiple Colours\r\nCasual & Lose Fit', 'Leopard Print \r\nMultiple Colours\r\nCasual & Lose Fit', '2021-06-20 00:22:35'),
+(318, 'Beanie Set', 'Mother and Daughter<br />\r\nMatch Colour Design<br />\r\nWInter', 'Mother and Daughter<br />\r\nMatch Colour Design<br />\r\nWInter Warm', '2021-06-22 06:28:34');
 
 -- --------------------------------------------------------
 
@@ -225,16 +240,23 @@ CREATE TABLE `product_entry` (
 --
 
 INSERT INTO `product_entry` (`product_entryId`, `productId`, `sizeId`, `colourId`, `categoryId`, `price`, `sku`, `amount`) VALUES
-(164, 310, 4, 2, 5, 180, 'GHwome52', 5),
-(165, 311, 4, 2, 2, 90, 'ergwgw', 65),
-(166, 311, 4, 4, 2, 90, 'wfwe', 13),
-(167, 311, 4, 7, 2, 90, 'wgweg', 4),
-(168, 311, 4, 10, 2, 90, 'wgrw', 7),
-(169, 312, 5, 2, 5, 260, 'cdsgvvds', 2),
-(170, 312, 5, 6, 5, 260, 'dfsg', 3),
-(174, 314, 5, 2, 5, 123, 'jhguyh', 2),
-(175, 314, 5, 6, 5, 213, 'kji', 3),
-(176, 314, 5, 10, 5, 321, 'kji', 2);
+(164, 310, 4, 2, 5, 180, 'GHwome52', 0),
+(165, 311, 4, 2, 2, 90, 'ergwgw', 1),
+(166, 311, 4, 4, 2, 90, 'wfwe', 0),
+(167, 311, 4, 7, 2, 90, 'wgweg', 1),
+(168, 311, 4, 10, 2, 90, 'wgrw', 0),
+(169, 312, 5, 2, 5, 260, 'cdsgvvds', 1),
+(170, 312, 5, 6, 5, 260, 'dfsg', 1),
+(174, 314, 5, 2, 5, 123, 'jhguyh', 1),
+(175, 314, 5, 6, 5, 213, 'kji', 1),
+(176, 314, 5, 10, 5, 321, 'kji', 1),
+(181, 316, 6, 1, 12, 230, 'PAJ-JKU-J13', 1),
+(182, 316, 5, 3, 12, 230, 'PAJ-JKU-J14', 1),
+(183, 316, 5, 8, 12, 230, 'PAJ-JKU-J15', 1),
+(184, 316, 6, 8, 12, 230, 'PAJ-JKU-J16', 1),
+(185, 317, 5, 6, 13, 210, 'JUH2-VX2L-M1', 1),
+(186, 317, 5, 8, 13, 210, 'JUH2-VX2L-M2', 1),
+(187, 318, 1, 3, 9, 95, 'PAH1-KL44-22L', 1);
 
 -- --------------------------------------------------------
 
@@ -259,10 +281,33 @@ CREATE TABLE `reviews` (
 
 CREATE TABLE `sale` (
   `saleId` int(11) NOT NULL,
-  `salePrice` int(11) NOT NULL,
+  `salePrice` int(11) DEFAULT NULL,
   `salePeriod` int(11) NOT NULL DEFAULT 30,
-  `product_entryId` int(11) NOT NULL
+  `saleStart` timestamp NOT NULL DEFAULT current_timestamp(),
+  `product_entryId` int(11) NOT NULL,
+  `saleMarkDown` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shipping_method`
+--
+
+CREATE TABLE `shipping_method` (
+  `shippingId` int(11) NOT NULL,
+  `name` varchar(86) NOT NULL,
+  `shipper` varchar(86) NOT NULL,
+  `period` varchar(11) NOT NULL,
+  `price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `shipping_method`
+--
+
+INSERT INTO `shipping_method` (`shippingId`, `name`, `shipper`, `period`, `price`) VALUES
+(1, 'Paxi Shipping', 'paxi', '7-9 busines', 60);
 
 -- --------------------------------------------------------
 
@@ -314,7 +359,35 @@ INSERT INTO `users` (`userId`, `userFirstName`, `userLastName`, `userEmail`, `us
 (1, 'Mtunzi', 'Mavuma', 'st.vuma@gmail.com', 814511932, '$2y$10$qYQazHE7Dm4DjgaigTnWfOY7PK77VTF1t/Dd5RZO0UU9UryoPqk2y', '2021-04-14 09:57:14', 2),
 (2, 'Lusanda', 'Mavuma', 'luhh1973@gmail.com', 723033515, '$2y$10$tPxQbWL2TL5ch1ptPCJnbOnbvez.KLhTP8qr/A2MdW2hTG955Bgb6', '2021-04-14 10:02:03', 1),
 (3, 'Pinky', 'Sotafile', 'pinky@gmail.com', 782124365, '$2y$10$xyijUV6akL8.5gVfuJ5LFOnye5YhRd4cFi//PG6/45Z/UoMiA52l6', '2021-04-14 10:25:29', 1),
-(4, 'Luyanda', 'Mavuma', 'luyandamascot@gmail.com', 680156971, '$2y$10$uVd1V1N6BPz8oziobEUkHud.2zQlD8FdjSFbwqwtcgZ5NcwB7D7yC', '2021-04-14 10:39:47', 1);
+(4, 'Luyanda', 'Mavuma', 'luyandamascot@gmail.com', 680156971, '$2y$10$uVd1V1N6BPz8oziobEUkHud.2zQlD8FdjSFbwqwtcgZ5NcwB7D7yC', '2021-04-14 10:39:47', 1),
+(6, 'Mpo', 'Frank', 'mpofrank@gmail.com', NULL, '$2y$10$r1cF0twgFrM3VqH1GeGOH.aAtJ47S4ILHwxBQjig3aeQD14LE2wN2', '2021-06-30 21:08:09', 1),
+(7, 'Lusanda', 'Magadla', 'lusanda@gmail.com', NULL, '$2y$10$NcG2osBnijI6Ru7pRa7UvupovJNJT4fcBRTnEnmKldfmRjcDBWOj2', '2021-07-01 17:53:08', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_feedback`
+--
+
+CREATE TABLE `user_feedback` (
+  `user_feedbackId` int(11) NOT NULL,
+  `userId` int(11) UNSIGNED NOT NULL,
+  `experience` varchar(255) NOT NULL,
+  `feedback` varchar(250) NOT NULL,
+  `feedbackDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_feedback`
+--
+
+INSERT INTO `user_feedback` (`user_feedbackId`, `userId`, `experience`, `feedback`, `feedbackDate`) VALUES
+(1, 1, 'on', 'Experience spelt wrong', '2021-06-21 08:43:41'),
+(2, 1, 'on', 'Everything working just fine. Sending properly and saving gracefully.', '2021-06-21 08:44:57'),
+(3, 1, 'on', 'The WHole time my experience was recorded as on. I don&#39;t remember what it was now.', '2021-06-21 08:46:58'),
+(4, 1, 'Bad', 'Double quoted name attr to get proper value for experience', '2021-06-21 08:56:08'),
+(5, 1, 'Good', 'Double quotes worked and I sent proper experience.', '2021-06-21 08:56:56'),
+(6, 1, 'Good', 'THe website is pretty clean and easy to navigate.', '2021-06-21 12:20:28');
 
 -- --------------------------------------------------------
 
@@ -373,8 +446,8 @@ ALTER TABLE `images`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`orderId`),
-  ADD KEY `FK_orders_products` (`productId`),
-  ADD KEY `FK_orders_users` (`userId`);
+  ADD KEY `FK_orders_users` (`userId`),
+  ADD KEY `FK_orders_shipping_method` (`shippingId`);
 
 --
 -- Indexes for table `products`
@@ -408,6 +481,12 @@ ALTER TABLE `sale`
   ADD KEY `FK_sale_product_entry` (`product_entryId`);
 
 --
+-- Indexes for table `shipping_method`
+--
+ALTER TABLE `shipping_method`
+  ADD PRIMARY KEY (`shippingId`);
+
+--
 -- Indexes for table `size`
 --
 ALTER TABLE `size`
@@ -420,11 +499,19 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`userId`);
 
 --
+-- Indexes for table `user_feedback`
+--
+ALTER TABLE `user_feedback`
+  ADD PRIMARY KEY (`user_feedbackId`),
+  ADD KEY `FK_user_feedback_users` (`userId`);
+
+--
 -- Indexes for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
   ADD PRIMARY KEY (`wishlistId`),
-  ADD KEY `FK_cart_Items_user` (`userId`);
+  ADD KEY `FK_wishlist_Items_user` (`userId`),
+  ADD KEY `FK_wishlist_Items_product_entry` (`product_entryId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -440,13 +527,13 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `cart_itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `cart_itemId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `categoryId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `colour`
@@ -458,25 +545,25 @@ ALTER TABLE `colour`
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `imageId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=315;
+  MODIFY `productId` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=319;
 
 --
 -- AUTO_INCREMENT for table `product_entry`
 --
 ALTER TABLE `product_entry`
-  MODIFY `product_entryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `product_entryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -491,6 +578,12 @@ ALTER TABLE `sale`
   MODIFY `saleId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `shipping_method`
+--
+ALTER TABLE `shipping_method`
+  MODIFY `shippingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `size`
 --
 ALTER TABLE `size`
@@ -500,13 +593,19 @@ ALTER TABLE `size`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userId` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `user_feedback`
+--
+ALTER TABLE `user_feedback`
+  MODIFY `user_feedbackId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
-  MODIFY `wishlistId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `wishlistId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- Constraints for dumped tables
@@ -532,6 +631,12 @@ ALTER TABLE `images`
   ADD CONSTRAINT `FK_images_product_entry` FOREIGN KEY (`product_entryId`) REFERENCES `product_entry` (`product_entryId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `FK_orders_shipping_method` FOREIGN KEY (`shippingId`) REFERENCES `shipping_method` (`shippingId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `product_entry`
 --
 ALTER TABLE `product_entry`
@@ -547,10 +652,17 @@ ALTER TABLE `sale`
   ADD CONSTRAINT `FK_sale_product_entry` FOREIGN KEY (`product_entryId`) REFERENCES `product_entry` (`product_entryId`);
 
 --
+-- Constraints for table `user_feedback`
+--
+ALTER TABLE `user_feedback`
+  ADD CONSTRAINT `FK_user_feedback_users` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `wishlist_items`
 --
 ALTER TABLE `wishlist_items`
-  ADD CONSTRAINT `FK_cart_Items_user` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_wishlist_Items_product_entry` FOREIGN KEY (`product_entryId`) REFERENCES `product_entry` (`product_entryId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_wishlist_Items_user` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
