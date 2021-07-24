@@ -96,13 +96,13 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
     $cartDisplay .= "<div class='cart-display-table-column'><h4 class='shipping-methods'>Select Shipping Method:</h4>";
-    $cartDisplay .= "<form class='cart-checkout-form' action='/zalisting/checkout/'>";
+    $cartDisplay .= "<form class='cart-checkout-form' action='/zalisting/shop/checkout/' method='post'>";
     $cartDisplay .= "<div class='shipping-methods-container'>"; 
 
     foreach($shippingInfo as $shippingMethod){
 
         $cartDisplay .= "<label class='checkout-to-label'><input type='radio' class='shippingId' name='shippingId' value='$shippingMethod[shippingId]' /> $shippingMethod[name]: R$shippingMethod[price]</label>";
-        $cartDisplay .= "<input id='shippingId$shippingMethod[shippingId]' type='hidden' name='shippingId' value='$shippingMethod[price]' />";
+        $cartDisplay .= "<input id='shippingId$shippingMethod[shippingId]' type='hidden' value='$shippingMethod[price]' />";
     }
     
     $cartDisplay .= "<h4 id='grand-ship-total'><div class='strong'>Grand Total:</div> R$grandTotal</h4>";

@@ -72,7 +72,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = '<p class="notice"><br/>No products found...</p>';
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -99,7 +99,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = '<p class="notice"><br/>No products found...</p>';
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -125,7 +125,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = '<p class="notice"><br/>No products found...</p>';
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -155,7 +155,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = '<p class="notice"><br/>No products found...</p>';
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 

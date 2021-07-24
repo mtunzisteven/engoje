@@ -7,7 +7,14 @@ let lineTotals = document.querySelectorAll('.line-total');
 let prices = document.querySelectorAll('.price');
 let grandTotal = document.querySelector('#grand-total');
 
+// cart ship + total Payment calculation vars
+let grandShipTotalText = document.querySelector('#grand-ship-total');
+let shipRadioOptions = document.querySelectorAll('.shippingId');
+
 updateCart.addEventListener('click', function(event){
+
+    const checkedRadio = [...document.querySelectorAll('.shippingId')].filter(button => button.checked).map(button => button.value);
+
     let totalHolder = 0;
 
     const cartUpdateArr = [];
@@ -46,16 +53,23 @@ updateCart.addEventListener('click', function(event){
         
         cartCount.innerHTML = text;
         mcartCount.innerHTML = text;
-    })
 
+        if(checkedRadio > 0){
+
+            // get the innerText in grand total defined above and sum it with the value of the hidden input element with
+            // the same shipping id as the shipping method selected. id name of the input is a combination of 'shipppingId' and the actual id.
+            let total = parseInt(grandTotal.innerHTML) + parseInt(document.querySelector('#shippingId'+checkedRadio).value);
+
+            // set the inner text axactly as it is in the html with a new total calculated above.
+            grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
+
+        }
+
+    })
+    .catch(error => console.log(error))
 
 
 }, false);
-
-
-// cart ship + total Payment calculation vars
-let grandShipTotalText = document.querySelector('#grand-ship-total');
-let shipRadioOptions = document.querySelectorAll('.shippingId');
 
 // do this for each shipping method
 shipRadioOptions.forEach(shipoption => {
