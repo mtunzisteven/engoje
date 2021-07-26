@@ -101,7 +101,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     foreach($shippingInfo as $shippingMethod){
 
-        $cartDisplay .= "<label class='checkout-to-label'><input type='radio' class='shippingId' name='shippingId' value='$shippingMethod[shippingId]' /> $shippingMethod[name]: R$shippingMethod[price]</label>";
+        $cartDisplay .= "<label class='checkout-to-label'> $shippingMethod[name]($shippingMethod[period]): R$shippingMethod[price] <input type='radio' class='shippingId' name='shippingId' value='$shippingMethod[shippingId]' /></label>";
         $cartDisplay .= "<input id='shippingId$shippingMethod[shippingId]' type='hidden' value='$shippingMethod[price]' />";
     }
     

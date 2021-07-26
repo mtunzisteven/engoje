@@ -1867,9 +1867,14 @@ footer.main-footer{
 
             & label.checkout-to-label{
                 @include flex(row, space-between, center);
-                min-width: 149px;
-                max-width: 150px;
+                min-width: 199px;
+                max-width: 200px;
                 line-height: 24px;
+
+                & strong{
+                    margin: 2px;
+                    padding: 0;
+                }
 
                 & input[type=radio]{
                     max-width: 12px;
