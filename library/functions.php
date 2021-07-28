@@ -101,7 +101,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     foreach($shippingInfo as $shippingMethod){
 
-        $cartDisplay .= "<label class='checkout-to-label'> $shippingMethod[name]($shippingMethod[period]): R$shippingMethod[price] <input type='radio' class='shippingId' name='shippingId' value='$shippingMethod[shippingId]' /></label>";
+        $cartDisplay .= "<label class='checkout-to-label'><input type='radio' class='shippingId' name='shippingId' value='$shippingMethod[shippingId]' /> $shippingMethod[name]($shippingMethod[period]): R$shippingMethod[price] </label>";
         $cartDisplay .= "<input id='shippingId$shippingMethod[shippingId]' type='hidden' value='$shippingMethod[price]' />";
     }
     
@@ -137,7 +137,7 @@ function buildWishlistDisplay($wishlistDetails){
 
   }
 
-  // Build a cart view display view
+// Build a cart view display view
 function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo){
 
     //var_dump($userDetails); exit;
@@ -208,7 +208,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     }
 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
-    $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping  </div><div>$shippingInfo[name]: R$shippingInfo[price]</div></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping  </div><div>$shippingInfo[period]: R$shippingInfo[price]</div></div>"; 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
     $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 id='grand-total-display' class='cart-total'>R$grandTotal</h2></div>"; 
     $checkoutDisplay .= "<input type='hidden' id='shipping-fee' value='$shippingInfo[price]' />"; 
@@ -302,6 +302,44 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     $checkoutDisplay .= "</form></div>"; 
 
     return $checkoutDisplay;
+
+  }
+
+  // Build a cart view display view
+function buildCheckoutAddressDisplay(){
+
+    $checkoutAddressDisplay = "<form class='checkout-address' action='/zalisting/shop/checkout/?action=addressed' method='POST' ><div id='checkout' class='checkout-display-form address' >";
+    $checkoutAddressDisplay .= "<div class='address-column'>";
+
+    $checkoutAddressDisplay .= "<h2 class='address-column-title'>Billing Address:</h2>";
+    $checkoutAddressDisplay .= "<div class='checkout-label'> Name<input type='text' name='bname' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'>Phone<input type='tel' name='bphone' required /></div>";         
+    $checkoutAddressDisplay .= "<div class='checkout-label'>Email<input type='email' name='bemail' required /></div>";     
+    $checkoutAddressDisplay .= "<div class='checkout-label'> Address Line 1<input type='text' name='baddressLine1' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'> Address Line 2<input type='text' name='baddressLine2' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'> City<input type='text' name='bcity' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'>Zip Code<input type='number' name='bzipCode' required /></div>"; 
+        
+   
+    $checkoutAddressDisplay .= "</div>";      
+        
+    $checkoutAddressDisplay .= "<div class='address-column'>"; 
+
+    $checkoutAddressDisplay .= "<h2 class='address-column-title'>Shipping Address:</h2>";
+    $checkoutAddressDisplay .= "<div class='checkout-label'> Name<input type='text' name='sname' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'>Phone<input type='tel' name='sphone' required /></div>";         
+    $checkoutAddressDisplay .= "<div class='checkout-label'>Email<input type='email' name='semail' required /></div>";     
+    $checkoutAddressDisplay .= "<div class='checkout-label'> Address Line 1<input type='text' name='saddressLine1' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'> Address Line 2<input type='text' name='saddressLine2' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'> City<input type='text' name='scity' required /></div>"; 
+    $checkoutAddressDisplay .= "<div class='checkout-label'>Zip Code<input type='number' name='szipCode' required /></div>"; 
+
+    $checkoutAddressDisplay .= "</div></div>";     
+    $checkoutAddressDisplay .= "<input class='button' type='submit' value='Next' /></form>";     
+
+    $checkoutAddressDisplay .= "<a href='/zalisting/cart/?action=cart' class='button checkout-back'>Back to Cart</a>";
+
+    return $checkoutAddressDisplay;
 
   }
   

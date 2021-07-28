@@ -1623,6 +1623,39 @@ div.address-form-container{
     }
 }
 
+form.checkout-address{
+    border: none;
+    background-color: $background-color;
+
+    & div.checkout-label{
+        @include flex(column, left, flex-start);
+        text-align: left;
+        color: $dark-color;
+
+        & input[type=text]{
+            width: 100%;
+        }
+
+        & input{
+            max-height: 25px;
+            border-radius: 3px;
+            border:1px solid $light-dark-color;
+            color: $dark-color;
+        }
+    }
+
+    & input[type=submit]{
+        max-width: 200px;
+        padding: 15px;
+        background-color: $light-main-color;
+        line-height: 1px;
+    }
+
+    & input[type=submit]:hover{
+        background-color: $secondary-color;
+    }
+}
+
 /*------------------------------------------------Forms END
 */
 
@@ -1869,7 +1902,10 @@ footer.main-footer{
                 @include flex(row, space-between, center);
                 min-width: 199px;
                 max-width: 200px;
-                line-height: 24px;
+                height: 25px;
+                margin: 0;
+                text-align: right;
+                padding:0;
 
                 & strong{
                     margin: 2px;
@@ -1879,6 +1915,7 @@ footer.main-footer{
                 & input[type=radio]{
                     max-width: 12px;
                     margin-top: 15px;
+                    text-align: right;
                 }
     
                 & input[type=radio]:checked{
@@ -1955,6 +1992,7 @@ form.form-add-to-cart{
     margin: -45px 0 0 0;
 
 }
+
 
 /*------------------------------------------------Forms END
 */
@@ -2345,6 +2383,14 @@ div.single-product-shop{
         }
     }
 
+    
+    form.checkout-address{
+
+        min-width: 55%;
+        max-width: 55%;
+        margin: 0 auto;
+    }
+
     /*------------------------------------------------Forms END
 */
 
@@ -2616,6 +2662,16 @@ div.single-product-shop{
         
                 }
         
+            }
+        }
+
+        div.address{
+            margin: 5px 5px 20px 5px;
+            padding: 0;
+            width: 100%;
+
+            & h2.address-column-title{
+                margin:0 0 5px 0;
             }
         }
 

@@ -2192,6 +2192,53 @@ div.address-form-container form.new-address-form div.confirmConfirm input.button
   min-width: 0;
 }
 
+form.checkout-address {
+  border: none;
+  background-color: #fdfdfd;
+}
+
+form.checkout-address div.checkout-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  text-align: left;
+  color: #3a3939;
+}
+
+form.checkout-address div.checkout-label input[type=text] {
+  width: 100%;
+}
+
+form.checkout-address div.checkout-label input {
+  max-height: 25px;
+  border-radius: 3px;
+  border: 1px solid #929292;
+  color: #3a3939;
+}
+
+form.checkout-address input[type=submit] {
+  max-width: 200px;
+  padding: 15px;
+  background-color: #80a1d1;
+  line-height: 1px;
+}
+
+form.checkout-address input[type=submit]:hover {
+  background-color: #ff4949;
+}
+
 /*------------------------------------------------Forms END
 */
 div.seperator {
@@ -2558,7 +2605,10 @@ footer.main-footer div.footer-bottom-block a:hover {
           align-items: center;
   min-width: 199px;
   max-width: 200px;
-  line-height: 24px;
+  height: 25px;
+  margin: 0;
+  text-align: right;
+  padding: 0;
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label strong {
@@ -2569,6 +2619,7 @@ footer.main-footer div.footer-bottom-block a:hover {
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio] {
   max-width: 12px;
   margin-top: 15px;
+  text-align: right;
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio]:checked {
@@ -3238,6 +3289,11 @@ footer.main-footer div.footer-bottom-block a:hover {
     height: 14px;
     margin: 5px 5px 5px 20px;
   }
+  form.checkout-address {
+    min-width: 55%;
+    max-width: 55%;
+    margin: 0 auto;
+  }
   /*------------------------------------------------Forms END
 */
   .center {
@@ -3613,6 +3669,14 @@ footer.main-footer div.footer-bottom-block a:hover {
     height: 30px;
     padding: 10px 12% 0 5%;
     margin-bottom: 0;
+  }
+  div.address {
+    margin: 5px 5px 20px 5px;
+    padding: 0;
+    width: 100%;
+  }
+  div.address h2.address-column-title {
+    margin: 0 0 5px 0;
   }
   div.address-form-container {
     top: 15%;

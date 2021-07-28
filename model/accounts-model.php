@@ -212,11 +212,15 @@ function updateAddress($addressName, $addressNumber, $addressEmail, $addressLine
 }
 
 // This is for updating Addresses
-function addAddress($addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
+function addAddress($addressName, $addressNumber, $addressEmail, $addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
 
     $db = zalistingConnect();
-    $sql = 'INSERT INTO addresses (addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType, userId) VALUES(:addressLineOne, :addressLineTwo, :addressCity, :addressZipCode, :addressType, :userId)';
+    $sql = 'INSERT INTO addresses (addressName, addressNumber, addressEmail, addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType, userId) VALUES(:addressName, :addressNumber, :addressEmail, :addressLineOne, :addressLineTwo, :addressCity, :addressZipCode, :addressType, :userId)';
     $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':addressName', $addressName, PDO::PARAM_STR);
+    $stmt->bindValue(':addressNumber', $addressNumber, PDO::PARAM_STR);
+    $stmt->bindValue(':addressEmail', $addressEmail, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineOne', $addressLineOne, PDO::PARAM_STR);
     $stmt->bindValue(':addressLineTwo', $addressLineTwo, PDO::PARAM_STR);
     $stmt->bindValue(':addressCity', $addressCity, PDO::PARAM_STR);
