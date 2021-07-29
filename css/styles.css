@@ -1042,9 +1042,29 @@ div#checkout-header img {
           box-shadow: 0 0 10px 1px #d8d5d5;
 }
 
+.shop div.shop-products-archive .shop-products .product div.sale-circle {
+  position: relative;
+  z-index: 900;
+  top: 3px;
+  left: 5px;
+  color: #fdfdfd;
+  background-color: #ff4949;
+  width: 30px;
+  height: 16px;
+  font: 200 15px "Nunito", sans-serif;
+  padding: 2px;
+  line-height: 16px;
+  border-radius: 3px;
+  text-align: center;
+}
+
 .shop div.shop-products-archive .shop-products .product img {
   width: 180px;
   margin: 2px;
+}
+
+.shop div.shop-products-archive .shop-products .product img.sale {
+  margin: -20px 4px 2px 2px;
 }
 
 .shop div.shop-products-archive .shop-products .product .productName-link {
@@ -1052,9 +1072,9 @@ div#checkout-header img {
 }
 
 .shop div.shop-products-archive .shop-products .product .productName-link .productName {
-  text-align: center;
+  text-align: left;
   padding: 2px 5px;
-  margin: 2px 0;
+  margin: 2px 5px;
   font: 500 35px "Cinzel", serif;
   font-size: 18px;
 }
@@ -1063,25 +1083,56 @@ div#checkout-header img {
   color: #ff4949;
 }
 
-.shop div.shop-products-archive .shop-products .product .productPrice {
-  text-align: center;
+.shop div.shop-products-archive .shop-products .product div.sale-prices-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 100%;
+  margin-bottom: 5px;
+}
+
+.shop div.shop-products-archive .shop-products .product div.sale-prices-container .productPrice {
+  text-align: left;
   color: #3a3939;
   padding: 2px 5px;
-  margin: 2px 0;
+  margin: 2px 5px;
   font: 200 15px "Nunito", sans-serif;
   font-size: 15px;
 }
 
+.shop div.shop-products-archive .shop-products .product div.sale-prices-container .sale-price {
+  margin: 2px;
+  color: #DD1717;
+}
+
+.shop div.shop-products-archive .shop-products .product div.sale-prices-container .strike-through {
+  color: #929292;
+  text-decoration: line-through;
+}
+
 .shop div.shop-products-archive .shop-products .product h5 {
-  text-align: center;
+  text-align: left;
   padding: 2px 5px;
-  margin: 2px 0;
+  margin: 2px 5px;
 }
 
 .shop div.shop-products-archive .shop-products .product p {
-  text-align: center;
+  text-align: left;
   padding: 2px 5px;
-  margin: 2px 0;
+  margin: 2px 5px;
+  color: #929292;
 }
 
 .shop div.feedback {
@@ -1133,13 +1184,13 @@ div.single-product-shop div.single-product {
   display: flex;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: row-reverse;
-          flex-direction: row-reverse;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -1147,9 +1198,26 @@ div.single-product-shop div.single-product {
   max-width: 100%;
 }
 
-div.single-product-shop div.single-product img.product-primary-image {
-  min-width: 85%;
-  margin: 0 1%;
+div.single-product-shop div.single-product div.sale-img-container div.sale-circle {
+  position: relative;
+  z-index: 900;
+  top: 18px;
+  left: 10px;
+  color: #fdfdfd;
+  background-color: #ff4949;
+  width: 40px;
+  height: 24px;
+  font: 200 15px "Nunito", sans-serif;
+  padding: 2px;
+  line-height: 24px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+div.single-product-shop div.single-product div.sale-img-container img.product-primary-image {
+  min-width: 75%;
+  max-width: 98%;
+  margin: -28px auto 0 auto;
 }
 
 div.single-product-shop div.single-product div.single-product-gallery {
@@ -1158,23 +1226,25 @@ div.single-product-shop div.single-product div.single-product-gallery {
   display: flex;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  max-width: 10%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 100%;
 }
 
 div.single-product-shop div.single-product div.single-product-gallery img.product-gallery-image {
-  max-width: 100%;
-  max-height: auto;
-  margin: 0 0 3px 0;
+  max-width: 80px;
+  height: auto;
+  margin: 0 3px 0 0;
   cursor: pointer;
 }
 
@@ -1437,12 +1507,41 @@ form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button:hover {
   color: #fdfdfd;
 }
 
-form.form-add-to-cart .productPrice {
+form.form-add-to-cart div.sale-prices-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+form.form-add-to-cart div.sale-prices-container .productPrice {
+  min-width: 15%;
   font-size: 18px;
   color: #0f4392;
   font-weight: 300;
   text-align: left;
-  min-width: 100%;
+}
+
+form.form-add-to-cart div.sale-prices-container .sale-price {
+  margin: 2px;
+  color: #ff4949;
+}
+
+form.form-add-to-cart div.sale-prices-container .strike-through {
+  color: #929292;
+  text-decoration: line-through;
 }
 
 div.uploads-container {
@@ -2666,56 +2765,9 @@ footer.main-footer div.footer-bottom-block a:hover {
   form {
     width: 65%;
   }
-  form.form-add-to-cart {
-    min-width: 35%;
-    padding: 0 7.5%;
-    margin: -45px 0 0 0;
-  }
   /*------------------------------------------------Forms END
 */
   div.single-product-shop {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 96%;
-    max-width: 1080px;
-    padding: 40px 2%;
-  }
-  div.single-product-shop div.single-product {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: row-reverse;
-            flex-direction: row-reverse;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
-    min-width: 50%;
-    max-width: 50%;
-  }
-  div.single-product-shop div.single-product img.product-primary-image {
-    min-width: 85%;
-    margin: 0 1%;
-  }
-  div.single-product-shop div.single-product div.single-product-gallery {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2725,18 +2777,70 @@ footer.main-footer div.footer-bottom-block a:hover {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    max-width: 10%;
+    width: 550px;
+    max-width: 800px;
+    padding: 40px 2%;
+    margin: 5px auto;
+  }
+  div.single-product-shop form.form-add-to-cart {
+    min-width: 500px;
+    padding: 0;
+    max-width: 510px;
+    margin: 0 auto;
+  }
+  div.single-product-shop div.single-product {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    min-width: 40%;
+    max-width: 500px;
+    margin: 5px auto;
+  }
+  div.single-product-shop div.single-product img.product-primary-image {
+    min-width: 100%;
+    margin: 0 1%;
+  }
+  div.single-product-shop div.single-product div.single-product-gallery {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
   }
   div.single-product-shop div.single-product div.single-product-gallery img.product-gallery-image {
-    max-width: 100%;
+    max-width: 80px;
     height: auto;
     margin: 0 0 3px 0;
+    padding: 0 3px 0 0;
     cursor: pointer;
   }
 }
@@ -3440,13 +3544,32 @@ footer.main-footer div.footer-bottom-block a:hover {
   }
   .shop div.shop-products-archive .shop-products .product {
     color: #3a3939;
-    text-align: left;
+    text-align: center;
     max-width: 220px;
     margin: 5px;
   }
+  .shop div.shop-products-archive .shop-products .product div.sale-circle {
+    position: relative;
+    z-index: 900;
+    top: 8px;
+    left: 5px;
+    color: #fdfdfd;
+    background-color: #ff4949;
+    width: 30px;
+    height: 16px;
+    font: 200 15px "Nunito", sans-serif;
+    padding: 2px;
+    line-height: 16px;
+    border-radius: 3px;
+    text-align: center;
+  }
   .shop div.shop-products-archive .shop-products .product img {
-    width: 220px;
-    margin: 2px;
+    width: 214px;
+    display: block;
+    margin: 2px auto;
+  }
+  .shop div.shop-products-archive .shop-products .product img.sale {
+    margin: -18px auto 2px auto;
   }
   div.checkout-display-form {
     display: -webkit-box;
@@ -3703,9 +3826,83 @@ footer.main-footer div.footer-bottom-block a:hover {
 /*-----------------------------------------------Product END
 */
 @media only screen and (min-width: 1080px) {
-  .single-product-shop {
-    max-width: 96%;
+  div.single-product-shop {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     padding: 30px 2%;
+    min-width: 85%;
+    max-width: 1080px;
+    margin: 20px auto 5px auto;
+    border-radius: 3px;
+  }
+  div.single-product-shop form.form-add-to-cart {
+    min-width: 39%;
+    padding: 0 5% 0 0;
+    max-width: 40%;
+    margin: 0;
+  }
+  div.single-product-shop div.single-product {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    min-width: 50%;
+    max-width: 50%;
+    margin: auto;
+    padding: 0;
+  }
+  div.single-product-shop div.single-product img.product-primary-image {
+    min-width: 70%;
+    max-width: 100%;
+  }
+  div.single-product-shop div.single-product div.single-product-gallery {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 0 3px 0 0;
+    width: 10%;
+  }
+  div.single-product-shop div.single-product div.single-product-gallery img.product-gallery-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0 0 3px 0;
+    cursor: pointer;
   }
 }
 /*# sourceMappingURL=styles.css.map */

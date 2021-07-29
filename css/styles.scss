@@ -98,6 +98,22 @@ $notices  : 200 20px 'Handlee', sans-serif;
     box-shadow: 0 0 10px 0 $green_colour;
 }
 
+@mixin saleIcon($top: 3px, $left: 5px, $width: 30px, $height: 16px){
+    position: relative;
+    z-index: 900;
+    top: $top;
+    left: $left;
+    color: $background-color;
+    background-color: $secondary-color;
+    width: $width;
+    height: $height;
+    font: $p;
+    padding: 2px;
+    line-height: $height;
+    border-radius: 3px;
+    text-align: center;
+}
+
 /*
 *------------------------------------------------------------------------CSS
 */
@@ -837,10 +853,19 @@ div#checkout-header{
                 max-width:184px;
                 margin-top: 15px;
                 box-shadow: $light-box-shadow;
+
+                & div.sale-circle{
+                    @include saleIcon();
+                }
                 
                 & img{
                     width:180px;
                     margin: 2px;
+    
+                }
+
+                & img.sale{
+                    margin: -20px 4px 2px 2px;
     
                 }
     
@@ -848,9 +873,9 @@ div#checkout-header{
                     color:$main-color;
     
                     & .productName{
-                        text-align: center;
+                        text-align: left;
                         padding:2px 5px;
-                        margin:2px 0;
+                        margin:2px 5px;
                         font: $h1;
                         font-size: 18px;
     
@@ -861,26 +886,43 @@ div#checkout-header{
                     color:$secondary-color;
     
                 }
+
+                div.sale-prices-container{
+                    @include flex(row, left);
+                    min-width: 100%;
+                    margin-bottom: 5px;
     
-                & .productPrice{
-                    text-align: center;
-                    color:$dark-color;
-                    padding:2px 5px;
-                    margin:2px 0;
-                    font: $p;
-                    font-size: 15px;
+                    & .productPrice{
+                        text-align: left;
+                        color:$dark-color;
+                        padding:2px 5px;
+                        margin:2px 5px;
+                        font: $p;
+                        font-size: 15px;
+                    }
+          
+                    & .sale-price{
+                        margin: 2px;
+                        color: $dark-secondary-color;
+                    }
+
+                    & .strike-through{
+                        color: $light-dark-color;
+                        text-decoration: line-through;
+                    }
                 }
     
                 & h5{
-                    text-align: center;
+                    text-align: left;
                     padding:2px 5px;
-                    margin:2px 0;
+                    margin:2px 5px;
                 }
     
                 & p{
-                    text-align: center;
+                    text-align: left;
                     padding:2px 5px;
-                    margin:2px 0;
+                    margin:2px 5px;
+                    color: $light-dark-color;
                 }
             }
         }
@@ -911,34 +953,39 @@ div#checkout-header{
 }
 
 div.single-product-shop{
-
     @include flex(column, center);
     width:96%;
     max-width: 500px;
     padding: 40px 2%;
 
     & div.single-product{
-
-        @include flex(row-reverse, center, flex-start);
+        @include flex(column, left, flex-start);
         min-width: 100%;
         max-width: 100%;
 
-        & img.product-primary-image{
+        & div.sale-img-container{
 
-            min-width: 85%;
-            margin: 0 1%;
+            & div.sale-circle{
+                @include saleIcon(18px, 10px, 40px, 24px);
+
+            }
+
+            & img.product-primary-image{
+                min-width: 75%;
+                max-width: 98%;
+                margin: -28px auto 0 auto;
+            }
         }
 
         & div.single-product-gallery{
-
-            @include flex(column, center, center);
-            max-width: 10%;
+            @include flex(row, left, center);
+            flex-wrap: wrap;
+            max-width: 100%;
 
             & img.product-gallery-image{
-
-                max-width: 100%;
-                max-height: auto;
-                margin:0 0 3px 0;
+                max-width: 80px;
+                height: auto;
+                margin:0 3px 0 0;
                 cursor: pointer;
 
             }
@@ -1127,12 +1174,27 @@ form.form-add-to-cart{
         }
     }
 
-    & .productPrice{
-        font-size: 18px;
-        color: $main-color;
-        font-weight:300;
-        text-align:left;
-        min-width:100%;
+    & div.sale-prices-container{
+        @include flex(row, left, center);
+        width:100%;
+
+        & .productPrice{
+            min-width:15%;
+            font-size: 18px;
+            color: $main-color;
+            font-weight:300;
+            text-align:left;
+        }
+        
+        & .sale-price{
+            margin: 2px;
+            color: $secondary-color;
+        }
+
+        & .strike-through{
+            color: $light-dark-color;
+            text-decoration: line-through;
+        }
     }
 }
 
@@ -1985,53 +2047,52 @@ form{
 
 }
 
-form.form-add-to-cart{
-
-    min-width:35%;
-    padding:0 7.5%;
-    margin: -45px 0 0 0;
-
-}
-
 
 /*------------------------------------------------Forms END
 */
 
-div.single-product-shop{
+    div.single-product-shop{
+        @include flex(column, left, center);
+        width: 550px;
+        max-width: 800px;
+        padding: 40px 2%;
+        margin: 5px auto;
 
-    @include flex(row, space-around);
-    width:96%;
-    max-width: 1080px;
-    padding: 40px 2%;
+        
+        form.form-add-to-cart{
+            min-width: 500px;
+            padding:0;
+            max-width: 510px;
+            margin: 0 auto;
 
-    & div.single-product{
-
-        @include flex(row-reverse, center, flex-start);
-        min-width: 50%;
-        max-width: 50%;
-
-        & img.product-primary-image{
-
-            min-width: 85%;
-            margin: 0 1%;
         }
 
-        & div.single-product-gallery{
+        & div.single-product{
+            @include flex(column, left, center);
+            min-width: 40%;
+            max-width: 500px;
+            margin: 5px auto;
 
-            @include flex(column, center, center);
-            max-width: 10%;
+            & img.product-primary-image{
+                min-width: 100%;
+                margin: 0 1%;
+            }
 
-            & img.product-gallery-image{
+            & div.single-product-gallery{
+                @include flex(row, left, center);
+                width: 100%;
 
-                max-width: 100%;
-                height: auto;
-                margin:0 0 3px 0;
-                cursor: pointer;
+                & img.product-gallery-image{
+                    max-width: 80px;
+                    height: auto;
+                    margin:0 0 3px 0;
+                    padding: 0 3px 0 0;
+                    cursor: pointer;
 
+                }
             }
         }
     }
-}
     
 }
 
@@ -2499,15 +2560,25 @@ div.single-product-shop{
 
                     & .product{
                         color:$dark-color;
-                        text-align: left;
+                        text-align: center;
                         max-width:220px;
                         margin: 5px;
 
+                        & div.sale-circle{
+                            @include saleIcon( 8px);
+            
+                        }
+
                         & img{
-                            width:220px;
-                            margin: 2px;
+                            width:214px;
+                            display: block;
+                            margin: 2px auto;
 
                         }              
+
+                        & img.sale{
+                            margin: -18px auto 2px auto;
+                        }
                     }
                 }
             }
@@ -2714,9 +2785,48 @@ div.single-product-shop{
 //---------------------------------------------------------------
 @media only screen and (min-width: 1080px){
 
-    .single-product-shop{
-        max-width: 96%;
+    div.single-product-shop{
+        @include flex(row, space-between, flex-start);
         padding: 30px 2%;
+        min-width: 85%;
+        max-width: 1080px;
+        margin: 20px auto 5px auto;
+        border-radius: 3px;
+
+        & form.form-add-to-cart{
+            min-width: 39%;
+            padding: 0 5% 0 0;
+            max-width: 40%;
+            margin: 0;
+
+        }
+
+        & div.single-product{
+            @include flex(row-reverse, left, flex-start);
+            min-width: 50%;
+            max-width: 50%;
+            margin: auto;
+            padding: 0;
+
+            & img.product-primary-image{
+                min-width: 70%;
+                max-width: 100%;
+            }
+    
+            & div.single-product-gallery{
+                @include flex(column, center, center);
+                padding: 0 3px 0 0;
+                width: 10%;
+    
+                & img.product-gallery-image{
+                    max-width: 100%;
+                    height: auto;
+                    margin:0 0 3px 0;
+                    cursor: pointer;
+    
+                }
+            }
+        }
     }
 
 }

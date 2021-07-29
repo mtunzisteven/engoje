@@ -22,6 +22,9 @@ require_once '../model/uploads-model.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
+// Hide sale icon on images
+$hidden = '';//'hidden';
+
 //initial pagination
 $lim = 4;
 $offset = 0;
@@ -67,7 +70,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
 
         }else{
 
@@ -94,7 +97,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
 
         }else{
 
@@ -120,7 +123,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
 
         }else{
 
@@ -150,7 +153,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
 
         }else{
 

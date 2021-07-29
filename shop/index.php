@@ -22,7 +22,6 @@ require_once '../model/uploads-model.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
-//unset($_SESSION['sizeFilter'], $_SESSION['categoryFilter'], $_SESSION['colourFilter'], $_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter'], $_SESSION['productQty']);
 
 //initial pagination
 $lim = 4;
@@ -33,6 +32,22 @@ $products = getShopPaginations($lim, $offset);
 
 // all shop products
 $allProducts = getShopProducts();
+
+// all items on sale
+$saleItems = getSaleItems();
+
+if(empty($saleItems)){
+
+    // if no items in sale hide sale
+    $hidden = 'hidden';
+
+}else{
+
+    // if no items in sale hide sale
+    $hidden = '';
+
+}
+
 
 // get categories from db
 $category = getCategories();
@@ -201,7 +216,7 @@ case 'size-swatch':
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 
@@ -237,7 +252,7 @@ case 'size-swatch':
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 
@@ -266,7 +281,7 @@ case 'size-swatch':
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty);
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 

@@ -732,7 +732,7 @@ function buildProductSwatchesDisplay($products, $swatch){
 }
 
 // Build a product display card for shop views
-function buildproductDisplay($product){
+function buildproductDisplay($product, $hidden, $saleItems){
 
     if(isset($product['imagePath'])){
         $path = $product['imagePath'];
@@ -741,17 +741,48 @@ function buildproductDisplay($product){
         
     }
 
-    $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><img src='$path' alt='".$product['productName']."' /></a>";
-    $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
-    $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
-    $dv .= "<h4 class='productPrice' >R$product[price]</h4></div>";
 
-    return $dv;
+    // if the is not product in sale table
+    if(!empty($saleItems)){
 
+
+        foreach($saleItems as $saleItem){
+
+            if($product['product_entryId'] == $saleItem['product_entryId']){ // if there is a product in the sale table and it is the product urrently being accessed
+        
+                $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='$hidden sale-circle'>sale</div><img class='sale' src='$path' alt='".$product['productName']."' /></a>";
+                $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+                $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
+                $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$saleItem[salePrice]</h4></div></div>";
+
+            }else{
+        
+                $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div><img  src='$path' alt='".$product['productName']."' /></a>";
+                $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+                $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
+                $dv .= "<div class='sale-prices-container'><h4 class='productPrice' >R$product[price]</h4><h4 class='hidden productPrice' >R$product[price]</h4></div></div>";
+
+            }
+        }
+
+        return $dv;
+
+
+    }else{ // if there is a product in the sale table and it is the product urrently being accessed
+
+        $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='$hidden sale-circle'>sale</div><img src='$path' alt='".$product['productName']."' /></a>";
+        $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+        $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
+
+        $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='$hidden productPrice' >R$product[price]</h4></div></div>";
+        
+        return $dv;
+
+    }
 }
 
 // Build a product block
-function buildproductsDisplay($products, $offset, $lim, $productsQty){
+function buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems){
 
     // The page number 
     $pageNum = ($offset+$lim)/$lim;
@@ -808,7 +839,7 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty){
                         
         foreach($products as $product){
 
-            $dv .= buildproductDisplay($product);
+            $dv .= buildproductDisplay($product, $hidden, $saleItems);
 
         }
     }

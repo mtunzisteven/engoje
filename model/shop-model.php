@@ -1047,6 +1047,17 @@ function getProductsBySize($size){
 }
 
 // get product entry qty
+function getSaleItems(){
+    $db = zalistingConnect();
+    $sql = 'SELECT product_entryId, salePrice FROM sale';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $qty = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $qty;
+}
+
+// get product entry qty
 function getProductQty($product_entryId){
     $db = zalistingConnect();
     $sql = 'SELECT amount FROM product_entry WHERE  product_entryId = :product_entryId';
