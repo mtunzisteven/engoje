@@ -36,21 +36,6 @@ $allProducts = getShopProducts();
 // all items on sale
 $saleItems = getSaleItems();
 
-$hidden;
-
-if(empty($saleItems)){
-
-    // if no items in sale hide sale
-    $hidden = 'hidden';
-
-}else{
-
-    // if no items in sale hide sale
-    $hidden = '';
-
-}
-
-
 // get categories from db
 $category = getCategories();
 
@@ -94,18 +79,40 @@ switch ($action){
         $_SESSION['product_entryId'] = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_STRING);
         $_SESSION['colourChoice'] = filter_input(INPUT_GET, 'colour', FILTER_SANITIZE_STRING);
 
-        $_SESSION['sale'] = getSaleItemPrice($_SESSION['product_entryId']);
+        $_SESSION['sale'] = getSaleItem($_SESSION['product_entryId']);
 
-        //var_dump($_SESSION['sale']); exit;
+        // create new date time object
+        $today = new DateTime();
+
+        // format datetime object
+        $today->format('U');
+
+        $saleStart = new DateTime($_SESSION['sale']['saleStart']);
+        $saleStart->format('Y-m-d H:i:s');
+
+        $interval = [date_diff($today, $saleStart)];
+
+        // the number of days since start of sale
+        $days = ($interval[0]->h)/24;
 
         // Set price and style appearance for sale items
         if(!empty($_SESSION['sale'])){
 
-            $_SESSION['salePrice'] = $_SESSION['sale']['salePrice'];
-            $_SESSION['sale_product_entryId'] = $_SESSION['sale']['product_entryId'];
+            if($days < $_SESSION['sale']['salePeriod']){
 
-            $_SESSION['hidden'] = '';
-            $_SESSION['strikeThrough'] = 'strike-through';
+                $_SESSION['salePrice'] = $_SESSION['sale']['salePrice'];
+                $_SESSION['sale_product_entryId'] = $_SESSION['sale']['product_entryId'];
+
+                $_SESSION['hidden'] = '';
+                $_SESSION['strikeThrough'] = 'strike-through';
+
+            }else{
+
+            $_SESSION['hidden'] = 'hidden';
+            $_SESSION['strikeThrough'] = '';
+
+        }
+
 
         }else{
 
@@ -116,8 +123,6 @@ switch ($action){
         
         //get all the product details for using shared productId
         $_SESSION['productData'] = getShopProduct($productId);
-
-        //var_dump($_SESSION['productData']); exit;
 
         // get the different swatches available to this productId
         $productSwatch = getShopSwatchProduct($productId);
@@ -236,7 +241,7 @@ case 'size-swatch':
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
@@ -272,7 +277,7 @@ case 'size-swatch':
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
@@ -301,7 +306,7 @@ case 'size-swatch':
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 

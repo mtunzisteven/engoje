@@ -1049,18 +1049,18 @@ function getProductsBySize($size){
 // get product entry qty
 function getSaleItems(){
     $db = zalistingConnect();
-    $sql = 'SELECT product_entryId, salePrice FROM sale';
+    $sql = 'SELECT product_entryId, saleId, salePrice, salePeriod, saleStart FROM sale';
     $stmt = $db->prepare($sql);
     $stmt->execute();
-    $qty = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $saleItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
-    return $qty;
+    return $saleItems;
 }
 
 // get sale product price for single product view
-function getSaleItemPrice($product_entryId){
+function getSaleItem($product_entryId){
     $db = zalistingConnect();
-    $sql = 'SELECT salePrice, saleId, product_entryId FROM sale WHERE  product_entryId = :product_entryId';
+    $sql = 'SELECT salePrice, saleId, product_entryId, salePeriod, saleStart FROM sale WHERE  product_entryId = :product_entryId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
     $stmt->execute();

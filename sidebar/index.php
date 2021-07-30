@@ -22,9 +22,6 @@ require_once '../model/uploads-model.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
-// Hide sale icon on images
-$hidden = '';//'hidden';
-
 //initial pagination
 $lim = 4;
 $offset = 0;
@@ -37,18 +34,6 @@ $allProducts = getShopProducts();
 
 // all items on sale
 $saleItems = getSaleItems();
-
-if(empty($saleItems)){
-
-    // if no items in sale hide sale
-    $hidden = 'hidden';
-
-}else{
-
-    // if no items in sale hide sale
-    $hidden = '';
-
-}
 
 // Get the total number products in db
 $productsQty = count($allProducts);
@@ -85,7 +70,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
@@ -112,7 +97,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
@@ -138,7 +123,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
@@ -168,7 +153,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
