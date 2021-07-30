@@ -149,6 +149,7 @@ body .button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  text-shadow: 0 0 1px #3a3939;
   cursor: pointer;
   font: 200 15px "Nunito", sans-serif;
 }
@@ -953,7 +954,7 @@ div#checkout-header img {
       -ms-flex-align: center;
           align-items: center;
   padding: 10px 0;
-  margin: 20px 0 50px 0;
+  margin: 20px auto 50px auto;
   width: 100%;
   border-bottom: 1px #d8d5d5 solid;
   border-top: 1px #d8d5d5 solid;
@@ -1217,6 +1218,10 @@ div.single-product-shop div.single-product div.sale-img-container div.sale-circl
 div.single-product-shop div.single-product div.sale-img-container img.product-primary-image {
   min-width: 75%;
   max-width: 98%;
+  margin: 0 auto;
+}
+
+div.single-product-shop div.single-product div.sale-img-container img.sale-primary-image {
   margin: -28px auto 0 auto;
 }
 
@@ -1316,6 +1321,7 @@ form .button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  text-shadow: 0 0 1px #3a3939;
   cursor: pointer;
   height: 30px;
   line-height: 30px;
@@ -1333,6 +1339,7 @@ form .login-reg-button {
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
+  text-shadow: 0 0 1px #3a3939;
   cursor: pointer;
   height: 30px;
   line-height: 30px;

@@ -40,10 +40,19 @@
                         
                     }
 
+                $salePrimaryImage = '';
+
+                // when the sale display is not hidden, give primary image class name holder a value
+                if(empty($_SESSION['hidden'])){
+
+                    $salePrimaryImage = 'sale-primary-image';
+
+                }
+
                 // The sale icon will only appear when the product is found in the sale table.
                 // sale-circle and sale-price classed elements remain hidden unless the requirement above is met.
                                                                                                 // div.sale-circle below
-                echo "<div class='sale-img-container'><div id='$product[product_entryId]' class='sale-circle'>sale</div><img id='single-product' class='product-primary-image' src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."'></div>";
+                echo "<div class='sale-img-container'><div id='$product[product_entryId]' class='$_SESSION[hidden] sale-circle'>sale</div><img id='single-product' class='$salePrimaryImage product-primary-image' src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."'></div>";
 
                 echo "<div class='single-product-gallery'>";
 
@@ -70,7 +79,7 @@
                     
                         echo "<h1 id='product-title'>".$_SESSION['productData'][0]['productName']."</h1>";
                                                                                                                         // div.sale-circle below
-                        echo "<div class='sale-prices-container'><p class='productPrice strike-through' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p><p class='productPrice sale-price' >R".$_SESSION['productData'][0]['price']."</p></div>";
+                        echo "<div class='sale-prices-container'><p class='productPrice $_SESSION[strikeThrough]' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p><p class='$_SESSION[hidden] productPrice sale-price' >R".$_SESSION['salePrice']."</p></div>";
                         echo "<p  class='productShort-descr'>".$_SESSION['productData'][0]['productShortDescr']."</p>";
                         echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$_SESSION['productData'][0]['product_entryId']."' />";
                         echo "<input type='hidden' id='productId' name='productId' value='".$_SESSION['productData'][0]['productId']."' />";

@@ -1057,6 +1057,18 @@ function getSaleItems(){
     return $qty;
 }
 
+// get sale product price for single product view
+function getSaleItemPrice($product_entryId){
+    $db = zalistingConnect();
+    $sql = 'SELECT salePrice, saleId, product_entryId FROM sale WHERE  product_entryId = :product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+    $stmt->execute();
+    $sale = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $sale;
+}
+
 // get product entry qty
 function getProductQty($product_entryId){
     $db = zalistingConnect();

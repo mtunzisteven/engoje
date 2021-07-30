@@ -36,6 +36,8 @@ $allProducts = getShopProducts();
 // all items on sale
 $saleItems = getSaleItems();
 
+$hidden;
+
 if(empty($saleItems)){
 
     // if no items in sale hide sale
@@ -92,7 +94,25 @@ switch ($action){
         $_SESSION['product_entryId'] = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_STRING);
         $_SESSION['colourChoice'] = filter_input(INPUT_GET, 'colour', FILTER_SANITIZE_STRING);
 
+        $_SESSION['sale'] = getSaleItemPrice($_SESSION['product_entryId']);
 
+        //var_dump($_SESSION['sale']); exit;
+
+        // Set price and style appearance for sale items
+        if(!empty($_SESSION['sale'])){
+
+            $_SESSION['salePrice'] = $_SESSION['sale']['salePrice'];
+            $_SESSION['sale_product_entryId'] = $_SESSION['sale']['product_entryId'];
+
+            $_SESSION['hidden'] = '';
+            $_SESSION['strikeThrough'] = 'strike-through';
+
+        }else{
+
+            $_SESSION['hidden'] = 'hidden';
+            $_SESSION['strikeThrough'] = '';
+
+        }
         
         //get all the product details for using shared productId
         $_SESSION['productData'] = getShopProduct($productId);

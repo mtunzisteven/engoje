@@ -35,6 +35,21 @@ $products = getShopPaginations($lim, $offset);
 // Get the number of products in db
 $allProducts = getShopProducts();
 
+// all items on sale
+$saleItems = getSaleItems();
+
+if(empty($saleItems)){
+
+    // if no items in sale hide sale
+    $hidden = 'hidden';
+
+}else{
+
+    // if no items in sale hide sale
+    $hidden = '';
+
+}
+
 // Get the total number products in db
 $productsQty = count($allProducts);
 
@@ -70,7 +85,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 
@@ -97,7 +112,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 
@@ -123,7 +138,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 
@@ -153,7 +168,7 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $salePrice);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $hidden, $saleItems);
 
         }else{
 

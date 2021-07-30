@@ -54,8 +54,8 @@ $notices  : 200 20px 'Handlee', sans-serif;
     border-radius: 3px;
     border: none;
     box-shadow: 1px 2px 5px 1px $dark_color;
+    text-shadow: 0 0 1px $dark-color;
     cursor: pointer;
-
 }
 
 @mixin buttonshover(){
@@ -783,7 +783,7 @@ div#checkout-header{
         & div.pagination-container{
             @include flex(row, center, center);
             padding: 10px 0;
-            margin: 20px 0 50px 0;
+            margin: 20px auto 50px auto;
             width:100%;
             border-bottom: 1px $darker-background-color solid;
             border-top: 1px $darker-background-color solid;
@@ -973,6 +973,10 @@ div.single-product-shop{
             & img.product-primary-image{
                 min-width: 75%;
                 max-width: 98%;
+                margin: 0 auto;
+            }
+
+            & img.sale-primary-image{
                 margin: -28px auto 0 auto;
             }
         }

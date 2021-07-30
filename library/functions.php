@@ -63,18 +63,51 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     $_SESSION['order'] = "";
 
+    //var_dump($_SESSION['sale_product_entryId']); exit;
+
     foreach($cartDetails as $cartItem){
 
-        if($_SESSION['order'] == ""){
 
-            $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
-        
+        if(isset($_SESSION['salePrice']) && $cartItem['product_entryId'] == $_SESSION['sale_product_entryId']){ // for sale items, show the correct price
+
+            if($_SESSION['order'] == ""){
+
+                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$_SESSION['salePrice'].",".$cartItem['cart_item_qty'];
+            
+            }else{
+
+                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$_SESSION['salePrice'].",".$cartItem['cart_item_qty'];
+
+            }
+
+
+        $lineTotal = $_SESSION['salePrice']*$cartItem['cart_item_qty'];
+        $grandTotal += $lineTotal;
+
+        $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
+        $cartDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+        $cartDisplay .= "<div>$cartItem[productName]</div>"; 
+        $cartDisplay .= "<div>$cartItem[colour]</div>"; 
+        $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
+        $cartDisplay .= "<div>R<span class='price'>$_SESSION[salePrice]</span></div>"; 
+        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
+        $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
+        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+
         }else{
 
-            $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+            if($_SESSION['order'] == ""){
 
-        }
-        
+                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+            
+            }else{
+
+                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+
+            }
+
+            
+
         $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
         $grandTotal += $lineTotal;
 
@@ -88,6 +121,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
         $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
         $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
+        }
     }
 
     $cartDisplay .= '</div>';
