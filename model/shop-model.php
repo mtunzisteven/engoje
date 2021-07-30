@@ -1046,7 +1046,47 @@ function getProductsBySize($size){
     return $products;
 }
 
-// get product entry qty
+// Get one product entries by pagination
+function getSaleShopProducts($lim, $offset){
+    
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM sale
+                    JOIN product_entry ON product_entry.product_entryId = sale.product_entryId
+                    JOIN images ON product_entry.product_entryId = images.product_entryId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN categories ON product_entry.categoryId = categories.categoryId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    WHERE images.imagePrimary = 1  
+                    ORDER BY product_entry.product_entryId 
+                    LIMIT  :offset, :lim';
+                    #GROUP BY product_entry.productId'; Uncomment to only show one product_entry per product on shop page
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return $productData;
+}
+
+// Get sale product categories
+function getSaleCategories(){
+    
+    $db = zalistingConnect();
+    $sql = 'SELECT* FROM categories
+                    JOIN product_entry ON product_entry.categoryId = categories.categoryId
+                    JOIN sale ON product_entry.product_entryId = sale.product_entryId';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    return $productData;
+}
+
+// get all sale details
 function getSaleItems(){
     $db = zalistingConnect();
     $sql = 'SELECT product_entryId, saleId, salePrice, salePeriod, saleStart FROM sale';

@@ -19,11 +19,29 @@
         ?>
         <div class="shop">
             <div class="side-bar">
-                <h2>Side Bar</h2>
-            </div>
 
+            <?php
+
+                // Display the shop products
+                if(isset($sidebarDisplay)){
+                
+                    if(isset($_SESSION['sidebarDisplay'])){
+
+                        echo $_SESSION['sidebarDisplay'];
+
+                        unset($_SESSION['sidebarDisplay']);
+
+                    }else{
+                        echo $sidebarDisplay;
+                    }
+
+                }
+
+            ?>
+
+            </div>
             
-            <div class='shop-products'>
+            <div class='shop-products-archive'>
                 <?php 
 
                     // Display the shop products
@@ -32,10 +50,24 @@
                         echo $productsDisplay;
 
                     }
+                    
+                    // Display the shop products from filtered sidebar
+                    if(isset($_SESSION['productsDisplay'])){
+
+                        echo $_SESSION['productsDisplay'];
+                        unset($_SESSION['productsDisplay']); //Delete the filter display once displayed
+
+                    }
+
+                    echo "</div>";
+
+                    if(isset($_SESSION['userData'])){
+                        echo "<div class='feedback'><a class='feedback-link' href='/zalisting/?action=fb'>Feedback</a></div>";
+                    }
                 ?>
-            </div>
         </div>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
     </main>
  </body>
+ <script src="/zalisting/js/shopswatch.js"></script>
 </html>
