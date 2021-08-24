@@ -49,10 +49,4 @@ if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
 }
 
 
-// build sidebar display
-$sidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
-$sidebarDisplay .= buildShopSidebarColour($products, 'colour');
-$sidebarDisplay .= buildShopSidebarSize($products, 'sizeValue');
-$sidebarDisplay .= buildShopSidebarCategory($category);
-
 include '../view/sale.php';

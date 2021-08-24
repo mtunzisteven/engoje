@@ -20,27 +20,6 @@ function checkPrice($invPrice){
     return preg_match($pattern, $invPrice);
 }
 
-//  Build Admin Side Nav display
-function buildAdminSideNav(){
-
-    $adminSideNav = "<ul class='dashboard-side-nav'>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin' class='dashboard-side-nav-links dashboard-main-link'>DASHBOARD</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=account' class='dashboard-side-nav-links'>My Account</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/admin/?action=users' class='dashboard-side-nav-links'>Accounts</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/products/?action=product' class='dashboard-side-nav-links'>Products</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a href='/zalisting/upload/' class='dashboard-side-nav-links'>Images</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Orders</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reviews</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Sales</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Reports</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links'>Logs</a></li>";
-    $adminSideNav .= "<li class='dashboard-side-nav-items'><a class='dashboard-side-nav-links' href='/zalisting/accounts/index.php?action=logout'>Logout</a></li>";
-    $adminSideNav .= "</ul>";
-
-    return $adminSideNav;
-}
-
-
 // Build a multi user display view
 function buildUsersDisplay($users){
 
@@ -418,6 +397,8 @@ function buildUserUpdateNav(){
     $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
     $updateNav .="</ul>";
+
+    
 
     return $updateNav;
 }
@@ -830,7 +811,7 @@ function buildproductDisplay($product, $saleItems){
     }
 }
 
-// Build a product block
+// Build a product archive block
 function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems){
 
     // The page number 

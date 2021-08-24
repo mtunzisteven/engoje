@@ -17,8 +17,7 @@ session_cache_expire();
     // Get the reviews model for use as needed
     require_once '../model/reviews-model.php';  
 
-    // Build Admin Side Nav
-    $adminSideNav = buildAdminSideNav();
+
 
     // Build User Update Admin Nav
     $userUpdateNav = buildUserUpdateNav();
@@ -29,15 +28,42 @@ session_cache_expire();
         $action = filter_input(INPUT_GET, 'action');
     }
 
+    // active tab array
+    $_SESSION['active_tab'] = [
+        'account'=>'',
+        'users'=>'',
+        'products'=>'',
+        'images'=>'',
+
+    ];
+
     switch ($action) {
 
         case 'account':
+
+            // activate accounts tab
+            $_SESSION['active_tab']['account'] = 'active';
+
+            // Get the side navs library
+            include '../library/sidenav.php';
+
+            // Build Admin Side Nav
+            $adminSideNav = buildAdminSideNav();
 
             include '../view/account.php';
 
             break;
 
         case 'users':
+
+            // activate users tab
+            $_SESSION['active_tab']['users'] = 'active';
+
+            // Get the side navs library
+            include '../library/sidenav.php';
+
+            // Build Admin Side Nav
+            $adminSideNav = buildAdminSideNav();
 
             $users = getUsers();
 

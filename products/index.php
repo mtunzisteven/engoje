@@ -10,6 +10,8 @@ session_cache_expire();
     require_once '../library/connections.php';
     // Get the database connection file
     require_once '../library/functions.php';
+    // Get the side navs library
+    require_once '../library/sidenav.php';
     // Get the zalisting main model for use as needed
     require_once '../model/main-model.php';
     // Get the accounts model for use as needed

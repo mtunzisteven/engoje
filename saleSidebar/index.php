@@ -37,7 +37,7 @@ $products = getSaleShopProducts($lim, $offset);
 $productsQty = count($products);
 
 // BUild a products archive
-$productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+$productsDisplay = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
 // get categories from db
 $category = getSaleCategories();
@@ -58,10 +58,10 @@ if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
 
 
 // build sidebar display
-$sidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
-$sidebarDisplay .= buildShopSidebarColour($products, 'colour');
-$sidebarDisplay .= buildShopSidebarSize($products, 'sizeValue');
-$sidebarDisplay .= buildShopSidebarCategory($category);
+$saleSidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
+$saleSidebarDisplay .= buildShopSidebarColour($products, 'colour');
+$saleSidebarDisplay .= buildShopSidebarSize($products, 'sizeValue');
+$saleSidebarDisplay .= buildShopSidebarCategory($category);
 
 // get colours and sizes from db
 $colours = getColours();
@@ -95,12 +95,12 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -122,12 +122,12 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -148,12 +148,12 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -178,12 +178,12 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 

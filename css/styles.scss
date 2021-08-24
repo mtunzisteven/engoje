@@ -522,8 +522,29 @@ div#checkout-header{
 *------------------------------------------------Dashboard
 */
 
-.admin-dashboard{    
-    display:none;
+.admin-dashboard{  
+    
+    & .admin-dashboardnav{
+        max-width:100%;
+        min-height: 100%;
+        background-color: $dark-main-color;
+
+        & div.admin-nav{
+
+            & ul.nav li{
+                
+                & .nav-item{
+
+                    & .active{
+                        background-color: $main-color;
+                    }
+
+                }
+            }
+        }
+    }
+
+
 }
 
 .dashboard{
@@ -2585,6 +2606,10 @@ form{
                         }
                     }
                 }
+            }
+
+            & div.sale{
+                max-width: 98%;
             }
         }
 

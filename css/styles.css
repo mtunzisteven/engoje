@@ -579,8 +579,14 @@ div#checkout-header img {
 /*
 *------------------------------------------------Dashboard
 */
-.admin-dashboard {
-  display: none;
+.admin-dashboard .admin-dashboardnav {
+  max-width: 100%;
+  min-height: 100%;
+  background-color: #081f42;
+}
+
+.admin-dashboard .admin-dashboardnav div.admin-nav ul.nav li .nav-item .active {
+  background-color: #0f4392;
 }
 
 .dashboard {
@@ -3577,6 +3583,9 @@ footer.main-footer div.footer-bottom-block a:hover {
   }
   .shop div.shop-products-archive .shop-products .product img.sale {
     margin: -18px auto 2px auto;
+  }
+  .shop div.sale {
+    max-width: 98%;
   }
   div.checkout-display-form {
     display: -webkit-box;

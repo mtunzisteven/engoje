@@ -10,7 +10,9 @@ session_cache_expire();
     require_once '../library/connections.php';
     // Get the functions library
     require_once '../library/functions.php';
-    // Get the PHP Motors model for use as needed
+    // Get the side navs library
+    require_once '../library/sidenav.php';
+    // Get the main model for use as needed
     require_once '../model/main-model.php';
     // Get the acciunts model for use as needed
     require_once '../model/accounts-model.php';

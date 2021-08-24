@@ -27,7 +27,7 @@
                 require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
             ?>
 
-            <section class="dashboard admin-dashboard">
+            <div class="dashboard admin-dashboard">
 
 
                 <?php
@@ -38,7 +38,7 @@
 
                 ?>
 
-                <section class="dashboard-content">
+                <div class="dashboard-content">
                     <?php
                         echo "<h1 class='h2'>Website Admin Dashboard</h1>";
                         if(isset($_SESSION['message'])){
@@ -50,11 +50,11 @@
                         }
                     ?>
                     <p> This is where all the website management operations will be handled</p>
-                </section>
-            </section>            
+                    </div>
+                </div>            
         </main>
-        <script src="/zalisting/js/counts.js"></script>
-        <script src="/zalisting/js/sliders.js"></script>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     </body>
 </html>
 <?php 
