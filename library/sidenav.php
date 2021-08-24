@@ -77,45 +77,38 @@ function buildAdminSideNav(){
     // make sure $active_tab['users'] is set
     if(isset($_SESSION['active_tab'])){
 
-        $adminSideNav = SVG.
+        $adminSideNav = 
         '<main class="admin-dashboardnav">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-white admin-nav" style="width: 280px;">
-                <a href="/zalisting/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                &nbsp;<img width="32" height="19" src="/zalisting/images/lightlogo.png" alt="logo">
-                    <span class="fs-4">&nbsp;Home</span>
+                <a href="/zalisting/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <span class="fs-4">Dashboard</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto"> 
                     <li class="nav-item">
                         <a href="/zalisting/admin/?action=account" class="nav-link text-white '.$_SESSION['active_tab']['account'].'">
-                            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer"/></svg>
-                            Dashboard
+                            <i class="bi bi-speedometer"></i>
+                            &nbsp;Account Home
                         </a>
                     </li>
                     <li>
                     <a href="/zalisting/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                        users
+                      <i class="bi bi-people"></i>
+                      &nbsp;Users
                     </a>
                     </li>
                     <li>
                     <a href="/zalisting/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                        Products
+                      <i class="bi bi-basket2"></i>
+                      &nbsp;Products
                     </a>
                     </li>
                     <li>
                     <a href="/zalisting/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                        Images
+                      <i class="bi bi-images"></i>
+                      &nbsp;Images
                     </a>
-                    </li>
-                    <li>
-                    <a href="#" class="nav-link text-white">
-                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                        Customers
-                    </a>
-                    </li>
+           
                 </ul>
                 <hr>
                 <div class="dropdown">

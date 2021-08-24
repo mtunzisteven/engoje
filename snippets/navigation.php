@@ -1,56 +1,54 @@
-<nav class="nav desktop-nav" id='nav'>
-    <div class="nav-right-block">
+<nav class="navbar navbar-expand-lg navbar all-nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/zalisting/">        
         <img src=" /zalisting/images/logo.png" alt="logo image">
-        <ul class="nav-desktop-items">
-            <li class="nav-list-item"><a href=" /zalisting/" class="nav-list-link <?php if($pageName=="Home"){echo 'active';} ?>">HOME</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/shop" class="nav-list-link <?php if($pageName=="Shop" || $pageName=="Cart" || $pageName=="Checkout" || $pageName=="Wishlist"){echo 'active';} ?>">SHOP</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">NEW</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">SALE</a></li>
-        </ul>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="navbar-toggler-icon bi bi-list"></i> 
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link <?php if($pageName=="Home"){echo 'active';} ?>" aria-current="page" href="/zalisting/">HOME</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link <?php if($pageName=="Shop"){echo 'active';} ?>" aria-current="page" href="/zalisting/shop">SHOP</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link <?php if($pageName=="New"){echo 'active';} ?>" aria-current="page" href="/zalisting/new">NEW</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link <?php if($pageName=="Sale"){echo 'active';} ?>" aria-current="page" href="/zalisting/sale">SALE</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="buttons" type="submit"><i class='bi bi-search'></i></button>
+      </form>
+      
     </div>
-    <div class="fa-item-container">
-        <i class='nav-hamburger-account fa fa-search'></i>
-        <div class="fa-items-container">
-            <?php 
-                if(isset($_SESSION['userData']['userFirstName'])){
-                    
-                    $active = '';
-                    
-                    if($pageName=='Account'){
-                        
-                        $active = 'active';
+  </div>
+    <div class="icons-container">
+        <?php 
+            if(isset($_SESSION['userData']['userFirstName'])){
 
-                        echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='$active nav-hamburger-account fa fa-user'></i></a>";
-                        echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
-                        echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
-                
-                    }else{
-                        
-                        echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='$active nav-hamburger-account fa fa-user'></i></a>";
-                        echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
-                        echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
-   
-                    }
+                echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
+                echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
-                } else{
-                    echo "<a class='account' href='/zalisting/accounts/index.php?action=login' title='Your Account'>Login</a>";
-                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
-                    echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count'  id='cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
+            } else{
+                echo "<a class='account' href='/zalisting/accounts/index.php?action=login' title='Your Account'>Login</a>";
+                echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count'  id='cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
-                } 
-            ?>
-        </div>
+            } 
+        ?>
     </div>
 </nav>
-
 <nav class="nav mobile-nav">
-
-    <div class="nav-menu-logo">
-        <i class="nav-hamburger-menu fa fa-bars"></i>
-        <img src=" /zalisting/images/lightlogo.png" alt="logo image">
-        <i class='nav-hamburger-account fa fa-search'></i> 
-    </div>
-
     <div class="bottom-nav-container">
         <a class='nav-hamburger-account user' href='/zalisting/shop' title='Your Account'><i class="fas fa-store-alt"></i></a>
         <?php 
@@ -62,50 +60,24 @@
                     
                     $active = 'active';
 
-                    echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='$active nav-hamburger-account fa fa-user'></i></a>";
-                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
-                    echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
+                    echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
             
                 }else{
                     
-                    echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='$active nav-hamburger-account fa fa-user'></i></a>";
-                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
-                    echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
+                    echo "<a class='nav-hamburger-account user' href='/zalisting/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                    echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
                 }
 
             } else{
                 echo "<a class='account' href='/zalisting/accounts/index.php?action=login'>Login</a>";
-                echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='nav-hamburger-account fa fa-heart'></i></a>";
-                echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count'  id='mobile-cart-count'>0</div><i class='nav-hamburger-account fa fa-shopping-basket'></i></a>";
+                echo "<a class='nav-hamburger-account shopping-wishlist' href='/zalisting/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                echo "<a class='nav-hamburger-account shopping-cart' href='/zalisting/cart?action=cart'><div class='cart-count'  id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
             } 
         ?>
     </div>
-
-    <div class="nav-hamburger-container hidden">
-
-        <div class="nav-hamburger-top">
-            <div class="fa-item-container">
-                <img src=" /zalisting/images/lightlogo.png" alt="logo image">
-                <?php 
-                if(isset($_SESSION['userData']['userFirstName'])){
-                    echo "<p class='nav-hamburger-hello'>Hello ". $_SESSION['userData']['userFirstName']."</p>";
-                } else{
-                    echo "<a class='account' href='/zalisting/accounts/index.php?action=login'>Login</a>";
-                } 
-                ?>
-            </div>
-            <i class="nav-hamburger-close fa fa-times"></i>
-        </div>
-        <ul class="nav-mobile-items">
-            <li class="nav-list-item"><a href=" /zalisting/" class="nav-list-link <?php if($pageName=="Home"){echo 'active';} ?>">HOME</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/shop" class="nav-list-link <?php if($pageName=="Shop"){echo 'active';} ?>">SHOP</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/new" class="nav-list-link <?php if($pageName=="New"){echo 'active';} ?>">NEW</a></li>
-            <li class="nav-list-item"><a href=" /zalisting/sale" class="nav-list-link <?php if($pageName=="Sale"){echo 'active';} ?>">SALE</a></li>
-        </ul>
-        
-
-    </div>
-
 </nav>

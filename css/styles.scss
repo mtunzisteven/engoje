@@ -253,12 +253,118 @@ input, textarea, button, a{
     background-color: $darker-background-color;
 }
 
-.desktop-nav, .hidden{
-    display:none;
+.all-nav{
+    background-color: $dark-main-color;
+    height:60px;
+    line-height:60px;
+    padding: 0;
+    max-width:100%;
+    box-shadow: 0 2px 5px 1px $light-dark-color;
+
+    & div.container-fluid{
+        background-color: $dark-main-color;
+        padding: 0 3%;
+        
+        & .navbar-brand{
+
+            & img{
+                width: 48px;
+                height: auto;
+                margin:0;
+            }
+        }
+
+        & .navbar-toggler{ 
+            color:$darker-background-color;
+
+            & .navbar-toggler-icon{
+                color:$darker-background-color;
+                font-size: 40px;
+                line-height: 60px;
+                margin:0;
+                padding:0;
+
+            }
+
+            & .navbar-toggler-icon:hover{
+                color:$light-main-color;
+                outline:none;
+            }
+
+            & .navbar-toggler-icon:focus{
+                outline:none;
+
+            }
+
+        }
+
+        & .navbar-toggler:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        & .navbar-collapse{
+
+            & a{
+                color:$darker-background-color;
+            }
+
+            & a:hover{
+                color:$light-secondary-color;
+
+            }
+
+            & a.active{
+                color:$light-main-color;
+            }
+        }
+    }
+
+    & div.collapse{
+        background-color: $dark-main-color;
+        width:100%;
+        padding: 0;
+        
+        & .d-flex{
+            @include flex(row, space-between, center);
+            max-height: 40px;
+            border: none;
+
+            & input{
+                border-radius: 3px 0 0 3px;
+                height: 30px;
+                margin: 0;
+
+            }
+
+            & .buttons{
+                @include buttons($secondary-color, 60px, 30px);
+                border-radius: 0 3px 3px 0;
+                margin-left:-10px;
+                box-shadow: none;
+
+                & i{
+                    color: $background-color;
+                    box-shadow: none;
+                    font-size: 16px;
+                }
+            }
+
+            & .buttons:hover{
+                @include buttonshover();
+                box-shadow: none;
+
+            }
+        }
+    }
+
+    & .icons-container{
+        display:none;
+    }
 }
 
-.mobile-nav{
-    display:block;
+.hidden{
+    display:none;
 }
 
 li{
@@ -526,7 +632,7 @@ div#checkout-header{
     
     & .admin-dashboardnav{
         max-width:100%;
-        min-height: 100%;
+        min-height: 800px;        
         background-color: $dark-main-color;
 
         & div.admin-nav{
@@ -2126,127 +2232,7 @@ form{
         display:none;
     } 
 
-    nav.desktop-nav{
-        @include flex();
-        background-color: $background-color;
-        height:40px;
-        line-height:40px;
-        padding: 0 3%;
-        max-width:100%;
-        box-shadow: $box-shadow;
-
-        & .nav-right-block{
-            @include flex();
-            height:40px;
-            line-height:40px;
-
-            & img{
-                max-height: 38px; 
-                margin: 0 10px 0 0;
-            }
-
-            & li{
-                padding:10px;
-                
-                & a{
-                    color:$dark-color; 
-                }
-
-                & a:hover{
-                    color:$light-main-color;
-                }
-        
-                & a.active{
-                    color:$secondary-color;
-                }
-            }
-        }
-
-        & .nav-desktop-items {
-            @include flex();
-        }
-
-        & .fa-item-container {
-            @include flex();
-
-            & .fa-items-container{
-                @include flex();
-                min-height:40px;
-                line-height: 40px;
-
-                & .shopping-cart{
-                    margin:0 0 25px 2px;
-
-                    & .fa-shopping-basket{
-                        padding: 0;
-                        border-radius:4px;
-                        margin:0;
-
-                    }
-                    
-                    & .cart-count{
-                        @include product-count(4px, -10px);
-
-                    }
-                }
-                
-                & .shopping-wishlist{
-                    margin:0 0 23px 0;
-                    
-                    & .fa-heart{
-                        font-size: 18px !important;
-                        margin: -2px 0 0 0;
-
-                    }
-
-                    & .wishlist-count{
-                        @include product-count(3px, -45%);
-                    }
-                }
-                
-                & a{
-                    height:22px;
-                    line-height:22px;
-                    font-size:14px;
-                    color:$dark-main-color;
-                    padding:1px 8px;
-                    border-radius: 3px;
-                    box-shadow: none;
-                }
-
-                & a:hover{
-                    color:$light-main-color;
-                }
-
-                & a.user{
-                    background-color:$background-color;
-                    padding-bottom: 0;
-
-                    & .fa-user{
-                        margin:0 0 -5px 2px;
-                        font-size:20px;
-                        display: inline;
-                    }
-                }
-
-            }
-
-            & .fa{
-                @include flex();
-                font-size:18px;
-                color: $dark-color;
-                background-color:$background-color;
-                margin:0 5px;
-                height:20px;
-                line-height:20px;
-            }
-
-            & .fa:hover{
-                color: $light-main-color;
-                background-color:$background-color;
-            }
-        }
-    }
+   
 
     /*
     *------------------------------------------------Dashboard
@@ -2813,6 +2799,99 @@ form{
 //                           Desktop                             |
 //---------------------------------------------------------------
 @media only screen and (min-width: 1080px){
+
+    .all-nav{
+        padding: 0 3%;
+    
+        & div.container-fluid{
+            padding: 0;
+        }
+    
+        & div.collapse{
+            min-width:80%;
+            height: 60px;
+
+            & .d-flex{
+                @include flex(row, space-between, center);
+                max-height: 40px;
+                border: none;
+    
+                & input{
+                    border-radius: 3px 0 0 3px;
+                    height: 30px;
+                    margin: 0;
+    
+                }
+    
+                & .buttons{
+                    @include buttons($secondary-color, 60px, 30px);
+                    border-radius: 0 3px 3px 0;
+                    margin-left:-10px;
+                    box-shadow: none;
+    
+                    & i{
+                        color: $background-color;
+                        box-shadow: none;
+                        font-size: 16px;
+                    }
+                }
+    
+                & .buttons:hover{
+                    @include buttonshover();
+                    box-shadow: none;
+    
+                }
+            }
+        }
+    
+        & .icons-container{
+            @include flex(row, space-between, center);
+            width: 120px;
+            height: 60px;
+            line-height: 60px;
+    
+            & a{
+                display:block;
+                color: $darker-background-color;
+                font-size: 22px;
+                text-decoration: none;
+                height: 90px;
+                line-height: 60px;
+    
+                & .bi{
+                    font-size: 18px;
+                    margin-bottom: 10px;
+    
+                }
+    
+                & .bi-person-fill{
+    
+                    font-size: 22px;
+    
+                }
+        
+                & .cart-count{
+                    @include product-count(21px, -11px);
+        
+                }
+        
+                & .wishlist-count{
+                    @include product-count(21px, -65%);
+    
+                }
+            }
+    
+            & a.user{
+                height: 30px;
+                line-height: 30px;
+            }
+        
+            & a:hover{
+                color:$light-main-color;
+            }
+    
+        }
+    }
 
     div.single-product-shop{
         @include flex(row, space-between, flex-start);
