@@ -406,8 +406,11 @@ img.product-image{
     width:100%;
     line-height: 50px;
     text-align: center;
-    color:$background-color;
-    background-color: $dark-main-color;
+    color: $dark-secondary-color;
+    background-color: $background-color;
+    font: $h1;
+    font-size: 24px;
+    font-weight: 800px;
 }
 
 /*------------------------------------------------Header-top END
@@ -417,131 +420,6 @@ img.product-image{
 /*
 * -------------------------------------------Nav Menu
 */
-nav.mobile-nav{
-    @include flex();
-    height:60px;
-    line-height: 60px;
-    width:94%;
-    padding: 5px 3%;
-    color:$background-color;
-
-    & .nav-hamburger-top{
-        @include flex();
-
-        & .nav-logo-hello-container{
-            @include flex();
-
-        }
-
-        & img{
-            max-width: 80px;
-            height: 35px; 
-        }
-    }
-
-    & .fa-item-container{
-        @include flex();
-        height: 15px;
-        line-height: 15px;
-
-        & a.account{
-            font: $p;
-            color:$dark-color;
-            padding:5px;
-            background-color:$background-color;
-            border-radius: 3px;
-        }
-
-        & .fa{
-            font-size:25px;
-            padding: 0 8px 0 0;
-            color:$background-color;
-        }
-    }
-
-    & .nav-menu-logo{
-        @include flex();
-        min-width: 100%;
-        height: 80px;
-        line-height: 80px;
-
-        & img{
-            max-height: 58px;
-            margin: 0 0 0 8px;
-        }
-
-        & .fa{
-            font-size:30px;
-        }
-    }
-
-    .show{
-        position:absolute;
-        top:0;
-        left:0;
-        z-index: 1000;
-        width:100%;
-        height:100%;
-        color:$dark-color;
-        background-color: $background-color;
-
-        & .nav-hamburger-top{
-            @include flex(row,space-between,center);
-            height:50px;
-            line-height:50px;
-            background-color: $light-main-color;
-            padding:0 15px;
-
-            & .fa-item-container{
-                @include flex(row,space-between,center);
-                width: 100%;
-                height:30px;
-                line-height: 15px;
-                            
-                & p.nav-hamburger-hello{
-                    font-size:20px;
-                    color:$background-color;
-                    padding:5px;
-                    margin: 0 5px 0 0;
-                    border-radius: 3px;
-                }
-
-                & a.account{
-                    font-size:14px;
-                    color:$dark-color;
-                    margin: 0 5px 0 0;
-
-                }
-
-                & img{
-                    font-size:14px;
-                    color:$background-color;
-                }
-            }
-
-            & i.nav-hamburger-close{
-                font-size:20px;
-                color:$background-color;
-                margin:0;
-                padding:0;
-            
-            }
-        }
-
-        & a.nav-list-link{
-            color:$dark-color;
-            padding-left:15px;
-        }
-
-        & a.nav-list-link:hover{
-            color:$light-main-color;
-        }
-
-        & a.active{
-            color:$dark-secondary-color;
-        }
-    }
-}
 
 div.bottom-nav-container{
     @include flex();
@@ -551,7 +429,7 @@ div.bottom-nav-container{
     left:0;
     z-index:1000;
     background-color: $background-color;
-    min-width: 80%;
+    min-width: 100%;
     height: 50px;
     line-height: 50px;
     padding: 0 10%;
@@ -561,19 +439,27 @@ div.bottom-nav-container{
         display:block;
         color: $dark-color;
         font-size: 150%;
+        text-decoration: none;
 
-        & .fa-shopping-basket, .fa-heart{
-            margin: 0 0 18px 0;
-            font-size: 90%;
+        & .bi{
+            font-size: 20px;
+            margin-bottom: 20px;
+
+        }
+
+        & .bi-person-fill{
+            font-size: 30px;
+            margin-bottom: 0;
         }
 
         & .cart-count{
-            @include product-count(7px, -15px);
+            @include product-count(5px, -17px);
 
         }
 
         & .wishlist-count{
-            @include product-count(6px, -65%);
+            @include product-count(3px, -69%);
+
         }
     }
 
@@ -2259,10 +2145,6 @@ form{
 }
 
 @media only screen and (min-width: 880px){
-    nav.mobile-nav{
-        display:none;
-    } 
-
    
 
     /*
@@ -2608,7 +2490,7 @@ form{
 
                         & a{
                             text-decoration: none;
-                            
+
                             & div.sale-circle{
                                 @include saleIcon( 8px);
                 
@@ -2834,6 +2716,10 @@ form{
 //                           Desktop                             |
 //---------------------------------------------------------------
 @media only screen and (min-width: 1080px){
+
+    div.bottom-nav-container{
+        display: none;
+    }
 
     .all-nav{
         padding: 0 3%;
