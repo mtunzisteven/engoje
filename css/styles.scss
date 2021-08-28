@@ -5,9 +5,9 @@ $main-color: #0f4392;
 $dark-main-color: #081f42;
 $darker-main-color: #051124;
 $light-main-color:#80a1d1;
-$secondary-color: #ff4949;
-$dark-secondary-color: #DD1717;
-$light-secondary-color: #fa9595;
+$secondary-color: #fea500;
+$dark-secondary-color: #df9205;
+$light-secondary-color: #fcba40;
 $green_colour: #008000;
 $background-color:#fdfdfd;
 $darker-background-color:#d8d5d5;
@@ -49,12 +49,12 @@ $notices  : 200 20px 'Handlee', sans-serif;
     height:$height;
     line-height: $height;
     text-align: center;
-    color:$background-color;
+    color: $darker-main-color;
     background-color: $backColor;
     border-radius: 3px;
     border: none;
     box-shadow: 1px 2px 5px 1px $dark_color;
-    text-shadow: 0 0 1px $dark-color;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -78,7 +78,7 @@ $notices  : 200 20px 'Handlee', sans-serif;
     z-index: 1000;
     top:$top;
     right: $right;
-    color:$background-color;
+    color:$darker-main-color;
     background-color: $secondary-color;
     width: 15px;
     height: 15px; 
@@ -98,20 +98,21 @@ $notices  : 200 20px 'Handlee', sans-serif;
     box-shadow: 0 0 10px 0 $green_colour;
 }
 
-@mixin saleIcon($top: 3px, $left: 5px, $width: 30px, $height: 16px){
+@mixin saleIcon($top: 5px, $left: 5px, $width: 35px, $height: 25px){
     position: relative;
     z-index: 900;
     top: $top;
     left: $left;
-    color: $background-color;
+    color: $darker-main-color;
     background-color: $secondary-color;
     width: $width;
     height: $height;
     font: $p;
     padding: 2px;
-    line-height: $height;
+    line-height: $height/1.2;
     border-radius: 3px;
     text-align: center;
+    text-decoration: none;
 }
 
 /*
@@ -925,7 +926,7 @@ div#checkout-header{
                 border-radius: 3px;
                 border: 1px $light-dark-color solid;
                 text-align: center;
-
+                text-decoration: none;
 
             }
 
@@ -939,7 +940,7 @@ div#checkout-header{
             }
 
             & a.pagination-number{
-                max-width: 20px;
+                max-width: 40px;
             }
 
             & a.no-border{
@@ -997,7 +998,8 @@ div#checkout-header{
     
                 & .productName-link{
                     color:$main-color;
-    
+                    text-decoration: none;
+
                     & .productName{
                         text-align: left;
                         padding:2px 5px;
@@ -1035,6 +1037,7 @@ div#checkout-header{
                     & .strike-through{
                         color: $light-dark-color;
                         text-decoration: line-through;
+                        margin-bottom: 0;
                     }
                 }
     
@@ -1067,8 +1070,9 @@ div#checkout-header{
 
         & a.feedback-link{
             display:block;
-            color:$background-color;
+            color: $darker-main-color;
             padding: 5px 10px;
+            text-decoration: none;
         }
     }
 
@@ -1092,7 +1096,7 @@ div.single-product-shop{
         & div.sale-img-container{
 
             & div.sale-circle{
-                @include saleIcon(18px, 10px, 40px, 24px);
+                @include saleIcon(5px, 10px, 40px, 24px);
 
             }
 
@@ -1103,7 +1107,7 @@ div.single-product-shop{
             }
 
             & img.sale-primary-image{
-                margin: -28px auto 0 auto;
+                margin: -25px auto 0 auto;
             }
         }
 
@@ -1282,11 +1286,12 @@ form.form-add-to-cart{
     
         & #add-to-cart-button:hover{
             background-color: $light-main-color;
+            color: $darker-main-color;
         }
 
         & #add-to-wishlist-button{
             background-color: $light-main-color;
-            color: $background-color;
+            color: $darker-main-color;
             width:45%;
             height:28px;
             line-height: 28px;
@@ -1299,7 +1304,7 @@ form.form-add-to-cart{
 
         & #add-to-wishlist-button:hover{
             background-color: $secondary-color;
-            color: $background-color;
+            color: $darker-main-color;
 
         }
     }
@@ -1324,6 +1329,7 @@ form.form-add-to-cart{
         & .strike-through{
             color: $light-dark-color;
             text-decoration: line-through;
+            margin-bottom: 0;
         }
     }
 }
@@ -1483,7 +1489,7 @@ div.checkout-display-form{
               
         & div.button{
             width: 100%;
-            color: $background-color;
+            color: $darker-main-color;
             text-align: center;
             margin-top: 15px auto;
             padding: 5px;
@@ -2600,20 +2606,24 @@ form{
                         max-width:220px;
                         margin: 5px;
 
-                        & div.sale-circle{
-                            @include saleIcon( 8px);
-            
-                        }
-
-                        & img{
-                            width:214px;
-                            display: block;
-                            margin: 2px auto;
-
-                        }              
-
-                        & img.sale{
-                            margin: -18px auto 2px auto;
+                        & a{
+                            text-decoration: none;
+                            
+                            & div.sale-circle{
+                                @include saleIcon( 8px);
+                
+                            }
+    
+                            & img{
+                                width:214px;
+                                display: block;
+                                margin: 0 auto 2px auto;
+    
+                            }              
+    
+                            & img.sale{
+                                margin: -24px auto 2px auto;
+                            }
                         }
                     }
                 }

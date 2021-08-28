@@ -57,7 +57,7 @@ body .admin-main {
 body .detail-span-bold {
   font-size: 13px;
   font-style: italic;
-  color: #DD1717;
+  color: #df9205;
   text-align: left;
 }
 
@@ -143,13 +143,13 @@ body .button {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  color: #fdfdfd;
-  background-color: #ff4949;
+  color: #051124;
+  background-color: #fea500;
   border-radius: 3px;
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
-  text-shadow: 0 0 1px #3a3939;
+  text-decoration: none;
   cursor: pointer;
   font: 200 15px "Nunito", sans-serif;
 }
@@ -162,7 +162,7 @@ body .button:hover {
 }
 
 .active {
-  color: #ff4949;
+  color: #fea500;
 }
 
 input, textarea, button, a {
@@ -226,7 +226,7 @@ input, textarea, button, a {
 }
 
 .all-nav div.container-fluid .navbar-collapse a:hover {
-  color: #fa9595;
+  color: #fcba40;
 }
 
 .all-nav div.container-fluid .navbar-collapse a.active {
@@ -271,13 +271,13 @@ input, textarea, button, a {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  color: #fdfdfd;
-  background-color: #ff4949;
+  color: #051124;
+  background-color: #fea500;
   border-radius: 3px;
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
-  text-shadow: 0 0 1px #3a3939;
+  text-decoration: none;
   cursor: pointer;
   border-radius: 0 3px 3px 0;
   margin-left: -10px;
@@ -578,7 +578,7 @@ nav.mobile-nav .show a.nav-list-link:hover {
 }
 
 nav.mobile-nav .show a.active {
-  color: #DD1717;
+  color: #df9205;
 }
 
 div.bottom-nav-container {
@@ -627,8 +627,8 @@ div.bottom-nav-container a .cart-count {
   z-index: 1000;
   top: 7px;
   right: -15px;
-  color: #fdfdfd;
-  background-color: #ff4949;
+  color: #051124;
+  background-color: #fea500;
   width: 15px;
   height: 15px;
   line-height: 15px;
@@ -642,8 +642,8 @@ div.bottom-nav-container a .wishlist-count {
   z-index: 1000;
   top: 6px;
   right: -65%;
-  color: #fdfdfd;
-  background-color: #ff4949;
+  color: #051124;
+  background-color: #fea500;
   width: 15px;
   height: 15px;
   line-height: 15px;
@@ -657,7 +657,7 @@ div.bottom-nav-container a:hover {
 }
 
 div.bottom-nav-container a.active {
-  color: #ff4949;
+  color: #fea500;
 }
 
 .header-bottom {
@@ -673,7 +673,7 @@ div.bottom-nav-container a.active {
 }
 
 .shop-hero {
-  background-color: #ff4949;
+  background-color: #fea500;
 }
 
 div#checkout-header {
@@ -764,15 +764,15 @@ div#checkout-header img {
 }
 
 .dashboard .dashboard-side-nav .active-li {
-  background-color: #ff4949;
+  background-color: #fea500;
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items {
-  background-color: #fa9595;
+  background-color: #fcba40;
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items .account-dashboard-main-link {
-  background-color: #ff4949;
+  background-color: #fea500;
   font-weight: 900;
   color: #fdfdfd;
   margin-left: 0;
@@ -780,22 +780,22 @@ div#checkout-header img {
 }
 
 .dashboard .dashboard-side-nav .account-dashboard-side-nav-items:hover {
-  background-color: #DD1717;
+  background-color: #df9205;
 }
 
 .dashboard .account-side-nav {
-  background-color: #fa9595 !important;
+  background-color: #fcba40 !important;
   padding-right: 1px;
 }
 
 .dashboard .account-side-nav .dashboard-side-nav-items {
   border: none;
-  background-color: #fa9595;
+  background-color: #fcba40;
 }
 
 .dashboard .account-side-nav .dashboard-side-nav-items .dashboard-main-link {
   font-weight: 900;
-  background-color: #ff4949;
+  background-color: #fea500;
   margin-left: 0;
   text-align: center;
 }
@@ -832,7 +832,7 @@ div#checkout-header img {
 }
 
 .dashboard .Account-content {
-  border: 1px solid #ff4949;
+  border: 1px solid #fea500;
 }
 
 /*------------------------------------------------Dashboard END
@@ -870,7 +870,7 @@ div#checkout-header img {
   min-width: 47%;
   color: #fdfdfd;
   border-radius: 5px;
-  background-color: #ff4949;
+  background-color: #fea500;
 }
 
 .categories .category p {
@@ -1062,12 +1062,12 @@ div#checkout-header img {
   margin: 0 5px;
   padding: 3px 5px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 5px 0 #fa9595;
-          box-shadow: inset 0 0 5px 0 #fa9595;
+  -webkit-box-shadow: inset 0 0 5px 0 #fcba40;
+          box-shadow: inset 0 0 5px 0 #fcba40;
 }
 
 .shop div.shop-products-archive div.shop-products-filtersOrder div.shop-products-filters div.filter a:hover {
-  color: #ff4949;
+  color: #fea500;
 }
 
 .shop div.shop-products-archive div.pagination-container {
@@ -1103,6 +1103,7 @@ div#checkout-header img {
   border-radius: 3px;
   border: 1px #929292 solid;
   text-align: center;
+  text-decoration: none;
 }
 
 .shop div.shop-products-archive div.pagination-container a.pagination:hover {
@@ -1110,12 +1111,12 @@ div#checkout-header img {
 }
 
 .shop div.shop-products-archive div.pagination-container a.pagination:focus {
-  -webkit-box-shadow: 0 0 5px 3px #fa9595;
-          box-shadow: 0 0 5px 3px #fa9595;
+  -webkit-box-shadow: 0 0 5px 3px #fcba40;
+          box-shadow: 0 0 5px 3px #fcba40;
 }
 
 .shop div.shop-products-archive div.pagination-container a.pagination-number {
-  max-width: 20px;
+  max-width: 40px;
 }
 
 .shop div.shop-products-archive div.pagination-container a.no-border {
@@ -1133,8 +1134,8 @@ div#checkout-header img {
 }
 
 .shop div.shop-products-archive div.pagination-container a.active-pagination {
-  -webkit-box-shadow: 0 0 5px 3px #fa9595;
-          box-shadow: 0 0 5px 3px #fa9595;
+  -webkit-box-shadow: 0 0 5px 3px #fcba40;
+          box-shadow: 0 0 5px 3px #fcba40;
 }
 
 .shop div.shop-products-archive .shop-products {
@@ -1179,17 +1180,18 @@ div#checkout-header img {
 .shop div.shop-products-archive .shop-products .product div.sale-circle {
   position: relative;
   z-index: 900;
-  top: 3px;
+  top: 5px;
   left: 5px;
-  color: #fdfdfd;
-  background-color: #ff4949;
-  width: 30px;
-  height: 16px;
+  color: #051124;
+  background-color: #fea500;
+  width: 35px;
+  height: 25px;
   font: 200 15px "Nunito", sans-serif;
   padding: 2px;
-  line-height: 16px;
+  line-height: 20.83333px;
   border-radius: 3px;
   text-align: center;
+  text-decoration: none;
 }
 
 .shop div.shop-products-archive .shop-products .product img {
@@ -1203,6 +1205,7 @@ div#checkout-header img {
 
 .shop div.shop-products-archive .shop-products .product .productName-link {
   color: #0f4392;
+  text-decoration: none;
 }
 
 .shop div.shop-products-archive .shop-products .product .productName-link .productName {
@@ -1214,7 +1217,7 @@ div#checkout-header img {
 }
 
 .shop div.shop-products-archive .shop-products .product .productName-link:hover {
-  color: #ff4949;
+  color: #fea500;
 }
 
 .shop div.shop-products-archive .shop-products .product div.sale-prices-container {
@@ -1248,12 +1251,13 @@ div#checkout-header img {
 
 .shop div.shop-products-archive .shop-products .product div.sale-prices-container .sale-price {
   margin: 2px;
-  color: #DD1717;
+  color: #df9205;
 }
 
 .shop div.shop-products-archive .shop-products .product div.sale-prices-container .strike-through {
   color: #929292;
   text-decoration: line-through;
+  margin-bottom: 0;
 }
 
 .shop div.shop-products-archive .shop-products .product h5 {
@@ -1275,7 +1279,7 @@ div#checkout-header img {
   top: 850px;
   right: 0;
   margin: 0 -30px 0 0;
-  background-color: #ff4949;
+  background-color: #fea500;
   border-radius: 3px;
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
@@ -1283,8 +1287,9 @@ div#checkout-header img {
 
 .shop div.feedback a.feedback-link {
   display: block;
-  color: #fdfdfd;
+  color: #051124;
   padding: 5px 10px;
+  text-decoration: none;
 }
 
 .shop div.feedback:hover {
@@ -1335,17 +1340,18 @@ div.single-product-shop div.single-product {
 div.single-product-shop div.single-product div.sale-img-container div.sale-circle {
   position: relative;
   z-index: 900;
-  top: 18px;
+  top: 5px;
   left: 10px;
-  color: #fdfdfd;
-  background-color: #ff4949;
+  color: #051124;
+  background-color: #fea500;
   width: 40px;
   height: 24px;
   font: 200 15px "Nunito", sans-serif;
   padding: 2px;
-  line-height: 24px;
+  line-height: 20px;
   border-radius: 3px;
   text-align: center;
+  text-decoration: none;
 }
 
 div.single-product-shop div.single-product div.sale-img-container img.product-primary-image {
@@ -1355,7 +1361,7 @@ div.single-product-shop div.single-product div.sale-img-container img.product-pr
 }
 
 div.single-product-shop div.single-product div.sale-img-container img.sale-primary-image {
-  margin: -28px auto 0 auto;
+  margin: -25px auto 0 auto;
 }
 
 div.single-product-shop div.single-product div.single-product-gallery {
@@ -1425,9 +1431,9 @@ form input:focus {
 }
 
 form input.validity:focus:invalid {
-  border: 1px solid #DD1717;
-  -webkit-box-shadow: 0 0 10px 0 #DD1717;
-          box-shadow: 0 0 10px 0 #DD1717;
+  border: 1px solid #df9205;
+  -webkit-box-shadow: 0 0 10px 0 #df9205;
+          box-shadow: 0 0 10px 0 #df9205;
 }
 
 form input.validity:focus:valid {
@@ -1448,13 +1454,13 @@ form .button {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  color: #fdfdfd;
-  background-color: #ff4949;
+  color: #051124;
+  background-color: #fea500;
   border-radius: 3px;
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
-  text-shadow: 0 0 1px #3a3939;
+  text-decoration: none;
   cursor: pointer;
   height: 30px;
   line-height: 30px;
@@ -1466,13 +1472,13 @@ form .login-reg-button {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  color: #fdfdfd;
+  color: #051124;
   background-color: #0f4392;
   border-radius: 3px;
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
           box-shadow: 1px 2px 5px 1px #3a3939;
-  text-shadow: 0 0 1px #3a3939;
+  text-decoration: none;
   cursor: pointer;
   height: 30px;
   line-height: 30px;
@@ -1487,7 +1493,7 @@ form .login-reg-button:hover {
 
 form .detail-span {
   text-align: center;
-  color: #DD1717;
+  color: #df9205;
   font-size: 12px;
   font-style: italic;
   margin: -10px 0 20px 0;
@@ -1626,11 +1632,12 @@ form.form-add-to-cart .add-to-cart-container #add-to-cart-button {
 
 form.form-add-to-cart .add-to-cart-container #add-to-cart-button:hover {
   background-color: #80a1d1;
+  color: #051124;
 }
 
 form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button {
   background-color: #80a1d1;
-  color: #fdfdfd;
+  color: #051124;
   width: 45%;
   height: 28px;
   line-height: 28px;
@@ -1643,8 +1650,8 @@ form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button {
 }
 
 form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button:hover {
-  background-color: #ff4949;
-  color: #fdfdfd;
+  background-color: #fea500;
+  color: #051124;
 }
 
 form.form-add-to-cart div.sale-prices-container {
@@ -1676,12 +1683,13 @@ form.form-add-to-cart div.sale-prices-container .productPrice {
 
 form.form-add-to-cart div.sale-prices-container .sale-price {
   margin: 2px;
-  color: #ff4949;
+  color: #fea500;
 }
 
 form.form-add-to-cart div.sale-prices-container .strike-through {
   color: #929292;
   text-decoration: line-through;
+  margin-bottom: 0;
 }
 
 div.uploads-container {
@@ -1827,7 +1835,7 @@ form.payfast-form input.button {
   width: 98%;
   min-height: 25px;
   line-height: 20px;
-  background-color: #ff4949;
+  background-color: #fea500;
 }
 
 form.payfast-form input.button:hover {
@@ -1901,7 +1909,7 @@ div.checkout-display-form .address-column div.ship-address div.ship-to {
   min-width: 10px;
   min-height: 10px;
   border-radius: 10px;
-  background-color: #ff4949;
+  background-color: #fea500;
   border: 3px solid #081f42;
 }
 
@@ -1917,7 +1925,7 @@ div.checkout-display-form .address-column div.ship-address div.ship-address-labe
 
 div.checkout-display-form .address-column div.button {
   width: 100%;
-  color: #fdfdfd;
+  color: #051124;
   text-align: center;
   margin-top: 15px auto;
   padding: 5px;
@@ -2317,7 +2325,7 @@ form.feedback-form input.button {
 }
 
 .category-form label:hover {
-  color: #fa9595;
+  color: #fcba40;
 }
 
 .category-form label:focus {
@@ -2353,7 +2361,7 @@ div.address-form-container form.new-address-form {
   max-width: 80%;
   padding: 20px;
   margin: 0 auto;
-  background-color: #fa9595;
+  background-color: #fcba40;
   -webkit-box-shadow: 0 0 50px 1px #3a3939;
           box-shadow: 0 0 50px 1px #3a3939;
 }
@@ -2405,7 +2413,7 @@ div.address-form-container form.new-address-form input[type=button] {
 }
 
 div.address-form-container form.new-address-form input[type=button]:hover {
-  background-color: #DD1717;
+  background-color: #df9205;
   -webkit-box-shadow: 0 0 5px 0 #fdfdfd;
           box-shadow: 0 0 5px 0 #fdfdfd;
 }
@@ -2492,7 +2500,7 @@ form.checkout-address input[type=submit] {
 }
 
 form.checkout-address input[type=submit]:hover {
-  background-color: #ff4949;
+  background-color: #fea500;
 }
 
 /*------------------------------------------------Forms END
@@ -2570,7 +2578,7 @@ div.cart-display-table .cart-display-table-row div {
 }
 
 div.cart-display-table .cart-display-table-row i.remove-item-x {
-  color: #ff4949;
+  color: #fea500;
   background-color: #fdfdfd;
 }
 
@@ -2797,7 +2805,7 @@ footer.main-footer div.footer-bottom-block a {
 }
 
 footer.main-footer div.footer-bottom-block a:hover {
-  color: #fa9595;
+  color: #fcba40;
 }
 
 .cart-display-table-column {
@@ -2899,8 +2907,8 @@ footer.main-footer div.footer-bottom-block a:hover {
 }
 
 .cart-display-table-column form.cart-checkout-form div.shipping-methods-container label.checkout-to-label input[type=radio]:checked {
-  color: #ff4949;
-  background-color: #ff4949;
+  color: #fea500;
+  background-color: #fea500;
 }
 
 .cart-display-table-column form.cart-checkout-form input[type=submit] {
@@ -3408,7 +3416,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     min-width: 47%;
     color: #fdfdfd;
     border-radius: 5px;
-    background-color: #ff4949;
+    background-color: #fea500;
   }
   .categories .category p {
     font-size: 50px;
@@ -3521,28 +3529,32 @@ footer.main-footer div.footer-bottom-block a:hover {
     max-width: 220px;
     margin: 5px;
   }
-  .shop div.shop-products-archive .shop-products .product div.sale-circle {
+  .shop div.shop-products-archive .shop-products .product a {
+    text-decoration: none;
+  }
+  .shop div.shop-products-archive .shop-products .product a div.sale-circle {
     position: relative;
     z-index: 900;
     top: 8px;
     left: 5px;
-    color: #fdfdfd;
-    background-color: #ff4949;
-    width: 30px;
-    height: 16px;
+    color: #051124;
+    background-color: #fea500;
+    width: 35px;
+    height: 25px;
     font: 200 15px "Nunito", sans-serif;
     padding: 2px;
-    line-height: 16px;
+    line-height: 20.83333px;
     border-radius: 3px;
     text-align: center;
+    text-decoration: none;
   }
-  .shop div.shop-products-archive .shop-products .product img {
+  .shop div.shop-products-archive .shop-products .product a img {
     width: 214px;
     display: block;
-    margin: 2px auto;
+    margin: 0 auto 2px auto;
   }
-  .shop div.shop-products-archive .shop-products .product img.sale {
-    margin: -18px auto 2px auto;
+  .shop div.shop-products-archive .shop-products .product a img.sale {
+    margin: -24px auto 2px auto;
   }
   .shop div.sale {
     max-width: 98%;
@@ -3601,7 +3613,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     min-width: 10px;
     min-height: 10px;
     border-radius: 10px;
-    border: 2px solid #ff4949;
+    border: 2px solid #fea500;
   }
   div.checkout-display-form .address-column h2.address-column-title {
     font-size: 22px;
@@ -3616,7 +3628,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     padding: 5px;
   }
   div.checkout-display-form .address-column div.button:hover {
-    background-color: #ff4949;
+    background-color: #fea500;
   }
   div.checkout-display-form .cart-summary-column {
     display: -webkit-box;
@@ -3649,7 +3661,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     background-color: #80a1d1;
   }
   div.checkout-display-form .cart-summary-column form.payfast-form input[type=button]:hover {
-    background-color: #ff4949;
+    background-color: #fea500;
   }
   div.checkout-display-form .cart-summary-column .cart-items-summary {
     display: -webkit-box;
@@ -3842,13 +3854,13 @@ footer.main-footer div.footer-bottom-block a:hover {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    color: #fdfdfd;
-    background-color: #ff4949;
+    color: #051124;
+    background-color: #fea500;
     border-radius: 3px;
     border: none;
     -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
             box-shadow: 1px 2px 5px 1px #3a3939;
-    text-shadow: 0 0 1px #3a3939;
+    text-decoration: none;
     cursor: pointer;
     border-radius: 0 3px 3px 0;
     margin-left: -10px;
@@ -3909,8 +3921,8 @@ footer.main-footer div.footer-bottom-block a:hover {
     z-index: 1000;
     top: 21px;
     right: -11px;
-    color: #fdfdfd;
-    background-color: #ff4949;
+    color: #051124;
+    background-color: #fea500;
     width: 15px;
     height: 15px;
     line-height: 15px;
@@ -3923,8 +3935,8 @@ footer.main-footer div.footer-bottom-block a:hover {
     z-index: 1000;
     top: 21px;
     right: -65%;
-    color: #fdfdfd;
-    background-color: #ff4949;
+    color: #051124;
+    background-color: #fea500;
     width: 15px;
     height: 15px;
     line-height: 15px;
