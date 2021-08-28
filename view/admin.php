@@ -5,10 +5,10 @@
     }
 
     if(!$_SESSION['loggedin']){
-        header('Location: /zalisting/');
+        header('Location: /engoje/');
     }
     else if($_SESSION['loggedin'] && $_SESSION['userData']['userLevel']<2){
-        header('Location: /zalisting/view/account.php');
+        header('Location: /engoje/view/account.php');
     }
 
     //echo $_SESSION['clientData']['clientId']; exit;
@@ -19,12 +19,12 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
             ?>
 
             <div class="dashboard admin-dashboard">

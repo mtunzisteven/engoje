@@ -17,6 +17,6 @@ switch ($action){
 
        //echo "product"; exit;
 
-       include $_SERVER['DOCUMENT_ROOT'].'/zalisting/view/shop-product.php';  
+       include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/shop-product.php';  
   
     }

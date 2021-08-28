@@ -61,7 +61,7 @@ switch ($action){
 
         }
 
-        header("Location: /zalisting/checkout");
+        header("Location: /engoje/checkout");
 
         break;
 
@@ -417,16 +417,16 @@ default:
 
             }
 
-                header("Location: /zalisting/shop/checkout/?order=$_SESSION[orderId]");
+                header("Location: /engoje/shop/checkout/?order=$_SESSION[orderId]");
 
             }else{
 
-                header('Location: /zalisting/accounts/?action=login');
+                header('Location: /engoje/accounts/?action=login');
 
             }
         }else{
 
-            header("Location: /zalisting/shop/cart/");
+            header("Location: /engoje/shop/cart/");
 
         }
 

@@ -4,7 +4,7 @@
 
 // Get one product entries
 function getShopProducts(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -24,7 +24,7 @@ function getShopProducts(){
 // Get one product entries by pagination
 function getShopPaginations($lim, $offset){
     
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -47,7 +47,7 @@ function getShopPaginations($lim, $offset){
 
 // Get product entries by pagination and size
 function getShopColourPaginations($lim, $offset, $colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -72,7 +72,7 @@ function getShopColourPaginations($lim, $offset, $colour){
 
 // Get product entries by pagination and size
 function getShopSizePaginations($lim, $offset, $size){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -102,7 +102,7 @@ function getShopSizePaginations($lim, $offset, $size){
 
 // Get product entries by pagination and size
 function getShopCategoryPaginations($lim, $offset, $category){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -127,7 +127,7 @@ function getShopCategoryPaginations($lim, $offset, $category){
 
 // Get product entries by pagination category and size
 function getShopCategorySizePaginations($lim, $offset, $category, $size){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -155,7 +155,7 @@ function getShopCategorySizePaginations($lim, $offset, $category, $size){
 
 // Get product entries by pagination category and colour
 function getShopCategoryColourPaginations($lim, $offset, $category, $colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -183,7 +183,7 @@ function getShopCategoryColourPaginations($lim, $offset, $category, $colour){
 
 // Get product entries by pagination size and colour
 function getShopSizeColourPaginations($lim, $offset, $size, $colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -211,7 +211,7 @@ function getShopSizeColourPaginations($lim, $offset, $size, $colour){
 
 // Get product entries by pagination size category and colour
 function getShopSizeColourCategoryPaginations($lim, $offset, $size, $colour, $category){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -242,7 +242,7 @@ function getShopSizeColourCategoryPaginations($lim, $offset, $size, $colour, $ca
 
 // Get product entries by pagination size category price and colour
 function getShopSizeColourCategoryPricePaginations($lim, $offset, $size, $colour, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -276,7 +276,7 @@ function getShopSizeColourCategoryPricePaginations($lim, $offset, $size, $colour
 
 // Get product entries by pagination size category price and colour
 function getShopSizeColourPricePaginations($lim, $offset, $size, $colour, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -308,7 +308,7 @@ function getShopSizeColourPricePaginations($lim, $offset, $size, $colour, $minPr
 
 // Get product entries by pagination size category price and colour
 function getShopSizeCategoryPricePaginations($lim, $offset, $size, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -340,7 +340,7 @@ function getShopSizeCategoryPricePaginations($lim, $offset, $size, $category, $m
 
 // Get product entries by pagination category price and colour
 function getShopColourCategoryPricePaginations($lim, $offset, $colour, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -372,7 +372,7 @@ function getShopColourCategoryPricePaginations($lim, $offset, $colour, $category
 
 // Get product entries by pagination size category price and colour
 function getShopSizePricePaginations($lim, $offset, $size, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -402,7 +402,7 @@ function getShopSizePricePaginations($lim, $offset, $size, $minPrice, $maxPrice)
 
 // Get product entries by pagination size category price and colour
 function getShopColourPricePaginations($lim, $offset, $colour, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -432,7 +432,7 @@ function getShopColourPricePaginations($lim, $offset, $colour, $minPrice, $maxPr
 
 // Get product entries by pagination size category price and colour
 function getShopCategoryPricePaginations($lim, $offset, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -470,7 +470,7 @@ function getShopCategoryPricePaginations($lim, $offset, $category, $minPrice, $m
 
 // Get product entries by pagination and size
 function getShopCategory($category){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -491,7 +491,7 @@ function getShopCategory($category){
 
 // Get product entries by pagination category and size
 function getShopCategorySize($category, $size){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -515,7 +515,7 @@ function getShopCategorySize($category, $size){
 
 // Get product entries by pagination category and colour
 function getShopCategoryColour($category, $colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -539,7 +539,7 @@ function getShopCategoryColour($category, $colour){
 
 // Get product entries by pagination size and colour
 function getShopSizeColour($size, $colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -563,7 +563,7 @@ function getShopSizeColour($size, $colour){
 
 // Get product entries by pagination size category and colour
 function getShopSizeColourCategory($size, $colour, $category){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -590,7 +590,7 @@ function getShopSizeColourCategory($size, $colour, $category){
 
 // Get product entries by pagination size category price and colour
 function getShopSizeColourCategoryPrice($size, $colour, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -620,7 +620,7 @@ function getShopSizeColourCategoryPrice($size, $colour, $category, $minPrice, $m
 
 // Get product entries by pagination size category price and colour
 function getShopSizeColourPrice($size, $colour, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -648,7 +648,7 @@ function getShopSizeColourPrice($size, $colour, $minPrice, $maxPrice){
 
 // Get product entries by pagination size category price and colour
 function getShopSizeCategoryPrice($size, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -676,7 +676,7 @@ function getShopSizeCategoryPrice($size, $category, $minPrice, $maxPrice){
 
 // Get product entries by pagination category price and colour
 function getShopColourCategoryPrice($colour, $category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -704,7 +704,7 @@ function getShopColourCategoryPrice($colour, $category, $minPrice, $maxPrice){
 
 // Get product entries by pagination size category price and colour
 function getShopSizePrice($size, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -730,7 +730,7 @@ function getShopSizePrice($size, $minPrice, $maxPrice){
 
 // Get product entries by pagination size category price and colour
 function getShopColourPrice( $colour, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -756,7 +756,7 @@ function getShopColourPrice( $colour, $minPrice, $maxPrice){
 
 // Get product entries by pagination size category price and colour
 function getShopCategoryPrice($category, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -787,7 +787,7 @@ function getShopCategoryPrice($category, $minPrice, $maxPrice){
 
 // Get product entries by pagination and size
 function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -814,7 +814,7 @@ function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
 
 // Get products by common product Id
 function getShopProduct($productId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -836,7 +836,7 @@ function getShopProduct($productId){
 
 // Get one product entry
 function getShopProductEntry($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT product_entry.product_entryId, products.productId, products.productName, colour.colour, size.sizeValue, product_entry.price
                     FROM product_entry 
                     JOIN products ON product_entry.productId = products.productId
@@ -857,7 +857,7 @@ function getShopProductEntry($product_entryId){
 
 // Get one product by colour and id
 function getColourSwatchShopProduct($productId, $colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -881,7 +881,7 @@ function getColourSwatchShopProduct($productId, $colour){
 
 // Get one product by colour, size, and id
 function getSizeSwatchedShopProduct($productId, $colour, $size){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN products ON product_entry.productId = products.productId
                     JOIN categories ON product_entry.categoryId = categories.categoryId
@@ -906,7 +906,7 @@ function getSizeSwatchedShopProduct($productId, $colour, $size){
 
 // Get one product for swatches 
 function getShopSwatchProduct($productId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT size.sizeValue, colour FROM product_entry 
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
@@ -925,7 +925,7 @@ function getShopSwatchProduct($productId){
 
 // Get product by categoryId 
 function getProductByCategory($categoryId){ 
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     $sql = ' SELECT * FROM product WHERE categoryId = :categoryId'; 
     $stmt = $db->prepare($sql); 
     $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_INT); 
@@ -937,7 +937,7 @@ function getProductByCategory($categoryId){
 
 // Get product information by productId
 function getProductItemInfo($productId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM products WHERE productId = :productId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':productId', $productId, PDO::PARAM_INT);
@@ -949,7 +949,7 @@ function getProductItemInfo($productId){
 
 // Get all products max price value
 function getmaxPrice(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT price FROM product_entry ORDER BY price DESC LIMIT 1';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -963,7 +963,7 @@ function getmaxPrice(){
 
 // Get all products min price value
 function getminPrice(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT price FROM product_entry ORDER BY price ASC LIMIT 1';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -978,10 +978,10 @@ function getminPrice(){
 // This function will update product
 function deleteProduct($productId){
     
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM products WHERE productId = :productId');
 
     // Replace the place holder
@@ -998,7 +998,7 @@ function deleteProduct($productId){
 }
 
 function getProductsByCategory($categoryName){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM product_entry WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :categoryName)';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
@@ -1009,7 +1009,7 @@ function getProductsByCategory($categoryName){
 }
 
 function getProductsByColour($colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM product_entry WHERE colourId IN (SELECT colourId FROM colour WHERE colour = :colour)';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':colour', $colour, PDO::PARAM_STR);
@@ -1020,7 +1020,7 @@ function getProductsByColour($colour){
 }
 
 function getProductsByPrice($minPrice, $maxPrice){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     
     $sql = 'SELECT * FROM product_entry 
             WHERE price >= :minPrice 
@@ -1036,7 +1036,7 @@ function getProductsByPrice($minPrice, $maxPrice){
 }
 
 function getProductsBySize($size){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM product_entry WHERE sizeId IN (SELECT sizeId FROM size WHERE sizeValue = :size)';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':size', $size, PDO::PARAM_STR);
@@ -1049,7 +1049,7 @@ function getProductsBySize($size){
 // Get one product entries by pagination
 function getSaleShopProducts($lim, $offset){
     
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM sale
                     JOIN product_entry ON product_entry.product_entryId = sale.product_entryId
                     JOIN images ON product_entry.product_entryId = images.product_entryId
@@ -1074,7 +1074,7 @@ function getSaleShopProducts($lim, $offset){
 // Get sale product categories
 function getSaleCategories(){
     
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM categories
                     JOIN product_entry ON product_entry.categoryId = categories.categoryId
                     JOIN sale ON product_entry.product_entryId = sale.product_entryId';
@@ -1088,7 +1088,7 @@ function getSaleCategories(){
 
 // get all sale details
 function getSaleItems(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT product_entryId, saleId, salePrice, salePeriod, saleStart FROM sale';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -1099,7 +1099,7 @@ function getSaleItems(){
 
 // get sale product price for single product view
 function getSaleItem($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT salePrice, saleId, product_entryId, salePeriod, saleStart FROM sale WHERE  product_entryId = :product_entryId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
@@ -1111,7 +1111,7 @@ function getSaleItem($product_entryId){
 
 // get product entry qty
 function getProductQty($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT amount FROM product_entry WHERE  product_entryId = :product_entryId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
@@ -1123,7 +1123,7 @@ function getProductQty($product_entryId){
 
 // Get swatch images for a single product entry by product entry Id
 function getSwatchImages($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT imagePath, imagePath_tn FROM images 
                     WHERE product_entryId = :product_entryId';
 

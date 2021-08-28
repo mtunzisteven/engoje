@@ -40,7 +40,7 @@ for(let i = 0; i<form.length; i++){ // loop through them all and add the event L
 
         // Send data
         var request = new XMLHttpRequest();
-        request.open("POST", "http://localhost/zalisting/upload/index.php", false);
+        request.open("POST", "http://localhost/engoje/upload/index.php", false);
         request.onload = function() {
             if (request.status == 200) {
                 responseContainer.innerHTML = this.responseText;

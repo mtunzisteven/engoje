@@ -27,7 +27,7 @@ function buildUsersDisplay($users){
 
     foreach($users as $user){
 
-        $userRows[] = "<tr class='user-display-info'> <td><a class='button account-button' href='/zalisting/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td><a class='button account-button' href='/engoje/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
     }
 
    return $userRows;
@@ -64,14 +64,14 @@ function buildCartDisplay($cartDetails, $shippingInfo){
         $grandTotal += $lineTotal;
 
         $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $cartDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+        $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
         $cartDisplay .= "<div>$cartItem[productName]</div>"; 
         $cartDisplay .= "<div>$cartItem[colour]</div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
         $cartDisplay .= "<div>R<span class='price'>$_SESSION[salePrice]</span></div>"; 
         $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
         $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
         }else{
 
@@ -91,14 +91,14 @@ function buildCartDisplay($cartDetails, $shippingInfo){
         $grandTotal += $lineTotal;
 
         $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $cartDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+        $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
         $cartDisplay .= "<div>$cartItem[productName]</div>"; 
         $cartDisplay .= "<div>$cartItem[colour]</div>"; 
         $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
         $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
         $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
         $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
         }
     }
@@ -106,10 +106,10 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     $cartDisplay .= '</div>';
     $cartDisplay .= "<div class='cart-display-table-row2'><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
-    $cartDisplay .= "<a href='/zalisting/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
+    $cartDisplay .= "<a href='/engoje/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
     $cartDisplay .= "<div class='cart-display-table-column'><h4 class='shipping-methods'>Select Shipping Method:</h4>";
-    $cartDisplay .= "<form class='cart-checkout-form' action='/zalisting/shop/checkout/' method='post'>";
+    $cartDisplay .= "<form class='cart-checkout-form' action='/engoje/shop/checkout/' method='post'>";
     $cartDisplay .= "<div class='shipping-methods-container'>"; 
 
     foreach($shippingInfo as $shippingMethod){
@@ -134,17 +134,17 @@ function buildWishlistDisplay($wishlistDetails){
     foreach($wishlistDetails as $wishlistItem){
 
         $wishlistDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $wishlistDisplay .= "<div><a href='/zalisting/shop?action=product&productId=$wishlistItem[productId]' ><img src='$wishlistItem[imagePath_tn]' alt='product image'></a></div>"; 
+        $wishlistDisplay .= "<div><a href='/engoje/shop?action=product&productId=$wishlistItem[productId]' ><img src='$wishlistItem[imagePath_tn]' alt='product image'></a></div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[productName]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[colour]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[sizeValue]</div>"; 
         $wishlistDisplay .= "<div>R$wishlistItem[price]</div>"; 
-        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/zalisting/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
     }
 
     $wishlistDisplay .= "<div class='seperator'></div></div>";
-    $wishlistDisplay .= "<a href='/zalisting/wishlist/index.php?action=clear-wishlist' class='clear-cart button wishlist-buttons'>Clear Wish List</a>";
+    $wishlistDisplay .= "<a href='/engoje/wishlist/index.php?action=clear-wishlist' class='clear-cart button wishlist-buttons'>Clear Wish List</a>";
 
     return $wishlistDisplay;
 
@@ -245,9 +245,9 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
             // Merchant details
             'merchant_id' => '13258122',
             'merchant_key' => 'bcdu5x8q91980',
-            'return_url' => 'http://www.zalisting.com/return.php',
-            'cancel_url' => 'http://www.zalisting.com/cancel.php',
-            'notify_url' => 'http://www.zalisting.com/notify.php',
+            'return_url' => 'http://www.engoje.com/return.php',
+            'cancel_url' => 'http://www.engoje.com/cancel.php',
+            'notify_url' => 'http://www.engoje.com/notify.php',
             // Buyer details
             'name_first' => $firstName,
             'name_last'  => $lastName,
@@ -279,14 +279,14 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $checkoutDisplay .= "</div>$htmlForm</div></div>";
-    $checkoutDisplay .= "<a href='/zalisting/cart/?action=cart' class='button checkout-back'>Back to Cart</a>"; 
-    $checkoutDisplay .= "<a id='redirect' class='hidden' href='/zalisting/checkout/' class='button checkout-back'>redirect</a>"; 
+    $checkoutDisplay .= "<a href='/engoje/cart/?action=cart' class='button checkout-back'>Back to Cart</a>"; 
+    $checkoutDisplay .= "<a id='redirect' class='hidden' href='/engoje/checkout/' class='button checkout-back'>redirect</a>"; 
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                           Pop up forms                                             //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/zalisting/checkout/?action=new-shipping-address' method='POST'>";
+    $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/engoje/checkout/?action=new-shipping-address' method='POST'>";
     $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
 
     $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
@@ -321,7 +321,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
   // Build a cart view display view
 function buildCheckoutAddressDisplay(){
 
-    $checkoutAddressDisplay = "<form class='checkout-address' action='/zalisting/shop/checkout/?action=addressed' method='POST' ><div id='checkout' class='checkout-display-form address' >";
+    $checkoutAddressDisplay = "<form class='checkout-address' action='/engoje/shop/checkout/?action=addressed' method='POST' ><div id='checkout' class='checkout-display-form address' >";
     $checkoutAddressDisplay .= "<div class='address-column'>";
 
     $checkoutAddressDisplay .= "<h2 class='address-column-title'>Billing Address:</h2>";
@@ -350,7 +350,7 @@ function buildCheckoutAddressDisplay(){
     $checkoutAddressDisplay .= "</div></div>";     
     $checkoutAddressDisplay .= "<input class='button' type='submit' value='Next' /></form>";     
 
-    $checkoutAddressDisplay .= "<a href='/zalisting/cart/?action=cart' class='button checkout-back'>Back to Cart</a>";
+    $checkoutAddressDisplay .= "<a href='/engoje/cart/?action=cart' class='button checkout-back'>Back to Cart</a>";
 
     return $checkoutAddressDisplay;
 
@@ -373,7 +373,7 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
             if($nonImgedProducts[$i] == $product['colour'] && $nonImgedProducts[$productId] == $product['productId']){
 
 
-                $productRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/zalisting/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/zalisting/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$nonImgedProducts[$path]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
+                $productRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/engoje/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/engoje/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$nonImgedProducts[$path]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
         
             }
         }
@@ -392,8 +392,8 @@ function buildUserUpdateNav(){
     }
 
     $updateNav ="<ul class='user-update'>";    
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=user&userId=$accountUser'>Personal</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href='/zalisting/admin/?action=address'>Addresses</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/engoje/admin/?action=user&userId=$accountUser'>Personal</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/engoje/admin/?action=address'>Addresses</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
     $updateNav .="</ul>";
@@ -407,7 +407,7 @@ function buildUserUpdateNav(){
 // Build a single user display view
 function buildUserDisplay($userInfo){
 
-    $userDisplay = "<form method='POST' action='/zalisting/admin/'>";
+    $userDisplay = "<form method='POST' action='/engoje/admin/'>";
 
     $userDisplay .= "<label>First Name</label><input type='text' name='userFirstName' value='$userInfo[userFirstName]' />";
     $userDisplay .= "<label>Last Name</label><input type='text' name='userLastName' value='$userInfo[userLastName]' />";
@@ -461,7 +461,7 @@ function buildAddressForm($address, $addressFound){
     }
 
     //echo $action; exit;
-    $form = "<form method='POST' action='/zalisting/admin/?action=$action'>";
+    $form = "<form method='POST' action='/engoje/admin/?action=$action'>";
     $form .= "<label>Address Line 1</label><input type=text name=addressLineOne value='$addressLineOne' />";
     $form .= "<label>Address Line 2</label><input type=text name=addressLineTwo value='$addressLineTwo' />";
     $form .= "<label>City</label><input type=text name=addressCity value='$addressCity' />";
@@ -502,7 +502,7 @@ function buildAddresses($addresses, $addressFound){
                 $address .="<p class='detail-span-bold' >$eachAddress[addressLineTwo]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressCity]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressZipCode]</p>";
-                $address .="<a class='button account-button center' href='/zalisting/admin/?action=replace-address&addressType=1'>update</a>";
+                $address .="<a class='button account-button center' href='/engoje/admin/?action=replace-address&addressType=1'>update</a>";
                 $address .="</div>";
             }
 
@@ -516,7 +516,7 @@ function buildAddresses($addresses, $addressFound){
                 $address .="<p class='detail-span-bold' >$eachAddress[addressLineTwo]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressCity]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressZipCode]</p>";
-                $address .="<a class='button account-button center' href='/zalisting/admin/?action=replace-address&addressType=2'>update</a>";
+                $address .="<a class='button account-button center' href='/engoje/admin/?action=replace-address&addressType=2'>update</a>";
                 $address .="</div>";
             }
         }
@@ -532,7 +532,7 @@ function buildAddresses($addresses, $addressFound){
 
 // Build a product update display form for admin dashboard
 function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
-    $productUpdate = "<form method='POST' action='/zalisting/product/'><div class='swatch-row small-width-swatches'>";
+    $productUpdate = "<form method='POST' action='/engoje/product/'><div class='swatch-row small-width-swatches'>";
 
     $productUpdate .= "<div class='swatch-item'><label>Change Colour</label>".buildDropDownList($colours, 'colourId', 'colour' )."</div>";
     $productUpdate .= "<div class='swatch-item'><label>Change Size</label>".buildDropDownList($sizes, 'sizeId', 'sizeValue' )."</div>";
@@ -552,7 +552,7 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
 // Build a product create display form for admin dashboard
 function buildProductCreateForm($categories, $colours, $sizes){
 
-    $productCreate = "<form class='checkboxed' method='POST' action='/zalisting/products/index.php' ><div class='row-form-content'>";
+    $productCreate = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' ><div class='row-form-content'>";
 
 
 
@@ -645,7 +645,7 @@ function buildCreateVariationFormRows($colours, $sizes){
 // Build the form for uploading product images
 function buildImageUploadForm($productSelect){
 
-    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='/zalisting/upload/' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='/engoje/upload/' method='post' enctype='multipart/form-data'>";
     $imageUploadForm .= "<label for='product_entryId'>Products</label>";
 
     if(isset($productSelect)){ 
@@ -752,7 +752,7 @@ function buildproductDisplay($product, $saleItems){
     if(isset($product['imagePath'])){
         $path = $product['imagePath'];
     }else{
-        $path = '/zalisting/images/no-image';
+        $path = '/engoje/images/no-image';
         
     }
 
@@ -780,15 +780,15 @@ function buildproductDisplay($product, $saleItems){
 
             if($product['product_entryId'] == $saleItem['product_entryId'] && $days < $interval){ // if there is a product in the sale table and it is the product urrently being accessed
         
-                $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='$path' alt='".$product['productName']."' /></a>";
-                $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='$path' alt='".$product['productName']."' /></a>";
+                $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$saleItem[salePrice]</h4></div></div>";
 
             }else{
         
-                $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div><img  src='$path' alt='".$product['productName']."' /></a>";
-                $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div><img  src='$path' alt='".$product['productName']."' /></a>";
+                $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice' >R$product[price]</h4><h4 class='hidden productPrice' >R$product[price]</h4></div></div>";
 
@@ -800,8 +800,8 @@ function buildproductDisplay($product, $saleItems){
 
     }else{ // if there is a product in the sale table and it is the product currently being accessed
 
-        $dv  = "<div  class='product'><a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img src='$path' alt='".$product['productName']."' /></a>";
-        $dv .= "<a href='/zalisting/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+        $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img src='$path' alt='".$product['productName']."' /></a>";
+        $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
         $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
 
         $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$product[price]</h4></div></div>";
@@ -832,22 +832,22 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
         if(isset( $_SESSION['sizeFilter'])){
 
-            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><a href='/zalisting/sidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><a href='/engoje/sidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['colourFilter'])){
 
-            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <a href='/zalisting/sidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <a href='/engoje/sidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
 
         }        
         if(isset( $_SESSION['categoryFilter'])){
 
-            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><a href='/zalisting/sidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><a href='/engoje/sidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['minPriceFilter']) && isset( $_SESSION['maxPriceFilter'])){
 
-            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><a href='/zalisting/sidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><a href='/engoje/sidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
 
         }
 
@@ -876,11 +876,11 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
     $noborderPaginationP = '';
     $p = '&#8592; Previous';
-    $prevLink = "/zalisting/shop/?action=prev&offset=$offset";
+    $prevLink = "/engoje/shop/?action=prev&offset=$offset";
 
     $n = 'Next &#8594;';
     $noborderPaginationN = '';
-    $nextLink = "/zalisting/shop/?action=next&offset=$offset";
+    $nextLink = "/engoje/shop/?action=next&offset=$offset";
 
 
     if($pageNum == $possiblePages){
@@ -904,7 +904,7 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
     if($pageNum >= 3){
 
-        $dv .= "<a href='/zalisting/shop/?action=prev&offset=$lim' class='pagination pagination-number'> 1 </a>";
+        $dv .= "<a href='/engoje/shop/?action=prev&offset=$lim' class='pagination pagination-number'> 1 </a>";
         $dv .= "<h2>...&nbsp</h2>";
 
     }
@@ -925,7 +925,7 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
         
         if($i <= $possiblePages){
 
-            $dv .= "<a href='/zalisting/shop/?action=prev&offset=$numOffset' class='pagination pagination-number $focus'> $i </a>";
+            $dv .= "<a href='/engoje/shop/?action=prev&offset=$numOffset' class='pagination pagination-number $focus'> $i </a>";
 
         }
     }
@@ -948,7 +948,7 @@ function buildShopSidebarCategory($categories){
     // category section
     $sidebar  = "<h5 class='filter-titles'>Filter by Categories</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section category-form' action='/zalisting/sidebar'>";
+    $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'>";
 
     foreach ($categories as $category) {
 
@@ -970,7 +970,7 @@ function buildShopSidebarPrice($minPrice, $maxPrice){
     // price section
     $sidebar .= "<h5 class='filter-titles price'>Filter by Price</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section' action='/zalisting/sidebar'>";
+    $sidebar .= "<form class='sidebar-section' action='/engoje/sidebar'>";
     $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' /></label>";
     $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min=0 class='sidebar-price validity' /></label>";
     $sidebar .= "<input type='submit' value='filter'  class='button'>";
@@ -986,7 +986,7 @@ function buildShopSidebarColour($products, $colour){
     // colour section
     $sidebar  = "<h5 class='filter-titles'>Filter by Colour</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form id='colourform' class='sidebar-section' action='/zalisting/sidebar'>";
+    $sidebar .= "<form id='colourform' class='sidebar-section' action='/engoje/sidebar'>";
     $sidebar .= buildProductSwatchesDisplay($products, $colour);
     $sidebar .= "<input type='hidden' name='colour' value=''>";
     $sidebar .= "<input type='hidden' name='filter' value='colour-filter' >";
@@ -1001,7 +1001,7 @@ function buildShopSidebarSize($products, $size){
     // colour section
     $sidebar  = "<h5 class='filter-titles'>Filter by Size</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/zalisting/sidebar'>";
+    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/engoje/sidebar'>";
     $sidebar .= buildProductSwatchesDisplay($products, $size);
     $sidebar .= "<input type='hidden' name='size' value=''>";
     $sidebar .= "<input type='hidden' name='filter' value='size-filter' >";
@@ -1049,8 +1049,8 @@ function buildImageDisplay($imageArray) {
     $id = '<ul id="image-library">';
     foreach ($imageArray as $image) {
      $id .= '<li>';
-     $id .= "<img class='library-images' src='$image[imagePath]' title='image on zalisting.com' alt=' $image[imageName] image on zalisting.com'>";
-     $id .= "<p><a class='media-delete-button button' href='/zalisting/upload?action=delete&imageId=$image[imageId]&filename=$image[imageName]' title='Delete the image'>Delete</a></p>";
+     $id .= "<img class='library-images' src='$image[imagePath]' title='image on engoje.com' alt=' $image[imageName] image on engoje.com'>";
+     $id .= "<p><a class='media-delete-button button' href='/engoje/upload?action=delete&imageId=$image[imageId]&filename=$image[imageName]' title='Delete the image'>Delete</a></p>";
      $id .= '</li>';
    }
     $id .= '</ul>';
@@ -1284,7 +1284,7 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
         else if(isset($_SESSION['clientData'])){
             $cutomerReviews .= "<tr><td class='reviewerName'>Posted by: ".substr($_SESSION['clientData']['clientFirstname'],0,1)."".$_SESSION['clientData']['clientLastname']."</td></tr>";
             $cutomerReviews .= "<tr><td class='reviewDate' >Date posted: ".date('F j, Y', strtotime($review['reviewDate']))."</td></tr>";
-            $cutomerReviews .= "<tr><td><a href='/zalisting/reviews?action=getUpdateReview&reviewId=$review[reviewId]' title='Update Review' >Update</a>  <a href='/zalisting/reviews?action=deleteRequest&clientId=".$_SESSION['clientData']['clientId']."' title='Delete Review' >Delete</a></td></tr>";
+            $cutomerReviews .= "<tr><td><a href='/engoje/reviews?action=getUpdateReview&reviewId=$review[reviewId]' title='Update Review' >Update</a>  <a href='/engoje/reviews?action=deleteRequest&clientId=".$_SESSION['clientData']['clientId']."' title='Delete Review' >Delete</a></td></tr>";
         }
 
         $cutomerReviews .= "<tr><td> <hr/> </td></tr>";

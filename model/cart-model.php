@@ -3,7 +3,7 @@
 // Add a single cart item for the user 
 function addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath_tn, $dateAdded){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
                             cart_items (
@@ -43,7 +43,7 @@ function addCartItem($product_entryId, $cart_item_qty, $userId, $imagePath_tn, $
 
 // get the cart items for the specified user
 function getCartItems($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM cart_items 
                     JOIN product_entry ON product_entry.product_entryId = cart_items.product_entryId
                     JOIN size ON product_entry.sizeId = size.sizeId
@@ -61,7 +61,7 @@ function getCartItems($userId){
 
 // get the cart item for the specified cart_itemId
 function getCartItem($cart_itemId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM cart_items 
                     WHERE cart_itemId = :cart_itemId';
 
@@ -75,7 +75,7 @@ function getCartItem($cart_itemId){
 
 // get the cart item qty for the specified product_entryId
 function getCartItemQty($product_entryId, $userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT cart_item_qty FROM cart_items 
                     WHERE product_entryId = :product_entryId
                     AND userId=:userId';
@@ -93,7 +93,7 @@ function getCartItemQty($product_entryId, $userId){
 function updateCartQty($cart_itemId, $cart_item_qty){
 
         // Create a connection object from the zalist connection function
-        $db = zalistingConnect(); 
+        $db = engojeConnect(); 
 
         // The next line creates the prepared statement using the zalist connection      
         $stmt = $db->prepare('UPDATE cart_items SET cart_item_qty = :cart_item_qty WHERE cart_itemId = :cart_itemId');
@@ -115,10 +115,10 @@ function updateCartQty($cart_itemId, $cart_item_qty){
 
 function deleteCartItem($product_entryId, $userId){
       
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM cart_items WHERE product_entryId = :product_entryId AND userId = :userId');
 
     // Replace the place holder
@@ -137,10 +137,10 @@ function deleteCartItem($product_entryId, $userId){
 
 function deleteCartItems($userId){
       
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM cart_items WHERE userId = :userId');
 
     // Replace the place holder

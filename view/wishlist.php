@@ -15,13 +15,13 @@
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
     <body>
 
         <main class="content short-content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
 
                 echo "<h1 class='title'>Wish List</h1>";
 
@@ -38,7 +38,7 @@
                     echo $_SESSION['wishlistDisplay'];
                 }
 
-                require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; 
+                require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; 
                 
             ?>
         </main>

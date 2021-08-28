@@ -3,7 +3,7 @@
 // Add a single cart item for the user 
 function addWishlistItem($userId, $product_entryId, $imagePath_tn, $dateAdded){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
                             wishlist_items (
@@ -38,7 +38,7 @@ function addWishlistItem($userId, $product_entryId, $imagePath_tn, $dateAdded){
 
 // get the cart items for the specified user
 function getWishlistItems($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT * FROM wishlist_items 
                     JOIN product_entry ON product_entry.product_entryId = wishlist_items.product_entryId
                     JOIN size ON product_entry.sizeId = size.sizeId
@@ -56,10 +56,10 @@ function getWishlistItems($userId){
 
 function getWishlistItemByUser($product_entryId, $userId){
     
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('SELECT* FROM wishlist_items WHERE product_entryId = :product_entryId AND userId = :userId');
 
     // Replace the place holder
@@ -79,10 +79,10 @@ function getWishlistItemByUser($product_entryId, $userId){
 // get wishlist by user id and id
 function deleteWishlistItem($product_entryId, $userId){
       
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM wishlist_items WHERE product_entryId = :product_entryId AND userId = :userId');
 
     // Replace the place holder
@@ -101,10 +101,10 @@ function deleteWishlistItem($product_entryId, $userId){
 
 function deleteWishlistItems($userId){
       
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM wishlist_items WHERE userId = :userId');
 
     // Replace the place holder

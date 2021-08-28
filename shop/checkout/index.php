@@ -7,23 +7,23 @@ session_cache_expire();
 session_start();
 
 // Get the database connection file
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/library/connections.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/library/connections.php';
 // Get the database connection file
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/library/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/library/functions.php';
 // Get the za listing main model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/main-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/main-model.php';
 // Get the shop model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/shop-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/shop-model.php';
 // Get the products admin model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/products-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/products-model.php';
 // Get the products image uploads model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/uploads-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/uploads-model.php';
 // Get the products cart model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/cart-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/cart-model.php';
 // Get the products orders model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/orders-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/orders-model.php';
 // Get the products accounts model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/accounts-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/accounts-model.php';
 
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
@@ -66,7 +66,7 @@ switch ($action){
 
         }
 
-        header('Location: /zalisting/shop/checkout/');
+        header('Location: /engoje/shop/checkout/');
         break;
 
 
@@ -133,7 +133,7 @@ switch ($action){
 
                 $_SESSION['checkoutAddressDisplay'] = buildCheckoutAddressDisplay($_SESSION['userData']['userId']);
 
-                include $_SERVER['DOCUMENT_ROOT'].'/zalisting/view/checkout-address.php';  
+                include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/checkout-address.php';  
 
             }else{ // users with billing and shipping addresses added
 
@@ -182,17 +182,17 @@ switch ($action){
 
                 }
 
-                include $_SERVER['DOCUMENT_ROOT'].'/zalisting/view/checkout.php';  
+                include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/checkout.php';  
             }
 
         }else{
 
-            header('Location: /zalisting/accounts/?action=login');
+            header('Location: /engoje/accounts/?action=login');
 
         }
     }else{
 
-        header("Location: /zalisting/shop/cart/");
+        header("Location: /engoje/shop/cart/");
 
     }
 

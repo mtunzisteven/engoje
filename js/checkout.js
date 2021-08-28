@@ -53,7 +53,7 @@ let reload = document.querySelector('#redirect');
 // process order and submit payfast form
 payfastButton.addEventListener('click', function(){
 
-    let url = "/zalisting/checkout/";
+    let url = "/engoje/checkout/";
 
     let orderData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
     

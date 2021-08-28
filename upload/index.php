@@ -21,7 +21,7 @@ $adminSideNav = buildAdminSideNav();
 * **************************************************** */
 
 // directory name where uploaded images are stored
-$image_dir = '/zalisting/images';
+$image_dir = '/engoje/images';
 
 // The path is the full path from the server root
 $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
@@ -82,7 +82,7 @@ switch ($action) {
     case 'new-upload':
 
         // directory name where uploaded images are stored
-        $image_dir = '/zalisting/images';
+        $image_dir = '/engoje/images';
 
         // The path is the full path from the server root
         $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
@@ -127,7 +127,7 @@ switch ($action) {
     case 'multi-upload':
 
         // directory name where uploaded images are stored
-        $image_dir = '/zalisting/images';
+        $image_dir = '/engoje/images';
 
         // The path is the full path from the server root
         $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;

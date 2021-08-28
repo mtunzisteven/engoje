@@ -100,11 +100,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /zalisting/sale/?action=filters');
+        header('Location: /engoje/sale/?action=filters');
 
         break;
 
@@ -127,11 +127,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /zalisting/sale/?action=filters');
+        header('Location: /engoje/sale/?action=filters');
     
         break;
 
@@ -153,11 +153,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /zalisting/sale/?action=filters');
+        header('Location: /engoje/sale/?action=filters');
 
         break;
 
@@ -183,11 +183,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/zalisting/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /zalisting/sale/?action=filters');
+        header('Location: /engoje/sale/?action=filters');
 
         break;
 
@@ -195,7 +195,7 @@ switch ($filter){
 
         unset($_SESSION['sizeFilter'], $_SESSION['categoryFilter'], $_SESSION['colourFilter'], $_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter'], $_SESSION['productQty']);
 
-        header('Location: /zalisting/sale/');
+        header('Location: /engoje/sale/');
 
 
         break;
@@ -204,7 +204,7 @@ switch ($filter){
 
         unset($_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter']);
 
-        header('Location: /zalisting/sale/');
+        header('Location: /engoje/sale/');
 
 
         break;
@@ -213,7 +213,7 @@ switch ($filter){
 
         unset($_SESSION['sizeFilter']);
 
-        header('Location: /zalisting/sale/');
+        header('Location: /engoje/sale/');
 
 
         break;
@@ -222,7 +222,7 @@ switch ($filter){
 
         unset($_SESSION['colourFilter']);
 
-        header('Location: /zalisting/sale/');
+        header('Location: /engoje/sale/');
 
 
         break;
@@ -231,14 +231,14 @@ switch ($filter){
 
         unset($_SESSION['categoryFilter']);
 
-        header('Location: /zalisting/sale/');
+        header('Location: /engoje/sale/');
 
 
         break;
 
     default:
 
-        header('Location: /zalisting/sale/');
+        header('Location: /engoje/sale/');
 
     }
 

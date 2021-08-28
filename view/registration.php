@@ -15,13 +15,13 @@ $pageDescription = "";
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
 <body>
 
 <main class="content">
     <?php 
-        require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
-        require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
+        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
+        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
 
         echo "<h1 class='title'>Register</h1>";
 
@@ -42,7 +42,7 @@ $pageDescription = "";
 
         
 
-            <form class="reg-form" method="post" action="/zalisting/accounts/index.php">
+            <form class="reg-form" method="post" action="/engoje/accounts/index.php">
                 <h3>Registration</h3>
                 <label class="reg-label">First Name</label>
                 <input class="reg-inputs" type="text" name="userFirstName" required placeholder="Enter your first name" />
@@ -64,7 +64,7 @@ $pageDescription = "";
 
             </form>    
         
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
     </main>
 </body>
 

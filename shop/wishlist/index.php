@@ -15,6 +15,6 @@ switch ($action){
             
     default:
 
-       include $_SERVER['DOCUMENT_ROOT'].'/zalisting/view/wishlist.php';  
+       include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/wishlist.php';  
   
     }

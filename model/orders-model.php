@@ -2,7 +2,7 @@
 
 // Add a single cart item for the user 
 function getUserDetails($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM  addresses 
                     WHERE userId = :userId 
                     /*AND addresses.addressType = 1*/
@@ -18,7 +18,7 @@ function getUserDetails($userId){
 
 // Add a single cart item for the user 
 function deleteAddress($addressType){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'DELETE FROM  addresses 
                     WHERE addressType = :addressType 
                     ';
@@ -33,7 +33,7 @@ function deleteAddress($addressType){
 
 // Get the checkout order details for the user 
 function getCheckout($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM checkout 
                     JOIN cart_item ON cart_item.userId = checkout.userId
                     WHERE checkout.userId = :userId';
@@ -48,7 +48,7 @@ function getCheckout($userId){
 
 // Get the order items string for the order 
 function getOrderItems($orderId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT order_items FROM orders WHERE orderId = :orderId';
 
     $stmt = $db->prepare($sql);
@@ -62,10 +62,10 @@ function getOrderItems($orderId){
 // delete the order using order id
 function deleteOrder($orderId){
       
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM orders WHERE orderId = :orderId');
 
     // Replace the place holder
@@ -83,7 +83,7 @@ function deleteOrder($orderId){
 
 // Get the checkout order for the user 
 function checkCheckout($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM checkout 
                     WHERE checkout.userId = :userId';
 
@@ -100,7 +100,7 @@ function checkCheckout($userId){
 // or when the user revises the order. Only one per user may be added
 function addCheckoutOrder($userId, $checkoutDate){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
                             checkout (
@@ -133,10 +133,10 @@ function addCheckoutOrder($userId, $checkoutDate){
 // it, deletes items in the cart, or completes the order
 function deleteCheckoutOrder($userId){
       
-    // Create a connection object from the zalisting connection function
-    $db = zalistingConnect(); 
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
 
-    // The next line creates the prepared statement using the zalisting connection      
+    // The next line creates the prepared statement using the engoje connection      
     $stmt = $db->prepare('DELETE FROM checkout WHERE userId = :userId');
 
     // Replace the place holder
@@ -154,7 +154,7 @@ function deleteCheckoutOrder($userId){
 
 // get shipping info for the shipping method 
 function getShipping($shippingId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM  shipping_method 
                     WHERE shippingId = :shippingId 
                     ';
@@ -169,7 +169,7 @@ function getShipping($shippingId){
 
 // get shipping all methods 
 function getShippingMethods(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM  shipping_method ';
 
     $stmt = $db->prepare($sql);
@@ -185,7 +185,7 @@ function getShippingMethods(){
 // or when the user revises the order. Only one per user may be added
 function addOrder($userId, $order_items, $shippingId, $orderDate){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
                             orders (
@@ -229,7 +229,7 @@ function addOrder($userId, $order_items, $shippingId, $orderDate){
 
 // The price per item on the db product_entry
 function getProduct_entryAmount($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
 
     $sql = "SELECT amount FROM product_entry WHERE product_entryId = :product_entryId";
     $stmt = $db->prepare($sql);
@@ -243,7 +243,7 @@ function getProduct_entryAmount($product_entryId){
 
 // The price per item on the db product_entry
 function getCartEntriesForCheckout($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
 
     $sql = "SELECT* FROM cart_items
                     JOIN product_entry ON cart_items.product_entryId = product_entry.product_entryId
@@ -262,7 +262,7 @@ function getCartEntriesForCheckout($userId){
 
 // The price per item on the db product_entry
 function getCartQuantityForCheckout($userId, $product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
 
     $sql = "SELECT cart_item_qty FROM cart_items
                     WHERE userId = :userId
@@ -280,7 +280,7 @@ function getCartQuantityForCheckout($userId, $product_entryId){
 
 // This is for updating product entry qty when shopper clicks pay now button
 function updateQty($product_entryId, $amount){
-    $db = zalistingConnect();
+    $db = engojeConnect();
 
     $sql = "UPDATE product_entry SET amount=:amount WHERE product_entryId = :product_entryId";
     $stmt = $db->prepare($sql);
@@ -297,7 +297,7 @@ function updateQty($product_entryId, $amount){
 
 // This is for updating product entry qty when shopper clicks pay now button
 function updateCheckoutCartQty($product_entryId, $amount, $userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
 
     $sql = "UPDATE cart_items 
                             SET cart_item_qty=:amount 

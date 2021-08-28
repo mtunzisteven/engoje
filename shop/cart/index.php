@@ -7,21 +7,21 @@ session_cache_expire();
 session_start();
 
 // Get the database connection file
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/library/connections.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/library/connections.php';
 // Get the database connection file
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/library/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/library/functions.php';
 // Get the za listing main model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/main-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/main-model.php';
 // Get the shop model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/shop-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/shop-model.php';
 // Get the products admin model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/products-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/products-model.php';
 // Get the products image uploads model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/uploads-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/uploads-model.php';
 // Get the products cart model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/cart-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/cart-model.php';
 // Get the products orders model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/zalisting/model/orders-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/orders-model.php';
 
 $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
 if ($action == NULL){
@@ -139,7 +139,7 @@ switch ($action){
 
         }
         
-        include $_SERVER['DOCUMENT_ROOT'].'/zalisting/view/cart.php';  
+        include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/cart.php';  
     }
 
 

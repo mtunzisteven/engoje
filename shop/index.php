@@ -135,7 +135,7 @@ switch ($action){
         // build a swatch display for the colours
         $_SESSION['colours'] = buildProductSwatchesDisplay($productSwatch, 'colour');
 
-        header('Location: /zalisting/shop/product/');
+        header('Location: /engoje/shop/product/');
         
         break;
 

@@ -10,13 +10,13 @@
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
     <body>
 
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
 
             echo "<h1 class='title'>Feedback</h1>";
 
@@ -27,7 +27,7 @@
                 }else{
             ?>
 
-            <form class="feedback-form" method="post" action="/zalisting/?action=fbr">
+            <form class="feedback-form" method="post" action="/engoje/?action=fbr">
                 <label class="feedback-label">Email</label>
                 <input class="feedback-inputs" type="email" name="userEmail" required placeholder="Enter a valid email address" value="<?php if(isset($_SESSION['userData'])){echo $_SESSION['userData']['userEmail'] ;}  ?>" />
                 
@@ -45,7 +45,7 @@
 
             </form>            
             
-            <?php } require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
+            <?php } require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
         </main>
     </body>
 </html>

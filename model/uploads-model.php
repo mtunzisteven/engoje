@@ -4,7 +4,7 @@
 
 // Add image information to the database table
 function storeImages($imagePath, $product_entryId, $imageName, $imagePrimary) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'INSERT INTO images (product_entryId, imagePath, imageName, imagePrimary) VALUES (:product_entryId, :imagePath, :imageName, :imagePrimary)';
     $stmt = $db->prepare($sql);
     // Store the full size image information
@@ -37,7 +37,7 @@ function storeImages($imagePath, $product_entryId, $imageName, $imagePrimary) {
 
    // Get the largest(last) product id 
 function getLastImageId(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT imageId FROM images ORDER BY imageId DESC LIMIT 0, 1';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -51,7 +51,7 @@ function getLastImageId(){
 
 // Get Image Information from images table
 function getImages() {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT imageId, imagePath, imageName, product_entryId FROM images';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -62,7 +62,7 @@ function getImages() {
 
 // Get Image Information from images table
 function getImage($productId, $colour) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT images.imagePath_tn FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN colour ON product_entry.colourId = colour.colourId
@@ -81,7 +81,7 @@ function getProductThumbnail($imageId){
 
     //echo $invId; exit;
 
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = "SELECT imagePath_tn FROM images WHERE imageId=:imageId"; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
@@ -96,7 +96,7 @@ function getProductThumbnail($imageId){
 
    // Delete image information from the images table
 function deleteImage($imageId) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'DELETE FROM images WHERE imageId = :imageId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':imageId', $imageId, PDO::PARAM_INT);
@@ -108,7 +108,7 @@ function deleteImage($imageId) {
 
    // Check for an existing image
 function checkExistingImage($imageName){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = "SELECT imageName FROM images WHERE imageName = :imageName";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':imageName', $imageName, PDO::PARAM_STR);

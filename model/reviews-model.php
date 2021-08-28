@@ -2,7 +2,7 @@
 
 // Add review to the database table
 function addReviews($userId, $invId, $reviewText, $reviewDate) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'INSERT INTO reviews (reviewText,reviewDate, invId, userId) VALUES (:reviewText, :reviewDate, :invId, :userId)';
     $stmt = $db->prepare($sql);
 
@@ -21,7 +21,7 @@ function addReviews($userId, $invId, $reviewText, $reviewDate) {
 
 // Get review information from reviews by inventory
 function getInventoryReviews($invId) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT reviewText, reviewDate, reviewId, reviews.userId, users.userFirstname, users.userLastname  FROM  reviews JOIN users ON reviews.userId=users.userId WHERE reviews.invId=:invId ORDER BY reviews.reviewDate DESC';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
@@ -37,7 +37,7 @@ function getInventoryReviews($invId) {
 
 // Get review information from reviews table by user
 function getUserReviews($userId) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT reviewText, reviewDate, reviewId, users.userFirstname, users.userLastname  FROM  reviews JOIN users ON reviews.userId=users.userId WHERE reviews.userId=:userId ORDER BY reviewDate DESC';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
@@ -49,7 +49,7 @@ function getUserReviews($userId) {
 
 // Get review Text from reviews table by review Id
 function getUpdateReview($reviewId) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT reviewText  FROM  reviews WHERE reviewId= :reviewId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
@@ -62,7 +62,7 @@ function getUpdateReview($reviewId) {
 
 // Update review Text from reviews table by review Id
 function updateReview($reviewId, $reviewText) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'UPDATE reviews SET reviewText= :reviewText  WHERE reviewId= :reviewId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
@@ -75,7 +75,7 @@ function updateReview($reviewId, $reviewText) {
 
 // Delete review Text from reviews table by review Id
 function deleteReview($reviewId) {
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'DELETE FROM reviews WHERE reviewId = :reviewId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);

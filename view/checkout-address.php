@@ -5,7 +5,7 @@
     }
 
     if(!$_SESSION['loggedin']){
-        header('Location: /zalisting/');
+        header('Location: /engoje/');
     }
 
 
@@ -17,13 +17,13 @@
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
     <body>
 
         <main class="content" id='parentContainer'>
             <?php 
 
-                echo "<div id='checkout-header'><img src='/zalisting/images/logo.png' alt='logo image'><h1 class='title'>Address</h1></div>";
+                echo "<div id='checkout-header'><img src='/engoje/images/logo.png' alt='logo image'><h1 class='title'>Address</h1></div>";
 
 
                 if (isset($_SESSION['message'])) {
@@ -41,5 +41,5 @@
             ?>
         </main>
     </body>
-    <script src="/zalisting/js/checkout.js"></script>
+    <script src="/engoje/js/checkout.js"></script>
 </html>

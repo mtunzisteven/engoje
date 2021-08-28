@@ -418,7 +418,6 @@ img.product-image{
 */
 nav.mobile-nav{
     @include flex();
-    background-color: $light-main-color;
     height:60px;
     line-height: 60px;
     width:94%;
@@ -1227,8 +1226,8 @@ form.form-add-to-cart{
             padding:3px;
             font-size: 12px;
             width: 35px;
-            height:15px;
-            line-height: 15px;
+            height: 18px;
+            line-height: 10px;
             border:2px solid $darker-background-color;
             border-radius: 3px;
             text-align: center;
@@ -1644,9 +1643,12 @@ form.feedback-form{
     min-width: 94%;
     padding: 1%;
     margin:0;
+    padding-left: 5px;
     border: none;
 
     & label{
+        @include flex(column, left, flex-start);
+        text-align: left;
         font: $p;
         font-size: 14px;
         color: $light-dark-color;
@@ -1675,10 +1677,10 @@ form.feedback-form{
             padding:3px;
             font-size: 12px;
             width: 25px;
-            height:10px;
-            line-height: 15px;
+            height: 18px;
+            line-height: 10px;
             border:1px solid $darker-background-color;
-            border-radius: 0;
+            border-radius: 3px;
             text-align: center;
             overflow: hidden;
             resize: none;
@@ -2034,12 +2036,33 @@ footer.main-footer{
             color: $darker-background-color;
             font: $p;
             font-size:12px;
+            text-decoration: none;
+
         }
     }
 
     & div.footer-widgets-container{
         background-color: $darker-main-color;
         height: 200px;
+        text-align: left;
+
+        & div.row{
+            margin-bottom: 10px;
+
+            & h5{
+                font: $h2;
+                text-align: left;
+                font-size: 14px;
+            }
+
+            & a{
+                font: $p;
+                text-align: left;
+                font-size: 12px;
+                text-decoration: none;
+
+            }
+        }
     }
 
     & div.footer-bottom-block{
@@ -2051,6 +2074,8 @@ footer.main-footer{
             color: $darker-background-color;
             font: $p;
             font-size: 10px;
+            text-decoration: none;
+
         }
 
         & a:hover{

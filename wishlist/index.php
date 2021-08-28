@@ -59,7 +59,7 @@ switch ($action){
                     $responseText['wishlistTotal'] = count($Added);
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product already added to <a href='/engoje/wishlist?action=wishlist'>wish list</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -90,7 +90,7 @@ switch ($action){
                         $responseText['wishlistTotal'] = count($Added);
 
                         // add the response text to the response array
-                        $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                        $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product added to <a href='/engoje/wishlist?action=wishlist'>wish list</a></p>";
 
                         // send the associative array back to the js Ajax
                         echo json_encode($responseText);
@@ -119,7 +119,7 @@ switch ($action){
                 if($alreadyAdded){// Item already added to wishlist of the user
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product already added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product already added to <a href='/engoje/wishlist?action=wishlist'>wish list</a></p>";
 
                      // define wishlist total and initialize it to a value of 0
                      $_SESSION['wishlistTotal'] = count($_SESSION['wishlist']);
@@ -144,7 +144,7 @@ switch ($action){
                     $responseText['wishlistTotal'] = $_SESSION['wishlistTotal'];
 
                     // add the response text to the response array
-                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product added to <a href='/zalisting/wishlist?action=wishlist'>wish list</a></p>";
+                    $responseText['add-to-wishlist-response'] = "<p class='adding-alert'>Product added to <a href='/engoje/wishlist?action=wishlist'>wish list</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -215,7 +215,7 @@ switch ($action){
         }
 
         // redirect to the cart page
-        header('Location: /zalisting/wishlist/?action=wishlist');
+        header('Location: /engoje/wishlist/?action=wishlist');
 
 
         break;
@@ -268,7 +268,7 @@ switch ($action){
 
         }
 
-        header('Location: /zalisting/wishlist/');
+        header('Location: /engoje/wishlist/');
 
         break;
     
@@ -359,7 +359,7 @@ switch ($action){
 
         }
 
-        header('Location: /Zalisting/shop/wishlist/');  
+        header('Location: /engoje/shop/wishlist/');  
     }
 
 

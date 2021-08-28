@@ -80,31 +80,31 @@ function buildAdminSideNav(){
         $adminSideNav = 
         '<main class="admin-dashboardnav">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-white admin-nav" style="width: 280px;">
-                <a href="/zalisting/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="/engoje/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                   <span class="fs-4">Dashboard</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto"> 
                     <li class="nav-item">
-                        <a href="/zalisting/admin/?action=account" class="nav-link text-white '.$_SESSION['active_tab']['account'].'">
+                        <a href="/engoje/admin/?action=account" class="nav-link text-white '.$_SESSION['active_tab']['account'].'">
                             <i class="bi bi-speedometer"></i>
                             &nbsp;Account Home
                         </a>
                     </li>
                     <li>
-                    <a href="/zalisting/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
+                    <a href="/engoje/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
                       <i class="bi bi-people"></i>
                       &nbsp;Users
                     </a>
                     </li>
                     <li>
-                    <a href="/zalisting/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
+                    <a href="/engoje/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
                       <i class="bi bi-basket2"></i>
                       &nbsp;Products
                     </a>
                     </li>
                     <li>
-                    <a href="/zalisting/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
+                    <a href="/engoje/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
                       <i class="bi bi-images"></i>
                       &nbsp;Images
                     </a>
@@ -121,7 +121,7 @@ function buildAdminSideNav(){
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/zalisting/accounts/index.php?action=logout">Sign out</a></li>
+                    <li><a class="dropdown-item" href="/engoje/accounts/index.php?action=logout">Sign out</a></li>
                     </ul>
                 </div>
             </div>

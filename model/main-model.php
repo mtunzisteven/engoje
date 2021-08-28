@@ -4,7 +4,7 @@
 
 function getClassifications(){
  // Create a connection object from the phpmotors connection function
- $db = zalistingConnect(); 
+ $db = engojeConnect(); 
  // The SQL statement to be used with the database 
  $sql = 'SELECT* FROM products ORDER BY productCreationDate ASC'; 
  // The next line creates the prepared statement using the phpmotors connection      
@@ -27,7 +27,7 @@ function getClassifications(){
 // or when the user revises the order. Only one per user may be added
 function addUserFeedback($userId, $experience, $feedback, $feedbackDate){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
                             user_feedback (

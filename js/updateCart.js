@@ -36,7 +36,7 @@ updateCart.addEventListener('click', function(event){
     cartUpdateData.append('cartUpdateArr', cartUpdateArr);                    // add the action that will be used by the case selection in the controller
 
 
-    let url = "http://localhost/zalisting/cart/index.php";
+    let url = "http://localhost/engoje/cart/index.php";
 
     fetch(url, {
         method: 'POST',

@@ -1,10 +1,10 @@
 <?php
 
 /*
-Proxy connection to the zalisting database
+Proxy connection to the engoje database
 */
 
-function zalistingConnect(){
+function engojeConnect(){
     $server ='localhost';
     $dbname = 'comza';
     $username = 'iClient';
@@ -18,7 +18,7 @@ function zalistingConnect(){
         return $link;
     }catch(PDOException $e){
         
-        header('Location:/zalisting/error/500.php');
+        header('Location:/engoje/error/500.php');
         exit;
     }
 

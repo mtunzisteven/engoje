@@ -5,7 +5,7 @@
 
 function regUser($userFirstName, $userLastName, $userEmail, $userPassword){
     // Create a connection object using the phpmotors connection function
-    $db = zalistingConnect();
+    $db = engojeConnect();
     // The SQL statement
     $sql = 'INSERT INTO users (userFirstName, userLastName,userEmail, userPassword)
         VALUES (:userFirstName, :userLastName, :userEmail, :userPassword)';
@@ -31,7 +31,7 @@ function regUser($userFirstName, $userLastName, $userEmail, $userPassword){
 // Check for existing email
 function checkforRegisteredEmail($userEmail){
     // Create a connection object using the phpmotors connection function
-    $db = zalistingConnect();
+    $db = engojeConnect();
     // The SQL statement
     $sql = 'SELECT userEmail FROM users WHERE userEmail = :userEmail';
 
@@ -72,7 +72,7 @@ function checkforRegisteredEmail($userEmail){
 function getDefaultPassword($userEmail){
 
     // Create a connection object using the zalist connection function
-    $db = zalistingConnect();
+    $db = engojeConnect();
 
     // The SQL statement
     $sql = 'SELECT userPassword FROM users WHERE userEmail = :userEmail';
@@ -101,7 +101,7 @@ function getDefaultPassword($userEmail){
 
 // Get all registered users 
 function getUsers(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT userId, userFirstName, userLastName, userEmail, userPhone FROM users';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -112,7 +112,7 @@ function getUsers(){
 
 // Get user data based on an email address
 function getUser($userEmail){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT userId, userFirstName, userLastName, userEmail, userLevel, userPassword FROM users WHERE userEmail = :userEmail';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
@@ -124,7 +124,7 @@ function getUser($userEmail){
 
 // Get user information by invId
 function getUserInfo($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT userId, userFirstName, userLastName, userEmail, userPhone FROM users WHERE userId = :userId'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
@@ -136,7 +136,7 @@ function getUserInfo($userId){
 
 // This is for updating user information
 function updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'UPDATE users SET userFirstName=:userFirstName, userLastName=:userLastName, userEmail=:userEmail, userPhone=:userPhone WHERE userId = :userId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userFirstName', $userFirstName, PDO::PARAM_STR);
@@ -153,7 +153,7 @@ function updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $user
 
 // Set Password information by invId
 function updatePassword($userId, $userPassword){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'UPDATE users SET userPassword=:userPassword WHERE userId = :userId'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
@@ -166,7 +166,7 @@ function updatePassword($userId, $userPassword){
 
 // Get user information by userId 
 function getAddress($userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType FROM addresses WHERE userId = :userId'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
@@ -178,7 +178,7 @@ function getAddress($userId){
 
 // Get user information by userId and addressType
 function getAddressbyType($userId, $addressType){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType FROM addresses WHERE userId = :userId AND addressType = :addressType'; 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
@@ -191,7 +191,7 @@ function getAddressbyType($userId, $addressType){
 
 // This is for updating Addresses by address typ
 function updateAddress($addressName, $addressNumber, $addressEmail, $addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = "UPDATE addresses SET addressName=:addressName, addressNumber=:addressNumber, addressEmail=:addressEmail, addressLineOne=:addressLineOne, addressLineTwo=:addressLineTwo, addressCity=:addressCity, addressZipCode=:addressZipCode, addressType=:addressType WHERE userId = :userId AND addressType = :addressType";
     $stmt = $db->prepare($sql);
 
@@ -214,7 +214,7 @@ function updateAddress($addressName, $addressNumber, $addressEmail, $addressLine
 // This is for updating Addresses
 function addAddress($addressName, $addressNumber, $addressEmail, $addressLineOne, $addressLineTwo, $addressCity, $addressZipCode, $addressType, $userId){
 
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'INSERT INTO addresses (addressName, addressNumber, addressEmail, addressLineOne, addressLineTwo, addressCity, addressZipCode, addressType, userId) VALUES(:addressName, :addressNumber, :addressEmail, :addressLineOne, :addressLineTwo, :addressCity, :addressZipCode, :addressType, :userId)';
     $stmt = $db->prepare($sql);
 

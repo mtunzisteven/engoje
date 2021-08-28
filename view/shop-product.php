@@ -1,6 +1,6 @@
 <?php 
     if(!isset($_SESSION['productData'])){
-        header('Location: /zalisting/shop');
+        header('Location: /engoje/shop');
     }
 
     $pageName ="Shop"; 
@@ -9,12 +9,12 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
         ?>
         <div class="shop single-product-shop">
             <div class="single-product">
@@ -102,9 +102,9 @@
                 <div id='add-to-cart-response'></div>
             </form>
         </div>
-        <script src='/zalisting/js/swatches.js'></script>
-        <script type='module' src='/zalisting/js/singleproduct.js'></script>
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
+        <script src='/engoje/js/swatches.js'></script>
+        <script type='module' src='/engoje/js/singleproduct.js'></script>
+        <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
     </main>
  </body>
 </html>

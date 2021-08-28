@@ -93,7 +93,7 @@ switch ($action){
                             $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                             // add the response text to the response array
-                            $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                            $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/engoje/cart?action=cart'>cart</a></p>";
 
                             // send the associative array back to the js Ajax
                             echo json_encode($responseText);
@@ -134,7 +134,7 @@ switch ($action){
                                 $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                                 // add the response text to the response array
-                                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/engoje/cart?action=cart'>cart</a></p>";
 
                                 // send the associative array back to the js Ajax
                                 echo json_encode($responseText);
@@ -185,7 +185,7 @@ switch ($action){
                     $responseText['cartTotal'] = $_SESSION['cartTotal'];
 
                     // add the response text to the response array
-                    $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/zalisting/cart?action=cart'>cart</a></p>";
+                    $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/engoje/cart?action=cart'>cart</a></p>";
 
                     // send the associative array back to the js Ajax
                     echo json_encode($responseText);
@@ -343,7 +343,7 @@ switch ($action){
         }
 
         // redirect to the cart page
-        header('Location: /zalisting/cart/');
+        header('Location: /engoje/cart/');
 
 
         break;
@@ -409,7 +409,7 @@ switch ($action){
 
         }
 
-        header('Location: /zalisting/cart/');
+        header('Location: /engoje/cart/');
 
         break;
 
@@ -524,7 +524,7 @@ switch ($action){
 
         }
         
-        header('Location: /Zalisting/shop/cart/');  
+        header('Location: /engoje/shop/cart/');  
     }
 
 

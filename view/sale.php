@@ -1,6 +1,6 @@
 <?php 
     if(!isset($products)){
-        header('Location: /zalisting/shop');
+        header('Location: /engoje/shop');
     }
 
     $pageName ="Sale"; 
@@ -9,13 +9,13 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/header-top.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/navigation.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/zalisting/snippets/shop-hero.php';
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header-top.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
         ?>
         <div class="shop">
             
@@ -40,12 +40,12 @@
                     echo "</div>";
 
                     if(isset($_SESSION['userData'])){
-                        echo "<div class='feedback'><a class='feedback-link' href='/zalisting/?action=fb'>Feedback</a></div>";
+                        echo "<div class='feedback'><a class='feedback-link' href='/engoje/?action=fb'>Feedback</a></div>";
                     }
                 ?>
         </div>
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/zalisting/snippets/footer.php'; ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
     </main>
  </body>
- <script src="/zalisting/js/shopswatch.js"></script>
+ <script src="/engoje/js/shopswatch.js"></script>
 </html>

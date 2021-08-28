@@ -54,7 +54,7 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
         
             // Send data
             var request = new XMLHttpRequest();
-            request.open("POST", "http://localhost/zalisting/shop/index.php", false);
+            request.open("POST", "http://localhost/engoje/shop/index.php", false);
             request.onload = function() {
                 if (request.status == 200) {
 
@@ -172,7 +172,7 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
 
         // Send data
         var request = new XMLHttpRequest();
-        request.open("POST", "http://localhost/zalisting/shop/index.php", false);
+        request.open("POST", "http://localhost/engoje/shop/index.php", false);
         request.onload = function() {
             if (request.status == 200) {
 

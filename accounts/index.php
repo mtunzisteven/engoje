@@ -75,7 +75,7 @@ session_cache_expire();
 
                 $_SESSION['message'] = "<p class='detail-span-bold'>Thanks for registering $userFirstName. Please use your email and password to login.</p>";
 
-                header('Location: /zalisting/view/login.php');
+                header('Location: /engoje/view/login.php');
 
                 exit;
             } else {
@@ -117,7 +117,7 @@ session_cache_expire();
                 if($password_check){
 
                     // Set log out session variable
-                    $_SESSION['logout']="<span class=\" detail-span-bold\"><a class=\"account \" href=\"/zalisting/accounts/index.php?action=logout\">Logout</a></span>";
+                    $_SESSION['logout']="<span class=\" detail-span-bold\"><a class=\"account \" href=\"/engoje/accounts/index.php?action=logout\">Logout</a></span>";
 
 
                     // A valid user exists, log them in
@@ -164,7 +164,7 @@ session_cache_expire();
             $_SESSION = array();
             // Log them out
             $_SESSION['loggedin'] = FALSE;
-            header('Location: /zalisting/');
+            header('Location: /engoje/');
             break;
 
         case 'account':

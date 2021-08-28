@@ -12,7 +12,7 @@ session_cache_expire();
     require_once '../library/functions.php';
     // Get the side navs library
     require_once '../library/sidenav.php';
-    // Get the zalisting main model for use as needed
+    // Get the engoje main model for use as needed
     require_once '../model/main-model.php';
     // Get the accounts model for use as needed
     require_once '../model/accounts-model.php';
@@ -128,7 +128,7 @@ session_cache_expire();
                     //var_dump($colours); exit;
 
                     // Create the variations form using the highest number of items between the sizes and coloours
-                    $variationsForm = "<form class='checkboxed' method='POST' action='/zalisting/products/index.php' >";
+                    $variationsForm = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' >";
 
                     for($i= 0; $i<$length; $i++){
 
@@ -242,7 +242,7 @@ session_cache_expire();
                 }
                 
                 $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
-                header('Location: /zalisting/upload');
+                header('Location: /engoje/upload');
                 break;
 
             }else{
@@ -312,7 +312,7 @@ session_cache_expire();
 
         }
 
-        header('Location: /zalisting/products/');
+        header('Location: /engoje/products/');
 
         break;
 

@@ -5,7 +5,7 @@
 // Add a single product meta
 function addProduct($productName, $productShortDescr, $productDescription, $productCreationDate){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
             
@@ -43,7 +43,7 @@ function addProduct($productName, $productShortDescr, $productDescription, $prod
 // Add acual product with qty and price
 function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $sku, $amount){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO 
             
@@ -93,7 +93,7 @@ function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $s
 
 // Get all main products
 function getPrimaryProducts(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId AND images.imagePrimary = 1
                     JOIN products ON product_entry.productId = products.productId
@@ -112,7 +112,7 @@ function getPrimaryProducts(){
 
 // Get all product entries with images(entries duplicated by size or colour)
 function getProducts(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -131,7 +131,7 @@ function getProducts(){
 
 // Get all product entries 
 function getAllProducts(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN products ON product_entry.productId = products.productId
                     JOIN categories ON product_entry.categoryId = categories.categoryId
@@ -149,7 +149,7 @@ function getAllProducts(){
 
 // Get one product 
 function getProduct($productId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -170,7 +170,7 @@ function getProduct($productId){
 
 // Get one product entry by id
 function getProduct_entry($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN images ON product_entry.product_entryId = images.product_entryId
                     JOIN products ON product_entry.productId = products.productId
@@ -191,7 +191,7 @@ function getProduct_entry($product_entryId){
 
 // Get the largest(last) product id 
 function getLastProductId(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT productId FROM products ORDER BY productId DESC LIMIT 0, 1';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -205,7 +205,7 @@ function getLastProductId(){
 
 // Get the ids of the last products added 
 function getLastProductEntryId($numberAdded){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT product_entryId, productId FROM product_entry ORDER BY product_entryId DESC LIMIT :numberAdded, 1';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':numberAdded',$numberAdded, PDO::PARAM_INT);
@@ -220,7 +220,7 @@ function getLastProductEntryId($numberAdded){
 
 // Get the info of the last products added with no repeats per colour
 function getLastProductsInfoById($productId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN products ON product_entry.productId = products.productId
                     JOIN categories ON product_entry.categoryId = categories.categoryId
@@ -241,7 +241,7 @@ function getLastProductsInfoById($productId){
 
 // Get the info of products with images(no duplicates for sizes) 
 function getViewableProducts(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM product_entry 
                     JOIN products ON product_entry.productId = products.productId
                     JOIN categories ON product_entry.categoryId = categories.categoryId
@@ -259,7 +259,7 @@ function getViewableProducts(){
 
 // Delete one product entry by id
 function deleteProduct_entry($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $results = [];
 
     // Get the productId of the product entry to be deleted
@@ -303,7 +303,7 @@ function deleteProduct_entry($product_entryId){
 
 // Delete one product by id
 function deleteNoEntryProducts($productId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'DELETE FROM products
                     WHERE productId = :productId';
     $stmt = $db->prepare($sql);
@@ -319,7 +319,7 @@ function deleteNoEntryProducts($productId){
 
 // Get all product sizes 
 function getSizes(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM size';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -333,7 +333,7 @@ function getSizes(){
 
 // Get size Id by name
 function getSizeId($sizeValue){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT sizeId FROM size WHERE sizeValue = :sizeValue';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':sizeValue',$sizeValue, PDO::PARAM_STR);
@@ -348,7 +348,7 @@ function getSizeId($sizeValue){
 
 // Get colour Id by name
 function getColourId($colour){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT colourId FROM colour WHERE colour = :colour';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
@@ -363,7 +363,7 @@ function getColourId($colour){
 
 // Get all product images 
 function getProductImages(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM images';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -377,7 +377,7 @@ function getProductImages(){
 
 // Get product image by product_entryId
 function getProductImageByProdEntryId($product_entryId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM images WHERE product_entryId =:product_entryId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
@@ -393,7 +393,7 @@ function getProductImageByProdEntryId($product_entryId){
 
 // Get all product images 
 function getColours(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM colour';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -407,7 +407,7 @@ function getColours(){
 
 // Get colours by ids images 
 function getColourById($colourId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM colour WHERE colourId = :colourId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':colourId',$colourId, PDO::PARAM_STR);
@@ -422,7 +422,7 @@ function getColourById($colourId){
 
 // Get sizes by ids images 
 function getSizeById($sizeId){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM size WHERE sizeId = :sizeId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':sizeId',$sizeId, PDO::PARAM_STR);
@@ -437,7 +437,7 @@ function getSizeById($sizeId){
 
 // Get all product images 
 function getCategories(){
-    $db = zalistingConnect();
+    $db = engojeConnect();
     $sql = 'SELECT* FROM categories';
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -452,7 +452,7 @@ function getCategories(){
 // Add a single category
 function addCategory($categoryId, $categoryParent){
     // Create a connection object from the zalist connection function
-    $db = zalistingConnect(); 
+    $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
     $stmt = $db->prepare('INSERT INTO categories (categoryId, categoryParent) VALUES (:categoryId, :categoryParent)');
     // Replace the place holder
