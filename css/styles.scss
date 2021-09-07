@@ -1,10 +1,16 @@
 /*
 *---------------------------------Website Colors
-*/
+*//*
 $main-color: #0f4392;
 $dark-main-color: #081f42;
 $darker-main-color: #051124;
 $light-main-color:#80a1d1;
+*/
+
+$main-color: #8a8a8a;
+$dark-main-color: #6a6a6a;
+$darker-main-color: #2e2e2e;
+$light-main-color:#c0c0c0;
 $secondary-color: #fea500;
 $dark-secondary-color: #df9205;
 $light-secondary-color: #fcba40;
@@ -60,7 +66,7 @@ $notices  : 200 20px 'Handlee', sans-serif;
 
 @mixin buttonshover(){
     color:$background-color;
-    background-color: $light-main-color;
+    background-color: $dark-main-color;
     box-shadow: 1px 2px 8px 3px $dark_color;
 
 }
@@ -202,6 +208,7 @@ body{
             border-left: 1px solid $light-main-color;
             border-right: 1px solid $light-main-color;
             font: $p;
+            vertical-align: middle;
 
             & .image-tn{
                 width:60px;
@@ -228,7 +235,7 @@ body{
             padding-bottom: 12px;
             text-align: center;
             background-color: $main-color;
-            color: $background-color;
+            color: $light-dark-color;
             }
         }
     
@@ -237,7 +244,21 @@ body{
         font: $button;
     }
 
+    & .chunk-buttons{
+        height: 37px;
+        line-height: 37px;
+        max-width: 80px;
+    }
+
+    & .line-height-button{
+        line-height: 10px;
+    }
+
     & .button:hover{
+        @include buttonshover();
+    }
+
+    & .button:focus{
         @include buttonshover();
     }
 }
@@ -463,6 +484,10 @@ div.bottom-nav-container{
         }
     }
 
+    & a.signin{
+        font: $p;
+    }
+
     & a:hover{
         color:$light-main-color;
     }
@@ -489,10 +514,35 @@ div.bottom-nav-container{
     background-color: $main-color;
     border-radius: 3px;
     margin: 20px auto;
+    
 }
 
 .shop-hero{
     background-color: $secondary-color;
+    margin: 10px auto;
+    width: 93%;
+
+    #myCarousel{
+        background-color: $secondary-color;
+
+        & .carousel-inner{
+            background-color: $secondary-color;
+
+            & .carousel-item{
+                background-color: $secondary-color;
+                height: 250px;
+                border-radius: 3px;
+
+                & .container{
+                    background-color: $secondary-color;
+
+                    & .carousel-caption{
+                        background-color: $secondary-color;
+                    }
+                }
+            }
+        }
+    }
 }
 
 div#checkout-header{
@@ -523,11 +573,11 @@ div#checkout-header{
 
         & div.admin-nav{
 
-            & ul.nav li{
+            & ul.nav{
                 
-                & .nav-item{
+                & li.nav-item{
 
-                    & .active{
+                    & a.active{
                         background-color: $main-color;
                     }
 
@@ -567,6 +617,7 @@ div#checkout-header{
                 color:$background-color;
                 text-align: left;
                 margin-left:18%;
+                font: $p;
             }
 
             & .dashboard-main-link{
@@ -2049,6 +2100,39 @@ footer.main-footer{
     }
 }
 
+div.accordion{
+    margin: 0 auto;
+
+    & div.accordion-item{
+        
+        & h2{
+            padding-left:0;
+            
+            & button{
+                font: $h2;
+                font-size: 18px;
+                color: $darker-main-color;
+                background-color: $background-color;
+            }
+
+            & button:focus{
+                background-color: $darker-background-color;
+                border: $light-main-color;
+                color: $darker-main-color;
+                box-shadow: 0 0 3px 2px $dark-secondary-color;
+
+            }
+        }
+
+        & h2:focus{
+            background-color: $darker-background-color;
+            border: $light-main-color;
+            outline: none;
+            border: none;
+        }
+    }
+}
+
 //---------------------------------------------------------------
 //                           Tablet                              |
 //---------------------------------------------------------------
@@ -2800,6 +2884,13 @@ form{
                     @include product-count(21px, -65%);
     
                 }
+            }
+
+            & a.signin{
+                font: $p;
+                color: $darker-background-color;
+                margin-top: 73px;
+                    
             }
     
             & a.user{

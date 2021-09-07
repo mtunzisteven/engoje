@@ -56,9 +56,10 @@
                             <div class='dashboard-form-details'>
                                 
                                 <?php
-                                    if(isset($image['imagePath'])){
+                                    if(isset($image['imagePath']) && isset($product)){
                                         echo "<h3>Primary Image</h3>";
                                         echo "<img class='product-image' src='$image[imagePath]' alt='Product Image'/>";
+
                                     }
 
 

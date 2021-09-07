@@ -2,6 +2,12 @@
 *---------------------------------Website Colors
 */
 /*
+$main-color: #0f4392;
+$dark-main-color: #081f42;
+$darker-main-color: #051124;
+$light-main-color:#80a1d1;
+*/
+/*
 *---------------------------------Fonts
 */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Handlee&family=Nunito+Sans&display=swap");
@@ -51,7 +57,7 @@ body .strong {
 }
 
 body .admin-main {
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
 }
 
 body .detail-span-bold {
@@ -85,15 +91,16 @@ body table {
   text-align: center;
   width: 90%;
   margin: 0 0 50px 15px;
-  border: 1px solid #80a1d1;
+  border: 1px solid #c0c0c0;
   font: 200 15px "Nunito", sans-serif;
 }
 
 body table th, body table td {
   padding: 8px;
-  border-left: 1px solid #80a1d1;
-  border-right: 1px solid #80a1d1;
+  border-left: 1px solid #c0c0c0;
+  border-right: 1px solid #c0c0c0;
   font: 200 15px "Nunito", sans-serif;
+  vertical-align: middle;
 }
 
 body table th .image-tn, body table td .image-tn {
@@ -133,8 +140,8 @@ body table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #0f4392;
-  color: #fdfdfd;
+  background-color: #8a8a8a;
+  color: #929292;
 }
 
 body .button {
@@ -143,7 +150,7 @@ body .button {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   border-radius: 3px;
   border: none;
@@ -154,9 +161,26 @@ body .button {
   font: 200 15px "Nunito", sans-serif;
 }
 
+body .chunk-buttons {
+  height: 37px;
+  line-height: 37px;
+  max-width: 80px;
+}
+
+body .line-height-button {
+  line-height: 10px;
+}
+
 body .button:hover {
   color: #fdfdfd;
-  background-color: #80a1d1;
+  background-color: #6a6a6a;
+  -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
+          box-shadow: 1px 2px 8px 3px #3a3939;
+}
+
+body .button:focus {
+  color: #fdfdfd;
+  background-color: #6a6a6a;
   -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
           box-shadow: 1px 2px 8px 3px #3a3939;
 }
@@ -174,7 +198,7 @@ input, textarea, button, a {
 }
 
 .all-nav {
-  background-color: #081f42;
+  background-color: #6a6a6a;
   height: 60px;
   line-height: 60px;
   padding: 0;
@@ -184,7 +208,7 @@ input, textarea, button, a {
 }
 
 .all-nav div.container-fluid {
-  background-color: #081f42;
+  background-color: #6a6a6a;
   padding: 0 3%;
 }
 
@@ -207,7 +231,7 @@ input, textarea, button, a {
 }
 
 .all-nav div.container-fluid .navbar-toggler .navbar-toggler-icon:hover {
-  color: #80a1d1;
+  color: #c0c0c0;
   outline: none;
 }
 
@@ -230,11 +254,11 @@ input, textarea, button, a {
 }
 
 .all-nav div.container-fluid .navbar-collapse a.active {
-  color: #80a1d1;
+  color: #c0c0c0;
 }
 
 .all-nav div.collapse {
-  background-color: #081f42;
+  background-color: #6a6a6a;
   width: 100%;
   padding: 0;
 }
@@ -271,7 +295,7 @@ input, textarea, button, a {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   border-radius: 3px;
   border: none;
@@ -294,7 +318,7 @@ input, textarea, button, a {
 
 .all-nav div.collapse .d-flex .buttons:hover {
   color: #fdfdfd;
-  background-color: #80a1d1;
+  background-color: #6a6a6a;
   -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
           box-shadow: 1px 2px 8px 3px #3a3939;
   -webkit-box-shadow: none;
@@ -317,7 +341,7 @@ li {
 
 a {
   text-decoration: none;
-  color: #0f4392;
+  color: #8a8a8a;
   font: 200 15px "Nunito", sans-serif;
 }
 
@@ -415,7 +439,7 @@ div.bottom-nav-container a .cart-count {
   z-index: 1000;
   top: 5px;
   right: -17px;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   width: 15px;
   height: 15px;
@@ -430,7 +454,7 @@ div.bottom-nav-container a .wishlist-count {
   z-index: 1000;
   top: 3px;
   right: -69%;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   width: 15px;
   height: 15px;
@@ -440,8 +464,12 @@ div.bottom-nav-container a .wishlist-count {
   border-radius: 15px;
 }
 
+div.bottom-nav-container a.signin {
+  font: 200 15px "Nunito", sans-serif;
+}
+
 div.bottom-nav-container a:hover {
-  color: #80a1d1;
+  color: #c0c0c0;
 }
 
 div.bottom-nav-container a.active {
@@ -455,12 +483,36 @@ div.bottom-nav-container a.active {
   text-align: center;
   color: #fdfdfd;
   font-size: 60px;
-  background-color: #0f4392;
+  background-color: #8a8a8a;
   border-radius: 3px;
   margin: 20px auto;
 }
 
 .shop-hero {
+  background-color: #fea500;
+  margin: 10px auto;
+  width: 93%;
+}
+
+.shop-hero #myCarousel {
+  background-color: #fea500;
+}
+
+.shop-hero #myCarousel .carousel-inner {
+  background-color: #fea500;
+}
+
+.shop-hero #myCarousel .carousel-inner .carousel-item {
+  background-color: #fea500;
+  height: 250px;
+  border-radius: 3px;
+}
+
+.shop-hero #myCarousel .carousel-inner .carousel-item .container {
+  background-color: #fea500;
+}
+
+.shop-hero #myCarousel .carousel-inner .carousel-item .container .carousel-caption {
   background-color: #fea500;
 }
 
@@ -497,11 +549,11 @@ div#checkout-header img {
 .admin-dashboard .admin-dashboardnav {
   max-width: 100%;
   min-height: 800px;
-  background-color: #081f42;
+  background-color: #6a6a6a;
 }
 
-.admin-dashboard .admin-dashboardnav div.admin-nav ul.nav li .nav-item .active {
-  background-color: #0f4392;
+.admin-dashboard .admin-dashboardnav div.admin-nav ul.nav li.nav-item a.active {
+  background-color: #8a8a8a;
 }
 
 .dashboard {
@@ -512,11 +564,11 @@ div#checkout-header img {
 
 .dashboard .dashboard-side-nav {
   height: 800px;
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items {
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
   width: 100%;
   height: 40px;
   line-height: 40px;
@@ -533,18 +585,19 @@ div#checkout-header img {
   color: #fdfdfd;
   text-align: left;
   margin-left: 18%;
+  font: 200 15px "Nunito", sans-serif;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items .dashboard-main-link {
   font-weight: 900;
-  background-color: #0f4392;
+  background-color: #8a8a8a;
   color: #fdfdfd;
   margin-left: 0;
   text-align: center;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items:hover {
-  background-color: #081f42;
+  background-color: #6a6a6a;
 }
 
 .dashboard .dashboard-side-nav .dashboard-side-nav-items:hover .a:hover {
@@ -599,7 +652,7 @@ div#checkout-header img {
 }
 
 .dashboard .dashboard-content .h2 {
-  color: #081f42;
+  color: #6a6a6a;
   font-size: 20px;
   text-align: left;
   margin: 5px 15px;
@@ -970,7 +1023,7 @@ div#checkout-header img {
   z-index: 900;
   top: 5px;
   left: 5px;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   width: 35px;
   height: 25px;
@@ -992,7 +1045,7 @@ div#checkout-header img {
 }
 
 .shop div.shop-products-archive .shop-products .product .productName-link {
-  color: #0f4392;
+  color: #8a8a8a;
   text-decoration: none;
 }
 
@@ -1075,13 +1128,13 @@ div#checkout-header img {
 
 .shop div.feedback a.feedback-link {
   display: block;
-  color: #051124;
+  color: #2e2e2e;
   padding: 5px 10px;
   text-decoration: none;
 }
 
 .shop div.feedback:hover {
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
 }
 
 div.single-product-shop {
@@ -1130,7 +1183,7 @@ div.single-product-shop div.single-product div.sale-img-container div.sale-circl
   z-index: 900;
   top: 5px;
   left: 10px;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   width: 40px;
   height: 24px;
@@ -1205,7 +1258,7 @@ form {
   padding: 20px 0;
   margin: 15px auto;
   border-radius: 3px;
-  border: #0f4392 1px solid;
+  border: #8a8a8a 1px solid;
 }
 
 form input {
@@ -1242,7 +1295,7 @@ form .button {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  color: #051124;
+  color: #2e2e2e;
   background-color: #fea500;
   border-radius: 3px;
   border: none;
@@ -1260,8 +1313,8 @@ form .login-reg-button {
   height: 20px;
   line-height: 20px;
   text-align: center;
-  color: #051124;
-  background-color: #0f4392;
+  color: #2e2e2e;
+  background-color: #8a8a8a;
   border-radius: 3px;
   border: none;
   -webkit-box-shadow: 1px 2px 5px 1px #3a3939;
@@ -1274,7 +1327,7 @@ form .login-reg-button {
 
 form .login-reg-button:hover {
   color: #fdfdfd;
-  background-color: #80a1d1;
+  background-color: #6a6a6a;
   -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
           box-shadow: 1px 2px 8px 3px #3a3939;
 }
@@ -1303,11 +1356,11 @@ form.form-add-to-cart {
 }
 
 form.form-add-to-cart #product-title {
-  color: #0f4392;
+  color: #8a8a8a;
   margin: 0;
   text-align: left;
   min-width: 100%;
-  border-bottom: solid 1px #0f4392;
+  border-bottom: solid 1px #8a8a8a;
 }
 
 form.form-add-to-cart .productShort-descr {
@@ -1364,7 +1417,7 @@ form.form-add-to-cart .swatch-container .swatch-single-item:focus {
 }
 
 form.form-add-to-cart .swatch-container .swatch-single-item:hover {
-  border: 2px solid #0f4392;
+  border: 2px solid #8a8a8a;
 }
 
 form.form-add-to-cart .add-to-cart-container {
@@ -1419,13 +1472,13 @@ form.form-add-to-cart .add-to-cart-container #add-to-cart-button {
 }
 
 form.form-add-to-cart .add-to-cart-container #add-to-cart-button:hover {
-  background-color: #80a1d1;
-  color: #051124;
+  background-color: #c0c0c0;
+  color: #2e2e2e;
 }
 
 form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button {
-  background-color: #80a1d1;
-  color: #051124;
+  background-color: #c0c0c0;
+  color: #2e2e2e;
   width: 45%;
   height: 28px;
   line-height: 28px;
@@ -1439,7 +1492,7 @@ form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button {
 
 form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button:hover {
   background-color: #fea500;
-  color: #051124;
+  color: #2e2e2e;
 }
 
 form.form-add-to-cart div.sale-prices-container {
@@ -1464,7 +1517,7 @@ form.form-add-to-cart div.sale-prices-container {
 form.form-add-to-cart div.sale-prices-container .productPrice {
   min-width: 15%;
   font-size: 18px;
-  color: #0f4392;
+  color: #8a8a8a;
   font-weight: 300;
   text-align: left;
 }
@@ -1481,7 +1534,7 @@ form.form-add-to-cart div.sale-prices-container .strike-through {
 }
 
 div.uploads-container {
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
   border-radius: 3px;
   margin: 10px;
   padding: 10px;
@@ -1627,7 +1680,7 @@ form.payfast-form input.button {
 }
 
 form.payfast-form input.button:hover {
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
 }
 
 div.checkout-display-form {
@@ -1671,7 +1724,7 @@ div.checkout-display-form .address-column h2.address-column-title {
   margin: 20px 0 5px 0;
   padding: 0;
   font-size: 22px;
-  color: #0f4392;
+  color: #8a8a8a;
 }
 
 div.checkout-display-form .address-column div.ship-address {
@@ -1698,7 +1751,7 @@ div.checkout-display-form .address-column div.ship-address div.ship-to {
   min-height: 10px;
   border-radius: 10px;
   background-color: #fea500;
-  border: 3px solid #081f42;
+  border: 3px solid #6a6a6a;
 }
 
 div.checkout-display-form .address-column div.ship-address div.ship-address-label {
@@ -1713,7 +1766,7 @@ div.checkout-display-form .address-column div.ship-address div.ship-address-labe
 
 div.checkout-display-form .address-column div.button {
   width: 100%;
-  color: #051124;
+  color: #2e2e2e;
   text-align: center;
   margin-top: 15px auto;
   padding: 5px;
@@ -1837,9 +1890,9 @@ div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item di
 
 div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item-summary-label {
   color: #fdfdfd;
-  background-color: #0f4392;
+  background-color: #8a8a8a;
   border-radius: 5px 5px 0 0;
-  border: 1px solid #0f4392;
+  border: 1px solid #8a8a8a;
   height: 50px;
   padding: 0;
 }
@@ -2051,7 +2104,7 @@ form.feedback-form input.button {
 }
 
 .sidebar-section div.swatch-container .swatch-single-item:hover {
-  border: 1px solid #80a1d1;
+  border: 1px solid #c0c0c0;
 }
 
 .sidebar-section input.button {
@@ -2117,7 +2170,7 @@ form.feedback-form input.button {
 }
 
 .category-form label:focus {
-  color: #80a1d1;
+  color: #c0c0c0;
 }
 
 div.address-form-container {
@@ -2197,7 +2250,7 @@ div.address-form-container form.new-address-form input {
 div.address-form-container form.new-address-form input[type=button] {
   max-height: none;
   margin-top: 20px;
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
 }
 
 div.address-form-container form.new-address-form input[type=button]:hover {
@@ -2283,7 +2336,7 @@ form.checkout-address div.checkout-label input {
 form.checkout-address input[type=submit] {
   max-width: 200px;
   padding: 15px;
-  background-color: #80a1d1;
+  background-color: #c0c0c0;
   line-height: 1px;
 }
 
@@ -2336,7 +2389,7 @@ div.cart-display-table {
 }
 
 div.cart-display-table .cart-display-table-row {
-  background-color: #0f4392;
+  background-color: #8a8a8a;
   color: #fdfdfd;
   width: 99.5%;
   max-height: 80px;
@@ -2371,7 +2424,7 @@ div.cart-display-table .cart-display-table-row i.remove-item-x {
 }
 
 div.cart-display-table .cart-display-table-row i.remove-item-x:hover {
-  color: #80a1d1;
+  color: #c0c0c0;
 }
 
 div.cart-display-table div.seperator {
@@ -2532,7 +2585,7 @@ footer.short-footer {
 
 footer.main-footer {
   display: none;
-  background-color: #051124;
+  background-color: #2e2e2e;
   color: #d8d5d5;
   text-align: center;
   font: 200 15px "Nunito", sans-serif;
@@ -2542,7 +2595,7 @@ footer.main-footer {
 
 footer.main-footer div.footer-top-block {
   font-size: 10px;
-  background-color: #081f42;
+  background-color: #6a6a6a;
   color: #d8d5d5;
   padding: 10px 0;
   font: 200 15px "Nunito", sans-serif;
@@ -2557,7 +2610,7 @@ footer.main-footer div.footer-top-block a.bootom-to-top {
 }
 
 footer.main-footer div.footer-widgets-container {
-  background-color: #051124;
+  background-color: #2e2e2e;
   height: 200px;
   text-align: left;
 }
@@ -2580,7 +2633,7 @@ footer.main-footer div.footer-widgets-container div.row a {
 }
 
 footer.main-footer div.footer-bottom-block {
-  border-top: 1px solid #081f42;
+  border-top: 1px solid #6a6a6a;
   padding: 10px 0 10px 0;
   font-size: 10px;
 }
@@ -2706,6 +2759,36 @@ footer.main-footer div.footer-bottom-block a:hover {
   font-size: 24px;
   font-weight: 500;
   margin: 0 0 20px auto;
+}
+
+div.accordion {
+  margin: 0 auto;
+}
+
+div.accordion div.accordion-item h2 {
+  padding-left: 0;
+}
+
+div.accordion div.accordion-item h2 button {
+  font: 400 30px "Nunito", sans-serif;
+  font-size: 18px;
+  color: #2e2e2e;
+  background-color: #fdfdfd;
+}
+
+div.accordion div.accordion-item h2 button:focus {
+  background-color: #d8d5d5;
+  border: #c0c0c0;
+  color: #2e2e2e;
+  -webkit-box-shadow: 0 0 3px 2px #df9205;
+          box-shadow: 0 0 3px 2px #df9205;
+}
+
+div.accordion div.accordion-item h2:focus {
+  background-color: #d8d5d5;
+  border: #c0c0c0;
+  outline: none;
+  border: none;
 }
 
 @media only screen and (min-width: 550px) {
@@ -2890,18 +2973,18 @@ footer.main-footer div.footer-bottom-block a:hover {
     display: block;
   }
   .dashboard .dashboard-content .user-data-container .user-update .user-update-item {
-    background-color: #80a1d1;
+    background-color: #c0c0c0;
     border-bottom: #fdfdfd 1px solid;
   }
   .dashboard .dashboard-content .user-data-container .user-update .user-update-item a {
     color: #fdfdfd;
   }
   .dashboard .dashboard-content .user-data-container .user-update .user-update-item:hover {
-    background-color: #0f4392;
+    background-color: #8a8a8a;
   }
   .dashboard .dashboard-content .user-data-container .dashboard-user-update-data {
     margin: 0 auto 50px auto;
-    background-color: #80a1d1;
+    background-color: #c0c0c0;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -2975,7 +3058,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     min-width: 85%;
     border: #fdfdfd 1px solid;
     border-radius: 3px;
-    background-color: #80a1d1;
+    background-color: #c0c0c0;
   }
   form.checkboxed .swatch-row {
     display: -webkit-box;
@@ -3322,7 +3405,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     z-index: 900;
     top: 8px;
     left: 5px;
-    color: #051124;
+    color: #2e2e2e;
     background-color: #fea500;
     width: 35px;
     height: 25px;
@@ -3407,7 +3490,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     min-width: 50%;
     max-width: 220px;
     color: #fdfdfd;
-    background-color: #80a1d1;
+    background-color: #c0c0c0;
     text-align: center;
     margin-top: 15px;
     padding: 5px;
@@ -3443,7 +3526,7 @@ footer.main-footer div.footer-bottom-block a:hover {
   div.checkout-display-form .cart-summary-column form.payfast-form input[type=button] {
     max-width: 200px;
     height: 30px;
-    background-color: #80a1d1;
+    background-color: #c0c0c0;
   }
   div.checkout-display-form .cart-summary-column form.payfast-form input[type=button]:hover {
     background-color: #fea500;
@@ -3532,9 +3615,9 @@ footer.main-footer div.footer-bottom-block a:hover {
   }
   div.checkout-display-form .cart-summary-column .cart-items-summary .cart-item-summary-label {
     color: #fdfdfd;
-    background-color: #0f4392;
+    background-color: #8a8a8a;
     border-radius: 5px 5px 0 0;
-    border: 1px solid #0f4392;
+    border: 1px solid #8a8a8a;
     height: 50px;
     padding: 0;
   }
@@ -3642,7 +3725,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    color: #051124;
+    color: #2e2e2e;
     background-color: #fea500;
     border-radius: 3px;
     border: none;
@@ -3663,7 +3746,7 @@ footer.main-footer div.footer-bottom-block a:hover {
   }
   .all-nav div.collapse .d-flex .buttons:hover {
     color: #fdfdfd;
-    background-color: #80a1d1;
+    background-color: #6a6a6a;
     -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
             box-shadow: 1px 2px 8px 3px #3a3939;
     -webkit-box-shadow: none;
@@ -3709,7 +3792,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     z-index: 1000;
     top: 21px;
     right: -11px;
-    color: #051124;
+    color: #2e2e2e;
     background-color: #fea500;
     width: 15px;
     height: 15px;
@@ -3723,7 +3806,7 @@ footer.main-footer div.footer-bottom-block a:hover {
     z-index: 1000;
     top: 21px;
     right: -65%;
-    color: #051124;
+    color: #2e2e2e;
     background-color: #fea500;
     width: 15px;
     height: 15px;
@@ -3732,12 +3815,17 @@ footer.main-footer div.footer-bottom-block a:hover {
     text-align: center;
     border-radius: 15px;
   }
+  .all-nav .icons-container a.signin {
+    font: 200 15px "Nunito", sans-serif;
+    color: #d8d5d5;
+    margin-top: 73px;
+  }
   .all-nav .icons-container a.user {
     height: 30px;
     line-height: 30px;
   }
   .all-nav .icons-container a:hover {
-    color: #80a1d1;
+    color: #c0c0c0;
   }
   div.single-product-shop {
     display: -webkit-box;

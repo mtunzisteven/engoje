@@ -13,14 +13,15 @@ session_cache_expire();
 
     // active tab array
     $_SESSION['active_tab'] = [
-        'account'=>'',
-        'users'=>'',
-        'products'=>'',
-        'images'=>'',
-
+        'account' => "", 
+        'users' => "", 
+        'products' => "", 
+        'images' => "",
+        'orders' => "", 
+        'reviews' => "", 
+        'returns' => "", 
+        'promotions' => ""
     ];
-
-    //var_dump($_SESSION['active_tab']); exit;
 
     // Get the side navs library
     require_once '../library/sidenav.php';
@@ -28,7 +29,7 @@ session_cache_expire();
     require_once '../model/main-model.php';
 
     // Build Admin Side Nav
-    $adminSideNav = buildAdminSideNav();
+   $adminSideNav = buildAdminSideNav();
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){

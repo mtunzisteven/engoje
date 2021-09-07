@@ -31,24 +31,23 @@ session_cache_expire();
     // active tab array
     $_SESSION['active_tab'] = [
         'account'=>'',
-        'users'=>'',
+        'users'=>'active',
         'products'=>'',
         'images'=>'',
-
+        'orders'=>'',
+        'reviews'=>'',
+        'promotions'=>''
     ];
+
+    // Get the side navs library
+    include '../library/sidenav.php';
+
+    // Build Admin Side Nav
+    $adminSideNav = buildAdminSideNav();
 
     switch ($action) {
 
         case 'account':
-
-            // activate accounts tab
-            $_SESSION['active_tab']['account'] = 'active';
-
-            // Get the side navs library
-            include '../library/sidenav.php';
-
-            // Build Admin Side Nav
-            $adminSideNav = buildAdminSideNav();
 
             include '../view/account.php';
 
@@ -56,20 +55,9 @@ session_cache_expire();
 
         case 'users':
 
-            // activate users tab
-            $_SESSION['active_tab']['users'] = 'active';
-
-            // Get the side navs library
-            include '../library/sidenav.php';
-
-            // Build Admin Side Nav
-            $adminSideNav = buildAdminSideNav();
-
             $users = getUsers();
 
             $userRows = buildUsersDisplay($users);
-
-            //echo $display; exit;
 
             include '../view/users.php';
 
@@ -81,7 +69,7 @@ session_cache_expire();
 
             $userInfo = getUserInfo($userId);
 
-            $userDisplay = buildUserDisplay($userInfo);
+            $userDisplay = buildUserUpdateDisplay($userInfo);
 
             $_SESSION['updatinguserId'] = $userInfo['userId'];
 
@@ -104,12 +92,8 @@ session_cache_expire();
             // Send the data to the model
             $updateResult = updateInfo($userFirstName, $userLastName, $userEmail, $userPhone, $_SESSION['updatinguserId']);
 
-            //var_dump($updateResult); exit;
-
             // Build Admin Side Nav
             $adminSideNav = buildAdminSideNav();
-
-            //echo var_dump($userInfo); exit;
 
             // If database update fails, send user a message.
             if (!$updateResult) {

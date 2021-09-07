@@ -40,7 +40,7 @@ function addProduct($productName, $productShortDescr, $productDescription, $prod
     return $result;
 }
 
-// Add acual product with qty and price
+// Add actual product with qty and price
 function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $sku, $amount){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
@@ -83,6 +83,31 @@ function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $s
     $result = $stmt->rowCount();
 
     //echo $result; exit;
+
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $result;
+}
+
+// Add actual product with qty and price
+function updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $amount){
+    // Create a connection object from the zalist connection function
+    $db = engojeConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare(' UPDATE product_entry SET sizeId =:sizeId, colourId =:colourId, categoryId =:categoryId, amount =:amount WHERE product_entryId = :product_entryId ');
+
+    // Replace the place holders
+    $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+    $stmt->bindValue(':sizeId',$sizeId, PDO::PARAM_INT);
+    $stmt->bindValue(':colourId',$colourId, PDO::PARAM_INT);
+    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
+    $stmt->bindValue(':amount',$amount, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // Get number of affected rows
+    $result = $stmt->rowCount();
 
     // The next line closes the interaction with the database 
     $stmt->closeCursor(); 
@@ -447,6 +472,22 @@ function getCategories(){
     //var_dump($productCategories); exit;
 
     return $productCategories;
+}
+
+// Get product category id by category name 
+function getCategoryId($categoryName){
+
+    $cats = getCategories(); //all castegories
+
+    foreach($cats as $cat){
+
+        if($cat['categoryName'] == $categoryName){
+
+            return $cat['categoryId']; //return id
+
+        }
+
+    }
 }
 
 // Add a single category

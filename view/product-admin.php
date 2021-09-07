@@ -48,13 +48,13 @@
                         }
 
 
-                    echo '<a href="/engoje/products/?action=create" class="button add-new" >Add New</a>';
+                    echo '<a href="/engoje/products/?action=create" class="button add-new line-height-button" >add new</a>';
 
                         echo "<div class='table-holder'>";
 
                         if(isset($productAdminTable)){
 
-                            echo "<table id='users-display'><tr id='user-display-header'> <th>Action</th> <th>Image </th> <th>Name</th> <th>Price</th> <th>Qty</th> <th>Size</th> <th>Colour</th> <th>SKU</th> </tr>";
+                            echo "<table id='users-display' class='table table-striped table-hover'><tr id='user-display-header'><th>#</th> <th>Action</th> <th>Image </th> <th>Name</th> <th>Price</th> <th>Qty</th> <th>Size</th> <th>Colour</th> <th>SKU</th> </tr>";
 
                             foreach($productAdminTable as $row){
 
@@ -71,6 +71,9 @@
                 </section>
             </section>         
         </main>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <script src="/engoje/js/counts.js"></script>
         <script src="/engoje/js/sliders.js"></script>
     </body>
 </html>

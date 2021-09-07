@@ -75,11 +75,13 @@
 
                 <?php 
 
-                        //var_dump($_SESSION['productData']); exit;
+                        $salePrice = ''; // When there is no sale price
+
+                        if(isset($_SESSION['salePrice'])){ $salePrice = "R".$_SESSION['salePrice']; } //When there is a sale price
                     
                         echo "<h1 id='product-title'>".$_SESSION['productData'][0]['productName']."</h1>";
                                                                                                                         // div.sale-circle below
-                        echo "<div class='sale-prices-container'><p class='productPrice $_SESSION[strikeThrough]' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p><p class='$_SESSION[hidden] productPrice sale-price' >R".$_SESSION['salePrice']."</p></div>";
+                        echo "<div class='sale-prices-container'><p class='productPrice $_SESSION[strikeThrough]' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p><p class='$_SESSION[hidden] productPrice sale-price' >".$salePrice."</p></div>";
                         echo "<p  class='productShort-descr'>".$_SESSION['productData'][0]['productShortDescr']."</p>";
                         echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$_SESSION['productData'][0]['product_entryId']."' />";
                         echo "<input type='hidden' id='productId' name='productId' value='".$_SESSION['productData'][0]['productId']."' />";

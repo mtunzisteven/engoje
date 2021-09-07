@@ -38,46 +38,69 @@
                 <section class="dashboard-content user-data-container">
                     <div class='uploads-container'>
                         <h1 id=title>Image Management</h1>    
-
-                        <h2 class="notice">Add New Product Image</h2>
                         <p  id='ajaxResponse' class="notice"></p>
-                        <?php
-                            if (isset($message)) {
-                                echo $message;
-                            } 
-                            if (isset($_SESSION['message'])) {
-                                echo $_SESSION['message'];
-                            } 
 
-                            echo "<div class='upload-forms-container'>";
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        Add New Product Image
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
 
-                            if (isset($uploadForms)) {
+                                        <?php
+                                            if (isset($message)) {
+                                                echo $message;
+                                            } 
+                                            if (isset($_SESSION['message'])) {
+                                                echo $_SESSION['message'];
+                                            } 
 
-                                echo $uploadForms;
+                                            echo "<div class='upload-forms-container'>";
 
-                            } 
+                                            if (isset($uploadForms)) {
 
-                            echo "</div>";
+                                                echo $uploadForms;
 
-                        ?>
+                                            } 
 
+                                            echo "</div>";
+                                        ?>
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                    Existing Images
+                                </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
 
-                        <hr/>
+                                        <p>These are product images. If one is deleted, the product will no longer appear in the store.</p>
+                                        <div class="media-display">
+                                            <?php
+                                                if (isset($imageDisplay)) {
+                                                    echo $imageDisplay;
+                                                } 
+                                            ?>
+                                        </div> 
 
-                        <h2 class="notice">Existing Images</h2>
-                        <p>These are product images. If one is deleted, the product will no longer appear in the store.</p>
-                        <div class="media-display">
-                            <?php
-                                if (isset($imageDisplay)) {
-                                    echo $imageDisplay;
-                                } 
-                            ?>
-                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
             </section>         
         </main>
-        <script src="../js/sliders.js"></script>
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <script src="/engoje/js/counts.js"></script>
     </body>
 </html>

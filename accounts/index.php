@@ -10,8 +10,6 @@ session_cache_expire();
     require_once '../library/connections.php';
     // Get the functions library
     require_once '../library/functions.php';
-    // Get the side navs library
-    require_once '../library/sidenav.php';
     // Get the main model for use as needed
     require_once '../model/main-model.php';
     // Get the acciunts model for use as needed
@@ -19,10 +17,16 @@ session_cache_expire();
     // Get the reviews model for use as needed
     require_once '../model/reviews-model.php';  
 
-    // Build Admin Side Nav
-    $adminSideNav = buildAdminSideNav();
-
-
+    // active tab array
+    $_SESSION['active_tab'] = [
+        'account'=>'',
+        'users'=>'',
+        'products'=>'',
+        'images'=>'',
+        'orders'=>'',
+        'reviews'=>'',
+        'promotions'=>''
+    ];
 
     $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL){
@@ -137,6 +141,15 @@ session_cache_expire();
 
                     // Getting the reviews html from the functions.
                     $customerReviews = customerReviews($reviews);
+
+                    // sey the active tab on the admin side nav
+                    $_SESSION['active_tab']['account'] = "active";
+
+                    // Get the side navs library
+                    include '../library/sidenav.php';
+
+                    // Build Admin Side Nav
+                   $adminSideNav = buildAdminSideNav();
 
                     // Send them to the admin view
                     include '../view/admin.php';

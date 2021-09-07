@@ -12,10 +12,6 @@ require_once '../model/products-model.php';
 require_once '../model/uploads-model.php';
 require_once '../library/functions.php';
 
-
-// Build Admin Side Nav
-$adminSideNav = buildAdminSideNav();
-
 /* * ****************************************************
 * Variables for use with the Image Upload Functionality
 * **************************************************** */
@@ -230,6 +226,24 @@ case 'delete':
     break;
 
 default:
+
+
+    // active tab array for adminSidenav
+    $_SESSION['active_tab'] = [
+        'account' => "", 
+        'users' => "", 
+        'products' => "", 
+        'images' => "active",
+        'orders' => "", 
+        'reviews' => "", 
+        'returns' => "", 
+        'promotions' => ""
+    ];
+
+    // Get the side navs library
+    require_once '../library/sidenav.php';
+    // Build Admin Side Nav
+    $adminSideNav = buildAdminSideNav();
 
     // Call function to return image info from database
     $imageArray = getImages();

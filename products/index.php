@@ -10,17 +10,12 @@ session_cache_expire();
     require_once '../library/connections.php';
     // Get the database connection file
     require_once '../library/functions.php';
-    // Get the side navs library
-    require_once '../library/sidenav.php';
     // Get the engoje main model for use as needed
     require_once '../model/main-model.php';
     // Get the accounts model for use as needed
     require_once '../model/accounts-model.php';
     // Get the products adproductUpdateNavmin model for use as needed
     require_once '../model/products-model.php';
-
-    // Build Admin Side Nav
-    $adminSideNav = buildAdminSideNav();
 
     // Fetch all product entries and bring them to scope of all cases
     $products = getPrimaryProducts();
@@ -31,6 +26,23 @@ session_cache_expire();
 
     // Create an associative array  
     $nonImgedProducts = [];
+
+    // declare active tab array for adminSidenav
+    $_SESSION['active_tab'] = [
+        'account' => "", 
+        'users' => "", 
+        'products' => "active", 
+        'images' => "",
+        'orders' => "", 
+        'reviews' => "", 
+        'returns' => "", 
+        'promotions' => ""
+    ];
+
+    // Get the side navs library
+    require_once '../library/sidenav.php';
+    // Build Admin Side Nav
+    $adminSideNav = buildAdminSideNav();
 
     // For each product with no image, loop through products with images and find a matching color.
     foreach($products as $imgProduct){
@@ -72,17 +84,12 @@ session_cache_expire();
 
          case 'core':
 
-            //var_dump($_POST['colours']); exit;
-
             $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
             $productShortDescr = nl2br(filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
             $productDescription = nl2br(filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
             $_SESSION['categoryId'] = $_POST['categoryId'];
             $colourIds = $_POST['colourIds'];
             $sizeIds = $_POST['sizeIds'];
-
-            //var_dump($sizeIds); exit;
-
 
             if(empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
 
@@ -147,15 +154,11 @@ session_cache_expire();
 
             }
 
-
-
             include '../view/add-product.php';
 
          break;
 
          case 'swatches':
-
-            //$sizes = getSizes(); //var_dump($sizes); exit;
 
             if(!empty($_POST['sku']) || !empty($_POST['price']) || !empty($_POST['qty']) || !empty($_POST['sizeValue']) || !empty($_POST['colour']) || !empty($_SESSION['categoryId'])){
 
@@ -263,14 +266,58 @@ session_cache_expire();
             $image = getProductImageByProdEntryId($product_entryId);
             $categories = getCategories();
 
-            //var_dump($image['imagePath']); exit;
-
-
             $productUpdateDisplay = buildProductUpdateDisplay($product, $colour, $sizes, $categories);
 
             include '../view/product-update.php';
 
          break;
+
+         case 'update-product':
+            
+            $product_entryId = filter_input(INPUT_POST, 'product_entryId',FILTER_SANITIZE_NUMBER_INT);
+            $colour = $_POST['colour'][0];
+            $size =  $_POST['sizeValue'][0];
+            $amount = filter_input(INPUT_POST, 'amount',FILTER_SANITIZE_STRING);
+            $categoryId =  getCategoryId($_POST['categoryName'][0]);
+
+            //var_dump(getCategoryId($category)); exit;
+
+            // echo "pi: ".$product_entryId."|  co: ".$colour."|  s: ".$size."|  a: ".$amount."|  ca: ".$categoryId; exit;
+
+            if(empty($product_entryId) || empty($colourId) || empty($sizeId) || empty($amount) || empty($categoryId)){
+
+                $message = "<p class='notice detail-span-bold'>Sorry, some fields were empty.</p>";
+
+                include '../view/product-update.php';
+
+                break;
+
+
+            }else{
+
+                $update = updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $amount);
+
+                if($update){
+
+                    header('Location : /engoje/products/'); exit;
+
+                    break;
+
+                }else{
+
+                    $message = "<p class='notice detail-span-bold'>Sorry, we couldn't update the Product.</p>";
+
+                    include '../view/product-update.php';
+
+                    break;
+
+                }
+
+
+            }
+
+
+            break;
 
          
     case 'delete':
@@ -325,9 +372,10 @@ session_cache_expire();
          break;
         
     case 'product':
+
     default:
 
-            // 
+            
 
          include '../view/product-admin.php';
     }

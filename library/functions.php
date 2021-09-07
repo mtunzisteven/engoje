@@ -46,7 +46,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     foreach($cartDetails as $cartItem){
 
-
+        // set the order string that qill later be turned into an array
         if(isset($_SESSION['salePrice']) && $cartItem['product_entryId'] == $_SESSION['sale_product_entryId']){ // for sale items, show the correct price
 
             if($_SESSION['order'] == ""){
@@ -120,8 +120,6 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     
     $cartDisplay .= "<h4 id='grand-ship-total'><div class='strong'>Grand Total:</div> R$grandTotal</h4>";
     $cartDisplay .= "</div><input type='submit' class='clear-cart button wishlist-buttons' value='Checkout' /> </form></div>";
-
-
 
    return $cartDisplay;
   }
@@ -362,6 +360,8 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 
     $productRows = [];
 
+    $number = 0;
+
     foreach($allProducts as $product){
 
         for($i = 0; $i < count($nonImgedProducts); $i++){
@@ -372,8 +372,39 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
             // Match colour and shared productId from products table
             if($nonImgedProducts[$i] == $product['colour'] && $nonImgedProducts[$productId] == $product['productId']){
 
+                $number += 1;
 
-                $productRows[] = "<tr class='user-display-info'> <td class=td-buttons ><a class='button account-button' href='/engoje/products/?action=update&product_entryId=$product[product_entryId]'>update</a> <a class='button account-button' href='/engoje/products/?action=delete&product_entryId=$product[product_entryId]'>delete</a> </td><td><img class=image-tn src='$nonImgedProducts[$path]' /></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
+                // bootstrap modal for product delete
+                $productRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons ><a class='button account-button' href='/engoje/products/?action=update&product_entryId=$product[product_entryId]'>update</a>   
+
+                    
+                    <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#id$product[product_entryId]'>
+                    delete
+                    </button>
+
+                    <div class='modal fade' id='id$product[product_entryId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog'>
+                        <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='exampleModalLabel'>Confirm Product Delete</h5>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                        
+                            <p>Name: $product[productName]</p>
+                            <p>Price: R$product[price]</p>
+                            <p>Products in Stock: $product[amount]</p>
+                            <p>Description:$product[productDescription]</p>
+                        
+                        </div>
+                        <div class='modal-footer'>
+                            <a class='button chunk-buttons' href='/engoje/products?action=delete-confirmed&product_entryId=$product[product_entryId]' >Delete</a>
+                        </div>
+                        </div>
+                    </div>product
+                    </div>
+                    
+                </td><td><a  href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]'><img class=image-tn src='$nonImgedProducts[$path]' /></a></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
         
             }
         }
@@ -398,9 +429,56 @@ function buildUserUpdateNav(){
     $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
     $updateNav .="</ul>";
 
-    
-
     return $updateNav;
+}
+
+
+//  Build User Update Admin Nav display
+function buildUserUpdateDisplay($userInfo){
+
+    $userUpdateDisplay = '
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Personal Information
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                    <form method="POST" action="/engoje/admin/">
+                
+                    <label>First Name</label><input type="text" name="userFirstName" value="'.$userInfo['userFirstName'].'" />
+                    <label>Last Name</label><input type="text" name="userLastName" value="'.$userInfo['userLastName'].'" />
+                    <label>Email</label><input type="text" name="userEmail" value="'.$userInfo['userEmail'].'" />
+                    <label>Phone Number</label><input type="tel" name="userPhone" value="0'.$userInfo['userPhone'].'" />
+                    <input class="button account-button" type="submit" value="submit" />
+                    <input type="hidden" name="action" value="update-user" />
+                    <input type="hidden" name="userId" value="'.$userInfo['userId'].'" />
+                
+                    "</form>
+
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                Addresses
+            </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+
+                </div>
+            </div>
+        </div>
+    </div>';
+
+    return $userUpdateDisplay;
+
 }
 
 
@@ -532,11 +610,11 @@ function buildAddresses($addresses, $addressFound){
 
 // Build a product update display form for admin dashboard
 function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
-    $productUpdate = "<form method='POST' action='/engoje/product/'><div class='swatch-row small-width-swatches'>";
+    $productUpdate = "<form method='POST' action='/engoje/products/'>";
 
-    $productUpdate .= "<div class='swatch-item'><label>Change Colour</label>".buildDropDownList($colours, 'colourId', 'colour' )."</div>";
-    $productUpdate .= "<div class='swatch-item'><label>Change Size</label>".buildDropDownList($sizes, 'sizeId', 'sizeValue' )."</div>";
-    $productUpdate .= "<div class='swatch-item'><label>Change Category</label>".buildDropDownList($categories, 'categoryId', 'categoryName' )."</div></div>";
+    $productUpdate .= "<label>Change Colour(".$product['colour'].")</label>".buildDropDownList($colours, 'colourId', 'colour' )."";
+    $productUpdate .= "<label>Change Size(".$product['sizeValue'].")</label>".buildDropDownList($sizes, 'sizeId', 'sizeValue' )."";
+    $productUpdate .= "<label>Change Category(".$product['categoryName'].")</label>".buildDropDownList($categories, 'categoryId', 'categoryName' )."";
     $productUpdate .= "<label>Quantity</label><input type='number' name='amount' value='$product[amount]' />";
 
     $productUpdate .= "<input type='submit' class='button' value='Submit' />";
@@ -1263,7 +1341,8 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
        }
 
     // Design reviews on a table to aid alignment and styling.
-    $cutomerReviews = "<table class='review-table'>";
+    $cutomerReviews = "<table class='review-table table table-striped table-hover'>";
+
     foreach($reviews as $review){
 
     
