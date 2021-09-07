@@ -17,16 +17,8 @@ session_cache_expire();
     // Get the reviews model for use as needed
     require_once '../model/reviews-model.php';  
 
-    // active tab array
-    $_SESSION['active_tab'] = [
-        'account'=>'',
-        'users'=>'',
-        'products'=>'',
-        'images'=>'',
-        'orders'=>'',
-        'reviews'=>'',
-        'promotions'=>''
-    ];
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
 
     $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL){

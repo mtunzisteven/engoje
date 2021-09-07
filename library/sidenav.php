@@ -39,6 +39,12 @@ function buildAdminSideNav(){
                         </a>
                       </li>
                       <li class="nav-item">
+                        <a href="/engoje/taxonomy/?action=taxonomy" class="nav-link text-white '.$_SESSION['active_tab']['taxonomy'].'">
+                          <i class="bi bi-briefcase"></i>
+                          &nbsp;Taxonomy 
+                        </a>
+                      </li>
+                      <li class="nav-item">
                         <a href="/engoje/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
                           <i class="bi bi-images"></i>
                           &nbsp;Images

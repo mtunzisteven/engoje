@@ -36,6 +36,8 @@
                 ?>
 
                 <section class="dashboard-content">
+                    <h1 class='h2'>Product Information</h1>
+                    <p> Enter all the core product information that will be shared by all colour and size swatches with the same product id.</p>
                     <div class="user-data-container">
 
                         <?php
@@ -45,7 +47,7 @@
                                 echo $userUpdateNav;
                             }
 
-                            echo "<h1 class='center'> Product Information</h1><div class='dashboard-user-update-data'>";
+                            echo "<div class='dashboard-user-update-data'>";
 
                                     if(isset($createProductForm)){
 

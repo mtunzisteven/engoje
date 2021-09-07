@@ -503,8 +503,6 @@ function buildUserDisplay($userInfo){
 // Build a Address adding or update form view
 function buildAddressForm($address, $addressFound){
 
-    //var_dump($addresses); exit;
-
     // This will potentially have 2 addresses but is an array none the less
     // So we must loop through regardless how many addresses exist, 
     // the if statements will give us the variable value we want for action
@@ -616,6 +614,7 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
     $productUpdate .= "<label>Change Size(".$product['sizeValue'].")</label>".buildDropDownList($sizes, 'sizeId', 'sizeValue' )."";
     $productUpdate .= "<label>Change Category(".$product['categoryName'].")</label>".buildDropDownList($categories, 'categoryId', 'categoryName' )."";
     $productUpdate .= "<label>Quantity</label><input type='number' name='amount' value='$product[amount]' />";
+    $productUpdate .= "<label>Price</label><input type='number' name='price' value='$product[price]' />";
 
     $productUpdate .= "<input type='submit' class='button' value='Submit' />";
 
@@ -640,7 +639,7 @@ function buildProductCreateForm($categories, $colours, $sizes){
 
     $productCreate .= "<label>Long Description</label> <textarea name='productDescription' rows='5' ></textarea>";
 
-    $productCreate .= "</div><div class='column-form-fieldsets'><fieldset><legend>Add a Category</legend>";
+    $productCreate .= "</div><div class='column-form-fieldsets'><fieldset><strong>add category</strong>";
 
     foreach($categories as $category){// Get the category for the product
         $productCreate .= "<label class='longChoice' ><input type='radio' class='categoryId' name='categoryId' value='".$category['categoryId']."' /><span>$category[categoryName]</span></label>";
@@ -648,7 +647,7 @@ function buildProductCreateForm($categories, $colours, $sizes){
 
     $productCreate .= "</fieldset>";
 
-    $productCreate .= "<fieldset><legend>Add Sizes</legend>";
+    $productCreate .= "<fieldset><strong>add sizes</strong>";
 
     foreach($sizes as $size){  // Create an array that will hold all the sizes chosen by the user
         $productCreate .= "<label class='longChoice' ><input type='checkbox' name='sizeIds[]' value='".$size['sizeId']."' /><span>$size[sizeValue]</span></label>";
@@ -657,7 +656,7 @@ function buildProductCreateForm($categories, $colours, $sizes){
     $productCreate .= "</fieldset>";
 
 
-    $productCreate .= "<fieldset><legend>Add Colours</legend>";
+    $productCreate .= "<fieldset><strong>add colours</strong>";
 
     foreach($colours as $colour){// Create an array that will hold all the colours chosen by the user
         $productCreate .= "<label class='longChoice' ><input type='checkbox' name='colourIds[]' value='$colour[colourId]' /><span>$colour[colour]</span></label>";
@@ -1435,3 +1434,14 @@ function generateSignature($data, $passPhrase = null) {
     }
     return md5( $getString );
 } 
+
+$active_tabs = [
+    'account'=>'',
+    'users'=>'',
+    'products'=>'',
+    'taxonomy' => '', 
+    'images'=>'',
+    'orders'=>'',
+    'reviews'=>'',
+    'promotions'=>''
+];

@@ -27,17 +27,10 @@ session_cache_expire();
     // Create an associative array  
     $nonImgedProducts = [];
 
-    // declare active tab array for adminSidenav
-    $_SESSION['active_tab'] = [
-        'account' => "", 
-        'users' => "", 
-        'products' => "active", 
-        'images' => "",
-        'orders' => "", 
-        'reviews' => "", 
-        'returns' => "", 
-        'promotions' => ""
-    ];
+    // active tab array
+    $_SESSION['active_tab'] = $active_tabs;
+
+    $_SESSION['active_tab']['products'] = "active";
 
     // Get the side navs library
     require_once '../library/sidenav.php';
@@ -99,9 +92,8 @@ session_cache_expire();
 
                 $productCreationDate = date('Y-m-d H:i:s');
 
+                // add the core product to the database
                 $productAdded = addProduct($productName, $productShortDescr, $productDescription, $productCreationDate);
-
-                 //echo $productAdded; exit;
 
                 if($productAdded){
 
@@ -131,8 +123,6 @@ session_cache_expire();
                         // fetch the specified sizes and load them into the array $sizes
                         $sizes[] = getSizeById($sizeIds[$i]);
                     }
-
-                    //var_dump($colours); exit;
 
                     // Create the variations form using the highest number of items between the sizes and coloours
                     $variationsForm = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' >";
@@ -216,7 +206,6 @@ session_cache_expire();
                         // convert all IDs to inegers as array items some were received as strings
                         $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
 
-
                     }
                 }
 
@@ -275,14 +264,15 @@ session_cache_expire();
          case 'update-product':
             
             $product_entryId = filter_input(INPUT_POST, 'product_entryId',FILTER_SANITIZE_NUMBER_INT);
-            $colour = $_POST['colour'][0];
-            $size =  $_POST['sizeValue'][0];
-            $amount = filter_input(INPUT_POST, 'amount',FILTER_SANITIZE_STRING);
+            $colourId = getColourId($_POST['colour'][0])['colourId'];
+            $sizeId =  getSizeId($_POST['sizeValue'][0])['sizeId'];
+            $amount = filter_input(INPUT_POST, 'amount',FILTER_SANITIZE_NUMBER_INT);
+            $price = filter_input(INPUT_POST, 'price',FILTER_SANITIZE_NUMBER_INT);
             $categoryId =  getCategoryId($_POST['categoryName'][0]);
 
-            //var_dump(getCategoryId($category)); exit;
+            //var_dump($colourId); exit;
 
-            // echo "pi: ".$product_entryId."|  co: ".$colour."|  s: ".$size."|  a: ".$amount."|  ca: ".$categoryId; exit;
+            //echo "pi: ".$product_entryId."|  co: ".$colourId."|  s: ".$sizeId."|  a: ".$amount."|  ca: ".$categoryId; exit;
 
             if(empty($product_entryId) || empty($colourId) || empty($sizeId) || empty($amount) || empty($categoryId)){
 
@@ -295,11 +285,11 @@ session_cache_expire();
 
             }else{
 
-                $update = updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $amount);
+                $update = updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $amount, $price);
 
                 if($update){
 
-                    header('Location : /engoje/products/'); exit;
+                    header('Location: /engoje/products/?action=product'); exit;
 
                     break;
 
@@ -370,7 +360,7 @@ session_cache_expire();
             include '../view/product-admin.php';
 
          break;
-        
+
     case 'product':
 
     default:

@@ -3197,15 +3197,20 @@ div.accordion div.accordion-item h2:focus {
     -webkit-box-pack: justify;
         -ms-flex-pack: justify;
             justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     background-color: #f0f0f0;
     min-width: 30%;
-    width: 40%;
+    width: 70%;
     height: 100px;
     overflow: scroll;
     padding: 2px 5px;
+    font: 200 15px "Nunito", sans-serif;
+    margin-bottom: 10px;
+  }
+  form.checkboxed div.row-form-content div.column-form-fieldsets fieldset strong {
+    font-weight: 700;
   }
   form.checkboxed div.row-form-content div.column-form-fieldsets fieldset label {
     display: -webkit-box;
@@ -3227,10 +3232,12 @@ div.accordion div.accordion-item h2:focus {
     vertical-align: start;
     min-width: 100%;
     height: 40px;
+    font: 200 15px "Nunito", sans-serif;
   }
   form.checkboxed div.row-form-content div.column-form-fieldsets fieldset label span {
     text-align: left;
     width: 100%;
+    font: 200 15px "Nunito", sans-serif;
     font-size: 14px;
     height: 14px;
     margin: 5px 0 5px 0;
@@ -3241,6 +3248,7 @@ div.accordion div.accordion-item h2:focus {
     min-height: 14px;
     height: 14px;
     margin: 5px 5px 5px 20px;
+    font: 200 15px "Nunito", sans-serif;
   }
   form.checkout-address {
     min-width: 55%;

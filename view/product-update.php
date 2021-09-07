@@ -36,6 +36,8 @@
                 ?>
 
                 <section class="dashboard-content">
+                    <h1 class='h2'>Update Product</h1>
+                    <p> Edit all the inputs of the product. Keep those you don't need to change the same.</p>
                     <div class="user-data-container">
 
                         <?php

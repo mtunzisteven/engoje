@@ -11,17 +11,8 @@ session_cache_expire();
     // Get the database connection file
     require_once '../library/functions.php';
 
-    // active tab array
-    $_SESSION['active_tab'] = [
-        'account' => "", 
-        'users' => "", 
-        'products' => "", 
-        'images' => "",
-        'orders' => "", 
-        'reviews' => "", 
-        'returns' => "", 
-        'promotions' => ""
-    ];
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
 
     // Get the side navs library
     require_once '../library/sidenav.php';

@@ -14,6 +14,9 @@ require_once '../model/shop-model.php';
 // Get the products admin model for use as needed
 require_once '../model/products-model.php';
 
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
+
 // make sure to get all sale items
 $saleItems = getSaleItems();
 

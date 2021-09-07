@@ -19,6 +19,18 @@ require_once '../model/products-model.php';
 // Get the products image uploads model for use as needed
 require_once '../model/uploads-model.php';
 
+// active tab array
+$_SESSION['active_tab'] = [
+    'account'=>'',
+    'users'=>'active',
+    'products'=>'',
+    'swatches' => '', 
+    'images'=>'',
+    'orders'=>'',
+    'reviews'=>'',
+    'promotions'=>''
+];
+
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 

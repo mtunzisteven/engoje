@@ -37,7 +37,7 @@
 
                 <section class="dashboard-content">
                     <h1 class='h2'>View Products</h1>
-                    <p> This page allows you to view, create, delete, or update products</p>
+                    <p> Here you can view, create, delete, or update products</p>
                     <?php 
                         if(isset($message)){ 
                             echo $message;

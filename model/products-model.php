@@ -91,11 +91,11 @@ function addProductEntry($productId, $sizeId, $colourId, $categoryId, $price, $s
 }
 
 // Add actual product with qty and price
-function updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $amount){
+function updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $amount, $price){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare(' UPDATE product_entry SET sizeId =:sizeId, colourId =:colourId, categoryId =:categoryId, amount =:amount WHERE product_entryId = :product_entryId ');
+    $stmt = $db->prepare(' UPDATE product_entry SET sizeId =:sizeId, colourId =:colourId, categoryId =:categoryId, amount =:amount, price =:price WHERE product_entryId = :product_entryId ');
 
     // Replace the place holders
     $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
@@ -103,6 +103,8 @@ function updateProductEntry($product_entryId, $sizeId, $colourId, $categoryId, $
     $stmt->bindValue(':colourId',$colourId, PDO::PARAM_INT);
     $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
     $stmt->bindValue(':amount',$amount, PDO::PARAM_INT);
+    $stmt->bindValue(':price',$price, PDO::PARAM_INT);
+
 
     // The next line runs the prepared statement 
     $stmt->execute(); 
@@ -491,14 +493,14 @@ function getCategoryId($categoryName){
 }
 
 // Add a single category
-function addCategory($categoryId, $categoryParent){
+function addCategory($categoryName){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare('INSERT INTO categories (categoryId, categoryParent) VALUES (:categoryId, :categoryParent)');
+    $stmt = $db->prepare('INSERT INTO categories (categoryName) VALUES (:categoryName)');
+
     // Replace the place holder
-    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_STR);
-    $stmt->bindValue(':categoryParent',$categoryParent, PDO::PARAM_STR);
+    $stmt->bindValue(':categoryName',$categoryName, PDO::PARAM_STR);
 
     // The next line runs the prepared statement 
     $stmt->execute(); 
@@ -506,4 +508,34 @@ function addCategory($categoryId, $categoryParent){
     $stmt->closeCursor(); 
    }
 
+   // Add a single colour
+function addColour($colour){
+    // Create a connection object from the zalist connection function
+    $db = engojeConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('INSERT INTO colour (colour) VALUES (:colour)');
+    
+    // Replace the place holder
+    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
 
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+   }
+
+   // Add a single colour
+   function addSize($sizeValue){
+    // Create a connection object from the zalist connection function
+    $db = engojeConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('INSERT INTO size (sizeValue) VALUES (:sizeValue)');
+    
+    // Replace the place holder
+    $stmt->bindValue(':sizeValue',$sizeValue, PDO::PARAM_STR);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+   }

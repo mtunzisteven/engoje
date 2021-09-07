@@ -16,6 +16,9 @@ require_once '../library/functions.php';
 * Variables for use with the Image Upload Functionality
 * **************************************************** */
 
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
+
 // directory name where uploaded images are stored
 $image_dir = '/engoje/images';
 
@@ -229,16 +232,7 @@ default:
 
 
     // active tab array for adminSidenav
-    $_SESSION['active_tab'] = [
-        'account' => "", 
-        'users' => "", 
-        'products' => "", 
-        'images' => "active",
-        'orders' => "", 
-        'reviews' => "", 
-        'returns' => "", 
-        'promotions' => ""
-    ];
+    $_SESSION['active_tab']['images'] = "active";
 
     // Get the side navs library
     require_once '../library/sidenav.php';

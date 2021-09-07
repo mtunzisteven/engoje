@@ -19,8 +19,17 @@ require_once '../model/reviews-model.php';
 
 $classifications = getClassifications();
 
-// Build a navigation bar using the $classifications array
-$navList = buildNav($classifications);
+// active tab array
+$_SESSION['active_tab'] = [
+    'account'=>'',
+    'users'=>'active',
+    'products'=>'',
+    'taxonomy' => '', 
+    'images'=>'',
+    'orders'=>'',
+    'reviews'=>'',
+    'promotions'=>''
+];
 
 
 // Get and sanitize action value

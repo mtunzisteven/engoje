@@ -36,6 +36,8 @@
                 ?>
 
                 <section class="dashboard-content">
+                    <h1 class='h2'>Product Swatches Information</h1>
+                    <p> Enter all the product swatches information for each product entry.</p>
                     <div class="user-data-container">
 
                         <?php

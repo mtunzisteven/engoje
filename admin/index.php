@@ -28,16 +28,8 @@ session_cache_expire();
         $action = filter_input(INPUT_GET, 'action');
     }
 
-    // active tab array
-    $_SESSION['active_tab'] = [
-        'account'=>'',
-        'users'=>'active',
-        'products'=>'',
-        'images'=>'',
-        'orders'=>'',
-        'reviews'=>'',
-        'promotions'=>''
-    ];
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
 
     // Get the side navs library
     include '../library/sidenav.php';
