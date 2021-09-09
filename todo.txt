@@ -1,7 +1,36 @@
-1. Add stock management(out of stock/number left in stock) to users not loggged in
-2. Reposition orderTotal to a session variable and use it in Payfast + order function
-as well as in admin order update part of dashboard
-3. Update getOrders model function to join users & shipping table
-4. Add respective data in columns of order dashboard table
-5. Create reviews and add their management to admin dashboard 
-6. Add the ability to add (as well as update and delete buttons) reviews to each product display page.
+1. Add stock management(out of stock/number left in stock) to users not loggged in - mthunzi: removed option to order as guest(done)
+
+2. Complete order management admin dashboard by completing the following: - Mthunzi
+
+2.1. Reposition orderTotal to a session variable and use it in Payfast + order function
+as well as in admin order update part of dashboard. it only starts appearing at payfast form. 
+
+2.2. Update getOrders model function to join users & shipping table
+
+2.3. Add respective data in columns of order dashboard table
+
+3. Create reviews and add their management to admin dashboard  - Lusanda
+
+4. Add the ability to add (as well as update and delete buttons) reviews to each product display page. - Mthunzi
+
+5. Fix filter-by-price to be a range and fix model to work properly.(There is an error) - Mthunzi
+
+6. Change js, php and html for single product swatches: - Mthunzi
+
+    needs to read color and size names independantly of being assisted.
+    needs to not add swatches for products with only one swatches, but show onlyu the avaible swatch on the swatch label
+    needs to not add neither swatches nor swatch label for single products with only N/A for the taxonomy
+
+7. Complete user account dashboard - Mthunzi
+
+8. Add order-by ability on top right on archive - Mthunzi
+
+9. Add ability to print each order on A4 pages  - Mthunzi 
+
+10. Add emailers with templates  - Mthunzi 
+
+11. Create documentation for site use, ordering, and returns  - Mthunzi
+
+12. Add proper links to footer section and create proper store section banners  - Mthunzi
+
+final step: Add listening ability so the order status changes to paid when customer pays - Mthunzi
