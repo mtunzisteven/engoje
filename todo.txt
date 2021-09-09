@@ -23,14 +23,14 @@ as well as in admin order update part of dashboard. it only starts appearing at 
 
 7. Complete user account dashboard - Mthunzi
 
-8. Add order-by ability on top right on archive - Mthunzi
+8. Add ability to print each order on A4 pages  - Mthunzi
 
-9. Add ability to print each order on A4 pages  - Mthunzi 
+9.  Add emailers with templates  - Mthunzi
 
-10. Add emailers with templates  - Mthunzi 
+10. Add proper links to footer section and create proper store section banners  - Mthunzi
 
-11. Create documentation for site use, ordering, and returns  - Mthunzi
+11. Create documentation for site use, ordering, and returns  - Lusanda
 
-12. Add proper links to footer section and create proper store section banners  - Mthunzi
+12. Add order-by ability on top right on archive - Mthunzi
 
 final step: Add listening ability so the order status changes to paid when customer pays - Mthunzi
