@@ -11,7 +11,7 @@ as well as in admin order update part of dashboard. it only starts appearing at 
 
 3. Create reviews and add their management to admin dashboard  - Lusanda
 
-4. Add the ability to add (as well as update and delete buttons) reviews to each product display page. - Mthunzi
+4. Add the ability to add (as well as update and delete buttons) reviews to each product display page. - Lusanda
 
 5. Fix filter-by-price to be a range and fix model to work properly.(There is an error) - Mthunzi
 
