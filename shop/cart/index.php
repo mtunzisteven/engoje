@@ -3,7 +3,8 @@
 // session expire reset: 180 sec
 session_cache_expire();
 
-//This is the shop controller for the site
+// This is the shop controller for the site cart responsible only for the default action: go to cart
+// Provides a clean cart url
 session_start();
 
 // Get the database connection file
@@ -141,65 +142,3 @@ switch ($action){
         
         include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/cart.php';  
     }
-
-
-// sum db array item quantities
-function sumValues($array, $key, $newValue){
-
-    $sum = 0;
-
-    foreach($array as $item){
-
-        $sum = $item[$key] + $newValue;
-    }
-
-    return $sum;
-}
-
-// sum db array items
-function sumAllValues($array, $key){
-
-    $sum = 0;
-
-    foreach($array as $item){
-
-        $sum += $item[$key];
-    }
-
-    return $sum;
-}
-
-
-// check if item value in array items exist
-function checkIfValueExists($array, $key, $value){
-
-    $result = 0;
-
-    foreach($array as $item){
-
-        if($item[$key] == $value){
-
-            $result = 1;
-
-        }
-    }
-
-    return $result;
-}
-
-// get index of item that is equal to the value
-function getIndexFromArr($array, $key, $value){
-
-    $index = false;
-
-    for($i = 0; $i < count($array); $i++){
-
-        if($array[$i][$key] == $value){
-
-            $index = $i;
-
-        }
-    }
-
-    return $index;
-}

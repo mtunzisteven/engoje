@@ -53,6 +53,8 @@ session_cache_expire();
                 if(addColour($colour)){
 
                     // added successfully
+                    header('Location: /engoje/taxonomy/?action=taxonomy');
+
                 }
 
 
@@ -63,12 +65,15 @@ session_cache_expire();
         case 'add-size':
 
             $size = filter_input(INPUT_POST, 'size',FILTER_SANITIZE_STRING);
+            $sizeName = filter_input(INPUT_POST, 'sizeName',FILTER_SANITIZE_STRING);
 
-            if(!empty($size)){
+            if(!empty($size) && !empty($sizeName)){
 
-                if(addColour($size)){
+                if(addSize($size, $sizeName)){
 
                     // added successfully
+                    header('Location: /engoje/taxonomy/?action=taxonomy');
+
                 }
 
 
@@ -82,9 +87,67 @@ session_cache_expire();
 
             if(!empty($category)){
 
-                if(addColour($category)){
+                if(addCategory($category)){
 
                     // added successfully
+                    header('Location: /engoje/taxonomy/?action=taxonomy');
+
+                }
+
+
+            }
+
+            break;
+
+        case 'delete-colour':
+
+            $colourId = filter_input(INPUT_POST, 'colourId',FILTER_SANITIZE_NUMBER_INT);
+
+            //echo $colourId; exit;
+
+            if(!empty($colourId)){
+
+                if(deleteColour($colourId)){
+
+                    // added successfully
+                    header('Location: /engoje/taxonomy/?action=taxonomy');
+
+                }
+
+
+            }
+
+            break;
+
+        case 'delete-size':
+
+            $sizeId = filter_input(INPUT_POST, 'sizeId',FILTER_SANITIZE_NUMBER_INT);
+
+            if(!empty($sizeId)){
+
+                if(deleteSize($sizeId)){
+
+                    // added successfully
+                    header('Location: /engoje/taxonomy/?action=taxonomy');
+
+                }
+
+
+            }
+
+            break;
+
+        case 'delete-category':
+
+            $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_SANITIZE_NUMBER_INT);
+
+            if(!empty($categoryId)){
+
+                if(deleteCategory($categoryId)){
+
+                    // added successfully
+                    header('Location: /engoje/taxonomy/?action=taxonomy');
+
                 }
 
 
@@ -93,6 +156,11 @@ session_cache_expire();
             break;
 
         case 'taxonomy':
+
+            // get taxonomies to create displays for them
+            $colours = getColours();
+            $sizes = getSizes();
+            $categories = getCategories();
 
         default:            
 

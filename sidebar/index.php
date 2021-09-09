@@ -19,6 +19,11 @@ require_once '../model/products-model.php';
 // Get the products image uploads model for use as needed
 require_once '../model/uploads-model.php';
 
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
+
+// Get the side navs library
+require_once '../library/sidenav.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
@@ -57,13 +62,10 @@ switch ($filter){
         // get the input colour value
         $_SESSION['colourFilter'] = filter_input(INPUT_GET, 'colour',FILTER_SANITIZE_STRING);
 
-        //echo $_SESSION['colourFilter']; exit;
-
+        // fetch all products
         $products = filters($products, $lim, $offset);
 
-        //var_dump($products); exit;
-
-
+        // make sure products isn't empty
         if(!empty($products)){
             
             // reset quantity for paginations

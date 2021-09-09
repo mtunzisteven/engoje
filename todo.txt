@@ -1,0 +1,7 @@
+1. Add stock management(out of stock/number left in stock) to users not loggged in
+2. Reposition orderTotal to a session variable and use it in Payfast + order function
+as well as in admin order update part of dashboard
+3. Update getOrders model function to join users & shipping table
+4. Add respective data in columns of order dashboard table
+5. Create reviews and add their management to admin dashboard 
+6. Add the ability to add (as well as update and delete buttons) reviews to each product display page.

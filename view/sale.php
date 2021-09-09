@@ -4,7 +4,7 @@
     }
 
     $pageName ="Sale"; 
-    $pageShortSummary = "ZA Listing";
+    $pageShortSummary = "Engoje";
     $pageDescription = "";
 
 ?><!DOCTYPE html>
@@ -17,7 +17,7 @@
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
         ?>
-        <div class="shop">
+        <div class="shop sale-shop">
             
             <div class='shop-products-archive sale'>
                 <?php 
@@ -26,14 +26,6 @@
                     if(isset($productsDisplay)){
                     
                         echo $productsDisplay;
-
-                    }
-                    
-                    // Display the shop products from filtered sidebar
-                    if(isset($_SESSION['productsDisplay'])){
-
-                        echo $_SESSION['productsDisplay'];
-                        unset($_SESSION['productsDisplay']); //Delete the filter display once displayed
 
                     }
 

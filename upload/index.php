@@ -230,7 +230,6 @@ case 'delete':
 
 default:
 
-
     // active tab array for adminSidenav
     $_SESSION['active_tab']['images'] = "active";
 

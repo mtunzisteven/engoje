@@ -30,6 +30,8 @@ session_cache_expire();
 
 // active tab array
 $_SESSION['active_tab'] = $active_tabs;
+$_SESSION['active_tab']['users'] = 'active';
+
 
     // Get the side navs library
     include '../library/sidenav.php';

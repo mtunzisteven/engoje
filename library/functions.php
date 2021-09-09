@@ -413,6 +413,54 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
    return $productRows;
   }
 
+  
+// Build a multi product display table on admin dashboard
+function  buildordersAdminTable($orders){
+
+    $productRows = [];
+
+    $number = 0;
+
+    foreach($orders as $order){
+
+        $number += 1;
+
+        // bootstrap modal for product delete
+        $orderRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons ><a class='button account-button' href='/engoje/orders/?action=update&orderId=$order[orderId]'>update</a>   
+
+            
+            <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#id$order[orderId]'>
+            delete
+            </button>
+
+            <div class='modal fade' id='id$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='exampleModalLabel'>Confirm Product Delete</h5>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                </div>
+                <div class='modal-body'>
+                
+                    <p>Order Id: $order[orderId]</p>
+                    <p>Number of Items: $order[numberOfItems]</p>
+                    <p>Order Status: $order[orderStatus]</p>
+                    <p>Order Date:$order[orderDate]</p>
+                
+                </div>
+                <div class='modal-footer'>
+                    <a class='button chunk-buttons' href='/engoje/orders?action=delete&orderId=$order[orderId]' >Delete</a>
+                </div>
+                </div>
+            </div>product
+            </div>
+            
+        </td><td>$order[orderId] </td> <td> -- </td> <td> -- </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> -- </td></tr>";
+    }
+
+   return $orderRows;
+  }
+
 //  Build User Update Admin Nav display
 function buildUserUpdateNav(){
 
@@ -952,36 +1000,39 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
     }
 
     $noborderPaginationP = '';
-    $p = '&#8592; Previous';
     $prevLink = "/engoje/shop/?action=prev&offset=$offset";
 
-    $n = 'Next &#8594;';
     $noborderPaginationN = '';
     $nextLink = "/engoje/shop/?action=next&offset=$offset";
 
 
     if($pageNum == $possiblePages){
 
-        $noborderPaginationN = 'no-border';
-        $n = '';
+        $noborderPaginationN = 'disabled';
         $nextLink = "#";
 
 
     }else if($pageNum == 1){
 
-        $noborderPaginationP = 'no-border';
-        $p = '';
+        $noborderPaginationP = 'disabled';
         $prevLink = "#";
 
     }
 
     $dv .="</div>";
 
-    $dv .= "<div class='pagination-container'> <a href='$prevLink' class='pagination $noborderPaginationP prev'>$p </a>";
+    $dv .= "<nav class='pagination' aria-label='Page navigation example'>
+                <ul class='pagination'>
+                    <li class='page-item  $noborderPaginationP'>
+                        <a class='page-link pagination prev $noborderPaginationP' href='$prevLink' aria-label='Previous'>
+                        <span aria-hidden='true'>&laquo;</span>
+                        </a>
+                    </li>";
 
     if($pageNum >= 3){
 
-        $dv .= "<a href='/engoje/shop/?action=prev&offset=$lim' class='pagination pagination-number'> 1 </a>";
+        $dv .= "<li class='page-item'><a class='page-link pagination pagination-number' href='/engoje/shop/?action=prev&offset=$lim'> 1 </a></li>";
+
         $dv .= "<h2>...&nbsp</h2>";
 
     }
@@ -996,13 +1047,13 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
         if($pageNum == $i){
 
-            $focus = 'active-pagination';   
+            $focus = 'active';   
 
         }
         
         if($i <= $possiblePages){
 
-            $dv .= "<a href='/engoje/shop/?action=prev&offset=$numOffset' class='pagination pagination-number $focus'> $i </a>";
+            $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/engoje/shop/?action=prev&offset=$numOffset'> $i </a></li>";
 
         }
     }
@@ -1013,7 +1064,13 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
     }
 
-    $dv .= "<a href='$nextLink' class='pagination $noborderPaginationN next'> $n </a> </div>";
+    $dv .= "<li class='page-item $noborderPaginationN'>
+                <a class='page-link pagination next $noborderPaginationN' href='$nextLink' aria-label='Next'>
+                <span aria-hidden='true'>&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>";
 
 return $dv;
 
@@ -1413,7 +1470,6 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
 
    }
 
-
 /**
  * @param array $data
  * @param null $passPhrase
@@ -1435,6 +1491,71 @@ function generateSignature($data, $passPhrase = null) {
     return md5( $getString );
 } 
 
+
+// sum db array item quantities
+function sumValues($array, $key, $newValue){
+
+    $sum = 0; // initial value
+
+    foreach($array as $item){ // go through each item in the array
+
+        $sum = $item[$key] + $newValue; // add the new value from the cart
+    }
+
+    return $sum;
+}
+
+// sum db array items
+function sumAllValues($array, $key){
+
+    $sum = 0; // initial value
+
+    foreach($array as $item){ // go through each item in the array
+
+        $sum += $item[$key]; // add each value for the key provided(cart_item_qty)
+    }
+
+    return $sum;
+}
+
+
+// check if item value in array items exist
+function checkIfValueExists($array, $key, $value){
+
+    $result = 0; // returns this value if nothing found
+
+    foreach($array as $item){ // go through each item in the array
+
+        if($item[$key] == $value){ // if the value is found in the array, result grows
+
+            $result = 1;
+
+        }
+    }
+
+    return $result;
+}
+
+// get index of item that is equal to the value
+function getIndexFromArr($array, $key, $value){
+
+    $index = false; // returns this value if nothing found
+
+    for($i = 0; $i < count($array); $i++){ // go through each item in the array
+
+        if($array[$i][$key] == $value){ // if a value is found in the array matching the value given
+
+            $index = $i;  // set the index of that array item to our returned variable
+
+        }
+    }
+
+    return $index;
+}
+
+
+
+// admin side nav active tab array
 $active_tabs = [
     'account'=>'',
     'users'=>'',

@@ -3,7 +3,8 @@
 // session expire reset: 180 sec
 session_cache_expire();
 
-//This is the shop controller for the site
+// This is the shop controller for the site checkout responsible only for the default action: go to checkout
+// Provides a clean checkout url
 session_start();
 
 // Get the database connection file
@@ -24,9 +25,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/cart-model.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/orders-model.php';
 // Get the products accounts model for use as needed
 require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/accounts-model.php';
-
-// Build Admin Side Nav
-$adminSideNav = buildAdminSideNav();
 
 // Fetch all products and bring them to scope of all cases
 $products = getShopProducts();
@@ -145,6 +143,8 @@ switch ($action){
 
                 $shippingInfo = getShipping($_SESSION['shippingId']);
 
+                $numberOfItems = $_SESSION['cartTotal'];
+
                 // when an order has been added to the db for this user
                 if(isset($_SESSION['orderId']) ){
 
@@ -163,7 +163,7 @@ switch ($action){
                         if(deleteOrder($_SESSION['orderId'])){
 
                             // create an order using the model function below.
-                            $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate);
+                            $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems);
 
                             // build the checkout display
                             $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
@@ -174,7 +174,7 @@ switch ($action){
                 }else{
 
                     // create an order using the model function below.
-                    $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate);
+                    $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems);
 
                     // build the checkout display
                     $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);

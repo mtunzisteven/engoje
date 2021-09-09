@@ -34,7 +34,7 @@ for(let i = 0; i<colourSwatches.length; i++){ // loop through them all and add t
                 colourSwatches[j].style.borderColor = '#d8d5d5';      // go through each colour swatch and make sure it has the default border colour
             }
 
-            cartQty.value = 0;                                        // return the cart amount to zero
+            if(cartQty != null){cartQty.value = 0};                                        // return the cart amount to zero
 
             for(let j = 0; j<sizeSwatches.length; j++){             
                 sizeSwatches[j].style.borderColor = '#d8d5d5';      // go through each size swatch and make sure it has the default border colour
@@ -155,7 +155,7 @@ for(let i = 0; i<sizeSwatches.length; i++){ // loop through them all and add the
             sizeSwatches[j].style.borderColor = '#d8d5d5';      // go through each swatch and make sure it has the default border colour
         }
 
-        cartQty.value = 0;                                      // return the cart amount to zero
+        if(cartQty != null){cartQty.value = 0};                                      // return the cart amount to zero
 
         event.target.style.borderColor = '#fa9595';               // change the border colour of the clicked swatch
 

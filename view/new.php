@@ -4,7 +4,7 @@
     }
 
     $pageName ="New"; 
-    $pageShortSummary = "ZA Listing";
+    $pageShortSummary = "Engoje";
     $pageDescription = "";
 
 ?><!DOCTYPE html>
@@ -17,13 +17,9 @@
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
         ?>
-        <div class="shop">
-            <div class="side-bar">
-                <h2>Side Bar</h2>
-            </div>
-
+        <div class="shop new-shop">
             
-            <div class='shop-products'>
+            <div class='shop-products-archive sale'>
                 <?php 
 
                     // Display the shop products
@@ -32,10 +28,16 @@
                         echo $productsDisplay;
 
                     }
+
+                    echo "</div>";
+
+                    if(isset($_SESSION['userData'])){
+                        echo "<div class='feedback'><a class='feedback-link' href='/engoje/?action=fb'>Feedback</a></div>";
+                    }
                 ?>
-            </div>
         </div>
         <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
     </main>
  </body>
+ <script src="/engoje/js/shopswatch.js"></script>
 </html>

@@ -3,7 +3,7 @@
 // session expire reset: 180 sec
 session_cache_expire();
 
-//This is the shop controller for the site
+//This is the shop controller for the site checkout responsible for all checkout related actions, except go to checkout
 session_start();
 
 // Get the database connection file
@@ -316,7 +316,10 @@ case 'checkout':
     
 default:
 
-    if(isset($_SESSION['order'])){
+    header("Location: /engoje/shop/checkout/");
+
+
+    /*if(isset($_SESSION['order'])){
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                          updating the order string with cart update amounts                            //
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -342,11 +345,6 @@ default:
 
         // array turned back into a string
         $_SESSION['order']  = implode(",", $_SESSION['order']);
-
-        //var_dump($_SESSION['order']); exit;
-
-        /*var_dump($_SESSION['cartUpdateArr'])."\n"; 
-        var_dump($_SESSION['order']); exit;*/
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                                          updating completed                                            //
@@ -428,6 +426,6 @@ default:
 
             header("Location: /engoje/shop/cart/");
 
-        }
+        }*/
 
 }

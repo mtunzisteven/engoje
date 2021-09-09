@@ -7,7 +7,7 @@
     if(!$_SESSION['loggedin']){
         header('Location: /engoje/');
     }
-    else if($_SESSION['loggedin'] && $_SESSION['userData']['userLevel']<2){
+    else if($_SESSION['loggedin']&& $_SESSION['userData']['userLevel']<2){
         header('Location: /engoje/view/account.php');
     }
 
@@ -17,12 +17,12 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us" class=" admin-main">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT']. '/engoje/snippets/head.php'; ?>
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT']. '/engoje/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT']. '/engoje/snippets/navigation.php'; 
             ?>
 
             <section class="dashboard admin-dashboard">
@@ -53,29 +53,34 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col">
-                                                <form action="/engoje/taxonomy/?action=add-colour" method="post">
+                                                <form class="taxonomy-forms" action="/engoje/taxonomy/?action=add-colour" method="post">
                                                     <div class="mb-3">
                                                         <label for="colour" class="form-label">New Colour</label>
                                                         <input type="text" class="form-control" id="colour" name="colour">
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary buttons">Submit</button>
+                                                    <button type="submit" class="btn btn-primary button">Submit</button>
                                                 </form>
                                             </div>
                                             <div class="col">
-                                                <form action="/engoje/taxonomy/?action=add-size" method="post">
+                                                <form class="taxonomy-forms" action="/engoje/taxonomy/?action=add-size" method="post">
                                                     <div class="mb-3">
                                                         <label for="size" class="form-label">New Size</label>
                                                         <input type="text" class="form-control" id="size" name="size">
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary buttons">Submit</button>
+
+                                                    <div class="mb-3">
+                                                        <label for="sizeName" class="form-label">Size Full Name</label>
+                                                        <input type="text" class="form-control" id="sizeName" name="sizeName">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary button">Submit</button>
                                                 </form>                                            </div>
                                             <div class="col">
-                                                <form action="/engoje/taxonomy/?action=add-category" method="post">
+                                                <form class="taxonomy-forms" action="/engoje/taxonomy/?action=add-category" method="post">
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">New Category</label>
                                                         <input type="text" class="form-control" id="category" name="category">
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary buttons">Submit</button>
+                                                    <button type="submit" class="btn btn-primary button">Submit</button>
                                                 </form>                                            
                                             </div>
                                         </div>
@@ -93,14 +98,81 @@
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
 
-                                        <p>These are product images. If one is deleted, the product will no longer appear in the store.</p>
-                                        <div class="media-display">
-                                            <?php
-                                                if (isset($imageDisplay)) {
-                                                    echo $imageDisplay;
-                                                } 
-                                            ?>
-                                        </div> 
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <form class="taxonomy-forms" action="/engoje/taxonomy/?action=delete-colour" method="post">
+                                                        
+                                                        <select name="colourId" class="form-select" aria-label="Default select example">
+                                                            <option selected>select colour</option>
+
+                                                            <?php
+
+                                                                foreach($colours as $colour){
+
+                                                            ?>
+
+                                                            <option value="<?php echo htmlentities($colour['colourId']);?>"><?php echo $colour['colour'];?></option>
+
+                                                            <?php
+                                                                }
+                                                            ?>
+
+                                                            
+                                                        </select>
+
+                                                        <button type="submit" class="btn btn-primary button">Delete</button>
+                                                    </form>
+                                                </div>
+                                                <div class="col">
+                                                    <form class="taxonomy-forms" action="/engoje/taxonomy/?action=delete-size" method="post">
+                                                        
+                                                        <select name="sizeId" class="form-select" aria-label="Default select example">
+                                                            <option selected>select size</option>
+
+                                                            <?php
+
+                                                                foreach($sizes as $size){
+
+                                                            ?>
+
+                                                            <option value="<?php echo htmlentities($size['sizeId']); ?>"><?php echo $size['sizeValue']." : ".$size['sizeName']; ?></option>
+
+                                                            <?php
+                                                                }
+                                                            ?>
+
+                                                            
+                                                        </select>
+
+                                                        <button type="submit" class="btn btn-primary button">Delete</button>
+                                                    </form>                                      </div>
+                                                <div class="col">
+                                                    <form class="taxonomy-forms" action="/engoje/taxonomy/?action=delete-category" method="post">
+                                                        
+                                                        <select name="categoryId" class="form-select" aria-label="Default select example">
+                                                            <option selected>select category</option>
+
+                                                            <?php
+
+                                                                foreach($categories as $category){
+
+                                                            ?>
+
+                                                            <option value="<?php echo htmlentities($category['categoryId']);?>"><?php echo $category['categoryName'];?></option>
+
+                                                            <?php
+                                                                }
+                                                            ?>
+
+                                                            
+                                                        </select>
+
+                                                        <button type="submit" class="btn btn-primary button">Delete</button>
+                                                    </form>                                            
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

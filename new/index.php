@@ -1,8 +1,5 @@
 <?php
 
-// session expire reset: 180 sec
-session_cache_expire();
-
 //This is the shop controller for the site
 session_start();
 
@@ -17,12 +14,19 @@ require_once '../model/shop-model.php';
 // Get the products admin model for use as needed
 require_once '../model/products-model.php';
 
-// Fetch all products on sale and bring them to scope of all cases
-$products = getShopProducts();
+// make sure to get all sale items
+$saleItems = getSaleItems();
+
+//initial pagination
+$lim = 4;
+$offset = 0;
+
+// Fetch all products and bring them to scope of all cases
+$products = getNewShopProducts($lim, $offset);
+
+$productsQty = count($products);
 
 // BUild a products archive
-$productsDisplay = buildproductsDisplay($products);
-
-//var_dump($productsDisplay); exit;
+$productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
 include '../view/new.php';

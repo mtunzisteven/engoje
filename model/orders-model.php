@@ -46,6 +46,7 @@ function getCheckout($userId){
     return $products;
 }
 
+
 // Get the order items string for the order 
 function getOrderItems($orderId){
     $db = engojeConnect();
@@ -57,6 +58,21 @@ function getOrderItems($orderId){
     $items = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $items;
+}
+
+// Get all orders  
+function getOrders(){
+    $db = engojeConnect();
+    $sql = 'SELECT * FROM orders ';
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($orders); exit;
+
+    return $orders;
 }
 
 // delete the order using order id
@@ -183,7 +199,7 @@ function getShippingMethods(){
 // Add an incomplete order that will be removed as soon as the 
 // customer proceeds to buy the items by paying for this order, empties cart
 // or when the user revises the order. Only one per user may be added
-function addOrder($userId, $order_items, $shippingId, $orderDate){
+function addOrder($userId, $order_items, $shippingId, $orderDate, $numberOfItems){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
@@ -192,19 +208,22 @@ function addOrder($userId, $order_items, $shippingId, $orderDate){
                                 userId, 
                                 order_items, 
                                 shippingId, 
-                                orderDate
+                                orderDate,
+                                numberOfItems
                                 ) 
                             VALUES (
                                 :userId, 
                                 :order_items, 
                                 :shippingId, 
-                                :orderDate)'
+                                :orderDate,
+                                :numberOfItems)'
                             );
 
     // Replace the place holders
     $stmt->bindValue(':userId',$userId, PDO::PARAM_INT);
     $stmt->bindValue(':order_items',$order_items, PDO::PARAM_STR);
-    $stmt->bindValue(':shippingId',$shippingId, PDO::PARAM_INT);    
+    $stmt->bindValue(':shippingId',$shippingId, PDO::PARAM_INT);   
+    $stmt->bindValue(':numberOfItems',$numberOfItems, PDO::PARAM_INT);     
     $stmt->bindValue(':orderDate',$orderDate, PDO::PARAM_STR);    
 
     // The next line runs the prepared statement 

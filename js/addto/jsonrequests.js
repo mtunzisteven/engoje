@@ -16,11 +16,11 @@ export function jsonRequest(url, bodyData, countEl, mcountEl, countStr, response
 
         let response = data[countStr];
 
-        countEl.innerHTML = response;
-        mcountEl.innerHTML = response;
+        countEl.innerHTML = response; // 
+        mcountEl.innerHTML = response; // 
 
-        responseEl.innerHTML = data[responseStr];
+        responseEl.innerHTML = data[responseStr]; // 
 
     }) 
-    .catch(error => console.log('Error Connecting!'))
+    .catch(error => console.log(error))
 }

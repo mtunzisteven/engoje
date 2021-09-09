@@ -25,8 +25,11 @@ wlisten(addToWishlist, urlWishlist, product_entryId, wishlistCounter, mwishlistC
 
 let urlCart = "http://localhost/engoje/cart/index.php";
 
-// add to cart event lister
-plisten(addToCart, urlCart, product_entryId, cartQty, cartCounter, mcartCount, addToCartResponse, 'cartTotal', 'add-to-cart-response');
+if(addToCart != null){ // works only for logged in users
+
+    // add to cart event lister
+    plisten(addToCart, urlCart, product_entryId, cartQty, cartCounter, mcartCount, addToCartResponse, 'cartTotal', 'add-to-cart-response');
+}
 
 // update main display image when the gallary image is clicked
 for(let j = 0; j < galleryImages.length; j++){

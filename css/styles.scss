@@ -1,16 +1,20 @@
 /*
 *---------------------------------Website Colors
 *//*
-$main-color: #0f4392;
-$dark-main-color: #081f42;
-$darker-main-color: #051124;
-$light-main-color:#80a1d1;
-*/
-
 $main-color: #8a8a8a;
 $dark-main-color: #6a6a6a;
 $darker-main-color: #2e2e2e;
 $light-main-color:#c0c0c0;
+$main-color: #2e2e2e;
+$dark-main-color: #212121;
+$darker-main-color: #1c1b1b;
+$light-main-color:#7e7c7c;
+*/
+
+$main-color: #395e96;
+$dark-main-color: #1a2d49;
+$darker-main-color: #051124;
+$light-main-color:#a3b7d4;
 $secondary-color: #fea500;
 $dark-secondary-color: #df9205;
 $light-secondary-color: #fcba40;
@@ -26,6 +30,11 @@ $light-box-shadow: 0 0 10px 1px $darker-background-color;
 /*
 *---------------------------------Fonts
 */
+
+/*
+-----------------------------------------pagination focus colours
+*/
+
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Handlee&family=Nunito+Sans&display=swap');
 
@@ -198,7 +207,7 @@ body{
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         text-align: center;
-        width: 90%;
+        max-width: 95%;
         margin:0 0 50px 15px;
         border: 1px solid $light-main-color;
         font: $p;
@@ -805,9 +814,9 @@ div#checkout-header{
 
     & div.shop-products-archive{
         @include flex(column, space-between, center);
-        width:85%;
-        margin:0;
-        padding:0;
+        width:95%;
+        margin:10px auto;
+        padding:5px 2.5%;
         border: 1px solid $darker-background-color;
         border-radius: 3px;
 
@@ -815,7 +824,7 @@ div#checkout-header{
             @include flex(row, space-between, center);
             min-width: 98%;
             margin: -6px 5px 5px 5px;
-            padding:0 5px;
+            padding:0 1%;
 
             & div.shop-products-filters{
                 @include flex(row, left, center);
@@ -844,57 +853,57 @@ div#checkout-header{
             }
         }
 
-        & div.pagination-container{
-            @include flex(row, center, center);
+        & nav.pagination{
             padding: 10px 0;
-            margin: 20px auto 50px auto;
+            margin: 5px auto;            
             width:100%;
             border-bottom: 1px $darker-background-color solid;
             border-top: 1px $darker-background-color solid;
 
+            & ul{ 
+                margin: 5px auto;            
 
-            & a.pagination{
-                display: block;
-                margin: 0 10px;
-                color:$dark-color;
-                background-color: $dark-background-color;
-                width: 80px;
-                padding: 6px 8px;
-                border-radius: 3px;
-                border: 1px $light-dark-color solid;
-                text-align: center;
-                text-decoration: none;
+                & li{
+                    margin: 3px;            
 
-            }
+                    & a.pagination{
+                        color:$dark-color;
+                        background-color: $dark-background-color;
+                        border-radius: 3px;
+                        border: 1px $light-dark-color solid;
 
-            & a.pagination:hover{
-                background-color: $darker-background-color;
-            }
+                    }
 
-            
-            & a.pagination:focus{
-                box-shadow: 0 0 5px 3px $light-secondary-color;
-            }
+                    & a.pagination:hover{
+                        background-color: $darker-background-color;
+                        z-index: 0;
 
-            & a.pagination-number{
-                max-width: 40px;
-            }
+                    }
 
-            & a.no-border{
-                border:none;
-                background-color: $background-color;
-            }
+                    & a.pagination-number{
+                        max-width: 40px;
+                    }
 
-            & a.no-border:hover{
-                background-color: $background-color;
-            }
+                    & a.focus{
+                        border: $light-secondary-color 1px solid;
+                        box-shadow: 0 0 5px 1px $light-secondary-color;                    
+                    }
 
-            & a.no-border:focus{
-                box-shadow: none;
-            }
+                    & a.active{
+                        border: $light-secondary-color 1px solid;
+                        box-shadow: 0 0 5px 1px $light-secondary-color;                    
+                    }
 
-            & a.active-pagination{
-                box-shadow: 0 0 5px 3px $light-secondary-color;
+                    & a.disabled{
+                        background-color: $dark-background-color;
+                        border: none;
+                    }
+
+                    & li.focus{
+                        border: none;
+                        box-shadow: none;                    
+                    }
+                }
             }
 
         }
@@ -1023,12 +1032,14 @@ div.single-product-shop{
     @include flex(column, center);
     width:96%;
     max-width: 500px;
-    padding: 40px 2%;
+    padding: 40px 2%;       
+    margin: 20px  auto 15px auto;
 
     & div.single-product{
         @include flex(column, left, flex-start);
         min-width: 100%;
         max-width: 100%;
+        margin: 0  auto 15px auto;
 
         & div.sale-img-container{
 
@@ -1039,24 +1050,24 @@ div.single-product-shop{
 
             & img.product-primary-image{
                 min-width: 75%;
-                max-width: 98%;
-                margin: 0 auto;
+                max-width: 100%;
+                margin: 0  auto 15px auto;
             }
 
             & img.sale-primary-image{
-                margin: -25px auto 0 auto;
+                margin: -25px auto 5px auto;
             }
         }
 
         & div.single-product-gallery{
-            @include flex(row, left, center);
-            flex-wrap: wrap;
-            max-width: 100%;
+            @include flex(row, space-between, center);
+            flex-wrap: nowrap;
+            min-width: 100%;
 
             & img.product-gallery-image{
                 max-width: 80px;
                 height: auto;
-                margin:0 3px 0 0;
+                margin:0;
                 cursor: pointer;
 
             }
@@ -1192,6 +1203,12 @@ form.form-add-to-cart{
         justify-content: left;
         min-width: 100%;
         margin:15px 0;
+
+        & a, span{
+            font: $notices;
+            font-size: 18px;
+            text-decoration: none;
+        }
 
         & #add-to-cart-qty{
             border-radius:3px 0 0 3px;
@@ -1618,6 +1635,7 @@ form.feedback-form{
         & .swatch-single-item{
             margin: 5px 10px 5px 0;
             padding:3px;
+            font: $p;
             font-size: 12px;
             width: 25px;
             height: 18px;
@@ -2207,18 +2225,19 @@ form{
 
             & img.product-primary-image{
                 min-width: 100%;
-                margin: 0 1%;
+                margin: 0 auto 10px auto;
             }
 
             & div.single-product-gallery{
-                @include flex(row, left, center);
+                @include flex(row, space-between, center);
                 width: 100%;
+                margin: 15px 0 23px 0;
 
                 & img.product-gallery-image{
                     max-width: 80px;
                     height: auto;
-                    margin:0 0 3px 0;
-                    padding: 0 3px 0 0;
+                    margin:0;
+                    padding: 0;
                     cursor: pointer;
 
                 }
@@ -2470,6 +2489,37 @@ form{
         margin: 0 auto;
     }
 
+    form.taxonomy-forms{
+        min-width: 95%;
+        max-width: 96%;
+        border: none;
+        box-shadow: $box-shadow;
+
+        & button.button{
+            line-height: 15px;
+        }
+
+        & input:focus{
+            box-shadow: 0 0 5px 2px $dark-secondary-color;
+            border: $dark-secondary-color 1px solid;
+        }
+
+        & select{
+            max-width: 95%;
+            margin-bottom: 10px;
+            color: $dark-color;
+
+            & option{
+                color: $dark-color;
+            }
+        }
+
+        & Select:focus{
+            box-shadow: 0 0 5px 2px $dark-secondary-color;
+            border: $dark-secondary-color 1px solid;
+        }
+    }
+
     /*------------------------------------------------Forms END
 */
 
@@ -2568,11 +2618,12 @@ form{
             & div.shop-products-archive{
                 @include flex(column, space-between, center);
                 width:76%;
-                margin:10px 0 0 0;
+                margin: 10px auto;
                 
 
                 & .shop-products{
-                    justify-content: left;
+                    justify-content: space-between;
+                    margin: 10px 0;
                     width:100%;
                     max-width:100%;
 
@@ -2591,7 +2642,7 @@ form{
                             }
     
                             & img{
-                                width:214px;
+                                width:180px;
                                 display: block;
                                 margin: 0 auto 2px auto;
     
@@ -2607,6 +2658,15 @@ form{
 
             & div.sale{
                 max-width: 98%;
+            }
+        }
+
+        .sale-shop, .new-shop{ // shop page archive | no sidebar
+
+            & div.shop-products-archive{
+                @include flex(column, space-between, center);
+                width:100%;
+                margin: 10px;
             }
         }
 
@@ -2940,13 +3000,16 @@ form{
 
             & img.product-primary-image{
                 min-width: 70%;
-                max-width: 100%;
+                max-width: 90%;
             }
     
             & div.single-product-gallery{
                 @include flex(column, center, center);
                 padding: 0 3px 0 0;
+                margin-top: 0;
                 width: 10%;
+                min-width: 10%;
+                max-width: 10%;
     
                 & img.product-gallery-image{
                     max-width: 100%;

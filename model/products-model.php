@@ -358,6 +358,20 @@ function getSizes(){
     return $productsizes;
 }
 
+// Get all product sizes except n/a
+function getRealSizes(){
+    $db = engojeConnect();
+    $sql = 'SELECT* FROM size WHERE sizeId != 1';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productsizes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productsizes); exit;
+
+    return $productsizes;
+}
+
 // Get size Id by name
 function getSizeId($sizeValue){
     $db = engojeConnect();
@@ -422,6 +436,20 @@ function getProductImageByProdEntryId($product_entryId){
 function getColours(){
     $db = engojeConnect();
     $sql = 'SELECT* FROM colour';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $productColours = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($productColours); exit;
+
+    return $productColours;
+}
+
+// Get all product images except n/a
+function getRealColours(){
+    $db = engojeConnect();
+    $sql = 'SELECT* FROM colour WHERE colourId != 1';
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $productColours = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -506,6 +534,9 @@ function addCategory($categoryName){
     $stmt->execute(); 
     // The next line closes the interaction with the database 
     $stmt->closeCursor(); 
+
+    return $stmt;
+
    }
 
    // Add a single colour
@@ -522,20 +553,80 @@ function addColour($colour){
     $stmt->execute(); 
     // The next line closes the interaction with the database 
     $stmt->closeCursor(); 
+
+    return $stmt;
+
    }
 
    // Add a single colour
-   function addSize($sizeValue){
+   function addSize($sizeValue, $sizeName){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
-    $stmt = $db->prepare('INSERT INTO size (sizeValue) VALUES (:sizeValue)');
+    $stmt = $db->prepare('INSERT INTO size (sizeValue, sizeName) VALUES (:sizeValue, :sizeName)');
     
     // Replace the place holder
     $stmt->bindValue(':sizeValue',$sizeValue, PDO::PARAM_STR);
+    $stmt->bindValue(':sizeName',$sizeName, PDO::PARAM_STR);
 
     // The next line runs the prepared statement 
     $stmt->execute(); 
     // The next line closes the interaction with the database 
     $stmt->closeCursor(); 
+
+    return $stmt;
+
+   }
+
+   // delete a single colour
+   function deleteColour($colourId){
+    // Create a connection object from the zalist connection function
+    $db = engojeConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('DELETE FROM colour WHERE colourId = :colourId');    
+    // Replace the place holder
+    $stmt->bindValue(':colourId',$colourId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $stmt;
+   }
+
+   // delete a single category
+   function deleteCategory($categoryId){
+    // Create a connection object from the zalist connection function
+    $db = engojeConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('DELETE FROM categories WHERE categoryId = :categoryId');    
+    // Replace the place holder
+    $stmt->bindValue(':categoryId',$categoryId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $stmt;
+
+   }
+
+   // delete a single size
+   function deleteSize($sizeId){
+    // Create a connection object from the zalist connection function
+    $db = engojeConnect(); 
+    // The next line creates the prepared statement using the zalist connection      
+    $stmt = $db->prepare('DELETE FROM size WHERE sizeId = :sizeId');    
+    // Replace the place holder
+    $stmt->bindValue(':sizeId',$sizeId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $stmt;
+
    }

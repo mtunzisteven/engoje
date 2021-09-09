@@ -92,12 +92,23 @@
                         echo $_SESSION['sizes'];
 
                     }
+
+                    if(isset($_SESSION['userData'])){ // do not show the add to cart button if user not signed in 
                 ?>
                 <div id='add-to-cart-stock'></div>
                 <div class="add-to-cart-container">
                     <input id="add-to-cart-qty" class='validity' type="number" name="qty" value="0" min=1 />
                     <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
                 </div>
+
+                <?php }else{ ?>
+
+                    <div class="add-to-cart-container">
+                        <a href="/engoje/accounts/index.php?action=login">Sign in &NonBreakingSpace;</a><span> to place an order.</span>
+                    </div>
+
+                <?php } ?>
+
                 <div class="add-to-cart-container">
                     <input id="add-to-wishlist-button" class="button" type="button" value="Add to Wishlist" />
                 </div>
