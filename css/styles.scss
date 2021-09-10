@@ -1112,7 +1112,7 @@ form{
     }
 
     & .button{
-        @include buttons($secondary-color);
+        @include buttons();
         height: 30px;
         line-height: 30px;
     }
@@ -1232,15 +1232,15 @@ form.form-add-to-cart{
             box-shadow: none;
             border-radius: 0 3px 3px 0;
             width:45%;
-            height:28px;
+            height:26px;
             line-height: 28px;
             margin-bottom: 0;
     
         }
     
         & #add-to-cart-button:hover{
-            background-color: $light-main-color;
-            color: $darker-main-color;
+            @include buttonshover();
+
         }
 
         & #add-to-wishlist-button{

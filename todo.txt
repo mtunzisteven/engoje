@@ -1,13 +1,6 @@
 1. Add stock management(out of stock/number left in stock) to users not loggged in - mthunzi: removed option to order as guest(done)
 
-2. Complete order management admin dashboard by completing the following: - Mthunzi
-
-    2.1. Reposition orderTotal to a session variable and use it in Payfast + order function
-    as well as in admin order update part of dashboard. it only starts appearing at payfast form. 
-
-    2.2. Update getOrders model function to join users & shipping table (done)
-
-    2.3. Add respective data in columns of order dashboard table (done)
+2. Make the sale price appear even on individual items on the checkout page - Mtunzi(done)
 
 3. Create reviews and add their management to admin dashboard  - Lusanda
 

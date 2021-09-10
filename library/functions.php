@@ -148,7 +148,7 @@ function buildWishlistDisplay($wishlistDetails){
   }
 
 // Build a cart view display view
-function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo){
+function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo, $saleItems){
 
     //var_dump($userDetails); exit;
 
@@ -170,6 +170,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
             $addresses2 .= "<div class='checkout-label'>$user[addressName]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressNumber]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressEmail]</div>"; 
+
             $addresses2 .= "<div class='checkout-label'>$user[addressLineOne]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressLineTwo]</div>"; 
             $addresses2 .= "<div class='checkout-label'>$user[addressCity]</div>";         
@@ -204,36 +205,36 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     $checkoutDisplay .= "<div class='summary-product-qty header-labels'>Quantity</div>"; 
     $checkoutDisplay .= "<div class='summary-product-price header-labels'>Price</div></div>"; 
 
+    // go through each cart item
     foreach($checkoutDetails as $cartItem){
 
-        if(isset($cartItem['salePrice'])){
+        // go through each item on sale
+        foreach($saleItems as $saleItem){
+            
+            // if you find an item in the cart that is on sale, display it. Use $saleItem[salePrice] instead of cartItem[price]
+            if($cartItem['price'] == $saleItem['price'] && $cartItem['product_entryId'] == $saleItem['product_entryId']){
 
-            $lineTotal = $cartItem['salePrice']*$cartItem['cart_item_qty'];
-
-            $grandTotal += $lineTotal;
-
-
-
-            $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
-            $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
-            $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['salePrice']*$cartItem['cart_item_qty']."</div></div>"; 
-
-
-        }else{
-
-            $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
-
-            $grandTotal += $lineTotal;
-
-
-
-            $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
-            $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
-            $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['price']*$cartItem['cart_item_qty']."</div></div>"; 
+                $lineTotal = $saleItem['salePrice']*$cartItem['cart_item_qty'];
+    
+                $grandTotal += $lineTotal;
+    
+                $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
+                $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
+                $checkoutDisplay .= "<div class='summary-product-price'>R".$saleItem['salePrice']*$cartItem['cart_item_qty']."</div></div>"; 
+    
+            }else{
+    
+                $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
+    
+                $grandTotal += $lineTotal;
+    
+                $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
+                $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
+                $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['price']*$cartItem['cart_item_qty']."</div></div>"; 
+    
+            }
 
         }
-
-
     }
 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
