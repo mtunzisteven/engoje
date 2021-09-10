@@ -63,7 +63,10 @@ function getOrderItems($orderId){
 // Get all orders  
 function getOrders(){
     $db = engojeConnect();
-    $sql = 'SELECT * FROM orders ';
+    $sql = 'SELECT * FROM orders 
+                    JOIN shipping_method ON orders.shippingId = shipping_method.shippingId
+                    JOIN users ON orders.userId = users.userId
+    ';
 
     $stmt = $db->prepare($sql);
     $stmt->execute();
@@ -95,6 +98,42 @@ function deleteOrder($orderId){
     $stmt->closeCursor(); 
 
     return $result;
+}
+
+// update order tracking 
+function updateOrderStatus($orderId, $orderStatus){
+    
+    $db = engojeConnect();
+
+    $sql = "UPDATE orders SET orderStatus=:orderStatus WHERE orderId = :orderId";
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':orderId', $orderId, PDO::PARAM_INT);
+    $stmt->bindValue(':orderStatus', $orderStatus, PDO::PARAM_STR);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+
+    return $rowsChanged;
+}
+
+// update order tracking 
+function updateOrderTracking($orderId, $orderTracking){
+    
+    $db = engojeConnect();
+
+    $sql = "UPDATE orders SET orderTracking=:orderTracking WHERE orderId = :orderId";
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':orderId', $orderId, PDO::PARAM_INT);
+    $stmt->bindValue(':orderTracking', $orderTracking, PDO::PARAM_STR);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+
+    return $rowsChanged;
 }
 
 // Get the checkout order for the user 
@@ -199,7 +238,7 @@ function getShippingMethods(){
 // Add an incomplete order that will be removed as soon as the 
 // customer proceeds to buy the items by paying for this order, empties cart
 // or when the user revises the order. Only one per user may be added
-function addOrder($userId, $order_items, $shippingId, $orderDate, $numberOfItems){
+function addOrder($userId, $order_items, $shippingId, $orderDate, $numberOfItems, $grandTotal){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
@@ -209,21 +248,24 @@ function addOrder($userId, $order_items, $shippingId, $orderDate, $numberOfItems
                                 order_items, 
                                 shippingId, 
                                 orderDate,
-                                numberOfItems
+                                numberOfItems, 
+                                grandTotal
                                 ) 
                             VALUES (
                                 :userId, 
                                 :order_items, 
                                 :shippingId, 
                                 :orderDate,
-                                :numberOfItems)'
+                                :numberOfItems,
+                                :grandTotal)'
                             );
 
     // Replace the place holders
     $stmt->bindValue(':userId',$userId, PDO::PARAM_INT);
     $stmt->bindValue(':order_items',$order_items, PDO::PARAM_STR);
     $stmt->bindValue(':shippingId',$shippingId, PDO::PARAM_INT);   
-    $stmt->bindValue(':numberOfItems',$numberOfItems, PDO::PARAM_INT);     
+    $stmt->bindValue(':numberOfItems',$numberOfItems, PDO::PARAM_INT); 
+    $stmt->bindValue(':grandTotal',$grandTotal, PDO::PARAM_INT);         
     $stmt->bindValue(':orderDate',$orderDate, PDO::PARAM_STR);    
 
     // The next line runs the prepared statement 
@@ -244,6 +286,24 @@ function addOrder($userId, $order_items, $shippingId, $orderDate, $numberOfItems
         return $id;
 
     }
+}
+
+// update shipping and order total when relaoding checkout page
+function updateShippingnGrandT($orderId, $shippingId, $grandTotal){
+    $db = engojeConnect();
+
+    $sql = "UPDATE orders SET shippingId=:shippingId, grandTotal=:grandTotal WHERE orderId = :orderId";
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':orderId', $orderId, PDO::PARAM_INT);
+    $stmt->bindValue(':shippingId', $shippingId, PDO::PARAM_INT);
+    $stmt->bindValue(':grandTotal', $grandTotal, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+
+    return $rowsChanged;
 }
 
 // The price per item on the db product_entry

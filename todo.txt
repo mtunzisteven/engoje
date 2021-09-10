@@ -2,12 +2,12 @@
 
 2. Complete order management admin dashboard by completing the following: - Mthunzi
 
-2.1. Reposition orderTotal to a session variable and use it in Payfast + order function
-as well as in admin order update part of dashboard. it only starts appearing at payfast form. 
+    2.1. Reposition orderTotal to a session variable and use it in Payfast + order function
+    as well as in admin order update part of dashboard. it only starts appearing at payfast form. 
 
-2.2. Update getOrders model function to join users & shipping table
+    2.2. Update getOrders model function to join users & shipping table (done)
 
-2.3. Add respective data in columns of order dashboard table
+    2.3. Add respective data in columns of order dashboard table (done)
 
 3. Create reviews and add their management to admin dashboard  - Lusanda
 

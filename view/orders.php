@@ -52,7 +52,7 @@
 
                         if(isset($ordersAdminTable)){
 
-                            echo "<table id='users-display' class='table table-striped table-hover'><tr id='user-display-header'><th>#</th> <th>Action</th> <th>Order Id </th> <th>Customer</th> <th>Order Total</th> <th>Order Date</th> <th>Items </th> <th>Status</th> <th>Shipping Id</th> </tr>";
+                            echo "<table id='users-display' class='table table-striped table-hover'><tr id='user-display-header'><th>#</th> <th>Action</th> <th>Order Id </th> <th>Customer</th> <th>Order Total</th> <th>Order Date</th> <th>Items </th> <th>Status</th> <th> Ship Method</th> <th>Tracking #</th> </tr>";
 
                             foreach($ordersAdminTable as $row){
 

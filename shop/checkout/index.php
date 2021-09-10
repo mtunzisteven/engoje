@@ -70,6 +70,9 @@ switch ($action){
 
     default:
 
+    $_SESSION['grandTotal'] = filter_input(INPUT_POST, 'grandTotal',FILTER_SANITIZE_NUMBER_INT); // the cart total excl shipping
+
+
     if(isset($_SESSION['order'])){
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                          updating the order string with cart update amounts                            //
@@ -110,11 +113,15 @@ switch ($action){
             if(isset($_POST['shippingId'])){ // When coming from cart, this will be true. Not required if reloading, as session var will be set
 
                 // receive order string from cart
-                $_SESSION['shippingId']= $_POST['shippingId'];
-
-                //echo $_SESSION['shippingId']; exit;
+                $_SESSION['shippingId'] = $_POST['shippingId'];
 
             }
+
+            // get the shipping info for chosen shipper
+            $shippingInfo = getShipping($_SESSION['shippingId']);
+
+            // update grand total to include shipping cost
+            $_SESSION['grandTotal'] += $shippingInfo['price'];
 
             // get the user id of the logged in user
             $userId = $_SESSION['userData']['userId'];
@@ -122,9 +129,6 @@ switch ($action){
             // get user address details for the user 
             // in checkout model using their id
             $userDetails = getUserDetails($userId);
-
-            // test wether user has address added.
-            //var_dump($userDetails); exit;
 
             // users with no billing or shipping addresses added
             if(empty($userDetails)){
@@ -141,8 +145,6 @@ switch ($action){
                 // date customer went into checkout page
                 $checkoutDate = date('Y-m-d H:i:s');
 
-                $shippingInfo = getShipping($_SESSION['shippingId']);
-
                 $numberOfItems = $_SESSION['cartTotal'];
 
                 // when an order has been added to the db for this user
@@ -155,6 +157,9 @@ switch ($action){
                     // turn db_order_items to string because it comes back as ana array
                     if($order_items === $db_order_items['order_items']){
 
+                        // Update shipping and grand total of order
+                        updateShippingnGrandT($_SESSION['orderId'], $_SESSION['shippingId'], $_SESSION['grandTotal']);
+
                         // build the checkout display
                         $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
 
@@ -163,7 +168,7 @@ switch ($action){
                         if(deleteOrder($_SESSION['orderId'])){
 
                             // create an order using the model function below.
-                            $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems);
+                            $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems, $_SESSION['grandTotal'] );
 
                             // build the checkout display
                             $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
@@ -174,7 +179,7 @@ switch ($action){
                 }else{
 
                     // create an order using the model function below.
-                    $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems);
+                    $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems, $_SESSION['grandTotal']);
 
                     // build the checkout display
                     $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);

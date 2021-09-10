@@ -60,18 +60,18 @@ function buildCartDisplay($cartDetails, $shippingInfo){
             }
 
 
-        $lineTotal = $_SESSION['salePrice']*$cartItem['cart_item_qty'];
-        $grandTotal += $lineTotal;
+            $lineTotal = $_SESSION['salePrice']*$cartItem['cart_item_qty'];
+            $grandTotal += $lineTotal;
 
-        $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
-        $cartDisplay .= "<div>$cartItem[productName]</div>"; 
-        $cartDisplay .= "<div>$cartItem[colour]</div>"; 
-        $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-        $cartDisplay .= "<div>R<span class='price'>$_SESSION[salePrice]</span></div>"; 
-        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
-        $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+            $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
+            $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+            $cartDisplay .= "<div>$cartItem[productName]</div>"; 
+            $cartDisplay .= "<div>$cartItem[colour]</div>"; 
+            $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
+            $cartDisplay .= "<div>R<span class='price'>$_SESSION[salePrice]</span></div>"; 
+            $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
+            $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
+            $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
         }else{
 
@@ -85,20 +85,18 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
             }
 
-            
+            $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
+            $grandTotal += $lineTotal;
 
-        $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
-        $grandTotal += $lineTotal;
-
-        $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
-        $cartDisplay .= "<div>$cartItem[productName]</div>"; 
-        $cartDisplay .= "<div>$cartItem[colour]</div>"; 
-        $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-        $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
-        $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
-        $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-        $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+            $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
+            $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+            $cartDisplay .= "<div>$cartItem[productName]</div>"; 
+            $cartDisplay .= "<div>$cartItem[colour]</div>"; 
+            $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
+            $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
+            $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
+            $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
+            $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
         }
     }
@@ -118,6 +116,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
         $cartDisplay .= "<input id='shippingId$shippingMethod[shippingId]' type='hidden' value='$shippingMethod[price]' />";
     }
     
+    $cartDisplay .= "<input name='grandTotal' type='hidden' value='$grandTotal' />";
     $cartDisplay .= "<h4 id='grand-ship-total'><div class='strong'>Grand Total:</div> R$grandTotal</h4>";
     $cartDisplay .= "</div><input type='submit' class='clear-cart button wishlist-buttons' value='Checkout' /> </form></div>";
 
@@ -207,21 +206,40 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 
     foreach($checkoutDetails as $cartItem){
 
-        $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
-        $grandTotal += $lineTotal;
+        if(isset($cartItem['salePrice'])){
+
+            $lineTotal = $cartItem['salePrice']*$cartItem['cart_item_qty'];
+
+            $grandTotal += $lineTotal;
 
 
 
-        $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
-        $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
-        $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['price']*$cartItem['cart_item_qty']."</div></div>"; 
+            $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
+            $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
+            $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['salePrice']*$cartItem['cart_item_qty']."</div></div>"; 
+
+
+        }else{
+
+            $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
+
+            $grandTotal += $lineTotal;
+
+
+
+            $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
+            $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
+            $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['price']*$cartItem['cart_item_qty']."</div></div>"; 
+
+        }
+
 
     }
 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
     $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping  </div><div>$shippingInfo[period]: R$shippingInfo[price]</div></div>"; 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
-    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 id='grand-total-display' class='cart-total'>R$grandTotal</h2></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 id='grand-total-display' class='cart-total'>R$_SESSION[grandTotal]</h2></div>"; 
     $checkoutDisplay .= "<input type='hidden' id='shipping-fee' value='$shippingInfo[price]' />"; 
 
 
@@ -417,23 +435,94 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 // Build a multi product display table on admin dashboard
 function  buildordersAdminTable($orders){
 
-    $productRows = [];
+    $trackingNo = '-';
+    $grandTotal = '0';
 
-    $number = 0;
+    $number = 0; // used for table numbering
 
     foreach($orders as $order){
 
         $number += 1;
 
-        // bootstrap modal for product delete
-        $orderRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons ><a class='button account-button' href='/engoje/orders/?action=update&orderId=$order[orderId]'>update</a>   
+        // add tracking number if updated
+        if($order['orderTracking'] != null){ 
 
+            $trackingNo = $order['orderTracking'];
+
+        }else{
+
+            $trackingNo = '-';
+
+        }
+
+        // add tracking number if updated
+        if($order['grandTotal'] != null){ 
+
+            $grandTotal = $order['grandTotal'];
+
+        }else{
+
+            $grandTotal = '0';
+
+        }
+
+        // bootstrap modal for product delete
+        $orderRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons >
+        
+            <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#update$order[orderId]'>
+            update
+            </button>
+
+            <div class='modal fade' id='update$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title' id='exampleModalLabel'>Update Product Details</h5>
+                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                    </div>
+                    <div class='modal-body'>
+                    
+                        <p>Order Id: $order[orderId]</p>
+                        <p>Number of Items: $order[numberOfItems]</p>
+                        <p>Order Status: $order[orderStatus]</p>
+                        <p>Order Date:$order[orderDate]</p>
+                    
+                    </div>
+
+                    <div class='container'>
+                        <div class='row'>
+                            <div class='col'>
+                                <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderStatus' method='post'>
+                                    <div class='mb-3'>
+                                        <label for='orderStatus' class='form-label text-start'>Change Order Status</label>
+                                        <input type='text' class='form-control' id='orderStatus' name='orderStatus'>
+                                        <input type='hidden' name='orderId' value='$order[orderId]'>
+                                    </div>
+                                    <button type='submit' class='btn btn-primary button'>Submit</button>
+                                </form>
+                            </div>
+
+                            <div class='col'>
+                                <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderTracking' method='post'>
+                                    <div class='mb-3'>
+                                        <label for='orderTracking' class='form-label text-start'>Enter Tracking Number</label>
+                                        <input type='text' class='form-control' id='orderTracking' name='orderTracking'>
+                                        <input type='hidden' name='orderId' value='$order[orderId]'>
+                                    </div>
+                                    <button type='submit' class='btn btn-primary button'>Submit</button>
+                                </form>                                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>product
+            </div>
             
-            <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#id$order[orderId]'>
+            <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#delete$order[orderId]'>
             delete
             </button>
 
-            <div class='modal fade' id='id$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+            <div class='modal fade' id='delete$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
             <div class='modal-dialog'>
                 <div class='modal-content'>
                 <div class='modal-header'>
@@ -449,13 +538,13 @@ function  buildordersAdminTable($orders){
                 
                 </div>
                 <div class='modal-footer'>
-                    <a class='button chunk-buttons' href='/engoje/orders?action=delete&orderId=$order[orderId]' >Delete</a>
+                    <a class='button chunk-buttons' href='/engoje/orders/?action=delete&orderId=$order[orderId]' >Delete</a>
                 </div>
                 </div>
             </div>product
             </div>
             
-        </td><td>$order[orderId] </td> <td> -- </td> <td> -- </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> -- </td></tr>";
+        </td><td>$order[orderId] </td> <td> $order[userFirstName] $order[userLastName] </td> <td> R$grandTotal </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> $order[shipper] </td> <td> $trackingNo </td></tr>";
     }
 
    return $orderRows;
@@ -1522,18 +1611,15 @@ function sumAllValues($array, $key){
 // check if item value in array items exist
 function checkIfValueExists($array, $key, $value){
 
-    $result = 0; // returns this value if nothing found
-
     foreach($array as $item){ // go through each item in the array
 
         if($item[$key] == $value){ // if the value is found in the array, result grows
 
-            $result = 1;
-
+            return true; // returns this value if something is found
         }
     }
 
-    return $result;
+    return false;  // returns this value if nothing is found
 }
 
 // get index of item that is equal to the value
@@ -1563,6 +1649,7 @@ $active_tabs = [
     'taxonomy' => '', 
     'images'=>'',
     'orders'=>'',
+    'sales'=>'',
     'reviews'=>'',
     'promotions'=>''
 ];

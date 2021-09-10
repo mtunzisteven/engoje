@@ -59,6 +59,25 @@ function getCartItems($userId){
     return $products;
 }
 
+// get the cart items for the specified user
+function getOnSaleCartItems($userId){
+    $db = engojeConnect();
+    $sql = 'SELECT * FROM cart_items 
+                    JOIN product_entry ON product_entry.product_entryId = cart_items.product_entryId
+                    JOIN size ON product_entry.sizeId = size.sizeId
+                    JOIN colour ON product_entry.colourId = colour.colourId
+                    JOIN products ON product_entry.productId = products.productId
+                    JOIN sale ON cart_items.product_entryId = sale.product_entryId
+                    WHERE userId = :userId';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $products;
+}
+
 // get the cart item for the specified cart_itemId
 function getCartItem($cart_itemId){
     $db = engojeConnect();

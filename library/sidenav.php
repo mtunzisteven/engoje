@@ -57,6 +57,12 @@ function buildAdminSideNav(){
                         </a>
                       </li>
                       <li class="nav-item">
+                      <a href="/engoje/saless/?action=sales" class="nav-link text-white '.$_SESSION['active_tab']['sales'].'">
+                        <i class="bi bi-credit-card"></i>
+                        &nbsp;Sales
+                      </a>
+                    </li>
+                      <li class="nav-item">
                         <a href="/engoje/reviews/?action=reviews" class="nav-link text-white '.$_SESSION['active_tab']['reviews'].'">
                           <i class="bi bi-megaphone"></i>
                           &nbsp;Reveiws

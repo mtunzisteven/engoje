@@ -43,7 +43,6 @@ switch ($action){
         $product_entryId = filter_input(INPUT_POST, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
         $cart_item_qty = filter_input(INPUT_POST, 'cart_item_qty', FILTER_SANITIZE_NUMBER_INT);
 
-
         // if the variables are none-empty, proceed
         if(!empty($product_entryId) || !empty($cart_item_qty)){
 
@@ -52,12 +51,12 @@ switch ($action){
 
             // only add it into cart if it is in stock
             if($amount > 0){
-
+                                
                 if($amount >= $cart_item_qty){
 
                     // for all logged in users use the code block below
                     if(isset($_SESSION['userData'])){
-    
+   
                         // get the user id of the logged in user
                         $userId = $_SESSION['userData']['userId'];
     
@@ -66,7 +65,7 @@ switch ($action){
     
                         // if product_entry exists in the db cart items table for the user don't bother adding it
                         if(!checkIfValueExists($cartItems, 'product_entryId', $product_entryId)){
-    
+
                             // date item added to cart
                             $dateAdded = date('Y-m-d H:i:s');
     
@@ -100,7 +99,7 @@ switch ($action){
                             }
     
                         }else{// if the item already found in db for the same user, don't add it again, just increase its quantity
-    
+
                             // get the qty of the item in the db cart already added
                             $cartAmount = getCartItemQty($product_entryId, $userId)['cart_item_qty'];
     
@@ -275,14 +274,7 @@ switch ($action){
         // define cart total and initialize it to a value of 0
         $_SESSION['cartTotal'] = 0;
 
-        if(isset($_SESSION['cart'])){
-            foreach($_SESSION['cart'] as $cartItems){
-
-            // get a total of all the items in the cart
-            $_SESSION['cartTotal'] += $cartItems['cart_item_qty'];
-            }
-
-        }else if(isset($_SESSION['userData'])){
+        if(isset($_SESSION['userData'])){
 
             $cartItems = getCartItems($_SESSION['userData']['userId']);
 
