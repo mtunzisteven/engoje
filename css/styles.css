@@ -1366,7 +1366,7 @@ form.form-add-to-cart .productShort-descr {
   margin: 0;
 }
 
-form.form-add-to-cart .swatch-label {
+form.form-add-to-cart #color-swatch-label, form.form-add-to-cart #size-swatch-label {
   margin: 10px 0 2px 0;
   text-align: left;
   min-width: 100%;
@@ -1448,7 +1448,7 @@ form.form-add-to-cart .add-to-cart-container #add-to-cart-qty {
   border-radius: 3px 0 0 3px;
   border: solid 1px #d8d5d5;
   width: 55%;
-  height: 23px;
+  height: 24px;
   background-color: #f0f0f0;
   text-align: center;
   margin-bottom: 0;
@@ -1467,25 +1467,29 @@ form.form-add-to-cart .add-to-cart-container #add-to-cart-button {
           box-shadow: none;
   border-radius: 0 3px 3px 0;
   width: 45%;
-  height: 28px;
+  height: 26px;
   line-height: 28px;
   margin-bottom: 0;
 }
 
 form.form-add-to-cart .add-to-cart-container #add-to-cart-button:hover {
-  background-color: #a3b7d4;
-  color: #051124;
+  color: #fdfdfd;
+  background-color: #1a2d49;
+  -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
+          box-shadow: 1px 2px 8px 3px #3a3939;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button {
-  background-color: #a3b7d4;
-  color: #051124;
+  background-color: #1a2d49;
+  color: #fdfdfd;
   width: 45%;
   height: 28px;
   line-height: 28px;
   -webkit-box-shadow: none;
           box-shadow: none;
-  border: 1px solid #f0f0f0;
+  border: 1px solid #1a2d49;
   min-width: 100%;
   margin-top: 0;
   padding: 0 1px;
@@ -1493,7 +1497,8 @@ form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button {
 
 form.form-add-to-cart .add-to-cart-container #add-to-wishlist-button:hover {
   background-color: #fea500;
-  color: #051124;
+  color: #3a3939;
+  border: 1px solid #fea500;
 }
 
 form.form-add-to-cart div.sale-prices-container {
@@ -2059,7 +2064,7 @@ form.feedback-form input.button {
   border: 1px solid #d8d5d5;
 }
 
-.sidebar-section label.swatch-label {
+.sidebar-section label#color-swatch-label, .sidebar-section label#size-swatch-label {
   font-size: 0;
 }
 

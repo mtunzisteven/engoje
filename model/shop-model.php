@@ -926,7 +926,7 @@ function getSizeSwatchedShopProduct($productId, $colour, $size){
 // Get one product for swatches 
 function getShopSwatchProduct($productId){
     $db = engojeConnect();
-    $sql = 'SELECT size.sizeValue, colour FROM product_entry 
+    $sql = 'SELECT * FROM product_entry 
                     JOIN colour ON product_entry.colourId = colour.colourId
                     JOIN size ON product_entry.sizeId = size.sizeId
                     WHERE product_entry.productId = :productId';

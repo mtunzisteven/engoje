@@ -1112,7 +1112,7 @@ form{
     }
 
     & .button{
-        @include buttons();
+        @include buttons($secondary-color);
         height: 30px;
         line-height: 30px;
     }
@@ -1161,7 +1161,7 @@ form.form-add-to-cart{
         margin:0;
     }
 
-    & .swatch-label{
+    & #color-swatch-label, #size-swatch-label{
         margin: 10px 0 2px 0;
         text-align: left;
         min-width:100%;
@@ -1214,7 +1214,7 @@ form.form-add-to-cart{
             border-radius:3px 0 0 3px;
             border:solid 1px $darker-background-color;
             width:55%;
-            height:23px;
+            height:24px;
             background-color:$dark-background-color;
             text-align:center;
             margin-bottom: 0;
@@ -1240,17 +1240,18 @@ form.form-add-to-cart{
     
         & #add-to-cart-button:hover{
             @include buttonshover();
+            box-shadow: none;
 
         }
 
         & #add-to-wishlist-button{
-            background-color: $light-main-color;
-            color: $darker-main-color;
+            background-color: $dark-main-color;
+            color: $background-color;
             width:45%;
             height:28px;
             line-height: 28px;
             box-shadow: none;
-            border: 1px solid $dark-background-color;
+            border: 1px solid $dark-main-color;
             min-width: 100%;
             margin-top: 0;
             padding: 0 1px;
@@ -1258,7 +1259,8 @@ form.form-add-to-cart{
 
         & #add-to-wishlist-button:hover{
             background-color: $secondary-color;
-            color: $darker-main-color;
+            color: $dark-color;
+            border: 1px solid $secondary-color;
 
         }
     }
@@ -1621,7 +1623,7 @@ form.feedback-form{
         }
     }
 
-    & label.swatch-label{
+    & label#color-swatch-label, label#size-swatch-label{
         font-size:0;
     }
 

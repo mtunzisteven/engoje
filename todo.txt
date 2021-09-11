@@ -1,24 +1,28 @@
-1. Add stock management(out of stock/number left in stock) to users not loggged in - mthunzi: removed option to order as guest(done)
+1. Change js, php and html for single product swatches: - Mthunzi
 
-2. Make the sale price appear even on individual items on the checkout page - Mtunzi(done)
+    needs to read color and size names independantly of being assisted. (done)
+    needs to not add swatches for products with only one swatches, but show onlyu the avaible swatch on the swatch label
+    needs to not add neither swatches nor swatch label for single products with only N/A for the taxonomy
+
+2. Fix filter-by-price to be a range and fix model to work properly.(There is an error) - Mthunzi
 
 3. Create reviews and add their management to admin dashboard  - Lusanda
 
 4. Add the ability to add (as well as update and delete buttons) reviews to each product display page. - Lusanda
 
-5. Fix filter-by-price to be a range and fix model to work properly.(There is an error) - Mthunzi
+5.  Complete admin and user account dashboards - Mthunzi
 
-6. Change js, php and html for single product swatches: - Mthunzi
+6. Add ability to print each order on A4 pages  - Mthunzi
 
-    needs to read color and size names independantly of being assisted.
-    needs to not add swatches for products with only one swatches, but show onlyu the avaible swatch on the swatch label
-    needs to not add neither swatches nor swatch label for single products with only N/A for the taxonomy
+7. Add emailers with templates  - Mthunzi
 
-7. Complete user account dashboard - Mthunzi
+8. Add related products on single product page:
 
-8. Add ability to print each order on A4 pages  - Mthunzi
+    add tags column to product table
+    use tags to search for relationships
+    create a 4 product display flex right of signle product 
 
-9.  Add emailers with templates  - Mthunzi
+9.  Add long description section to bottom of single product and reviews section below it.
 
 10. Add proper links to footer section and create proper store section banners  - Mthunzi
 

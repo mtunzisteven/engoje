@@ -55,15 +55,11 @@ if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
 
 }
 
-
 // build sidebar display
 $sidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
 $sidebarDisplay .= buildShopSidebarColour($allProducts, 'colour');
 $sidebarDisplay .= buildShopSidebarSize($allProducts, 'sizeValue');
 $sidebarDisplay .= buildShopSidebarCategory($category);
-
-
-//echo $minPrice; exit;
 
 // sanitize action variable
 $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
@@ -86,12 +82,16 @@ switch ($action){
         // create new date time object
         $today = new DateTime();
 
-        // format datetime object
+        // format today datetime object
         $today->format('U');
 
+        // create another datetime object with the sale start date of the product
         $saleStart = new DateTime($_SESSION['sale']['saleStart']);
+
+        // format the date
         $saleStart->format('Y-m-d H:i:s');
 
+        // today minus the date when the sale started
         $interval = [date_diff($today, $saleStart)];
 
         // the number of days since start of sale
@@ -100,6 +100,7 @@ switch ($action){
         // Set price and style appearance for sale items
         if(!empty($_SESSION['sale'])){
 
+            // if sale has not expired
             if($days < $_SESSION['sale']['salePeriod']){
 
                 $_SESSION['salePrice'] = $_SESSION['sale']['salePrice'];
@@ -108,7 +109,7 @@ switch ($action){
                 $_SESSION['hidden'] = '';
                 $_SESSION['strikeThrough'] = 'strike-through';
 
-            }else{
+            }else{ //when the sale has expired, hide the feature
 
             $_SESSION['hidden'] = 'hidden';
             $_SESSION['strikeThrough'] = '';
@@ -116,7 +117,7 @@ switch ($action){
         }
 
 
-        }else{
+        }else{ //if there's no sale at all, just hide the sale feature
 
             $_SESSION['hidden'] = 'hidden';
             $_SESSION['strikeThrough'] = '';
@@ -128,6 +129,8 @@ switch ($action){
 
         // get the different swatches available to this productId
         $productSwatch = getShopSwatchProduct($productId);
+
+        //var_dump($productSwatch); exit;
 
         // build a swatch display for the sizes
         $_SESSION['sizes'] = buildProductSwatchesDisplay($productSwatch, 'sizeValue');
