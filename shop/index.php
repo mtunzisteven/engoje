@@ -129,9 +129,7 @@ switch ($action){
 
         // get the different swatches available to this productId
         $productSwatch = getShopSwatchProduct($productId);
-
-        //var_dump($productSwatch); exit;
-
+        
         // build a swatch display for the sizes
         $_SESSION['sizes'] = buildProductSwatchesDisplay($productSwatch, 'sizeValue');
 

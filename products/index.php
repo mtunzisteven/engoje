@@ -80,11 +80,12 @@ session_cache_expire();
             $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
             $productShortDescr = nl2br(filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
             $productDescription = nl2br(filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
+            $productTags = filter_input(INPUT_POST, 'productTags',FILTER_SANITIZE_STRING); 
             $_SESSION['categoryId'] = $_POST['categoryId'];
             $colourIds = $_POST['colourIds'];
             $sizeIds = $_POST['sizeIds'];
 
-            if(empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
+            if(empty($productTags) || empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
 
                 $message = "<p class='notice detail-span-bold'>Sorry, we couldn't add the Product.</p>";
 
@@ -93,7 +94,7 @@ session_cache_expire();
                 $productCreationDate = date('Y-m-d H:i:s');
 
                 // add the core product to the database
-                $productAdded = addProduct($productName, $productShortDescr, $productDescription, $productCreationDate);
+                $productAdded = addProduct($productName, $productShortDescr, $productDescription, $productCreationDate, $productTags);
 
                 if($productAdded){
 

@@ -1,15 +1,16 @@
 <?php
 
 // Add review to the database table
-function addReviews($userId, $invId, $reviewText, $reviewDate) {
+function addReviews($userId, $product_entryId, $productRating, $reviewText, $reviewDate) {
     $db = engojeConnect();
-    $sql = 'INSERT INTO reviews (reviewText,reviewDate, invId, userId) VALUES (:reviewText, :reviewDate, :invId, :userId)';
+    $sql = 'INSERT INTO reviews (reviewText,reviewDate, productRating, product_entryId, userId) VALUES (:reviewText, :reviewDate, :productRating, :product_entryId, :userId)';
     $stmt = $db->prepare($sql);
 
     // Store the full size image information
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
     $stmt->bindValue(':reviewText', $reviewText, PDO::PARAM_STR);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $stmt->bindValue(':productRating', $productRating, PDO::PARAM_INT);
     $stmt->bindValue(':reviewDate', $reviewDate, PDO::PARAM_STR);
     $stmt->execute();
     
@@ -19,16 +20,26 @@ function addReviews($userId, $invId, $reviewText, $reviewDate) {
     return $rowsChanged;
    }
 
-// Get review information from reviews by inventory
-function getInventoryReviews($invId) {
+// Get review information from reviews by product_entryId
+function getProductReviews($product_entryId) {
     $db = engojeConnect();
-    $sql = 'SELECT reviewText, reviewDate, reviewId, reviews.userId, users.userFirstname, users.userLastname  FROM  reviews JOIN users ON reviews.userId=users.userId WHERE reviews.invId=:invId ORDER BY reviews.reviewDate DESC';
+
+    $sql = 'SELECT reviewText, 
+                   reviewDate, 
+                   reviewId, 
+                   productRating, 
+                   reviews.userId, 
+                   users.userFirstname, 
+                   users.userLastname  
+                   FROM  reviews 
+                   JOIN users ON reviews.userId=users.userId 
+                   WHERE reviews.product_entryId=:product_entryId 
+                   ORDER BY reviews.reviewDate DESC';
+
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
     $stmt->execute();
     $reviewsArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    //echo $reviewsArray[0]['userId']; exit;
 
     $stmt->closeCursor();
     return $reviewsArray;
@@ -38,7 +49,18 @@ function getInventoryReviews($invId) {
 // Get review information from reviews table by user
 function getUserReviews($userId) {
     $db = engojeConnect();
-    $sql = 'SELECT reviewText, reviewDate, reviewId, users.userFirstname, users.userLastname  FROM  reviews JOIN users ON reviews.userId=users.userId WHERE reviews.userId=:userId ORDER BY reviewDate DESC';
+
+    $sql = 'SELECT reviewText, 
+                   reviewDate, 
+                   reviewId,
+                   productRating, 
+                   users.userFirstname, 
+                   users.userLastname  
+                   FROM  reviews 
+                   JOIN users ON reviews.userId=users.userId 
+                   WHERE reviews.userId=:userId 
+                   ORDER BY reviewDate DESC';
+
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
@@ -48,9 +70,9 @@ function getUserReviews($userId) {
    }
 
 // Get review Text from reviews table by review Id
-function getUpdateReview($reviewId) {
+function getReview($reviewId) {
     $db = engojeConnect();
-    $sql = 'SELECT reviewText  FROM  reviews WHERE reviewId= :reviewId';
+    $sql = 'SELECT reviewText, productRating  FROM  reviews WHERE reviewId= :reviewId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
     $stmt->execute();
@@ -61,12 +83,13 @@ function getUpdateReview($reviewId) {
 
 
 // Update review Text from reviews table by review Id
-function updateReview($reviewId, $reviewText) {
+function updateReview($reviewId, $reviewText, $productRating) {
     $db = engojeConnect();
-    $sql = 'UPDATE reviews SET reviewText= :reviewText  WHERE reviewId= :reviewId';
+    $sql = 'UPDATE reviews, productRating SET reviewText= :reviewText & productRating= :productRating  WHERE reviewId= :reviewId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
     $stmt->bindValue(':reviewText', $reviewText, PDO::PARAM_STR);
+    $stmt->bindValue(':productRating', $productRating, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->rowCount();
     $stmt->closeCursor();

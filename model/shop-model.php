@@ -815,7 +815,8 @@ function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
                     JOIN size ON product_entry.sizeId = size.sizeId
                     WHERE images.imagePrimary = 1 
                     AND :minPrice <= product_entry.price 
-                    AND product_entry.price <= :maxPrice';
+                    AND product_entry.price <= :maxPrice
+                    LIMIT  :offset, :lim';
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
@@ -936,8 +937,6 @@ function getShopSwatchProduct($productId){
     $stmt->execute();
     $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
-
-    //var_dump($productData); exit;
 
     return $productData;
 }

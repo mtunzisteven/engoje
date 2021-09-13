@@ -141,8 +141,8 @@ switch ($filter){
     case "price-filter":
 
         // get the input price values
-        $_SESSION['minPriceFilter'] = filter_input(INPUT_GET, 'minPrice',FILTER_SANITIZE_NUMBER_INT);
-        $_SESSION['maxPriceFilter'] = filter_input(INPUT_GET, 'maxPrice',FILTER_SANITIZE_NUMBER_INT);
+        $_SESSION['minPriceFilter'] = intval(filter_input(INPUT_GET, 'minPrice',FILTER_SANITIZE_NUMBER_INT));
+        $_SESSION['maxPriceFilter'] = intval(filter_input(INPUT_GET, 'maxPrice',FILTER_SANITIZE_NUMBER_INT));
 
         //echo $maxPrice; exit;
 

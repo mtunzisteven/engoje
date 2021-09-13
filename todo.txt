@@ -1,16 +1,12 @@
-1. Change js, php and html for single product swatches: - Mthunzi
+1. Fix filter-by-price to be a range and fix model to work properly.(There is an error) - Mthunzi (Done)
 
-    needs to read color and size names independantly of being assisted. (done)
-    needs to not add swatches for products with only one swatches, but show onlyu the avaible swatch on the swatch label
-    needs to not add neither swatches nor swatch label for single products with only N/A for the taxonomy
+2. Create reviews and add their management to admin dashboard  - Lusanda
 
-2. Fix filter-by-price to be a range and fix model to work properly.(There is an error) - Mthunzi
+3. Add the ability to add (as well as update and delete buttons) reviews to each product display page. - Lusanda
 
-3. Create reviews and add their management to admin dashboard  - Lusanda
+4. Add ratings and ability to rate when you've purchased. -Mthunzi & Lusanda
 
-4. Add the ability to add (as well as update and delete buttons) reviews to each product display page. - Lusanda
-
-5.  Complete admin and user account dashboards - Mthunzi
+5. Complete admin and user account dashboards - Mthunzi
 
 6. Add ability to print each order on A4 pages  - Mthunzi
 
@@ -18,7 +14,7 @@
 
 8. Add related products on single product page:
 
-    add tags column to product table
+    add tags column to product table (done)
     use tags to search for relationships
     create a 4 product display flex right of signle product 
 

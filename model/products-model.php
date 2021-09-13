@@ -3,7 +3,7 @@
 //This model is for the Products 
 
 // Add a single product meta
-function addProduct($productName, $productShortDescr, $productDescription, $productCreationDate){
+function addProduct($productName, $productShortDescr, $productDescription, $productCreationDate, $productTags){
     // Create a connection object from the zalist connection function
     $db = engojeConnect(); 
     // The next line creates the prepared statement using the zalist connection      
@@ -12,11 +12,13 @@ function addProduct($productName, $productShortDescr, $productDescription, $prod
             products (
                 productName, 
                 productShortDescr, 
-                productDescription, 
+                productDescription,
+                productTags, 
                 productCreationDate) 
             VALUES (
                 :productName, 
                 :productShortDescr, 
+                :productTags,
                 :productDescription, 
                 :productCreationDate)');
 
@@ -25,7 +27,7 @@ function addProduct($productName, $productShortDescr, $productDescription, $prod
     $stmt->bindValue(':productShortDescr',$productShortDescr, PDO::PARAM_STR);
     $stmt->bindValue(':productDescription',$productDescription, PDO::PARAM_STR);
     $stmt->bindValue(':productCreationDate',$productCreationDate, PDO::PARAM_STR);
-
+    $stmt->bindValue(':productTags',$productTags, PDO::PARAM_STR);
 
     // The next line runs the prepared statement 
     $stmt->execute(); 

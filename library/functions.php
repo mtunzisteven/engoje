@@ -771,11 +771,13 @@ function buildProductCreateForm($categories, $colours, $sizes){
 
 
 
-    $productCreate .= "<div class='column-form-input'><label>Product Name</label> <input type='text' name='productName' />";
+    $productCreate .= "<div class='column-form-input'><label>Product Name</label> <input type='text' name='productName' maxlength='13' />";
 
-    $productCreate .= "<label>Short Description</label> <textarea name='productShortDescr' rows='3' ></textarea>";
+    $productCreate .= "<label>Short Description</label> <textarea name='productShortDescr' rows='3' ></textarea><br/>";
 
-    $productCreate .= "<label>Long Description</label> <textarea name='productDescription' rows='5' ></textarea>";
+    $productCreate .= "<label>Long Description</label> <textarea name='productDescription' rows='5' ></textarea><br/>";
+
+    $productCreate .= "<label>Product Tags(comma seperated)</label> <textarea name='productTags' rows='2' ></textarea>";
 
     $productCreate .= "</div><div class='column-form-fieldsets'><fieldset><strong>add category</strong>";
 
