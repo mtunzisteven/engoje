@@ -1180,16 +1180,17 @@ return $dv;
 function buildShopSidebarCategory($categories){
 
     // category section
-    $sidebar  = "<h5 class='filter-titles'>Filter by Categories</h5>";
+    $sidebar  = "<h5 class='filter-titles'>Categories</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'>";
+    $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select radioCategories' aria-label='Default select example'><option selected>All</option>";
 
     foreach ($categories as $category) {
 
-        $sidebar .= "<label for='$category[categoryName]'><input type='radio' name='category' class='radioCategories' id='$category[categoryName]' value='$category[categoryName]' />$category[categoryName]</label>";
+        $sidebar .= "<option  value='$category[categoryName]' />$category[categoryName]</option>";
 
     }
-    $sidebar .= "<input type='hidden' name='filter' value='category-filter' >";
+    
+    $sidebar .= "</select><input type='hidden' name='filter' value='category-filter' >";
     $sidebar .= "</form>";    
 
 

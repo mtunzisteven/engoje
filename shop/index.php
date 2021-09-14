@@ -56,10 +56,10 @@ if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
 }
 
 // build sidebar display
-$sidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
+$sidebarDisplay  = buildShopSidebarCategory($category);
+$sidebarDisplay .= buildShopSidebarPrice($minPrice, $maxPrice);
 $sidebarDisplay .= buildShopSidebarColour($allProducts, 'colour');
 $sidebarDisplay .= buildShopSidebarSize($allProducts, 'sizeValue');
-$sidebarDisplay .= buildShopSidebarCategory($category);
 
 // sanitize action variable
 $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
