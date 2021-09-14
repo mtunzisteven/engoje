@@ -1,6 +1,6 @@
 <?php
 
-// This is the main-model for ZA Listing
+// This is the main-model for engoje
 
 function getClassifications(){
  // Create a connection object from the phpmotors connection function

@@ -4,7 +4,7 @@
     }
 
     $pageName ="Shop"; 
-    $pageShortSummary = "ZA Listing";
+    $pageShortSummary = "engoje";
     $pageDescription = "";
 
 ?><!DOCTYPE html>
