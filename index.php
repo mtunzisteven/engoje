@@ -8,7 +8,7 @@
     require_once 'library/functions.php';
     // Get the side navs library
     require_once 'library/sidenav.php';
-    // Get the za listing model for use as needed
+    // Get the engoje model for use as needed
     require_once 'model/main-model.php';
 
     // Build Admin Side Nav

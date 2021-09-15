@@ -10,7 +10,7 @@ session_start();
 require_once '../library/connections.php';
 // Get the database connection file
 require_once '../library/functions.php';
-// Get the za listing main model for use as needed
+// Get the engoje main model for use as needed
 require_once '../model/main-model.php';
 // Get the shop model for use as needed
 require_once '../model/shop-model.php';
