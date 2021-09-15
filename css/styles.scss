@@ -137,6 +137,7 @@ $notices  : 200 20px 'Handlee', sans-serif;
 body{
     color:$dark-color;
     background-color: $dark-background-color;
+    height:100%;
     padding:0;
     margin:0;
     overflow-x: hidden;   
@@ -1121,6 +1122,7 @@ form{
         @include buttons($main-color, 65.5%);
         height: 30px;
         line-height: 30px;    
+        color: $background-color;
     }
 
     & .login-reg-button:hover{
@@ -1134,6 +1136,16 @@ form{
         font-style: italic;
         margin:-10px 0 20px 0;
         width:67%;
+    }
+}
+
+form.login-form{
+    margin: 0;
+    width: 100%;
+    border: none;
+
+    & label{
+        text-align: left;
     }
 }
 
@@ -2199,6 +2211,10 @@ form{
 
 }
 
+form.login-form{
+    width: 100%;
+}
+
 
 /*------------------------------------------------Forms END
 */
@@ -2375,6 +2391,12 @@ form{
     form{
         width:45%;
         max-width: 500px;
+
+    }
+
+    form.login-form{
+        width: 100%;
+        max-width: 100%;
 
     }
 

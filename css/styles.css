@@ -27,6 +27,7 @@ $light-main-color:#7e7c7c;
 body {
   color: #3a3939;
   background-color: #f0f0f0;
+  height: 100%;
   padding: 0;
   margin: 0;
   overflow-x: hidden;
@@ -1318,6 +1319,7 @@ form .login-reg-button {
   cursor: pointer;
   height: 30px;
   line-height: 30px;
+  color: #fdfdfd;
 }
 
 form .login-reg-button:hover {
@@ -1334,6 +1336,16 @@ form .detail-span {
   font-style: italic;
   margin: -10px 0 20px 0;
   width: 67%;
+}
+
+form.login-form {
+  margin: 0;
+  width: 100%;
+  border: none;
+}
+
+form.login-form label {
+  text-align: left;
 }
 
 form.form-add-to-cart {
@@ -2828,6 +2840,9 @@ div.accordion div.accordion-item h2:focus {
   form {
     width: 65%;
   }
+  form.login-form {
+    width: 100%;
+  }
   /*------------------------------------------------Forms END
 */
   div.single-product-shop {
@@ -3058,6 +3073,10 @@ div.accordion div.accordion-item h2:focus {
   form {
     width: 45%;
     max-width: 500px;
+  }
+  form.login-form {
+    width: 100%;
+    max-width: 100%;
   }
   form.checkboxed {
     padding: 5px;
