@@ -21,9 +21,10 @@ fetch(curl, {
 })
 .then(response=>response.text())
 .then(text=> {
-    
-    cartCount.innerHTML = text;
-    mcartCount.innerHTML = text;
+
+    isNumber(cartCount, mcartCount, text);
+
+
 })
  
 
@@ -80,7 +81,29 @@ fetch(wurl, {
 })
 .then(response=>response.text())
 .then(text=> {
-    
-    wishlistCount.innerHTML = text;
-    mwishlistCount.innerHTML = text;
+
+    isNumber(wishlistCount, mwishlistCount, text);
 })
+
+
+function isNumber(mainCount, mobileCount, text){
+
+
+    if(text.length <= 3){
+        if(text > 9){
+
+            mainCount.innerHTML = "9+";
+            mobileCount.innerHTML = "9+";
+
+        }else{
+
+            mainCount.innerHTML = text;
+            mobileCount.innerHTML =text;
+        }
+
+    }else{
+        mainCount.innerHTML = "!";
+        mobileCount.innerHTML = "!";
+    }
+
+}
