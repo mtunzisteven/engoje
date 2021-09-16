@@ -29,9 +29,8 @@ sidebarSwatcher(sizeSwatches, sizeForm,  sizeChosen);
 
 let formCat =  document.querySelector('.category-form');
 let selectCat = document.querySelector('#category');
-let radioCats = document.querySelectorAll('.radioCategories');
 
-sidebarCategories(radioCats,  formCat);
+sidebarCategories(selectCat,  formCat);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                      //
@@ -41,17 +40,13 @@ sidebarCategories(radioCats,  formCat);
 
 
 // color and size swatches event listener function
-function sidebarCategories(radioButtons,  formCat){
+function sidebarCategories(selectCat,  formCat){
 
-    for(let i = 0; i<radioButtons.length; i++){ // loop through them all and add the event Listener.
+    selectCat.addEventListener('change', function(event) { // add an even listener for when any swatch is clicked.
 
-        radioButtons[i].addEventListener('click', function(event) { // add an even listener for when any swatch is clicked.
-
-            formCat.submit();  // submit form
-        
-        }, false);
-
-    }
+        formCat.submit();  // submit form
+    
+    }, false);
 
 }
 

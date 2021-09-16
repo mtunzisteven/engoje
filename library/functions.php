@@ -1182,7 +1182,7 @@ function buildShopSidebarCategory($categories){
     // category section
     $sidebar  = "<h5 class='filter-titles'>Categories</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select radioCategories' aria-label='Default select example'><option selected>All</option>";
+    $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select' id='radioCategories' aria-label='Default select example'><option selected>All Categories</option>";
 
     foreach ($categories as $category) {
 

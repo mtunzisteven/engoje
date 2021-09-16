@@ -17,16 +17,15 @@
         <main class="content py-5 bg-light" >
             <h1 class='title'>Login</h1>
 
-            <?php
-                if (isset($_SESSION['message'])) {
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                }
-                if(isset($message)){
-                    echo $message;
-                }
-            ?>
             <div class="container shadow-lg w-sm-100 w-75">
+                
+                <?php
+                    if (isset($_SESSION['message'])) {
+                        echo $_SESSION['message'];
+                        unset($_SESSION['message']);
+                    }
+                ?>
+
                 <div class="row align-items-center pb-5 pt-2">
                     <div class="col">
 
@@ -39,6 +38,7 @@
                             
                             
                             <input class="login-inputs button" type="submit" name="action" value="login" />
+                            <input type="hidden" name="action" value="Login" />
 
                             <span class='detail-span' style="text-align:left;">No account? Please register below:</span>
                             <a  class="login-inputs login-reg-button " href="index.php?action=reg" title="registration form">register</a>

@@ -144,19 +144,19 @@ $_SESSION['active_tab'] = $active_tabs;
                    $adminSideNav = buildAdminSideNav();
 
                     // Send them to the admin view
-                    include '../view/admin.php';
+                    header('Location:/engoje/shop/');
                     exit; 
                 }
                 else{
 
-                    $message = "<p class='detail-span-bold'>Please check your password and email combination and try again.</p>";
+                    $_SESSION['message'] = "<p class='detail-span-bold'>Please check your password and email combination and try again.</p>";
                     include '../view/login.php';
                     exit; 
                 }
             }
             else{
 
-                $message = '<p class="notice detail-span-bold">Please check your password and email combination and try again.</p>';
+                $_SESSION['message'] = '<p class="notice detail-span-bold">Please check your password and email combination and try again.</p>';
                 include '../view/login.php';
                 exit; 
             }

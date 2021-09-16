@@ -8,7 +8,7 @@ function engojeConnect(){
     $server ='localhost';
     $dbname = 'comza';
     $username = 'iClient';
-    $password = 'kidUkewYdRGMlVAk';
+    $password = 'SNNM1HuFnB60weBA';
     $dsn = "mysql:host=$server; dbname=$dbname";
     $option = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
