@@ -90,6 +90,13 @@ switch ($filter){
         // get the input size value
         $_SESSION['categoryFilter'] = filter_input(INPUT_GET, 'category',FILTER_SANITIZE_STRING);
 
+        // remove category filter if all is found
+        if($_SESSION['categoryFilter'] == 'all'){
+
+            unset($_SESSION['categoryFilter']);
+
+        }
+
         $products = filters($products, $lim, $offset);
 
         if(!empty($products)){

@@ -24,8 +24,8 @@
           <a class="nav-link <?php if($pageName=="Sale"){echo 'active';} ?>" aria-current="page" href="/engoje/sale">SALE</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" action="/engoje/search/">
+        <input class="form-control me-2" name="search" type="text" placeholder="Search" aria-label="Search">
         <button class="buttons" type="submit"><i class='bi bi-search'></i></button>
       </form>
       

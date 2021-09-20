@@ -2165,6 +2165,66 @@ div.accordion{
     }
 }
 
+div.search-results{
+
+    & div.row{
+
+        & img{
+            max-width: 250px;
+            max-height: 250px;
+            border:none;
+        }
+
+        & div h3{
+            font: $h1;
+            font-weight: 700;
+            font-size: 20px;
+            color: $dark-color;
+        }
+
+        & div h5{
+            font: $h4;
+            font-size: 14px;
+            color: $light-dark-color;
+        }
+
+        & div p.colour, div p.size, div p.descr{
+            font: $h4;
+            font-size: 14px;
+            color: $light-dark-color;
+        }
+    }
+
+}
+
+div.search-results:hover{
+
+    & div.row{
+
+        & img{
+            max-width: 250px;
+            max-height: 250px;
+            border:none;
+        }
+
+        & div h3{
+            color: $main-color;
+
+        }
+
+        & div h5{
+            color: $main-color;
+
+        }
+
+        & div p{
+            color: $main-color;
+
+        }
+    }
+
+}
+
 //---------------------------------------------------------------
 //                           Tablet                              |
 //---------------------------------------------------------------
@@ -2885,6 +2945,10 @@ form.login-form{
         footer.main-footer{
             display: block;
         }
+
+        footer.main-footer2{
+            margin-top:0;
+        }
 }
 /*-----------------------------------------------Product END
 */
@@ -2901,11 +2965,7 @@ form.login-form{
 
     .all-nav{
         padding: 0 3%;
-    
-        & div.container-fluid{
-            padding: 0;
-        }
-    
+
         & div.collapse{
             min-width:80%;
             height: 60px;
@@ -2919,6 +2979,11 @@ form.login-form{
                     border-radius: 3px 0 0 3px;
                     height: 30px;
                     margin: 0;
+    
+                }
+
+                & input:focus{
+                    box-shadow: none;
     
                 }
     
@@ -2937,12 +3002,17 @@ form.login-form{
     
                 & .buttons:hover{
                     @include buttonshover();
+                    background-color: $main-color;
                     box-shadow: none;
     
                 }
             }
         }
     
+        & div.container-fluid{
+            padding: 0;
+        }
+        
         & .icons-container{
             @include flex(row, space-between, center);
             width: 120px;

@@ -73,7 +73,7 @@ switch ($action) {
     
         $ordersAdminTable = buildordersAdminTable($orders);
 
-        include '../view/orders.php';
+        header('Location: /engoje/orders/'); exit;
 
         break;
 

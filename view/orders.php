@@ -50,7 +50,7 @@
 
                         echo "<div class='table-holder'>";
 
-                        if(isset($ordersAdminTable)){
+                        if(!empty($ordersAdminTable) ){
 
                             echo "<table id='users-display' class='table table-striped table-hover'><tr id='user-display-header'><th>#</th> <th>Action</th> <th>Order Id </th> <th>Customer</th> <th>Order Total</th> <th>Order Date</th> <th>Items </th> <th>Status</th> <th> Ship Method</th> <th>Tracking #</th> </tr>";
 

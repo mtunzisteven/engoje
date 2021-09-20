@@ -2810,6 +2810,49 @@ div.accordion div.accordion-item h2:focus {
   border: none;
 }
 
+div.search-results div.row img {
+  max-width: 250px;
+  max-height: 250px;
+  border: none;
+}
+
+div.search-results div.row div h3 {
+  font: 500 35px "Cinzel", serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #3a3939;
+}
+
+div.search-results div.row div h5 {
+  font: 400 20px "Nunito", sans-serif;
+  font-size: 14px;
+  color: #929292;
+}
+
+div.search-results div.row div p.colour, div.search-results div.row div p.size, div.search-results div.row div p.descr {
+  font: 400 20px "Nunito", sans-serif;
+  font-size: 14px;
+  color: #929292;
+}
+
+div.search-results:hover div.row img {
+  max-width: 250px;
+  max-height: 250px;
+  border: none;
+}
+
+div.search-results:hover div.row div h3 {
+  color: #395e96;
+}
+
+div.search-results:hover div.row div h5 {
+  color: #395e96;
+}
+
+div.search-results:hover div.row div p {
+  color: #395e96;
+}
+
 @media only screen and (min-width: 550px) {
   /*
 *------------------------------------------------Dashboard
@@ -3760,6 +3803,9 @@ div.accordion div.accordion-item h2:focus {
   footer.main-footer {
     display: block;
   }
+  footer.main-footer2 {
+    margin-top: 0;
+  }
 }
 
 /*-----------------------------------------------Product END
@@ -3770,9 +3816,6 @@ div.accordion div.accordion-item h2:focus {
   }
   .all-nav {
     padding: 0 3%;
-  }
-  .all-nav div.container-fluid {
-    padding: 0;
   }
   .all-nav div.collapse {
     min-width: 80%;
@@ -3801,6 +3844,10 @@ div.accordion div.accordion-item h2:focus {
     border-radius: 3px 0 0 3px;
     height: 30px;
     margin: 0;
+  }
+  .all-nav div.collapse .d-flex input:focus {
+    -webkit-box-shadow: none;
+            box-shadow: none;
   }
   .all-nav div.collapse .d-flex .buttons {
     display: block;
@@ -3832,8 +3879,12 @@ div.accordion div.accordion-item h2:focus {
     background-color: #1a2d49;
     -webkit-box-shadow: 1px 2px 8px 3px #3a3939;
             box-shadow: 1px 2px 8px 3px #3a3939;
+    background-color: #395e96;
     -webkit-box-shadow: none;
             box-shadow: none;
+  }
+  .all-nav div.container-fluid {
+    padding: 0;
   }
   .all-nav .icons-container {
     display: -webkit-box;

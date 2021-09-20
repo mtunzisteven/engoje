@@ -55,8 +55,16 @@ if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
 
 }
 
+$selected = "";
+
+if(isset($_SESSION['categoryFilter'])){
+
+    $selected = $_SESSION['categoryFilter'];
+
+}
+
 // build sidebar display
-$sidebarDisplay  = buildShopSidebarCategory($category);
+$sidebarDisplay  = buildShopSidebarCategory($category, $selected);
 $sidebarDisplay .= buildShopSidebarPrice($minPrice, $maxPrice);
 $sidebarDisplay .= buildShopSidebarColour($allProducts, 'colour');
 $sidebarDisplay .= buildShopSidebarSize($allProducts, 'sizeValue');

@@ -59,8 +59,14 @@
             include "view/feedback.php";
 
             break;
+
+        case "home":
+
+            include 'view/home.php';
+
+            break;
         
         default:
 
-            include 'view/home.php';
+            header('Location: /engoje/error/404.php');
        }

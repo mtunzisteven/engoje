@@ -441,44 +441,96 @@ function  buildordersAdminTable($orders){
 
     $number = 0; // used for table numbering
 
-    foreach($orders as $order){
+    // only go into this code if there are orders in the system
+    if(!empty($orders)){
+            
+        foreach($orders as $order){
 
-        $number += 1;
+            $number += 1;
 
-        // add tracking number if updated
-        if($order['orderTracking'] != null){ 
+            // add tracking number if updated
+            if($order['orderTracking'] != null){ 
 
-            $trackingNo = $order['orderTracking'];
+                $trackingNo = $order['orderTracking'];
 
-        }else{
+            }else{
 
-            $trackingNo = '-';
+                $trackingNo = '-';
 
-        }
+            }
 
-        // add tracking number if updated
-        if($order['grandTotal'] != null){ 
+            // add tracking number if updated
+            if($order['grandTotal'] != null){ 
 
-            $grandTotal = $order['grandTotal'];
+                $grandTotal = $order['grandTotal'];
 
-        }else{
+            }else{
 
-            $grandTotal = '0';
+                $grandTotal = '0';
 
-        }
+            }
 
-        // bootstrap modal for product delete
-        $orderRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons >
-        
-            <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#update$order[orderId]'>
-            update
-            </button>
+            // bootstrap modal for product delete
+            $orderRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons >
+            
+                <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#update$order[orderId]'>
+                update
+                </button>
 
-            <div class='modal fade' id='update$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                <div class='modal fade' id='update$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog'>
+                        <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='exampleModalLabel'>Update Product Details</h5>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                        
+                            <p>Order Id: $order[orderId]</p>
+                            <p>Number of Items: $order[numberOfItems]</p>
+                            <p>Order Status: $order[orderStatus]</p>
+                            <p>Order Date:$order[orderDate]</p>
+                        
+                        </div>
+
+                        <div class='container'>
+                            <div class='row'>
+                                <div class='col'>
+                                    <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderStatus' method='post'>
+                                        <div class='mb-3'>
+                                            <label for='orderStatus' class='form-label text-start'>Change Order Status</label>
+                                            <input type='text' class='form-control' id='orderStatus' name='orderStatus'>
+                                            <input type='hidden' name='orderId' value='$order[orderId]'>
+                                        </div>
+                                        <button type='submit' class='btn btn-primary button'>Submit</button>
+                                    </form>
+                                </div>
+
+                                <div class='col'>
+                                    <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderTracking' method='post'>
+                                        <div class='mb-3'>
+                                            <label for='orderTracking' class='form-label text-start'>Enter Tracking Number</label>
+                                            <input type='text' class='form-control' id='orderTracking' name='orderTracking'>
+                                            <input type='hidden' name='orderId' value='$order[orderId]'>
+                                        </div>
+                                        <button type='submit' class='btn btn-primary button'>Submit</button>
+                                    </form>                                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>product
+                </div>
+                
+                <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#delete$order[orderId]'>
+                delete
+                </button>
+
+                <div class='modal fade' id='delete$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                 <div class='modal-dialog'>
                     <div class='modal-content'>
                     <div class='modal-header'>
-                        <h5 class='modal-title' id='exampleModalLabel'>Update Product Details</h5>
+                        <h5 class='modal-title' id='exampleModalLabel'>Confirm Product Delete</h5>
                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                     </div>
                     <div class='modal-body'>
@@ -489,66 +541,22 @@ function  buildordersAdminTable($orders){
                         <p>Order Date:$order[orderDate]</p>
                     
                     </div>
-
-                    <div class='container'>
-                        <div class='row'>
-                            <div class='col'>
-                                <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderStatus' method='post'>
-                                    <div class='mb-3'>
-                                        <label for='orderStatus' class='form-label text-start'>Change Order Status</label>
-                                        <input type='text' class='form-control' id='orderStatus' name='orderStatus'>
-                                        <input type='hidden' name='orderId' value='$order[orderId]'>
-                                    </div>
-                                    <button type='submit' class='btn btn-primary button'>Submit</button>
-                                </form>
-                            </div>
-
-                            <div class='col'>
-                                <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderTracking' method='post'>
-                                    <div class='mb-3'>
-                                        <label for='orderTracking' class='form-label text-start'>Enter Tracking Number</label>
-                                        <input type='text' class='form-control' id='orderTracking' name='orderTracking'>
-                                        <input type='hidden' name='orderId' value='$order[orderId]'>
-                                    </div>
-                                    <button type='submit' class='btn btn-primary button'>Submit</button>
-                                </form>                                            
-                            </div>
-                        </div>
+                    <div class='modal-footer'>
+                        <a class='button chunk-buttons' href='/engoje/orders/?action=delete&orderId=$order[orderId]' >Delete</a>
                     </div>
+                    </div>
+                </div>product
                 </div>
-            </div>product
-            </div>
-            
-            <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#delete$order[orderId]'>
-            delete
-            </button>
+                
+            </td><td>$order[orderId] </td> <td> $order[userFirstName] $order[userLastName] </td> <td> R$grandTotal </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> $order[shipper] </td> <td> $trackingNo </td></tr>";
+        }
 
-            <div class='modal fade' id='delete$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-                <div class='modal-content'>
-                <div class='modal-header'>
-                    <h5 class='modal-title' id='exampleModalLabel'>Confirm Product Delete</h5>
-                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                </div>
-                <div class='modal-body'>
-                
-                    <p>Order Id: $order[orderId]</p>
-                    <p>Number of Items: $order[numberOfItems]</p>
-                    <p>Order Status: $order[orderStatus]</p>
-                    <p>Order Date:$order[orderDate]</p>
-                
-                </div>
-                <div class='modal-footer'>
-                    <a class='button chunk-buttons' href='/engoje/orders/?action=delete&orderId=$order[orderId]' >Delete</a>
-                </div>
-                </div>
-            </div>product
-            </div>
-            
-        </td><td>$order[orderId] </td> <td> $order[userFirstName] $order[userLastName] </td> <td> R$grandTotal </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> $order[shipper] </td> <td> $trackingNo </td></tr>";
+        return $orderRows;
+    }else{
+
+        return "";
+
     }
-
-   return $orderRows;
   }
 
 //  Build User Update Admin Nav display
@@ -1176,17 +1184,62 @@ return $dv;
 
 }
 
+// build search display
+function searchDisplay($products){
+
+    foreach($products as $product){
+
+        $searchDisplay = '
+        <div class="container">
+            <img src="'.$product['imagePath_tn'].'" class="img-thumbnail" alt="...">
+            <div class="row align-items-start">
+                <div class="col">
+                One of three columns
+                </div>
+                <div class="col">
+                One of three columns
+                </div>
+                <div class="col">
+                One of three columns
+                </div>
+            </div>
+        </div>';
+    }
+
+    return $searchDisplay;
+}
+
 // build a shop side bar display
-function buildShopSidebarCategory($categories){
+function buildShopSidebarCategory($categories, $selected){
 
     // category section
-    $sidebar  = "<h5 class='filter-titles'>Categories</h5>";
+    $sidebar  = "<h5 class='filter-titles'>Category</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select' id='radioCategories' aria-label='Default select example'><option selected>All Categories</option>";
 
+    // no category yet selected
+    if($selected === ""){
+
+        $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option selected value='all'>All Categories</option>";
+
+    }else{
+
+        $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
+
+    }
+
+    // go through all the ptions
     foreach ($categories as $category) {
 
-        $sidebar .= "<option  value='$category[categoryName]' />$category[categoryName]</option>";
+        // select the selected option
+        if($selected == $category['categoryName']){
+
+            $sidebar .= "<option  value='$category[categoryName]' selected />$category[categoryName]</option>";
+
+        }else{
+
+            $sidebar .= "<option  value='$category[categoryName]' />$category[categoryName]</option>";
+
+        }
 
     }
     
