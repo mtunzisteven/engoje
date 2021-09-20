@@ -10,9 +10,9 @@ session_start();
 require_once '../library/connections.php';
 // Get the function file
 require_once '../library/functions.php';
-// Get the vehicles model for use as needed
-require_once '../model/vehicles-model.php';
-// Get the vehicles model for use as needed
+// Get the accounts model for use as needed
+require_once '../model/accounts-model.php';
+// Get the main model for use as needed
 require_once '../model/main-model.php';
 // Get the reviews model for use as needed
 require_once '../model/reviews-model.php';
@@ -44,20 +44,20 @@ switch($action){
     case 'addReview':
 
         // reviewText will be actual review entered by the logged in client
-        // invId to be used to make sure the review is for the specific vehicle only
-        // clientId is to ensure that the review is assigned to the specific client.
+        // invId to be used to make sure the review is for the specific item/product only
+        // userId is to ensure that the review is assigned to the specific user.
         $reviewText = filter_input(INPUT_POST, 'reviewText',FILTER_SANITIZE_STRING);
-        $invId = filter_input(INPUT_POST, 'invId',FILTER_SANITIZE_NUMBER_INT);
-        $clientId = filter_input(INPUT_POST, 'clientId',FILTER_SANITIZE_NUMBER_INT);
+        $productId = filter_input(INPUT_POST, 'productId',FILTER_SANITIZE_NUMBER_INT);
+        $userId = filter_input(INPUT_POST, 'userId',FILTER_SANITIZE_NUMBER_INT);
 
         // If any of the three key details are missing, we can't add review
-        if(!empty($reviewText || $invId || $ $clientId)){
+        if(!empty($reviewText || $productId || $ $userId)){
 
             // Create date in mySQL format, with time. This aids in ordering by post date.
             $reviewDate = date('Y-m-d H:i:s');
 
             // USe the inputs and the time to add the review using a review-model function.
-            $addReview = addReviews($clientId, $invId, $reviewText, $reviewDate);
+            $addReview = addReviews($userId, $productId, $reviewText, $reviewDate);
 
             // If review successfully added, return to the vehicle information page
             if($addReview){
@@ -66,7 +66,7 @@ switch($action){
                 $message = '<p class=reviews-notice>Success! Your review was added successfully.</p>';
 
                 // Get reviews for the specific user item(car)
-                $reviews = getClientReviews($clientId);
+                $reviews = getClientReviews($userId);
                 
                 // Get the reviews html from functions
                 $customerReviews = customerReviews($reviews);
@@ -79,7 +79,7 @@ switch($action){
 
             // Error message for user and send user back to same page.
             $message = "<p class=reviews-notice>Error! There was a problem adding your review. Please make sure you added all the required information.</p>";
-            include "../view/vehicle-detail.php";
+            include "../view/orders.php";
 
         }
 
@@ -107,7 +107,7 @@ switch($action){
         // them using customerReviews function from functions.
         $reviewText = filter_input(INPUT_POST, 'reviewText',FILTER_SANITIZE_STRING);
         $reviewId = filter_input(INPUT_POST, 'reviewId',FILTER_SANITIZE_NUMBER_INT);
-        $clientId = filter_input(INPUT_POST, 'clientId',FILTER_SANITIZE_NUMBER_INT);
+        $userId = filter_input(INPUT_POST, 'userId',FILTER_SANITIZE_NUMBER_INT);
 
         if(empty($reviewText)){
 
@@ -121,7 +121,7 @@ switch($action){
         $updatedReview = updateReview($reviewId, $reviewText);
 
         // Get the client's reviews
-        $reviews = getClientReviews($clientId);
+        $reviews = getClientReviews($userId);
 
         // Get the reviews html from functions
         $customerReviews = customerReviews($reviews);
@@ -145,7 +145,7 @@ switch($action){
     case 'deleteRequest':
 
         // Get used instead of Post. This was information received from a link, not a form.
-        $clientId = filter_input(INPUT_GET, 'clientId',FILTER_SANITIZE_NUMBER_INT);
+        $clientId = filter_input(INPUT_GET, 'userId',FILTER_SANITIZE_NUMBER_INT);
 
         //echo $clientId; exit;
 
@@ -165,7 +165,7 @@ switch($action){
         // reviewId needed to get the specific review that will be deleted 
         // clientId needed to get reviews for the specific client
         $reviewId = filter_input(INPUT_POST, 'reviewId',FILTER_SANITIZE_NUMBER_INT);
-        $clientId = filter_input(INPUT_POST, 'clientId',FILTER_SANITIZE_NUMBER_INT);
+        $clientId = filter_input(INPUT_POST, 'userId',FILTER_SANITIZE_NUMBER_INT);
 
 
         // Get the users reviews
