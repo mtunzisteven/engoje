@@ -40,7 +40,7 @@
                             <input class="login-inputs button" type="submit" name="action" value="login" />
                             <input type="hidden" name="action" value="Login" />
 
-                            <span class='detail-span' style="text-align:left;">No account? Please register below:</span>
+                            <span class='detail-span' >No account? Please register below:</span>
                             <a  class="login-inputs login-reg-button " href="index.php?action=reg" title="registration form">register</a>
                         </form> 
 

@@ -62,7 +62,7 @@ $pageDescription = "";
                         <input type="hidden" name="action" value="register">  
                         <span class='detail-span'>Have an account? login below:</span>
 
-                        <a  class="login-inputs login-reg-button " href="index.php?action=login" title="registration form">signin</a>
+                        <a  class="login-inputs login-reg-button " href="index.php?action=login" title="registration form">login</a>
               
                     </form>   
 
