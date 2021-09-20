@@ -811,6 +811,34 @@ div#checkout-header{
         border-radius: 3px;
         margin:10px 10px;
 
+        & form.category-form{
+            box-shadow: none;
+            border: none;
+            margin-bottom: 30px;
+
+            & select{
+                font: $p;
+                color: $dark-color;
+
+            }
+    
+            & select:focus{
+                box-shadow: 0 0 0 3px $light-secondary-color;
+                border-radius: 3px;
+                border: none;
+
+                & option{
+                    font: $p;
+                    color: $dark-color;
+                }
+
+                & option:hover{
+                    background-color: $dark-main-color;
+                    color: $background-color;
+                }
+            }
+        }
+
     }
 
     & div.shop-products-archive{
@@ -2691,6 +2719,7 @@ form.login-form{
                 min-height: 1317px;
                 width:23%;
                 max-width:28%;
+
             
                 & h2  {
                         text-align: center;

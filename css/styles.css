@@ -821,6 +821,35 @@ div#checkout-header img {
   margin: 10px 10px;
 }
 
+.shop .side-bar form.category-form {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+  margin-bottom: 30px;
+}
+
+.shop .side-bar form.category-form select {
+  font: 200 15px "Nunito", sans-serif;
+  color: #3a3939;
+}
+
+.shop .side-bar form.category-form select:focus {
+  -webkit-box-shadow: 0 0 0 3px #fcba40;
+          box-shadow: 0 0 0 3px #fcba40;
+  border-radius: 3px;
+  border: none;
+}
+
+.shop .side-bar form.category-form select:focus option {
+  font: 200 15px "Nunito", sans-serif;
+  color: #3a3939;
+}
+
+.shop .side-bar form.category-form select:focus option:hover {
+  background-color: #1a2d49;
+  color: #fdfdfd;
+}
+
 .shop div.shop-products-archive {
   display: -webkit-box;
   display: -ms-flexbox;

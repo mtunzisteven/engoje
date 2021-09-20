@@ -1223,7 +1223,7 @@ function buildShopSidebarCategory($categories, $selected){
 
     }else{
 
-        $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
+        $sidebar .= "<form class='sidebar-section category-form ' action='/engoje/sidebar'><select name='category' class='form-select ' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
 
     }
 
