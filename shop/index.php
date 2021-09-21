@@ -26,7 +26,7 @@ $adminSideNav = buildAdminSideNav();
 
 
 //initial pagination
-$lim = 4;
+$lim = 8;
 $offset = 0;
 
 // Fetch all products and bring them to scope of all cases
