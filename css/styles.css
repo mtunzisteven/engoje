@@ -1038,14 +1038,19 @@ div#checkout-header img {
   text-align: left;
   max-width: 184px;
   margin-top: 15px;
+  margin-bottom: 35px;
   -webkit-box-shadow: 0 0 10px 1px #d8d5d5;
           box-shadow: 0 0 10px 1px #d8d5d5;
 }
 
-.shop div.shop-products-archive .shop-products .product div.sale-circle {
+.shop div.shop-products-archive .shop-products .product a {
+  text-decoration: none;
+}
+
+.shop div.shop-products-archive .shop-products .product a div.sale-circle {
   position: relative;
   z-index: 900;
-  top: 5px;
+  top: 8px;
   left: 5px;
   color: #051124;
   background-color: #fea500;
@@ -1057,6 +1062,16 @@ div#checkout-header img {
   border-radius: 3px;
   text-align: center;
   text-decoration: none;
+}
+
+.shop div.shop-products-archive .shop-products .product a img {
+  width: 180px;
+  display: block;
+  margin: 0 auto 2px auto;
+}
+
+.shop div.shop-products-archive .shop-products .product a img.sale {
+  margin: -24px auto 2px auto;
 }
 
 .shop div.shop-products-archive .shop-products .product img {
@@ -3532,33 +3547,7 @@ div.search-results:hover div.row div p {
     text-align: center;
     max-width: 220px;
     margin: 5px;
-  }
-  .shop div.shop-products-archive .shop-products .product a {
-    text-decoration: none;
-  }
-  .shop div.shop-products-archive .shop-products .product a div.sale-circle {
-    position: relative;
-    z-index: 900;
-    top: 8px;
-    left: 5px;
-    color: #051124;
-    background-color: #fea500;
-    width: 35px;
-    height: 25px;
-    font: 200 15px "Nunito", sans-serif;
-    padding: 2px;
-    line-height: 20.83333px;
-    border-radius: 3px;
-    text-align: center;
-    text-decoration: none;
-  }
-  .shop div.shop-products-archive .shop-products .product a img {
-    width: 180px;
-    display: block;
-    margin: 0 auto 2px auto;
-  }
-  .shop div.shop-products-archive .shop-products .product a img.sale {
-    margin: -24px auto 2px auto;
+    margin-bottom: 35px;
   }
   .shop div.sale {
     max-width: 98%;

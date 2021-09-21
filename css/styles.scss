@@ -954,10 +954,27 @@ div#checkout-header{
                 text-align: left;
                 max-width:184px;
                 margin-top: 15px;
+                margin-bottom: 35px;
                 box-shadow: $light-box-shadow;
 
-                & div.sale-circle{
-                    @include saleIcon();
+                & a{
+                    text-decoration: none;
+
+                    & div.sale-circle{
+                        @include saleIcon( 8px);
+        
+                    }
+
+                    & img{
+                        width:180px;
+                        display: block;
+                        margin: 0 auto 2px auto;
+
+                    }              
+
+                    & img.sale{
+                        margin: -24px auto 2px auto;
+                    }
                 }
                 
                 & img{
@@ -2329,6 +2346,7 @@ form.login-form{
             max-width: 500px;
             margin: 5px auto;
 
+
             & img.product-primary-image{
                 min-width: 100%;
                 margin: 0 auto 10px auto;
@@ -2745,26 +2763,8 @@ form.login-form{
                         text-align: center;
                         max-width:220px;
                         margin: 5px;
+                        margin-bottom: 35px;
 
-                        & a{
-                            text-decoration: none;
-
-                            & div.sale-circle{
-                                @include saleIcon( 8px);
-                
-                            }
-    
-                            & img{
-                                width:180px;
-                                display: block;
-                                margin: 0 auto 2px auto;
-    
-                            }              
-    
-                            & img.sale{
-                                margin: -24px auto 2px auto;
-                            }
-                        }
                     }
                 }
             }
