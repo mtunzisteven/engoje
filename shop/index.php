@@ -85,28 +85,35 @@ switch ($action){
         $_SESSION['product_entryId'] = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_STRING);
         $_SESSION['colourChoice'] = filter_input(INPUT_GET, 'colour', FILTER_SANITIZE_STRING);
 
+    
+        // get the product tags of the item
+        $productsLinkedByTags = getProductByTags($productId, $_SESSION['product_entryId']);
+
+        // build related products display
+        $_SESSION['relatedProducts'] = buildRelatedProductsDisplay($productsLinkedByTags, $saleItems);
+
         $_SESSION['sale'] = getSaleItem($_SESSION['product_entryId']);
 
-        // create new date time object
-        $today = new DateTime();
+            // Set price and style appearance for sale items
+            if(!empty($_SESSION['sale'])){
+                
+            // create new date time object
+            $today = new DateTime();
 
-        // format today datetime object
-        $today->format('U');
+            // format today datetime object
+            $today->format('U');
 
-        // create another datetime object with the sale start date of the product
-        $saleStart = new DateTime($_SESSION['sale']['saleStart']);
+            // create another datetime object with the sale start date of the product
+            $saleStart = new DateTime($_SESSION['sale']['saleStart']);
 
-        // format the date
-        $saleStart->format('Y-m-d H:i:s');
+            // format the date
+            $saleStart->format('Y-m-d H:i:s');
 
-        // today minus the date when the sale started
-        $interval = [date_diff($today, $saleStart)];
+            // today minus the date when the sale started
+            $interval = [date_diff($today, $saleStart)];
 
-        // the number of days since start of sale
-        $days = ($interval[0]->h)/24;
-
-        // Set price and style appearance for sale items
-        if(!empty($_SESSION['sale'])){
+            // the number of days since start of sale
+            $days = ($interval[0]->h)/24;
 
             // if sale has not expired
             if($days < $_SESSION['sale']['salePeriod']){
@@ -122,8 +129,7 @@ switch ($action){
             $_SESSION['hidden'] = 'hidden';
             $_SESSION['strikeThrough'] = '';
 
-        }
-
+            }
 
         }else{ //if there's no sale at all, just hide the sale feature
 

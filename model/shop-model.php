@@ -830,6 +830,87 @@ function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
     return $productData;
 }
 
+// get products by product tags
+function getProductByTags($productId, $product_entryId){
+    
+    $db = engojeConnect();
+
+    $sql = 'SELECT productTags FROM products
+    WHERE productId = :productId 
+    ';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':productId',$productId, PDO::PARAM_STR);
+    $stmt->execute();
+    $productTags = $stmt->fetchAll(PDO::FETCH_ASSOC); // get the tag
+
+    $tags = [];
+    
+    $offset = 0;
+    $lim = 4;
+
+    if(!count($productTags) > 1){
+
+        // Load kids to the array
+        for($i = 0; $i < count($productTags); $i++){
+
+            $tags[] = '%'.$productTags[$i]['productTags'].'%'; // pour all tags into an array
+        }
+
+            
+        $sql2 = 'SELECT* FROM product_entry 
+        JOIN images ON images.product_entryId = product_entry.product_entryId
+        JOIN products ON product_entry.productId = products.productId
+        JOIN categories ON product_entry.categoryId = categories.categoryId
+        JOIN colour ON product_entry.colourId = colour.colourId
+        JOIN size ON product_entry.sizeId = size.sizeId
+        WHERE images.imagePrimary = 1 
+        AND (products.productTags LIKE :productTagsa 
+            OR products.productTags LIKE :productTagsb 
+            OR products.productTags LIKE :productTagsa)
+        AND NOT product_entry.product_entryId = :product_entryId
+        ORDER BY RAND()
+        LIMIT  :offset, :lim
+        ';
+
+        $stmt = $db->prepare($sql2); 
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+        $stmt->bindValue(':productTagsa',$tags[0], PDO::PARAM_STR);
+        $stmt->bindValue(':productTagsa',$tags[1], PDO::PARAM_STR);
+        $stmt->bindValue(':productTagsa',$tags[2], PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+    }else if(count($productTags) == 1){
+
+        $sql = 'SELECT* FROM product_entry 
+        JOIN images ON product_entry.product_entryId = images.product_entryId
+        JOIN products ON product_entry.productId = products.productId
+        JOIN categories ON product_entry.categoryId = categories.categoryId
+        JOIN colour ON product_entry.colourId = colour.colourId
+        JOIN size ON product_entry.sizeId = size.sizeId
+        WHERE images.imagePrimary = 1
+        AND NOT product_entry.product_entryId = :product_entryId
+        ORDER BY RAND()
+        LIMIT  :offset, :lim 
+        ';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':product_entryId',$product_entryId, PDO::PARAM_INT);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+    }
+
+    return $productData;
+
+}
 
 
 // Get products by common product Id

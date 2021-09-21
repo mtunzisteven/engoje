@@ -989,14 +989,11 @@ function buildproductDisplay($product, $saleItems){
         
     }
 
-
     // if the is not product in sale table
     if(!empty($saleItems)){
 
-
         foreach($saleItems as $saleItem){
 
-            
             // create new date time object
             $today = new DateTime();
 
@@ -1183,6 +1180,30 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 return $dv;
 
 }
+
+
+// Build a product archive block
+function buildRelatedProductsDisplay($products, $saleItems){
+
+    $dv  ="";
+
+    $dv .="<div class='shop-products align-bottom'>";
+
+    if(isset($products)){
+                        
+        foreach($products as $product){
+
+            $dv .= buildproductDisplay($product, $saleItems);
+
+        }
+
+        $dv .= "</div>";
+    }
+
+    return $dv;
+
+}
+
 
 // build search display
 function searchDisplay($products){

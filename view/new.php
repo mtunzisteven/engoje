@@ -17,7 +17,7 @@
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
         ?>
-        <div class="shop new-shop">
+        <div class="shop full-shop">
             
             <div class='shop-products-archive sale'>
                 <?php 
