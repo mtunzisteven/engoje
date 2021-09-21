@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12 col-md">
                 <a class="navbar-brand" href="/engoje/">        
-                    <img width="70" height="70" src=" /engoje/images/logo.png" alt="logo image">
+                    <img width="70" height="70" src=" /engoje/images/logo.svg" alt="logo image">
                 </a>
                 <small class="d-block mb-3 text-muted">&copy; 2020–2021</small>
                 </div>

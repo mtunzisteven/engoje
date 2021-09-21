@@ -25,7 +25,7 @@
         <main class="content" id='parentContainer'>
             <?php 
 
-                echo "<div id='checkout-header'><img src='/engoje/images/logo.png' alt='logo image'><h1 class='title'>Checkout</h1></div>";
+                echo "<div id='checkout-header'><img src='/engoje/images/logo.svg' alt='logo image'><h1 class='title'>Checkout</h1></div>";
 
 
                 if (isset($_SESSION['message'])) {

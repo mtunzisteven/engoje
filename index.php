@@ -61,6 +61,7 @@
             break;
 
         case "home":
+        case null:
 
             include 'view/home.php';
 
