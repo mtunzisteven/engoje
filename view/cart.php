@@ -25,23 +25,15 @@
 
                 echo "<h1 class='title'>Cart</h1>";
 
-
-                if (isset($_SESSION['message'])) {
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                }
-                if(isset($message)){
-                    echo $message;
-                }
-
                 if(isset($_SESSION['cartDisplay'])){
                     echo $_SESSION['cartDisplay'];
                 }
 
-                require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; 
+                require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footerspacer.php'; 
                 
             ?>
                 <script src="/engoje/js/updateCart.js"></script>
+                
         </main>
     </body>
 </html>

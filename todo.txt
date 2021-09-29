@@ -11,9 +11,9 @@
 
 7. Add emailers with templates  - Mthunzi
 
-8. Add related products on single product page:
+8. Add related products on single product page:(done)
 
-    add tags column to product table (done)
+    add tags column to product table
     use tags to search for relationships
     create a 4 product display flex right of signle product 
 

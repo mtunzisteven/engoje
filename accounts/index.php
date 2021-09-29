@@ -144,7 +144,7 @@ $_SESSION['active_tab'] = $active_tabs;
                    $adminSideNav = buildAdminSideNav();
 
                     // Send them to the admin view
-                    header('Location:/engoje/shop/');
+                    header('Location:/engoje/');
                     exit; 
                 }
                 else{

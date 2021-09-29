@@ -11,7 +11,7 @@
         <?php 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header-bottom.php';
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
         ?>
         
         <div class="categories">
@@ -22,28 +22,18 @@
                 <p>Right</p>
             </a>
         </div>
-        <div class="products">
 
-            <a href="/" class="product-one product">
-                <img src="/engoje/images/no-image-tn.png" />
-               <p>One</p>
-            </a>
-            <a href="/" class="product-two product">
-                <img src="/engoje/images/no-image-tn.png" />
-                <p>Two</p>
-            </a>
-            <a href="/" class="product-three product">
-                <img src="/engoje/images/no-image-tn.png" />
-               <p>Three</p>
-            </a>
-            <a href="/" class="product-four product">
-                <img src="/engoje/images/no-image-tn.png" />
-                <p>Four</p>
-            </a>
+        <div class="container products px-0 my-3 ms-auto ">
+            <div class="row w-100 px-0 my-0 mx-auto">
+                <div class="col-5 placeholder bg-white rounded mx-2"></div>
+                <div class="col-2 placeholder bg-white rounded mx-2"></div>
+                <div class="col-2 placeholder bg-white rounded mx-2"></div>
+                <div class="col-2 placeholder bg-white rounded mx-2"></div>
+            </div>
         </div>
                     
         <?php
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
+            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header-bottom.php';
         ?>
 
         <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>

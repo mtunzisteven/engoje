@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <div class="footer-top-block"> <a class='bootom-to-top' href='#nav'>Back to top</a></div>
+    <div class="footer-top-block"> <a class='bootom-to-top' href='#'>Back to top</a></div>
 
     <div class='footer-widgets-container container py-5'>
         <div class="row">

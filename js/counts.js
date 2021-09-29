@@ -33,30 +33,74 @@ fetch(curl, {
 //-----------------------------------------------------------
 var oneUp = document.querySelectorAll('.oneUp');
 var oneDown = document.querySelectorAll('.oneDown');
+var oneUpm = document.querySelectorAll('.oneUpm');
+var oneDownm = document.querySelectorAll('.oneDownm');
 var cartItemQty = document.querySelectorAll('.cart-item-qty');
+var cartItemQtym = document.querySelectorAll('.cart-item-qtym');
 
-for(let i = 0; i < cartItemQty.length; i++){
+let countMQueries = window.matchMedia("(min-width: 1080px)")
+myFunction(countMQueries) // Call listener function at run time
+countMQueries.addEventListener("change",myFunction) // Attach listener function on state changes
 
 
-    oneDown[i].addEventListener('click', function(event){
+function myFunction(mediaQuery) {
+    if (mediaQuery.matches) { // If media query matches
+      
+        for(let i = 0; i < cartItemQty.length; i++){
 
+            // make sure the qty is the same as previous media query
+            cartItemQty[i].value = cartItemQtym[i].value; 
+
+            oneDown[i].addEventListener('click', function(event){
         
-        if(parseInt(cartItemQty[i].value) > 0){
-            // only carry out the following operation when the value is greater than zero
+                
+                if(parseInt(cartItemQty[i].value) > 0){
+                    // only carry out the following operation when the value is greater than zero
+        
+                    cartItemQty[i].value = parseInt(cartItemQty[i].value) - 1;
+        
+                }
+        
+            }, false);
+        
+                
+            oneUp[i].addEventListener('click', function(event){
+            
+                cartItemQty[i].value = parseInt(cartItemQty[i].value) + 1;
+        
+            }, false);
+        }
+        
+    } else {
 
-            cartItemQty[i].value = parseInt(cartItemQty[i].value) - 1;
+        for(let i = 0; i < cartItemQtym.length; i++){
 
+            // make sure the qty is the same as previous media query
+            cartItemQtym[i].value = cartItemQty[i].value; 
+
+            oneDownm[i].addEventListener('click', function(event){
+        
+                
+                if(parseInt(cartItemQtym[i].value) > 0){
+                    // only carry out the following operation when the value is greater than zero
+        
+                    cartItemQtym[i].value = parseInt(cartItemQtym[i].value) - 1;
+
+                }
+        
+            }, false);
+        
+                
+            oneUpm[i].addEventListener('click', function(event){
+            
+                cartItemQtym[i].value = parseInt(cartItemQtym[i].value) + 1;
+        
+            }, false);
         }
 
-    }, false);
-
-        
-    oneUp[i].addEventListener('click', function(event){
-    
-        cartItemQty[i].value = parseInt(cartItemQty[i].value) + 1;
-
-    }, false);
+    }
 }
+  
 
 // ----------------------------------------------------------
 //               Wishlist Icon count updating                |

@@ -46,21 +46,22 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     foreach($cartDetails as $cartItem){
 
-        // set the order string that qill later be turned into an array
-        if(isset($_SESSION['salePrice']) && $cartItem['product_entryId'] == $_SESSION['sale_product_entryId']){ // for sale items, show the correct price
+        $saleItem = getSaleItem($cartItem['product_entryId']);
+
+        if($saleItem){ // for sale items, show the correct price
 
             if($_SESSION['order'] == ""){
 
-                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$_SESSION['salePrice'].",".$cartItem['cart_item_qty'];
+                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
             
             }else{
 
-                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$_SESSION['salePrice'].",".$cartItem['cart_item_qty'];
+                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
 
             }
 
 
-            $lineTotal = $_SESSION['salePrice']*$cartItem['cart_item_qty'];
+            $lineTotal = $saleItem['salePrice']*$cartItem['cart_item_qty'];
             $grandTotal += $lineTotal;
 
             $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
@@ -68,7 +69,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
             $cartDisplay .= "<div>$cartItem[productName]</div>"; 
             $cartDisplay .= "<div>$cartItem[colour]</div>"; 
             $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-            $cartDisplay .= "<div>R<span class='price'>$_SESSION[salePrice]</span></div>"; 
+            $cartDisplay .= "<div>R<span class='price'>$saleItem[salePrice]</span></div>"; 
             $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
             $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
             $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
@@ -102,12 +103,110 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     }
 
     $cartDisplay .= '</div>';
-    $cartDisplay .= "<div class='cart-display-table-row2'><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
+
+    //////////////////////////////////////////////////////////////////////////
+    //                             mobile cart                              //
+    //////////////////////////////////////////////////////////////////////////
+
+    $cartDisplay .= "<div class='mobile-cart bg-white my-3 py-3'>";
+
+    foreach($cartDetails as $cartItem){
+
+        $saleItem = getSaleItem($cartItem['product_entryId']);
+
+        if($saleItem){ // for sale items, show the correct price
+
+            if($_SESSION['order'] == ""){
+
+                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
+            
+            }else{
+
+                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
+
+            }
+
+
+            $lineTotal = $saleItem['salePrice']*$cartItem['cart_item_qty'];
+
+            $cartDisplay .= "
+                            <div class='container mt-3'>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' >
+                                            <img width='110' height='110' src='$cartItem[imagePath_tn]'>
+                                        </a>
+                                    </div>
+                                    <div class='col cart-information'>
+                                    <div class='cart-product-title'>$cartItem[productName]</div>
+                                    <span class='cart-swatches'>Colour: </span><span>$cartItem[colour]</span></br>
+                                    <span class='cart-swatches'>Size: </span><span>$cartItem[sizeValue]</span>
+                                    <div class='cart-price'>R<span class='pricem'>$saleItem[salePrice]</span></div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='container w-50 my-3  mx-auto'>
+                                <div class='buttoned-div row'>
+                                    <button class='button oneDownm col'>-</button>
+                                    <input type='number' class='cart-item-qtym validity col text-center w-50' name='cart_item_qtym' value='$cartItem[cart_item_qty]' min=1 />
+                                    <button class='button oneUpm col'>+</button>
+                                </div>
+                            </div>
+                            <input type='hidden' class='line-totalm' value='$lineTotal' />
+                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'>Delete</a></div>
+                            ";
+        }else{ // for sale items, show the correct price
+
+            if($_SESSION['order'] == ""){
+
+                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+            
+            }else{
+
+                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+
+            }
+
+
+            $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
+
+            $cartDisplay .= "
+                            <div class='container mt-3'>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' >
+                                            <img width='110' height='110' src='$cartItem[imagePath_tn]'>
+                                        </a>                                    
+                                    </div>
+                                    <div class='col cart-information'>
+                                        <div class='cart-product-title'>$cartItem[productName]</div>
+                                        <span class='cart-swatches'>Colour: </span><span>$cartItem[colour]</span></br>
+                                        <span class='cart-swatches'>Size: </span><span>$cartItem[sizeValue]</span>
+                                        <div class='cart-price'>R<span class='pricem'>$cartItem[price]</span></div>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='container w-25 my-3 mx-auto'>
+                                <div class='buttoned-div row'>
+                                    <button class='button oneDownm col'>-</button>
+                                    <input type='number' class='cart-item-qtym validity col text-center w-50' name='cart_item_qtym' value='$cartItem[cart_item_qty]' min=1 />
+                                    <button class='button oneUpm col'>+</button>
+                                </div>
+                            </div>    
+                            <input type='hidden' class='line-totalm' value='$lineTotal' />
+                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'>Delete</a></div>
+                            ";
+        }
+        $cartDisplay .= "<div class='seperator'></div>";
+
+    }
+
+    $cartDisplay .= "</div><div class='cart-display-table-row2 '><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/engoje/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
-    $cartDisplay .= "<div class='cart-display-table-column'><h4 class='shipping-methods'>Select Shipping Method:</h4>";
-    $cartDisplay .= "<form class='cart-checkout-form' action='/engoje/shop/checkout/' method='post'>";
+    $cartDisplay .= "<div class='cart-display-table-summary'>";
+    $cartDisplay .= "<h4 class='shipping-methods'>Select Shipping Method:</h4><form class='cart-checkout-form' action='/engoje/shop/checkout/' method='post'>";
     $cartDisplay .= "<div class='shipping-methods-container'>"; 
 
     foreach($shippingInfo as $shippingMethod){
@@ -118,7 +217,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     
     $cartDisplay .= "<input name='grandTotal' type='hidden' value='$grandTotal' />";
     $cartDisplay .= "<h4 id='grand-ship-total'><div class='strong'>Grand Total:</div> R$grandTotal</h4>";
-    $cartDisplay .= "</div><input type='submit' class='clear-cart button wishlist-buttons' value='Checkout' /> </form></div>";
+    $cartDisplay .= "</div><input type='submit' class='clear-cart button wishlist-buttons checkout-cart-button' value='Checkout' /> </form></div>";
 
    return $cartDisplay;
   }
@@ -305,6 +404,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/engoje/checkout/?action=new-shipping-address' method='POST'>";
     $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
+    $checkoutDisplay .= "<h1> Enter New Shipping Address:</h1>"; 
 
     $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
 
@@ -982,12 +1082,7 @@ function buildProductSwatchesDisplay($products, $swatch){
 // Build a product display card for shop views
 function buildproductDisplay($product, $saleItems){
 
-    if(isset($product['imagePath'])){
-        $path = $product['imagePath'];
-    }else{
-        $path = '/engoje/images/no-image';
-        
-    }
+    $path = $product['imagePath'];
 
     // if the is not product in sale table
     if(!empty($saleItems)){
@@ -1017,7 +1112,14 @@ function buildproductDisplay($product, $saleItems){
 
             }else{
         
-                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div><img  src='$path' alt='".$product['productName']."' /></a>";
+                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div>
+                                
+                <picture>
+                    <source src='/engoje/images/placeholder.png' />
+                    <img src='$path' alt='".$product['productName']."' loading='lazy' />
+                </picture>
+
+                </a>";
                 $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice' >R$product[price]</h4><h4 class='hidden productPrice' >R$product[price]</h4></div></div>";
@@ -1027,10 +1129,16 @@ function buildproductDisplay($product, $saleItems){
 
         return $dv;
 
-
     }else{ // if there is a product in the sale table and it is the product currently being accessed
 
-        $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img src='$path' alt='".$product['productName']."' /></a>";
+        $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div>
+        
+            <picture>
+                <source src='/engoje/images/placeholder.png' />
+                <img src='$path' alt='".$product['productName']."' loading='lazy' />
+            </picture>
+        
+        </a>";
         $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
         $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
 
