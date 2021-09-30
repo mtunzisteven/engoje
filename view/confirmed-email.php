@@ -56,7 +56,8 @@ $pageDescription = "";
                         <div id="match-password-div" class="small-notice text-center my-3"></div>
 
                         <input class="reg-inputs reg-button button" type="submit" name="submit" id="regbtn" value="Set Password" />
-                        <input type="hidden" name="action" value="register">  
+                        <input type="hidden" name="action" value="complete-reg">  
+                        <input type="hidden" name="taid" value="<?php echo $temp_accountId ?>">  
               
                     </form>   
 

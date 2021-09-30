@@ -110,6 +110,59 @@ function getRegToken($temp_accountId){
         return $regToken;
 }
 
+// get the temp account info using the temp_accountsID
+function getTempAccountInfo($temp_accountId){
+    
+    // Create a connection object using the phpmotors connection function
+    $db = engojeConnect();
+    // The SQL statement
+    $sql = 'SELECT userFirstName, userLastName, userEmail FROM temp_accounts WHERE temp_accountId = :temp_accountId';
+    // Create the prepared statement using the phpmotors connection
+    $stmt = $db->prepare($sql);
+    // The next four lines replace the placeholders in the SQL
+    // statement with the actual values in the variables
+    // and tells the database the type of data it is
+    $stmt->bindValue(':temp_accountId', $temp_accountId, PDO::PARAM_INT);
+
+    // Execute the request
+    $stmt->execute();
+
+    // Get result of the check: returns a numeric indexed array
+    $userInfo = $stmt->fetch(PDO::FETCH_NUM);
+
+    // Close the database interaction
+    $stmt->closeCursor();
+
+    // return the hashed password
+    return $userInfo;
+}
+
+// get the temp account info using the temp_accountsID
+function deleteTempAccount($temp_accountId){
+    
+    // Create a connection object using the phpmotors connection function
+    $db = engojeConnect();
+    // The SQL statement
+    $sql = 'DELETE FROM  temp_accounts WHERE temp_accountId = :temp_accountId';    
+    
+    // Create the prepared statement using the phpmotors connection
+    $stmt = $db->prepare($sql);
+    // The next four lines replace the placeholders in the SQL
+    // statement with the actual values in the variables
+    // and tells the database the type of data it is
+    $stmt->bindValue(':temp_accountId', $temp_accountId, PDO::PARAM_INT);
+
+    // Execute the request
+    $stmt->execute();
+
+    // Ask how many rows changed as a result of our insert
+    $rowsChanged = $stmt->rowCount();
+    // Close the database interaction
+    $stmt->closeCursor();
+    // Return the indication of success (rows changed)
+    return $rowsChanged;
+}
+
 // Check for existing email
 function checkforRegisteredEmail($userEmail){
     // Create a connection object using the phpmotors connection function
