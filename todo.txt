@@ -1,3 +1,8 @@
+5. Complete admin and user account dashboards - Mthunzi
+
+6. Add ability to print each order on A4 pages  - Mthunzi
+
+7. Add emailers with templates  - Mthunzi
 
 2. Create reviews and add their management to admin dashboard  - Lusanda
 
@@ -5,23 +10,7 @@
 
 4. Add ratings and ability to rate when you've purchased. -Mthunzi & Lusanda
 
-5. Complete admin and user account dashboards - Mthunzi
-
-6. Add ability to print each order on A4 pages  - Mthunzi
-
-7. Add emailers with templates  - Mthunzi
-
-8. Add related products on single product page:(done)
-
-    add tags column to product table
-    use tags to search for relationships
-    create a 4 product display flex right of signle product 
-
-9.  Add long description section to bottom of single product and reviews section below it. (done)
-
 10. Add proper links to footer section and create proper store section banners  - Mthunzi
-
-11. Create documentation for site use, ordering, and returns  - Lusanda
 
 12. Add order-by ability on top right on archive - Mthunzi
 
