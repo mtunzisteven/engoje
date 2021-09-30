@@ -69,12 +69,12 @@ $_SESSION['active_tab'] = $active_tabs;
             if(addTempAccount($userFirstName, $userLastName, $userEmail, $regToken)){
 
                 // temp account id
-                $taid = getTempAccountId($userEmail);
+                $taid = getTempAccountId($userEmail)[0];
 
                 // email token in link to user for him/her to click and confirm
                 // email link: https://engoje.co.za/accounts/?action=confirm-eid&$taid=$tuaid&regTk=$regToken
 
-                header('Location: /engoje/accounts/?action=confirm-eid&$taid=$tuaid&regTk=$regToken');
+                header("Location: /engoje/accounts/?action=confirm-eid&taid=$taid&regTk=$regToken");
                 exit;
             }
 
@@ -86,14 +86,13 @@ $_SESSION['active_tab'] = $active_tabs;
             $temp_accountId = filter_input(INPUT_GET, 'taid', FILTER_SANITIZE_NUMBER_INT);
 
             // fetch token in the temp accounts using id
-            $db_regToken = getRegToken($temp_accountId);
-
+            $db_regToken = getRegToken($temp_accountId)[0];
 
             // When the token is correct email confirmed
             if($regToken == $db_regToken){
 
                 // go enter new password and reg account
-                header('Location: /engoje/accounts/?action=new-password');
+                header("Location: /engoje/accounts/?action=new-password&taid=$temp_accountId");
                 exit;
 
             }else{
@@ -107,6 +106,8 @@ $_SESSION['active_tab'] = $active_tabs;
         // Once confirmed token, go enter password
         case 'new-password':
 
+            $temp_accountId = filter_input(INPUT_GET, 'taid', FILTER_SANITIZE_NUMBER_INT);
+
             include '../view/confirmed-email.php';
 
             break;
@@ -114,21 +115,26 @@ $_SESSION['active_tab'] = $active_tabs;
         // check if valid password then reg user if valid
         case 'complete-reg':
 
+            $temp_accountId = filter_input(INPUT_POST, 'taid', FILTER_SANITIZE_NUMBER_INT);
             $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
+
+            $temp_accoutInfo = getTempAccountInfo($temp_accountId);
 
             $checkPassword = checkPassword($userPassword);
 
             // Hash the password to hide it from anyone and all.
             $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
-            // Send the data to the model
-            $regOutcome = regUser($userFirstName, $userLastName, $userEmail, $userPassword);
+            // Send the data to the model name, surname, email
+            $regOutcome = regUser($temp_accoutInfo[0], $temp_accoutInfo[1], $temp_accoutInfo[2], $userPassword);
 
             // Check and report the result
             if($regOutcome === 1){
                 setcookie('firstName',$userFirstName,strtotime('+1 year'), '/');
 
                 $_SESSION['message'] = "<p class='detail-span-bold'>Thanks for registering $userFirstName. Please use your email and password to login.</p>";
+
+                deleteTempAccount($temp_accountId);
 
                 header('Location: /engoje/view/login.php');
 
