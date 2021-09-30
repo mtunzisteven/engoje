@@ -81,6 +81,13 @@ body .notice {
   text-align: center;
 }
 
+body .small-notice {
+  color: #3a3939;
+  font: 200 20px "Handlee", sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
 body p.adding-alert {
   position: relative;
   font: 200 20px "Handlee", sans-serif;

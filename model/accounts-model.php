@@ -28,6 +28,88 @@ function regUser($userFirstName, $userLastName, $userEmail, $userPassword){
     return $rowsChanged;
 }
 
+// Add a new temporary user account
+function addTempAccount($userFirstName, $userLastName, $userEmail, $regToken){
+    // Create a connection object using the phpmotors connection function
+    $db = engojeConnect();
+    // The SQL statement
+    $sql = 'INSERT INTO temp_accounts (userFirstName, userLastName,userEmail, regToken)
+        VALUES (:userFirstName, :userLastName, :userEmail, :regToken)';
+    // Create the prepared statement using the phpmotors connection
+    $stmt = $db->prepare($sql);
+    // The next four lines replace the placeholders in the SQL
+    // statement with the actual values in the variables
+    // and tells the database the type of data it is
+    $stmt->bindValue(':userFirstName', $userFirstName, PDO::PARAM_STR);
+    $stmt->bindValue(':userLastName', $userLastName, PDO::PARAM_STR);
+    $stmt->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
+    $stmt->bindValue(':regToken', $regToken, PDO::PARAM_INT);
+
+    // Insert the data
+    $stmt->execute();
+    // Ask how many rows changed as a result of our insert
+    $rowsChanged = $stmt->rowCount();
+    // Close the database interaction
+    $stmt->closeCursor();
+    // Return the indication of success (rows changed)
+    return $rowsChanged;
+}
+
+// get the temp account id by user email
+function getTempAccountId($userEmail){
+
+        // Create a connection object using the phpmotors connection function
+        $db = engojeConnect();
+        // The SQL statement
+        $sql = 'SELECT temp_accountId FROM temp_accounts WHERE userEmail = :userEmail';
+        // Create the prepared statement using the phpmotors connection
+        $stmt = $db->prepare($sql);
+        // The next four lines replace the placeholders in the SQL
+        // statement with the actual values in the variables
+        // and tells the database the type of data it is
+        $stmt->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
+    
+        // Execute the request
+        $stmt->execute();
+
+        // Get result of the check: returns a numeric indexed array
+        $temp_accountId = $stmt->fetch(PDO::FETCH_NUM);
+
+        // Close the database interaction
+        $stmt->closeCursor();
+
+        // return the hashed password
+        return $temp_accountId;
+
+}
+
+// get the regToken using the row id in temp_accounts
+function getRegToken($temp_accountId){
+    
+        // Create a connection object using the phpmotors connection function
+        $db = engojeConnect();
+        // The SQL statement
+        $sql = 'SELECT regToken FROM temp_accounts WHERE temp_accountId = :temp_accountId';
+        // Create the prepared statement using the phpmotors connection
+        $stmt = $db->prepare($sql);
+        // The next four lines replace the placeholders in the SQL
+        // statement with the actual values in the variables
+        // and tells the database the type of data it is
+        $stmt->bindValue(':temp_accountId', $temp_accountId, PDO::PARAM_INT);
+    
+        // Execute the request
+        $stmt->execute();
+
+        // Get result of the check: returns a numeric indexed array
+        $regToken = $stmt->fetch(PDO::FETCH_NUM);
+
+        // Close the database interaction
+        $stmt->closeCursor();
+
+        // return the hashed password
+        return $regToken;
+}
+
 // Check for existing email
 function checkforRegisteredEmail($userEmail){
     // Create a connection object using the phpmotors connection function

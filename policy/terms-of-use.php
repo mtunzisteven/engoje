@@ -4,9 +4,9 @@
         session_start();
     }
 
-    $pageName ="Privacy Policy"; 
+    $pageName ="Terms of Use"; 
     $pageShortSummary = "Policies";
-    $pageDescription = "Website Privacy Policy";
+    $pageDescription = "Store Returns Policy";
 
 ?><!DOCTYPE html>
 <html lang="en-us">
@@ -18,7 +18,7 @@
                 require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
             ?>
                 <section class="policy-doc">
-                    <h1 class="text-center my-5">Privacy Policy</h1>
+                    <h1 class="text-center my-5">Terms of Use Policy</h1>
                     <article class="bg-white rounded m-2 p-5">
                         text goes here...
                     </article>

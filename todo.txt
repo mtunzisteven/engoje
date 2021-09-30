@@ -17,7 +17,7 @@
     use tags to search for relationships
     create a 4 product display flex right of signle product 
 
-9.  Add long description section to bottom of single product and reviews section below it.
+9.  Add long description section to bottom of single product and reviews section below it. (done)
 
 10. Add proper links to footer section and create proper store section banners  - Mthunzi
 

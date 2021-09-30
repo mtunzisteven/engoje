@@ -189,7 +189,13 @@ body{
         color:$dark-color;
         font: $notices;
         text-align:center;
-        
+    }
+
+    & .small-notice{
+        color:$dark-color;
+        font: $notices;
+        font-size: 16px;
+        text-align:center;
     }
 
     & p.adding-alert{

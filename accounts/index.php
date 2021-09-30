@@ -37,13 +37,11 @@ $_SESSION['active_tab'] = $active_tabs;
             $userFirstName = filter_input(INPUT_POST, 'userFirstName', FILTER_SANITIZE_STRING);
             $userLastName = filter_input(INPUT_POST, 'userLastName', FILTER_SANITIZE_STRING);
             $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
-            $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
-
-            $userEmail = checkEmail($userEmail);
-            $checkPassword = checkPassword($userPassword);
-
+           
             // Check for existing email in the database
             $existingEmail = checkforRegisteredEmail($userEmail);
+
+            $userEmail = checkEmail($userEmail);
 
             // When email exists reject registration and ask user to user another
             if($existingEmail===1){
@@ -53,11 +51,72 @@ $_SESSION['active_tab'] = $active_tabs;
             }
 
             // Check for missing data
-            if(empty($userFirstName) || empty($userLastName) || empty($userEmail) || empty($checkPassword)){
+            if(empty($userFirstName) || empty($userLastName) || empty($userEmail)){
                 $message = "<p class='detail-span-bold'>Please provide information for all empty form fields.</p>";
                 include '../view/registration.php';
                 exit; 
             }
+            
+            //////////////////////////////////////////
+            //      confirm email with token        //
+            //////////////////////////////////////////
+
+            // create token
+            $regToken = random_int(100000, 999999);
+
+            // enter user details to temp account tabl
+
+            if(addTempAccount($userFirstName, $userLastName, $userEmail, $regToken)){
+
+                // temp account id
+                $taid = getTempAccountId($userEmail);
+
+                // email token in link to user for him/her to click and confirm
+                // email link: https://engoje.co.za/accounts/?action=confirm-eid&$taid=$tuaid&regTk=$regToken
+
+                header('Location: /engoje/accounts/?action=confirm-eid&$taid=$tuaid&regTk=$regToken');
+                exit;
+            }
+
+            break;
+
+        // email link will bring you here to confirm id and regToken
+        case 'confirm-eid':
+            $regToken = filter_input(INPUT_GET, 'regTk', FILTER_SANITIZE_NUMBER_INT);
+            $temp_accountId = filter_input(INPUT_GET, 'taid', FILTER_SANITIZE_NUMBER_INT);
+
+            // fetch token in the temp accounts using id
+            $db_regToken = getRegToken($temp_accountId);
+
+
+            // When the token is correct email confirmed
+            if($regToken == $db_regToken){
+
+                // go enter new password and reg account
+                header('Location: /engoje/accounts/?action=new-password');
+                exit;
+
+            }else{
+
+                include '../view/registration.php';
+
+            }
+
+            break;
+
+        // Once confirmed token, go enter password
+        case 'new-password':
+
+            include '../view/confirmed-email.php';
+
+            break;
+
+        // check if valid password then reg user if valid
+        case 'complete-reg':
+
+            $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
+
+            $checkPassword = checkPassword($userPassword);
 
             // Hash the password to hide it from anyone and all.
             $userPassword = password_hash($userPassword, PASSWORD_DEFAULT);

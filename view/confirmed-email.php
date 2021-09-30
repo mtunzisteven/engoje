@@ -45,20 +45,18 @@ $pageDescription = "";
                 <div class="col">
 
                     <form class="login-form" method="post" action="/engoje/accounts/index.php">
-                        <label class="reg-label" style="text-align:left; min-width: 65%;">First Name</label>
-                        <input class="reg-inputs" type="text" name="userFirstName" required />
-
-                        <label class="reg-label" style="text-align:left; min-width: 65%;">Last Name</label>
-                        <input class="reg-inputs" type="text" name="userLastName" required />
                         
-                        <label class="reg-label" style="text-align:left; min-width: 65%;">Email Address</label>
-                        <input class="reg-inputs validity" type="email" name="userEmail" required  />
+                        <label class="reg-label" style="text-align:left; min-width: 65%;">Password</label>
+                        <input id="password" class="reg-inputs validity" type="password" name="userPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
+                        <span class="detail-span">Passwords must be at least 8 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
 
-                        <input class="reg-inputs reg-button button" type="submit" name="submit" id="regbtn" value="register" />
+                        <label class="reg-label" style="text-align:left; min-width: 65%;">Confirm Password</label>
+                        <input id="password2" class="reg-inputs validity" type="password" name="userPasswordConfirm" required />
+
+                        <div id="match-password-div" class="small-notice text-center my-3"></div>
+
+                        <input class="reg-inputs reg-button button" type="submit" name="submit" id="regbtn" value="Set Password" />
                         <input type="hidden" name="action" value="register">  
-                        <span class='detail-span'>Have an account? login below:</span>
-
-                        <a  class="login-inputs login-reg-button " href="index.php?action=login" title="registration form">login</a>
               
                     </form>   
 
@@ -67,8 +65,6 @@ $pageDescription = "";
         </div>
     </main>
 </body>
+<script src="/engoje/js/passwordmatch.js"></script>
 
 </html>
-<?php
-    unset($_SESSION['message']);
-?>

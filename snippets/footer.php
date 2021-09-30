@@ -41,10 +41,10 @@
                 <div class="col-6 col-md">
                 <h5>About</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="#">Team</a></li>
-                    <li><a class="link-secondary" href="#">Locations</a></li>
-                    <li><a class="link-secondary" href="#">Privacy</a></li>
-                    <li><a class="link-secondary" href="#">Terms</a></li>
+                    <li><a class="link-secondary" href="/engoje/policy/returns-policy.php">Returns Policy</a></li>
+                    <li><a class="link-secondary" href="/engoje/policy/terms-of-use.php">Terms of Use</a></li>
+                    <li><a class="link-secondary" href="/engoje/policy/privacy-policy.php">Privacy Policy</a></li>
+                    <li><a class="link-secondary" href="/engoje/policy/faqs.php">FAQ</a></li>
                 </ul>
             </div>
         </div>
