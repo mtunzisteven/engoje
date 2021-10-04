@@ -17,14 +17,14 @@
         <main class="content py-5 bg-light" >
             <h1 class='title'>Login</h1>
 
+            <?php
+            
+                if (isset($message)) {
+                    echo $message;
+                }
+            ?>
+
             <div class="container shadow-lg w-sm-100 w-75">
-                
-                <?php
-                    if (isset($_SESSION['message'])) {
-                        echo $_SESSION['message'];
-                        unset($_SESSION['message']);
-                    }
-                ?>
 
                 <div class="row align-items-center pb-5 pt-2">
                     <div class="col">

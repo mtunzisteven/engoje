@@ -132,7 +132,7 @@ $_SESSION['active_tab'] = $active_tabs;
             if($regOutcome === 1){
                 setcookie('firstName',$userFirstName,strtotime('+1 year'), '/');
 
-                $_SESSION['message'] = "<p class='detail-span-bold'>Thanks for registering $userFirstName. Please use your email and password to login.</p>";
+                $_SESSION['message'] = "<p class='small-notice text-center detail-span-bold'>Thanks for registering $userFirstName. Please use your email and password to login.</p>";
 
                 deleteTempAccount($temp_accountId);
 
@@ -140,7 +140,7 @@ $_SESSION['active_tab'] = $active_tabs;
 
                 exit;
             } else {
-                $message = "<p class='detail-span-bold'>Error! Your registration failed. Please try again.</p>";
+                $message = "<p class='small-notice text-center detail-span-bold'>Error! Your registration failed. Please try again.</p>";
                 include '../view/registration.php';
                 exit;
             }
@@ -157,7 +157,7 @@ $_SESSION['active_tab'] = $active_tabs;
             // Check for missing data
             if(empty($userEmail) || empty($checkPassword)){
                 
-                $message = "<p class='detail-span-bold'>Incorrect password and email combination. Please try again.</p>";
+                $message = "<p class='small-notice text-center detail-span-bold'>Incorrect password and email combination. Please try again.</p>";
                 include '../view/login.php';
                 exit; 
             }
@@ -191,7 +191,7 @@ $_SESSION['active_tab'] = $active_tabs;
                     $_SESSION['userData'] = $userData;
 
                     // Create a message session variable
-                    $_SESSION['message'] = "<p class='detail-span-bold'>Thanks for logging in ".$_SESSION['userData']['userFirstName']."</p>";
+                    $message = "<p class='small-notice text-center detail-span-bold'>Thanks for logging in ".$_SESSION['userData']['userFirstName']."</p>";
 
                     // Get reviews for the specific user for use in showing reviews
                     $reviews = getUserReviews($_SESSION['userData']['userId']);
@@ -203,25 +203,27 @@ $_SESSION['active_tab'] = $active_tabs;
                     $_SESSION['active_tab']['account'] = "active";
 
                     // Get the side navs library
-                    include '../library/sidenav.php';
+                    include '../library/sidenav.php'; 
 
-                    // Build Admin Side Nav
+                    // Build Admin Side Navs
                    $adminSideNav = buildAdminSideNav();
 
+                   echo $adminSideNav; exit;
+
                     // Send them to the admin view
-                    header('Location:/engoje/');
+                    header('Location:/engoje/accounts/?action=account');
                     exit; 
                 }
                 else{
 
-                    $_SESSION['message'] = "<p class='detail-span-bold'>Please check your password and email combination and try again.</p>";
+                    $message = "<p class='small-notice text-center detail-span-bold'>Please check your password and email combination and try again.</p>";
                     include '../view/login.php';
                     exit; 
                 }
             }
             else{
 
-                $_SESSION['message'] = '<p class="notice detail-span-bold">Please check your password and email combination and try again.</p>';
+                $message = '<p class="small-notice text-center detail-span-bold ">Please check your password and email combination and try again.</p>';
                 include '../view/login.php';
                 exit; 
             }
@@ -232,9 +234,12 @@ $_SESSION['active_tab'] = $active_tabs;
 
             //Destroy session variables
             $_SESSION = array();
+
             // Log them out
             $_SESSION['loggedin'] = FALSE;
+
             header('Location: /engoje/');
+
             break;
 
         case 'account':

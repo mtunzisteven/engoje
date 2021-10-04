@@ -1,59 +1,59 @@
 <?php
 
-    if(!isset($_SESSION)){
-        session_start();
-    }
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-    if(!$_SESSION['loggedin']){
-        header('Location: /engoje/');
-    }
+//echo $_SESSION['userData']['userFirstName']; exit;
 
-    //echo $_SESSION['clientData']['clientId']; exit;
+if (!$_SESSION['loggedin']) {
+    header('Location: /engoje/');
+}
 
-    $pageName ="Account"; 
-    $pageShortSummary = "Dashboard";
-    $pageDescription = "User Account dashboard";
+$pageName = "Account";
+$pageShortSummary = "Dashboard";
+$pageDescription = "User Account dashboard";
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
-    <body class=" admin-main">
-        <main class="content">
-            <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+
+<body class=" admin-main">
+    <main class="content">
+        <?php
+        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php';
+        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php';
+        ?>
+
+        <div class="dashboard admin-dashboard">
+
+
+            <?php
+
+            if (isset($adminSideNav)) {
+                echo $adminSideNav;
+            }
+
             ?>
 
-            <section class="dashboard account-dasshboard">
-                <ul class="dashboard-side-nav account-side-nav">
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a href="/engoje/view/account.php" class="dashboard-side-nav-links account-dashboard-main-link">DASHBOARD</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Orders</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Reviews</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Returns</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Addresses</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Contact Details</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Security</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class="dashboard-side-nav-links account-dasshboard-links">Talk to us</a></li>
-                    <li class="dashboard-side-nav-items account-dashboard-side-nav-items"><a class='dashboard-side-nav-links account-dasshboard-links' href='/engoje/accounts/index.php?action=logout'>Logout</a></li>
-                </ul>
+            <div class="dashboard-content">
+                <?php
+                echo "<h1 class='h2'>Welcome to your Account Dashboard ". $_SESSION['userData']['userFirstName']."</h1>";
 
-                
+                if (isset($message)) {
+                    echo $message;
+                }
+                ?>
+                <p> Here's a summary of your acount activity:</p>
+            </div>
+        </div>
+    </main>
+    <script src="/engoje/js/counts.js"></script>
+    <script src="/engoje/js/sliders.js"></script>
+</body>
 
-                <section class="dashboard-content Account-content">
-                    <?php
-                        echo "<h1 class='h2'>Welcome to Your Account Dashboard</h1>";
-                        if(isset($_SESSION['message'])){
-                            echo $_SESSION['message'];
-                        }
-                    ?>
-                    <p> This is where all your order operations will be handled</p>
-                </section>
-            </section>           
-        </main>
-        <script src="/engoje/js/counts.js"></script>
-        <script src="/engoje/js/sliders.js"></script>
-    </body>
 </html>
-<?php 
-    unset($_SESSION['message']);
+<?php
+unset($_SESSION['message']);
 ?>

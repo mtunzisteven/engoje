@@ -1845,5 +1845,8 @@ $active_tabs = [
     'orders'=>'',
     'sales'=>'',
     'reviews'=>'',
+    'returns'=>'',
+    'security'=>'',
+    'addresses'=>'',
     'promotions'=>''
 ];

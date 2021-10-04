@@ -10,17 +10,10 @@ session_cache_expire();
     require_once '../library/connections.php';
     // Get the database connection file
     require_once '../library/functions.php';
-
-// active tab array
-$_SESSION['active_tab'] = $active_tabs;
-
-    // Get the side navs library
-    require_once '../library/sidenav.php';
     // Get the main model for use as needed
     require_once '../model/main-model.php';
 
-    // Build Admin Side Nav
-   $adminSideNav = buildAdminSideNav();
+
 
     $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
     if ($action == NULL){
@@ -35,6 +28,16 @@ $_SESSION['active_tab'] = $active_tabs;
 
                 // addmin level
                 if($_SESSION['userData']['userLevel']<2){
+
+                    
+                    // sey the active tab on the admin side nav
+                    $_SESSION['active_tab']['account'] = "active";
+
+                    // Get the side navs library
+                    include '../library/sidenav.php'; 
+
+                    // Build Admin Side Navs
+                    $adminSideNav = buildAdminSideNav();
 
                     include ('../view/account.php');
 

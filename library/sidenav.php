@@ -144,75 +144,64 @@ function buildAdminSideNav(){
         </main>';
 
         return $adminSideNav;
-    }
-    }
+      }
+    }else if(isset($_SESSION['userData']) && $_SESSION['loggedin'] && $_SESSION['userData']['userLevel']==1){
+        $name = $_SESSION['userData']['userFirstName'];
+  
+  
+      // make sure $active_tab['users'] is set
+      if(isset($_SESSION['active_tab'])){
+  
+          $adminSideNav = 
+          "<main class='admin-dashboardnav'>
+              <div class='d-flex flex-column flex-shrink-0 p-3 text-white admin-nav' style='width: 280px;'>
+                  <a href='/engoje/myaccount/?action=account' class='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'>
+                    <span class='fs-4'>Dashboard</span>
+                  </a>
+                  <hr>
+                  <ul class='nav nav-pills flex-column mb-auto'> 
+                      <li class='nav-item'>
+                        <a href='/engoje/orders/?action=orders' class='nav-link text-white ".$_SESSION['active_tab']['orders']."'>
+                          <i class='bi bi-truck'></i>
+                          &nbsp;Orders
+                        </a>
+                      </li>
+                      <li class='nav-item'>
+                        <a href='/engoje/returns/?action=returns' class='nav-link text-white ".$_SESSION['active_tab']['returns']."'>
+                          <i class='bi bi-truck-flatbed'></i>
+                          &nbsp;Returns
+                        </a>
+                      </li>
+                      <li class='nav-item'>
+                        <a href='/engoje/reviews/?action=reviews' class='nav-link text-white ".$_SESSION['active_tab']['reviews']."'>
+                          <i class='bi bi-megaphone'></i>
+                          &nbsp;Reveiws
+                        </a>
+                      </li>
+                      <hr>
+                      <li class='nav-item'>
+                        <a href='/engoje/accounts/?action=security' class='nav-link text-white ".$_SESSION['active_tab']['security']."'>
+                          <i class='bi bi-shield-lock'></i>
+                          &nbsp;security
+                        </a>
+                      </li>
+                      <li class='nav-item'>
+                        <a href='/engoje/upload/' class='nav-link text-white ".$_SESSION['active_tab']['addresses']."'>
+                          <i class='bi bi-pin-map'></i>
+                          &nbsp;Addresses
+                        </a>
+                      </li>
+                      <li class='nav-item'>
+                        <a class='nav-link text-white' href='/engoje/accounts/index.php?action=logout'>
+                          <i class='bi bi-person'></i>
+                          &nbsp;Sign out
+                        </a>
+                      </li>
+                    </ul>
+              </div>
+          </main>";
+  
+          return $adminSideNav;
+      }
+    } 
 }
-
-
-
-//  Build Admin Side Nav display
-function buildMyAccountSideNav(){
-
-  $name = '';
-
-  // for logged in user
-  if(isset($_SESSION['userData']) && $_SESSION['loggedin'] && $_SESSION['userData']['userLevel']==1){
-      $name = $_SESSION['userData']['userFirstName'];
-
-
-    // make sure $active_tab['users'] is set
-    if(isset($_SESSION['my_active_tab'])){
-
-        $adminSideNav = 
-        '<main class="admin-dashboardnav">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white admin-nav" style="width: 280px;">
-                <a href="/engoje/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                  <span class="fs-4">Dashboard</span>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto"> 
-                    <li class="nav-item">
-                      <a href="/engoje/orders/?action=orders" class="nav-link text-white '.$_SESSION['my_active_tab']['orders'].'">
-                        <i class="bi bi-truck"></i>
-                        &nbsp;Orders
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="/engoje/returns/?action=returns" class="nav-link text-white '.$_SESSION['my_active_tab']['returns'].'">
-                        <i class="bi bi-truck-flatbed"></i>
-                        &nbsp;Returns
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="/engoje/reviews/?action=reviews" class="nav-link text-white '.$_SESSION['my_active_tab']['reviews'].'">
-                        <i class="bi bi-megaphone"></i>
-                        &nbsp;Reveiws
-                      </a>
-                    </li>
-                    <hr>
-                    <li class="nav-item">
-                      <a href="/engoje/accounts/?action=security" class="nav-link text-white '.$_SESSION['my_active_tab']['security'].'">
-                        <i class="bi bi-shield-lock"></i>
-                        &nbsp;security
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="/engoje/upload/" class="nav-link text-white '.$_SESSION['my_active_tab']['addresses'].'">
-                        <i class="bi bi-pin-map"></i>
-                        &nbsp;Addresses
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item" href="/engoje/accounts/index.php?action=logout">
-                        <i class="bi bi-person"></i>
-                        &nbsp;Sign out
-                      </a>
-                    </li>
-                  </ul>
-            </div>
-        </main>';
-
-        return $adminSideNav;
-    }
-  } 
-  }
