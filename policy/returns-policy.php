@@ -61,7 +61,7 @@
 
                     <p>Depending on where you live, the time it may take for your exchanged product to reach you, may vary.</p>
 
-                    <p>If you are shipping an item over $75, you should consider using a trackable shipping service or purchasing shipping insurance. We don’t guarantee that we will receive your returned item.</p>
+                    <p>If you are shipping an item over R1000, you should consider using a trackable shipping service or purchasing shipping insurance. We don’t guarantee that we will receive your returned item.</p>
                     </article>
                 </section>
             </section>           
