@@ -33,10 +33,23 @@
         </div>
                     
         <?php
+
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header-bottom.php';
+
+            if($pageName == 'Home'){
+
+                ?>
+
+                <div class="spacer"></div>
+
+                <?php
+
+            }
+
+            require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; 
+            
         ?>
 
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
     </main>
  </body>
 </html>

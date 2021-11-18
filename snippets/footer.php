@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer <?php if($pageName == "Home"){echo "unspacer";} ?>">
     <div class="footer-top-block"> <a class='bootom-to-top' href='#'>Back to top</a></div>
 
     <div class='footer-widgets-container container py-5'>
@@ -35,7 +35,7 @@
                     <li><a class="link-secondary" href="#">Business</a></li>
                     <li><a class="link-secondary" href="#">Education</a></li>
                     <li><a class="link-secondary" href="#">Government</a></li>
-                    <li><a class="link-secondary" href="#">Gaming</a></li>
+                    <li><a class="link-secondary" href="#">Gaming</a></li> 
                 </ul>
                 </div>
                 <div class="col-6 col-md">

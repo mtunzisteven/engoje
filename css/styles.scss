@@ -277,6 +277,14 @@ body{
     & .button:focus{
         @include buttonshover();
     }
+
+    & div.spacer{
+        height: 50px;
+    }
+
+    & .unspacer{
+        margin-top: -50px !important;
+    }
 }
 
 .active{
@@ -442,8 +450,8 @@ img.product-image{
 
 .header-top{
     height:50px;
+    padding: 7px 0 0 0;
     width:100%;
-    line-height: 50px;
     text-align: center;
     color: $dark-secondary-color;
     background-color: $background-color;

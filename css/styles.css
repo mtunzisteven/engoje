@@ -200,6 +200,14 @@ body .button:focus {
           box-shadow: 1px 2px 8px 3px #3a3939;
 }
 
+body div.spacer {
+  height: 50px;
+}
+
+body .unspacer {
+  margin-top: -50px !important;
+}
+
 .active {
   color: #fea500;
 }
@@ -389,8 +397,8 @@ img.product-image {
 */
 .header-top {
   height: 50px;
+  padding: 7px 0 0 0;
   width: 100%;
-  line-height: 50px;
   text-align: center;
   color: #df9205;
   background-color: #fdfdfd;
