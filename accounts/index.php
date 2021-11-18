@@ -64,7 +64,7 @@ $_SESSION['active_tab'] = $active_tabs;
             // create token
             $regToken = random_int(100000, 999999);
 
-            // enter user details to temp account tabl
+            // enter user details to temp account table
 
             if(addTempAccount($userFirstName, $userLastName, $userEmail, $regToken)){
 
@@ -191,24 +191,13 @@ $_SESSION['active_tab'] = $active_tabs;
                     $_SESSION['userData'] = $userData;
 
                     // Create a message session variable
-                    $message = "<p class='small-notice text-center detail-span-bold'>Thanks for logging in ".$_SESSION['userData']['userFirstName']."</p>";
+                    $_SESSION['message'] = "<p class='small-notice text-center detail-span-bold'>Thanks for logging in ".$_SESSION['userData']['userFirstName']."</p>";
 
                     // Get reviews for the specific user for use in showing reviews
                     $reviews = getUserReviews($_SESSION['userData']['userId']);
 
                     // Getting the reviews html from the functions.
                     $customerReviews = customerReviews($reviews);
-
-                    // sey the active tab on the admin side nav
-                    $_SESSION['active_tab']['account'] = "active";
-
-                    // Get the side navs library
-                    include '../library/sidenav.php'; 
-
-                    // Build Admin Side Navs
-                   $adminSideNav = buildAdminSideNav();
-
-                   echo $adminSideNav; exit;
 
                     // Send them to the admin view
                     header('Location:/engoje/accounts/?action=account');
@@ -243,6 +232,15 @@ $_SESSION['active_tab'] = $active_tabs;
             break;
 
         case 'account':
+
+            // sey the active tab on the admin side nav
+            $_SESSION['active_tab']['account'] = "active";
+
+            // Get the side navs library
+            include '../library/sidenav.php'; 
+
+            // Build Admin Side Navs
+            $adminSideNav = buildAdminSideNav();
 
             include '../view/account.php';
 
@@ -282,7 +280,7 @@ $_SESSION['active_tab'] = $active_tabs;
             //echo var_dump($userInfo); exit;
             if (!$userInfo) {
                     $message = 'Sorry, no user information could be found.';
-                }
+            }
 
             $_SESSION['userId'] = $userId;
 

@@ -296,8 +296,10 @@ input, textarea, button, a{
     height:60px;
     line-height:60px;
     padding: 0;
+    margin-bottom: 40px;
     max-width:100%;
     box-shadow: 0 2px 5px 1px $light-dark-color;
+    z-index: 1000;
 
     & div.container-fluid{
         background-color: $dark-main-color;

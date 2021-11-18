@@ -40,7 +40,7 @@
                 echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count' id='cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
             } else{
-                echo "<a class='account  signin' href='/engoje/accounts/index.php?action=login' title='Your Account'>Sign In</a>";
+                echo "<a class='account  signin' href='/engoje/accounts?action=login' title='Your Account'>Sign In</a>";
                 echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
                 echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count'  id='cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
@@ -48,34 +48,38 @@
         ?>
     </div>
 </nav>
-<div class="bottom-nav-container">
-    <a class='nav-hamburger-account user' href='/engoje/shop' title='Your Account'><i class="fas fa-store-alt"></i></a>
-    <?php 
-        if(isset($_SESSION['userData']['userFirstName'])){
-            
-            $active = '';
-            
-            if($pageName=='Account'){
-                
-                $active = 'active';
 
-                echo "<a class='nav-hamburger-account user' href='/engoje/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
-                echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
-                echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
-        
-            }else{
-                
-                echo "<a class='nav-hamburger-account user' href='/engoje/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
-                echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
-                echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
+<?php if($pageName != 'Cart'){ ?>
 
-            }
+  <div class="bottom-nav-container">
+      <a class='nav-hamburger-account user' href='/engoje/shop' title='Your Account'><i class="fas fa-store-alt"></i></a>
+      <?php 
+          if(isset($_SESSION['userData']['userFirstName'])){
+              
+              $active = '';
+              
+              if($pageName=='Account'){
+                  
+                  $active = 'active';
 
-        } else{
-            echo "<a class='account signin' href='/engoje/accounts/index.php?action=login'>Sign in</a>";
-            echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
-            echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count'  id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
+                  echo "<a class='nav-hamburger-account user' href='/engoje/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
+                  echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                  echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
+          
+              }else{
+                  
+                  echo "<a class='nav-hamburger-account user' href='/engoje/myaccount?action=account' title='Your Account'><i class='bi bi-person-fill'></i></a>";
+                  echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+                  echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count' id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
-        } 
-    ?>
-</div>
+              }
+
+          } else{
+              echo "<a class='account signin' href='/engoje/accounts/index.php?action=login'>Sign in</a>";
+              echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist' title='Wishlist'><div class='wishlist-count' id='mobile-wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
+              echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count'  id='mobile-cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
+
+          } 
+      ?>
+    </div>
+<?php } ?>

@@ -23,28 +23,22 @@ session_cache_expire();
     switch ($action){
         case 'account':
 
-            // logged in
-            if(isset($_SESSION['loggedin'])){
+            // sey the active tab on the admin side nav
+            $_SESSION['active_tab']['account'] = "active";
 
-                // addmin level
-                if($_SESSION['userData']['userLevel']<2){
+            // Get the side navs library
+            include '../library/sidenav.php'; 
 
-                    
-                    // sey the active tab on the admin side nav
-                    $_SESSION['active_tab']['account'] = "active";
+            // Build Admin Side Navs
+            $adminSideNav = buildAdminSideNav();
 
-                    // Get the side navs library
-                    include '../library/sidenav.php'; 
+            // customer level
+            if($_SESSION['userData']['userLevel'] < 2){
+               
+                include ('../view/account.php');
 
-                    // Build Admin Side Navs
-                    $adminSideNav = buildAdminSideNav();
-
-                    include ('../view/account.php');
-
-                }else{
-                    include ('../view/admin.php');
-                }
-
+            }else{// admin level
+                include ('../view/admin.php');
             }
          
          break;

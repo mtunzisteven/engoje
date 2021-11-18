@@ -11,8 +11,8 @@ function buildAdminSideNav(){
 
     // for logged in user
     if(isset($_SESSION['userData']) && $_SESSION['loggedin'] && $_SESSION['userData']['userLevel']==2){
-        $name = $_SESSION['userData']['userFirstName'];
-
+        $name = $_SESSION['userData']['userFirstName']; 
+        
       // make sure $active_tab['users'] is set
       if(isset($_SESSION['active_tab'])){
 

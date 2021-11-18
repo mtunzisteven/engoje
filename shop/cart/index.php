@@ -97,46 +97,46 @@ switch ($action){
             }
 
 
-        }
-                
-        //user not logged in so cart session variable will be used exclusively  
-        else{ 
+        }else{ //user not logged in so cart session variable will be used exclusively 
 
             // create an empty array
-            $duplicatedCartDetails = [];
+            // $duplicatedCartDetails = [];
 
             //unset($_SESSION['cart']);
 
-            // if there are cart session variables available, proceed
-            if(isset($_SESSION['cart'])){
+            // // if there are cart session variables available, proceed
+            // if(isset($_SESSION['cart'])){
 
-                // reindex the array
-                $_SESSION['cart'] = array_values($_SESSION['cart']);
+            //     // reindex the array
+            //     $_SESSION['cart'] = array_values($_SESSION['cart']);
                 
 
-                //var_dump($_SESSION['cart']); exit;
+            //     //var_dump($_SESSION['cart']); exit;
 
-                foreach($_SESSION['cart'] as $orderItem){
+            //     foreach($_SESSION['cart'] as $orderItem){
 
 
-                    // Make an array of cart display items, with the exception of the image
-                    $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
+            //         // Make an array of cart display items, with the exception of the image
+            //         $productDetails = getShopProductEntry($orderItem['product_entryId']) + ['cart_item_qty'=>$orderItem['cart_item_qty']];
 
     
-                    // Make an array of all the cart display data including the image
-                    $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
+            //         // Make an array of all the cart display data including the image
+            //         $duplicatedCartDetails[] = $productDetails + getImage($productDetails['productId'], $productDetails['colour']);
     
-                }
+            //     }
 
-                //var_dump($duplicatedCartDetails); exit;
+            //     //var_dump($duplicatedCartDetails); exit;
                 
-                // build a cart display
-                $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails), $shippingInfo);
+            //     // build a cart display
+            //     $_SESSION['cartDisplay'] = buildCartDisplay(sumCartQuantities($duplicatedCartDetails), $shippingInfo);
 
-            }else{
+            // }else{
 
-                $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>';
-            }
+            //     $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>';
+            // }
+
+            $_SESSION['message'] = '<p class="notice">Your cart is empty...</p>'; 
+
 
         }
         

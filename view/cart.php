@@ -9,8 +9,8 @@
         session_start();
     }
 
-    $pageName ="Shop"; 
-    $pageShortSummary = "Cart";
+    $pageName ="Cart"; 
+    $pageShortSummary = "Shopping cart";
     $pageDescription = "";
 
     ?><!DOCTYPE html>
@@ -25,11 +25,16 @@
 
                 echo "<h1 class='title'>Cart</h1>";
 
+                if (isset($_SESSION['message'])) {
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                }
+
                 if(isset($_SESSION['cartDisplay'])){
                     echo $_SESSION['cartDisplay'];
                 }
 
-                require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footerspacer.php'; 
+                require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; 
                 
             ?>
                 <script src="/engoje/js/updateCart.js"></script>
