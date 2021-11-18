@@ -10,36 +10,34 @@
                 <small class="d-block mb-3 text-muted">&copy; 2020–2021</small>
                 </div>
                 <div class="col-6 col-md">
-                <h5>Features</h5>
+                <h5>Help</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="#">Cool stuff</a></li>
-                    <li><a class="link-secondary" href="#">Random feature</a></li>
-                    <li><a class="link-secondary" href="#">Team feature</a></li>
-                    <li><a class="link-secondary" href="#">Stuff for developers</a></li>
-                    <li><a class="link-secondary" href="#">Another one</a></li>
-                    <li><a class="link-secondary" href="#">Last time</a></li>
+                    <li><a class="link-secondary" href="#">Help</a></li>
+                    <li><a class="link-secondary" href="#">Returns</a></li>
+                    <li><a class="link-secondary" href="#">Blog</a></li>
+                    <li><a class="link-secondary" href="#">Contact us</a></li>
+                </ul>
+                </div>
+                <div class="col-6 col-md">
+                <h5>Company</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">About us</a></li>
+                    <li><a class="link-secondary" href="#">Sell on eNgoje</a></li> 
+                    <li><a class="link-secondary" href="#">Investor relations</a></li>
+                    <li><a class="link-secondary" href="#">Careers</a></li> 
+                </ul>
+                </div>
+                <div class="col-6 col-md">
+                <h5>Account</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">Your account</a></li>
+                    <li><a class="link-secondary" href="#">Change address</a></li>
+                    <li><a class="link-secondary" href="#">View orders</a></li>
+                    <li><a class="link-secondary" href="#">Track order</a></li> 
                 </ul>
                 </div>
                 <div class="col-6 col-md">
                 <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="#">Resource name</a></li>
-                    <li><a class="link-secondary" href="#">Resource</a></li>
-                    <li><a class="link-secondary" href="#">Another resource</a></li>
-                    <li><a class="link-secondary" href="#">Final resource</a></li>
-                </ul>
-                </div>
-                <div class="col-6 col-md">
-                <h5>Resources</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="#">Business</a></li>
-                    <li><a class="link-secondary" href="#">Education</a></li>
-                    <li><a class="link-secondary" href="#">Government</a></li>
-                    <li><a class="link-secondary" href="#">Gaming</a></li> 
-                </ul>
-                </div>
-                <div class="col-6 col-md">
-                <h5>About</h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="/engoje/policy/returns-policy.php">Returns Policy</a></li>
                     <li><a class="link-secondary" href="/engoje/policy/terms-of-use.php">Terms of Use</a></li>

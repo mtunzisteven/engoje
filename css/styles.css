@@ -2767,14 +2767,18 @@ footer.main-footer div.footer-bottom-block {
   font-size: 10px;
 }
 
-footer.main-footer div.footer-bottom-block a {
-  color: #d8d5d5;
+footer.main-footer div.footer-bottom-block span.footer-span {
+  color: #929292;
+}
+
+footer.main-footer div.footer-bottom-block span.footer-span a {
+  color: #929292;
   font: 200 15px "Nunito", sans-serif;
   font-size: 10px;
   text-decoration: none;
 }
 
-footer.main-footer div.footer-bottom-block a:hover {
+footer.main-footer div.footer-bottom-block span.footer-span a:hover {
   color: #fcba40;
 }
 

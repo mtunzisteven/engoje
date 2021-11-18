@@ -2130,17 +2130,22 @@ footer.main-footer{
         padding: 10px 0 10px 0;
         font-size: 10px;
 
-        & a{
-            color: $darker-background-color;
-            font: $p;
-            font-size: 10px;
-            text-decoration: none;
+        & span.footer-span{
+            color: $light-dark-color;
 
+            & a{
+                color: $light-dark-color;
+                font: $p;
+                font-size: 10px;
+                text-decoration: none;
+    
+            }
+    
+            & a:hover{
+                color: $light-secondary-color;
+            }
         }
 
-        & a:hover{
-            color: $light-secondary-color;
-        }
     }
 }
 footer.footerspacer{
