@@ -201,7 +201,13 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     }
 
-    $cartDisplay .= "</div><div class='cart-display-table-row2 '><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
+    $cartDisplay .= "</div>";
+
+    /////////////////////////////////////////////////////////////////////////////
+    //                             mobile cart end                             //
+    /////////////////////////////////////////////////////////////////////////////
+
+    $cartDisplay .= "<div class='cart-display-table-row2 '><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
     $cartDisplay .= "<a href='/engoje/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 

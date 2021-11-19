@@ -2627,9 +2627,11 @@ div.cart-display-table div.cart-display-table-rows div a img {
 
 .wishlist-buttons {
   display: block;
-  max-width: 130px;
-  margin: 20px auto;
-  padding: 15px;
+  min-height: 50px;
+  padding: 15px 0 0 0;
+  max-width: 200px;
+  margin: 5px auto;
+  font-size: 16px;
   font-weight: 200;
 }
 

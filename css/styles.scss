@@ -2016,10 +2016,12 @@ div.cart-display-table{
 }
 
 .wishlist-buttons{
-    display:block;
-    max-width: 130px;
-    margin:20px auto;
-    padding: 15px;
+    display: block;
+    min-height: 50px;
+    padding: 15px 0 0 0;
+    max-width: 200px;
+    margin: 5px auto;
+    font-size: 16px;
     font-weight: 200;
 }
 
@@ -2138,7 +2140,6 @@ footer.main-footer{
                 font: $p;
                 font-size: 10px;
                 text-decoration: none;
-    
             }
     
             & a:hover{
