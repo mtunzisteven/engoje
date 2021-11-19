@@ -184,7 +184,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     
     $cartDisplay .= "<input name='grandTotal' type='hidden' value='$grandTotal' />";
     $cartDisplay .= "<h4 id='grand-ship-total'><div class='strong'>Grand Total:</div> R$grandTotal</h4>";
-    $cartDisplay .= "</div><input type='submit' class='clear-cart button wishlist-buttons checkout-cart-button' value='Checkout' /> </form></div>";
+    $cartDisplay .= "</div><input type='submit' class='clear-cart button checkout-cart-button' value='Checkout' /> </form></div>";
 
    return $cartDisplay;
   }

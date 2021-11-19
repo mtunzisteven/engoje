@@ -225,7 +225,7 @@ input, textarea, button, a {
   height: 60px;
   line-height: 60px;
   padding: 0;
-  margin-bottom: 40px;
+  margin-bottom: 0;
   max-width: 100%;
   -webkit-box-shadow: 0 2px 5px 1px #929292;
           box-shadow: 0 2px 5px 1px #929292;
@@ -2901,7 +2901,7 @@ footer.footerspacer {
 
 .cart-display-table-summary form.cart-checkout-form input[type=submit] {
   text-align: center;
-  min-width: 300px;
+  min-width: 200px;
   min-height: 60px;
   line-height: 24px;
   font-size: 24px;
@@ -4370,6 +4370,8 @@ main.short-content footer {
   }
   .cart-display-table-summary form.cart-checkout-form input[type=submit] {
     margin: 0 0 20px auto;
+    max-width: 250px;
+    font-size: 18px;
   }
 }
 /*# sourceMappingURL=styles.css.map */

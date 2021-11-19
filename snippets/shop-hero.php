@@ -1,4 +1,4 @@
-<main class="header-bottom shop-hero">
+<main class="header-bottom shop-hero mt-5">
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 
         <div class="carousel-inner">
