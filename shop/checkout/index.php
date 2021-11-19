@@ -174,7 +174,7 @@ switch ($action){
                             updateShippingnGrandT($_SESSION['orderId'], $_SESSION['shippingId'], $_SESSION['grandTotal']);
 
                             // build the checkout display
-                            $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo, $saleItems);
+                            $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
 
                         } else{ // if they do not match, delete the db order and restart the process
 
@@ -184,7 +184,7 @@ switch ($action){
                                 $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems, $_SESSION['grandTotal'] );
 
                                 // build the checkout display
-                                $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo, $saleItems);
+                                $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
 
                             }
                         }
@@ -195,7 +195,7 @@ switch ($action){
                         $_SESSION['orderId'] = addOrder($userId, $order_items, $_SESSION['shippingId'], $checkoutDate, $numberOfItems, $_SESSION['grandTotal']);
 
                         // build the checkout display
-                        $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo, $saleItems);
+                        $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
 
 
                     }

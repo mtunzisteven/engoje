@@ -5,21 +5,18 @@ function checkEmail($clientEmail){
 
  return $valEmail;
 }
-
 // Check the password for a minimum of 8 characters,
- // at least one 1 capital letter, at least 1 number and
- // at least 1 special character
+// at least one 1 capital letter, at least 1 number and
+// at least 1 special character
 function checkPassword($clientPassword){
     $pattern = '/^(?=.*[[:digit:]])(?=.*[[:punct:]])(?=.*[A-Z])(?=.*[a-z])([^\s]){8,}$/';
     return preg_match($pattern, $clientPassword);
 }
-
 //CHeck that the price is entered as a float
 function checkPrice($invPrice){
     $pattern = '/\d+(\.\d{2})?/';
     return preg_match($pattern, $invPrice);
 }
-
 // Build a multi user display view
 function buildUsersDisplay($users){
 
@@ -41,8 +38,6 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     $grandTotal = 0;
 
     $_SESSION['order'] = "";
-
-    //var_dump($_SESSION['sale_product_entryId']); exit;
 
     foreach($cartDetails as $cartItem){
 
@@ -244,7 +239,7 @@ function buildWishlistDisplay($wishlistDetails){
 
         }
 
-        $wishlistItem .= "
+        $wishlistDisplay .= "
                         <div class='container mt-3'>
                             <div class='row'>
                                 <div class='col'>
@@ -260,10 +255,10 @@ function buildWishlistDisplay($wishlistDetails){
                                 </div>
                             </div>
                         </div>
-                        <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$wishlistItem[product_entryId]'>Delete</a></div>
+                        <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'>Delete</a></div>
                         ";
 
-        $wishlistItem .= "<div class='seperator'></div>";
+        $wishlistDisplay .= "<div class='seperator'></div>";
 
     }
 
@@ -280,7 +275,7 @@ function buildWishlistDisplay($wishlistDetails){
   }
 
 // Build a cart view display view
-function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo, $saleItems){
+function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo){
 
     //var_dump($userDetails); exit;
 
@@ -340,39 +335,31 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     // go through each cart item
     foreach($checkoutDetails as $cartItem){
 
-        // go through each item on sale
-        foreach($saleItems as $saleItem){
             
-            // if you find an item in the cart that is on sale, display it. Use $saleItem[salePrice] instead of cartItem[price]
-            if($cartItem['price'] == $saleItem['price'] && $cartItem['product_entryId'] == $saleItem['product_entryId']){
+        $saleItem = getSaleItem($cartItem['product_entryId']);
 
-                $lineTotal = $saleItem['salePrice']*$cartItem['cart_item_qty'];
-    
-                $grandTotal += $lineTotal;
-    
-                $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
-                $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
-                $checkoutDisplay .= "<div class='summary-product-price'>R".$saleItem['salePrice']*$cartItem['cart_item_qty']."</div></div>"; 
-    
-            }else{
-    
-                $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
-    
-                $grandTotal += $lineTotal;
-    
-                $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
-                $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
-                $checkoutDisplay .= "<div class='summary-product-price'>R".$cartItem['price']*$cartItem['cart_item_qty']."</div></div>"; 
-    
-            }
+        $price = $cartItem['price'];
+
+
+        if($saleItem){ // for sale items, show the correct price
+
+            $price =  $saleItem['salePrice'];
 
         }
+
+        $lineTotal = $price*$cartItem['cart_item_qty'];
+
+        $grandTotal += $lineTotal;
+
+        $checkoutDisplay .= "<div class='cart-item'><div class='summary-product-names'>$cartItem[productName]</div>"; 
+        $checkoutDisplay .= "<div class='summary-product-qty'>$cartItem[cart_item_qty]</div>"; 
+        $checkoutDisplay .= "<div class='summary-product-price'>R".$price*$cartItem['cart_item_qty']."</div></div>"; 
     }
 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
     $checkoutDisplay .= "<div class='summary-product-shipping'><div>Shipping  </div><div>$shippingInfo[period]: R$shippingInfo[price]</div></div>"; 
     $checkoutDisplay .= "<div class='seperator'></div>"; 
-    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 id='grand-total-display' class='cart-total'>R$_SESSION[grandTotal]</h2></div>"; 
+    $checkoutDisplay .= "<div class='summary-product-total'><h2>Total:  </h2><h2 id='grand-total-display' class='cart-total'>R$grandTotal</h2></div>"; 
     $checkoutDisplay .= "<input type='hidden' id='shipping-fee' value='$shippingInfo[price]' />"; 
 
 
@@ -433,8 +420,9 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                           Pop up forms                                             //
+    //                                           Popupforms                                               //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/engoje/checkout/?action=new-shipping-address' method='POST'>";
     $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
     $checkoutDisplay .= "<h1> Enter New Shipping Address:</h1>"; 
@@ -453,6 +441,9 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
     $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  
     $checkoutDisplay .= "</form></div>"; 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                         Popupforms end                                             //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // confirm adjusted order pop up
     $checkoutDisplay .= "<div id='popupCard' class='hidden'><form class=' new-address-form' >";
@@ -710,8 +701,6 @@ function buildUserUpdateNav(){
 
     return $updateNav;
 }
-
-
 //  Build User Update Admin Nav display
 function buildUserUpdateDisplay($userInfo){
 
@@ -759,8 +748,6 @@ function buildUserUpdateDisplay($userInfo){
     return $userUpdateDisplay;
 
 }
-
-
 // Build a single user display view
 function buildUserDisplay($userInfo){
 
@@ -884,7 +871,6 @@ function buildAddresses($addresses, $addressFound){
 
     return $address;
 }
-
 // Build a product update display form for admin dashboard
 function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
     $productUpdate = "<form method='POST' action='/engoje/products/'>";
@@ -904,7 +890,6 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
 
    return $productUpdate;
 }
-
 // Build a product create display form for admin dashboard
 function buildProductCreateForm($categories, $colours, $sizes){
 
@@ -953,8 +938,6 @@ function buildProductCreateForm($categories, $colours, $sizes){
 
    return $productCreate;
 }
-
-
 // Create a dropdown list for the size variations form
 function buildDropDownList($array, $id, $name){
 
@@ -979,7 +962,6 @@ function buildDropDownList($array, $id, $name){
     return $DropDownList;
 
 }
-
 // Build the inner portion of the variation form
 function buildCreateVariationFormRows($colours, $sizes){
 
@@ -999,7 +981,6 @@ function buildCreateVariationFormRows($colours, $sizes){
 
    return $productCreate;
 }
-
 // Build the form for uploading product images
 function buildImageUploadForm($productSelect){
 
@@ -1029,8 +1010,6 @@ function buildImageUploadForm($productSelect){
     return $imageUploadForm;
 
 }
-
-
 // Build the form for uploading product images
 function buildProductImageUploadForm($product){
 
@@ -1047,7 +1026,6 @@ function buildProductImageUploadForm($product){
     return $imageUploadForm;
 
 }
-
 // Build the form for uploading product images
 function buildSecondaryImageUploadForm($product){
 
@@ -1064,8 +1042,6 @@ function buildSecondaryImageUploadForm($product){
     return $imageUploadForm;
 
 }
-
-
 // Build product swatches display for product details view
 function buildProductSwatchesDisplay($products, $swatch){
 
@@ -1111,7 +1087,6 @@ function buildProductSwatchesDisplay($products, $swatch){
     return $swatchDisplay;
 
 }
-
 // Build a product display card for shop views
 function buildproductDisplay($product, $saleItems){
 
@@ -1181,7 +1156,6 @@ function buildproductDisplay($product, $saleItems){
 
     }
 }
-
 // Build a product archive block
 function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems){
 
@@ -1321,8 +1295,6 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 return $dv;
 
 }
-
-
 // Build a product archive block
 function buildRelatedProductsDisplay($products, $saleItems){
 
@@ -1344,8 +1316,6 @@ function buildRelatedProductsDisplay($products, $saleItems){
     return $dv;
 
 }
-
-
 // build search display
 function searchDisplay($products){
 
@@ -1370,7 +1340,6 @@ function searchDisplay($products){
 
     return $searchDisplay;
 }
-
 // build a shop side bar display
 function buildShopSidebarCategory($categories, $selected){
 
@@ -1412,7 +1381,6 @@ function buildShopSidebarCategory($categories, $selected){
     return $sidebar;
 
 }
-
 // build a shop side bar display
 function buildShopSidebarPrice($minPrice, $maxPrice){
 
@@ -1430,7 +1398,6 @@ function buildShopSidebarPrice($minPrice, $maxPrice){
     return $sidebar;
 
 }
-
 function buildShopSidebarColour($products, $colour){
 
     // colour section
@@ -1445,7 +1412,6 @@ function buildShopSidebarColour($products, $colour){
     return $sidebar;
 
 }
-
 function buildShopSidebarSize($products, $size){
 
     // colour section
@@ -1555,7 +1521,7 @@ function uploadFile($name) {
 
    }
 
-   // Handles the file upload process and returns the path
+// Handles the file upload process and returns the path
 // The file path is stored into the database
 function uploadFiles($name, $i) {
     // Gets the paths, full and local directory
@@ -1704,7 +1670,7 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
 // Build customer reviews for admin and vehicle-details views
 // Only client's reviews appear in admin view while all car's
 // reviews will appear in vehicle-details view
-   function customerReviews($reviews){
+function customerReviews($reviews){
 
        $loggedinClientId = 0;
 
@@ -1746,7 +1712,6 @@ function resizeImage($old_image_path, $new_image_path, $max_width, $max_height) 
     return $cutomerReviews;
 
    }
-
    // remove dupplication in cart by compounding the quantities of the same product entry
    function sumCartQuantities($duplicatedCartDetails){
 
@@ -1806,8 +1771,6 @@ function generateSignature($data, $passPhrase = null) {
     }
     return md5( $getString );
 } 
-
-
 // sum db array item quantities
 function sumValues($array, $key, $newValue){
 
@@ -1820,7 +1783,6 @@ function sumValues($array, $key, $newValue){
 
     return $sum;
 }
-
 // sum db array items
 function sumAllValues($array, $key){
 
@@ -1833,8 +1795,6 @@ function sumAllValues($array, $key){
 
     return $sum;
 }
-
-
 // check if item value in array items exist
 function checkIfValueExists($array, $key, $value){
 
@@ -1848,7 +1808,6 @@ function checkIfValueExists($array, $key, $value){
 
     return false;  // returns this value if nothing is found
 }
-
 // get index of item that is equal to the value
 function getIndexFromArr($array, $key, $value){
 
@@ -1865,9 +1824,6 @@ function getIndexFromArr($array, $key, $value){
 
     return $index;
 }
-
-
-
 // admin side nav active tab array
 $active_tabs = [
     'account'=>'',

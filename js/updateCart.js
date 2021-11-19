@@ -42,6 +42,7 @@ function myFunction(mediaQuery) {
       
         updateCart.addEventListener('click', function(event){
 
+            // get the id value of the checked shipping option
             const checkedRadio = [...document.querySelectorAll('.shippingId')].filter(button => button.checked).map(button => button.value);
 
             let totalHolder = 0;
@@ -50,7 +51,7 @@ function myFunction(mediaQuery) {
 
             for(let i = 0; i < cartItemQty.length; i++){
 
-                cartUpdateArr.push(parseInt(cartItemQty[i].value));
+                cartUpdateArr.push(parseInt(cartItemQty[i].value)); //add the item quantities to array
 
                 lineTotals[i].innerHTML = parseInt(cartItemQty[i].value)*parseInt(prices[i].textContent);
 
@@ -58,6 +59,26 @@ function myFunction(mediaQuery) {
             }
 
             grandTotal.innerHTML = totalHolder;
+
+            
+            if(checkedRadio > 0){ // if there was a checked shipping method selected its id would be greater than 0
+
+
+                // get the innerText in grand total defined above and sum it with the value of the hidden input element with
+                // the same shipping id as the shipping method selected. id name of the input is a combination of 'shipppingId' and the actual id.
+                let total = parseInt(totalHolder) + parseInt(document.querySelector('#shippingId'+checkedRadio).value);
+
+                // set the inner text axactly as it is in the html with a new total calculated above.
+                grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
+
+            }else{
+
+                let total = parseInt(grandTotal.innerHTML);
+
+                // set the inner text axactly as it is in the html with a new total calculated above.
+                grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
+
+            }
 
             let cartUpdateData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
             cartUpdateData.append('action', 'update-cart');                    // add the action that will be used by the case selection in the controller
@@ -78,24 +99,6 @@ function myFunction(mediaQuery) {
                 
                 cartCount.innerHTML = text;
                 mcartCount.innerHTML = text;
-
-                if(checkedRadio > 0){
-
-                    // get the innerText in grand total defined above and sum it with the value of the hidden input element with
-                    // the same shipping id as the shipping method selected. id name of the input is a combination of 'shipppingId' and the actual id.
-                    let total = parseInt(totalHolder) + parseInt(document.querySelector('#shippingId'+checkedRadio).value);
-
-                    // set the inner text axactly as it is in the html with a new total calculated above.
-                    grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
-
-                }else{
-
-                    let total = parseInt(grandTotal.innerHTML);
-
-                    // set the inner text axactly as it is in the html with a new total calculated above.
-                    grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${totalHolder}`;
-
-                }
 
             })
             .catch(error => console.log(error))

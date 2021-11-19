@@ -9,8 +9,8 @@
         session_start();
     }
 
-    $pageName ="Shop"; 
-    $pageShortSummary = "Wishlist";
+    $pageName ="Wishlist"; 
+    $pageShortSummary = "Shopping wishlist";
     $pageDescription = "";
 
     ?><!DOCTYPE html>

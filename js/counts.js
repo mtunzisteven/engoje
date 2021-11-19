@@ -133,21 +133,38 @@ fetch(wurl, {
 function isNumber(mainCount, mobileCount, text){
 
 
+
     if(text.length <= 3){
         if(text > 9){
+            
+            if(mainCount != null){
+                mainCount.innerHTML = "9+";
+            }
 
-            mainCount.innerHTML = "9+";
-            mobileCount.innerHTML = "9+";
+            if(mobileCount != null){
+                mobileCount.innerHTML = "9+";
+            }
 
         }else{
 
-            mainCount.innerHTML = text;
-            mobileCount.innerHTML =text;
+            if(mainCount != null){
+                mainCount.innerHTML = text;
+            }
+
+            if(mobileCount != null){
+                mobileCount.innerHTML = text;
+            }
         }
 
     }else{
-        mainCount.innerHTML = "!";
-        mobileCount.innerHTML = "!";
+
+        if(mainCount != null){
+            mainCount.innerHTML = "!";
+        }
+
+        if(mobileCount != null){
+            mobileCount.innerHTML = "!";
+        }
     }
 
 }

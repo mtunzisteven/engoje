@@ -49,7 +49,7 @@
     </div>
 </nav>
 
-<?php if($pageName != 'Cart'){ ?>
+<?php if($pageName != 'Cart' && $pageName != 'Wishlist'){ ?>
 
   <div class="bottom-nav-container">
       <a class='nav-hamburger-account user' href='/engoje/shop' title='Your Account'><i class="fas fa-store-alt"></i></a>
