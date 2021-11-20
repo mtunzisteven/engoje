@@ -17,9 +17,33 @@
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
         ?>
-        <div class="shop sale-shop">
+        <div class="shop">
+
+            <div class="side-bar">
+
+                <?php
+
+                    // Display the shop products
+                    if(isset($sidebarDisplay)){
+                    
+                        if(isset($_SESSION['sidebarDisplay'])){
+
+                            echo $_SESSION['sidebarDisplay'];
+
+                            unset($_SESSION['sidebarDisplay']);
+
+                        }else{
+                            echo $sidebarDisplay;
+                        }
+
+                    }
+
+
+                ?>
+
+            </div>
             
-            <div class='shop-products-archive sale'>
+            <div class='shop-products-archive'>
                 <?php 
 
                     // Display the shop products

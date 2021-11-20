@@ -833,8 +833,8 @@ div#checkout-header img {
 
 .shop .side-bar {
   width: 85%;
-  border: 1px solid #d8d5d5;
   border-radius: 3px;
+  padding-left: 30px;
   margin: 10px 10px;
 }
 
@@ -885,8 +885,7 @@ div#checkout-header img {
           align-items: center;
   width: 95%;
   margin: 10px auto 70px auto;
-  padding: 5px 2.5%;
-  border: 1px solid #d8d5d5;
+  padding: 5px 5px;
   border-radius: 3px;
 }
 
@@ -3615,28 +3614,15 @@ main.short-content footer {
     color: #3a3939;
   }
   .shop {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: start;
+    display: table;
+    min-width: 93%;
     max-width: 93%;
     margin: 10px auto;
     background-color: #fdfdfd;
     padding: 5px;
   }
   .shop .side-bar {
-    min-height: 1317px;
+    display: table-cell;
     width: 23%;
     max-width: 28%;
   }
@@ -3660,7 +3646,7 @@ main.short-content footer {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    width: 76%;
+    min-width: 76%;
     margin: 10px auto;
   }
   .shop div.shop-products-archive .shop-products {

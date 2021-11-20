@@ -823,8 +823,9 @@ div#checkout-header{
 
     & .side-bar{
         width:85%;
-        border: 1px solid $darker-background-color;
+        // border: 1px solid $darker-background-color;
         border-radius: 3px;
+        padding-left: 30px;
         margin:10px 10px;
 
         & form.category-form{
@@ -854,15 +855,14 @@ div#checkout-header{
                 }
             }
         }
-
     }
 
     & div.shop-products-archive{
         @include flex(column, space-between, center);
         width:95%;
         margin:10px auto 70px auto;
-        padding:5px 2.5%;
-        border: 1px solid $darker-background-color;
+        padding:5px 5px;
+        // border-left: 1px solid $darker-background-color;
         border-radius: 3px;
 
         & div.shop-products-filtersOrder{
@@ -2840,14 +2840,15 @@ form.login-form{
         }
 
         .shop{
-            @include flex(row, space-between, start);
+            display: table;
+            min-width: 93%;
             max-width:93%;
             margin: 10px auto;
             background-color: $background-color;
             padding:5px;
 
             & .side-bar{
-                min-height: 1317px;
+                display: table-cell;
                 width:23%;
                 max-width:28%;
 
@@ -2861,7 +2862,7 @@ form.login-form{
 
             & div.shop-products-archive{
                 @include flex(column, space-between, center);
-                width:76%;
+                min-width:76%;
                 margin: 10px auto;
                 
 
