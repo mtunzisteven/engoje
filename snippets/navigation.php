@@ -40,7 +40,7 @@
                 echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count' id='cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
             } else{
-                echo "<a class='account  signin' href='/engoje/accounts?action=login' title='Your Account'>Sign In</a>";
+                echo "<a class='account  signin' href='/engoje/accounts?action=login' title='Your Account'>Sign in</a>";
                 echo "<a class='nav-hamburger-account shopping-wishlist' href='/engoje/wishlist?action=wishlist'><div class='wishlist-count' id='wishlist-count'>0</div><i class='bi bi-heart-fill'></i></a>";
                 echo "<a class='nav-hamburger-account shopping-cart' href='/engoje/cart?action=cart'><div class='cart-count'  id='cart-count'>0</div><i class='bi bi-cart-fill'></i></a>";
 
