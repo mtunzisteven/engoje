@@ -41,7 +41,8 @@ cancel.addEventListener('click', function(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let payfastForm = document.querySelector('#payfastForm');
-let payfastButton = document.querySelector('#payfastButton');
+let payNowButton = document.querySelector('#payfastButton');
+let _csrfToken = document.querySelector('#_csrf');
 let popupCard = document.querySelector('#popupCard');
 let popupCardtext = document.querySelector('#popupCardtext');
 let popupCardNo = document.querySelector('#popupCardNo');
@@ -51,7 +52,7 @@ let shippingFee = document.querySelector('#shipping-fee').value;
 let reload = document.querySelector('#redirect');
 
 // process order and submit payfast form
-payfastButton.addEventListener('click', function(){
+payNowButton.addEventListener('click', function(){
 
     let url = "/engoje/checkout/";
 
@@ -59,7 +60,7 @@ payfastButton.addEventListener('click', function(){
     
     orderData.append('orderTotal', payfastForm['amount'].value);             // add the payment total to data
     orderData.append('action', 'paynow');                   // add the action that will be used by the case selection in the controller
-
+    orderData.append('_csrf', _csrfToken.value);
 
     fetch(url, {
         method: 'POST',
@@ -67,16 +68,24 @@ payfastButton.addEventListener('click', function(){
     })
     .then(response=>{
         if(response.ok){
+
             return response;
         }
         throw Error(response.statusText);
     })
-    .then(response=>response.json())
+    .then(response=> response.json())
     .then(data=>{
 
         if(data['message'] == 1){
 
             payfastForm.submit();
+
+        }
+        else if(data['message'] == 0){
+
+            popupCard.setAttribute('class', 'address-form-container');
+            popupCardtext.innerHTML = 'There appears to be an error with your RTCPeerConnection. It does not appear to be secure, please fix this and try again later.';
+
 
         }else{
 

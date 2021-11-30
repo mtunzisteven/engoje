@@ -28,8 +28,7 @@ function buildUsersDisplay($users){
     }
 
    return $userRows;
-  }
-
+}
 // Build a cart view display view
 function buildCartDisplay($cartDetails, $shippingInfo){
 
@@ -103,66 +102,66 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     //                             mobile cart                              //
     //////////////////////////////////////////////////////////////////////////
 
-    $cartDisplay .= "<div class='mobile-cart bg-white my-3 py-3'>";
+        $cartDisplay .= "<div class='mobile-cart bg-white my-3 py-3'>";
 
-    foreach($cartDetails as $cartItem){
+        foreach($cartDetails as $cartItem){
 
-        $saleItem = getSaleItem($cartItem['product_entryId']);
+            $saleItem = getSaleItem($cartItem['product_entryId']);
 
-        $price = $cartItem['price'];
+            $price = $cartItem['price'];
 
 
-        if($saleItem){ // for sale items, show the correct price
+            if($saleItem){ // for sale items, show the correct price
 
-            $price =  $saleItem['salePrice'];
+                $price =  $saleItem['salePrice'];
+
+            }
+
+            if($_SESSION['order'] == ""){
+
+                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$price.",".$cartItem['cart_item_qty'];
+            
+            }else{
+
+                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$price.",".$cartItem['cart_item_qty'];
+
+            }
+
+
+            $lineTotal = $price*$cartItem['cart_item_qty'];
+
+            $cartDisplay .= "
+                            <div class='container mt-3'>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' >
+                                            <img width='110' height='110' src='$cartItem[imagePath_tn]'>
+                                        </a>
+                                    </div>
+                                    <div class='col cart-information'>
+                                    <div class='cart-product-title'>$cartItem[productName]</div>
+                                    <span class='cart-swatches'>Colour: </span><span>$cartItem[colour]</span></br>
+                                    <span class='cart-swatches'>Size: </span><span>$cartItem[sizeValue]</span>
+                                    <div class='cart-price'>R<span class='pricem'>$price</span></div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='container w-50 my-3  mx-auto'>
+                                <div class='buttoned-div row'>
+                                    <button class='button oneDownm col'>-</button>
+                                    <input type='number' class='cart-item-qtym validity col text-center w-50' name='cart_item_qtym' value='$cartItem[cart_item_qty]' min=1 />
+                                    <button class='button oneUpm col'>+</button>
+                                </div>
+                            </div>
+                            <input type='hidden' class='line-totalm' value='$lineTotal' />
+                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'>Delete</a></div>
+                            ";
+
+            $cartDisplay .= "<div class='seperator'></div>";
 
         }
 
-        if($_SESSION['order'] == ""){
-
-            $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$price.",".$cartItem['cart_item_qty'];
-        
-        }else{
-
-            $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$price.",".$cartItem['cart_item_qty'];
-
-        }
-
-
-        $lineTotal = $price*$cartItem['cart_item_qty'];
-
-        $cartDisplay .= "
-                        <div class='container mt-3'>
-                            <div class='row'>
-                                <div class='col'>
-                                    <a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' >
-                                        <img width='110' height='110' src='$cartItem[imagePath_tn]'>
-                                    </a>
-                                </div>
-                                <div class='col cart-information'>
-                                <div class='cart-product-title'>$cartItem[productName]</div>
-                                <span class='cart-swatches'>Colour: </span><span>$cartItem[colour]</span></br>
-                                <span class='cart-swatches'>Size: </span><span>$cartItem[sizeValue]</span>
-                                <div class='cart-price'>R<span class='pricem'>$price</span></div>  
-                                </div>
-                            </div>
-                        </div>
-                        <div class='container w-50 my-3  mx-auto'>
-                            <div class='buttoned-div row'>
-                                <button class='button oneDownm col'>-</button>
-                                <input type='number' class='cart-item-qtym validity col text-center w-50' name='cart_item_qtym' value='$cartItem[cart_item_qty]' min=1 />
-                                <button class='button oneUpm col'>+</button>
-                            </div>
-                        </div>
-                        <input type='hidden' class='line-totalm' value='$lineTotal' />
-                        <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'>Delete</a></div>
-                        ";
-
-        $cartDisplay .= "<div class='seperator'></div>";
-
-    }
-
-    $cartDisplay .= "</div>";
+        $cartDisplay .= "</div>";
 
     /////////////////////////////////////////////////////////////////////////////
     //                             mobile cart end                             //
@@ -187,9 +186,9 @@ function buildCartDisplay($cartDetails, $shippingInfo){
     $cartDisplay .= "</div><input type='submit' class='clear-cart button checkout-cart-button' value='Checkout' /> </form></div>";
 
    return $cartDisplay;
-  }
 
-  // Build a cart view display view
+}
+// Build a cart view display view
 function buildWishlistDisplay($wishlistDetails){
 
     $wishlistDisplay = "<div id='cart' class='cart-display-table'><div class='cart-display-table-row'><div>Product</div><div>Name</div><div>Colour</div><div>Size</div><div>Price</div><div>Remove Item</div></div>";
@@ -223,46 +222,46 @@ function buildWishlistDisplay($wishlistDetails){
     //                             mobile wishlist                              //
     //////////////////////////////////////////////////////////////////////////////
 
-    $wishlistDisplay .= "<div class='mobile-cart bg-white my-3 py-3'>";
+        $wishlistDisplay .= "<div class='mobile-cart bg-white my-3 py-3'>";
 
-    foreach($wishlistDetails as $wishlistItem){
-
-
-        $saleItem = getSaleItem($wishlistItem['product_entryId']);
-
-        $price = $wishlistItem['price'];
+        foreach($wishlistDetails as $wishlistItem){
 
 
-        if($saleItem){ // for sale items, show the correct price
+            $saleItem = getSaleItem($wishlistItem['product_entryId']);
 
-            $price =  $saleItem['salePrice'];
+            $price = $wishlistItem['price'];
+
+
+            if($saleItem){ // for sale items, show the correct price
+
+                $price =  $saleItem['salePrice'];
+
+            }
+
+            $wishlistDisplay .= "
+                            <div class='container mt-3'>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <a href='/engoje/shop?action=product&productId=$wishlistItem[productId]&product_entryId=$wishlistItem[product_entryId]&colour=$wishlistItem[colour]' >
+                                            <img width='110' height='110' src='$wishlistItem[imagePath_tn]'>
+                                        </a>
+                                    </div>
+                                    <div class='col cart-information'>
+                                    <div class='cart-product-title'>$wishlistItem[productName]</div>
+                                    <span class='cart-swatches'>Colour: </span><span>$wishlistItem[colour]</span></br>
+                                    <span class='cart-swatches'>Size: </span><span>$wishlistItem[sizeValue]</span>
+                                    <div class='cart-price'>R<span class='pricem'>$price</span></div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'>Delete</a></div>
+                            ";
+
+            $wishlistDisplay .= "<div class='seperator'></div>";
 
         }
 
-        $wishlistDisplay .= "
-                        <div class='container mt-3'>
-                            <div class='row'>
-                                <div class='col'>
-                                    <a href='/engoje/shop?action=product&productId=$wishlistItem[productId]&product_entryId=$wishlistItem[product_entryId]&colour=$wishlistItem[colour]' >
-                                        <img width='110' height='110' src='$wishlistItem[imagePath_tn]'>
-                                    </a>
-                                </div>
-                                <div class='col cart-information'>
-                                <div class='cart-product-title'>$wishlistItem[productName]</div>
-                                <span class='cart-swatches'>Colour: </span><span>$wishlistItem[colour]</span></br>
-                                <span class='cart-swatches'>Size: </span><span>$wishlistItem[sizeValue]</span>
-                                <div class='cart-price'>R<span class='pricem'>$price</span></div>  
-                                </div>
-                            </div>
-                        </div>
-                        <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'>Delete</a></div>
-                        ";
-
-        $wishlistDisplay .= "<div class='seperator'></div>";
-
-    }
-
-    $wishlistDisplay .= "</div>";
+        $wishlistDisplay .= "</div>";
 
     /////////////////////////////////////////////////////////////////////////////////
     //                             mobile wishlist end                             //
@@ -272,12 +271,11 @@ function buildWishlistDisplay($wishlistDetails){
 
     return $wishlistDisplay;
 
-  }
-
+}
 // Build a cart view display view
 function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, $shippingInfo){
 
-    //var_dump($userDetails); exit;
+    $_SESSION['csrfToken'] = random_int(100000, 1000000);
 
     $grandTotal = $shippingInfo['price'];
 
@@ -365,7 +363,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                            Payfatst                                                //
+    //                                            Payfast                                                 //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Construct variables
@@ -406,12 +404,14 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
             $htmlForm .= '<input name="'.$name.'" type="hidden" value=\''.$value.'\' />';
         }
         $htmlForm .= "<input id='order' type='hidden' name='order' value='$order' />";
+
         // this is not for payfast, but for internal use.
         $htmlForm .= "<input id='orderTotal' type='hidden' name='orderTotal' value='$grandTotal' />";
+        $htmlForm .= "<input id='_csrf' type='hidden' name='_csrf' value='$_SESSION[csrfToken]' />";
         $htmlForm .= '<input id="payfastButton" type="button" class="button" value="Pay Now" /></form>';
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                         Payfatst   End                                             //
+    //                                         Payfast   End                                              //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $checkoutDisplay .= "</div>$htmlForm</div></div>";
@@ -423,24 +423,24 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     //                                           Popupforms                                               //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/engoje/checkout/?action=new-shipping-address' method='POST'>";
-    $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
-    $checkoutDisplay .= "<h1> Enter New Shipping Address:</h1>"; 
+        $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/engoje/checkout/?action=new-shipping-address' method='POST'>";
+        $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
+        $checkoutDisplay .= "<h1> Enter New Shipping Address:</h1>"; 
 
-    $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
+        $checkoutDisplay .= "<div class='label'> Name of Person Receiving Shipment: </div> <input type='text' name='addressName' required />"; 
 
-    $checkoutDisplay .= "<div class='label'> Contact Phone Number: </div> <input type='tel' name='addressNumber' required />"; 
-    $checkoutDisplay .= "<div class='label'> Contact Email: </div> <input type='email' name='addressEmail' required />";  
-    $checkoutDisplay .= "<div class='label'> Address Line 1: </div> <input type='text' name='addressLineOne' required />"; 
-    $checkoutDisplay .= "<div class='label'> Address Line 2: </div> <input type='text' name='addressLineTwo' required />"; 
-    $checkoutDisplay .= "<div class='label'> City: </div> <input type='text' name='addressCity' required />";  
-    $checkoutDisplay .= "<div class='label'> Zip Code: </div> <input type='text' name='addressZipCode' required />"; 
+        $checkoutDisplay .= "<div class='label'> Contact Phone Number: </div> <input type='tel' name='addressNumber' required />"; 
+        $checkoutDisplay .= "<div class='label'> Contact Email: </div> <input type='email' name='addressEmail' required />";  
+        $checkoutDisplay .= "<div class='label'> Address Line 1: </div> <input type='text' name='addressLineOne' required />"; 
+        $checkoutDisplay .= "<div class='label'> Address Line 2: </div> <input type='text' name='addressLineTwo' required />"; 
+        $checkoutDisplay .= "<div class='label'> City: </div> <input type='text' name='addressCity' required />";  
+        $checkoutDisplay .= "<div class='label'> Zip Code: </div> <input type='text' name='addressZipCode' required />"; 
 
-    $checkoutDisplay .= "<input type='hidden' name='orderNumber' value='$orderId' />"; 
-    $checkoutDisplay .= "<input type='hidden' name='userId' value='".$userDetails[0]['userId']."' />"; 
-    $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
-    $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  
-    $checkoutDisplay .= "</form></div>"; 
+        $checkoutDisplay .= "<input type='hidden' name='orderNumber' value='$orderId' />"; 
+        $checkoutDisplay .= "<input type='hidden' name='userId' value='".$userDetails[0]['userId']."' />"; 
+        $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
+        $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  
+        $checkoutDisplay .= "</form></div>"; 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                         Popupforms end                                             //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,9 +457,8 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 
     return $checkoutDisplay;
 
-  }
-
-  // Build a cart view display view
+}
+// Build a cart view display view
 function buildCheckoutAddressDisplay(){
 
     $checkoutAddressDisplay = "<form class='checkout-address' action='/engoje/shop/checkout/?action=addressed' method='POST' ><div id='checkout' class='checkout-display-form address' >";
@@ -474,7 +473,7 @@ function buildCheckoutAddressDisplay(){
     $checkoutAddressDisplay .= "<div class='checkout-label'> City<input type='text' name='bcity' required /></div>"; 
     $checkoutAddressDisplay .= "<div class='checkout-label'>Zip Code<input type='number' name='bzipCode' required /></div>"; 
         
-   
+
     $checkoutAddressDisplay .= "</div>";      
         
     $checkoutAddressDisplay .= "<div class='address-column'>"; 
@@ -495,9 +494,7 @@ function buildCheckoutAddressDisplay(){
 
     return $checkoutAddressDisplay;
 
-  }
-  
-
+}
 // Build a multi product display table on admin dashboard
 function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 
@@ -554,9 +551,7 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
     }
 
    return $productRows;
-  }
-
-  
+}  
 // Build a multi product display table on admin dashboard
 function  buildordersAdminTable($orders){
 
@@ -681,8 +676,7 @@ function  buildordersAdminTable($orders){
         return "";
 
     }
-  }
-
+}
 //  Build User Update Admin Nav display
 function buildUserUpdateNav(){
 
@@ -764,8 +758,7 @@ function buildUserDisplay($userInfo){
     $userDisplay .= "</form>";
 
    return $userDisplay;
-  }
-
+}
 // Build a Address adding or update form view
 function buildAddressForm($address, $addressFound){
 
@@ -815,8 +808,7 @@ function buildAddressForm($address, $addressFound){
     //var_dump($addressType); exit;
 
     return $form;
-  }
-
+}
 //  Build Address display
 function buildAddresses($addresses, $addressFound){
 
@@ -1292,7 +1284,7 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
         </ul>
     </nav>";
 
-return $dv;
+    return $dv;
 
 }
 // Build a product archive block

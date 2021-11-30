@@ -23,7 +23,7 @@
                     echo $message;
                 }
 
-                $_SESSION['csrfToken'] = random_int(100000, 999999);
+                $_SESSION['csrfToken'] = random_int(100000, 1000000);
                 ?>
 
             <div class="container shadow-lg w-sm-100 w-75">

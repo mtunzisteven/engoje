@@ -25,9 +25,6 @@ require_once '../model/accounts-model.php';
 // Get the products orders model for use as needed
 require_once '../model/orders-model.php';
 
-// Build Admin Side Nav
-$adminSideNav = buildAdminSideNav();
-
 // Fetch all products and bring them to scope of all cases
 $products = getShopProducts();
 
@@ -104,6 +101,8 @@ switch ($action){
         break;
 
     case 'paynow':
+
+        $csrfToken = filter_input(INPUT_POST, '_csrf', FILTER_SANITIZE_NUMBER_INT);
 
         if(isset($_SESSION['userData'])){
 
@@ -298,9 +297,19 @@ switch ($action){
                 // no out of stock items or stock amount adjustment in order. Perfect order!
                 else{
 
-                    unset($_SESSION['shippingId'], $_SESSION['cart'], $_SESSION['orderId'], $_SESSION['order']);
+                    // make sure the Payfast form changed the csrf token and it is correct.
+                    if($_SESSION['csrfToken'] == $csrfToken){
 
-                    $response['message'] = 1;
+                        unset($_SESSION['shippingId'], $_SESSION['cart'], $_SESSION['orderId'], $_SESSION['order']);
+
+                        $response['message'] = 1;
+
+                    } // if csrf token is incorrect, do not proceed
+                    else{
+
+                        $response['message'] = 0;
+
+                    }
                         
                 }
 
