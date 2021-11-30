@@ -37,6 +37,15 @@ $_SESSION['active_tab'] = $active_tabs;
             $userFirstName = filter_input(INPUT_POST, 'userFirstName', FILTER_SANITIZE_STRING);
             $userLastName = filter_input(INPUT_POST, 'userLastName', FILTER_SANITIZE_STRING);
             $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
+            $csrfToken = filter_input(INPUT_POST, '_csrf', FILTER_SANITIZE_NUMBER_INT);
+
+            // Check for csrf token data
+            if($csrfToken != $_SESSION['csrfToken']){
+                
+                $message = "<p class='small-notice text-center detail-span-bold'>There was an error processing your request, please try again.</p>";
+                include '../view/registration.php';
+                exit; 
+            }
            
             // Check for existing email in the database
             $existingEmail = checkforRegisteredEmail($userEmail);
@@ -148,11 +157,21 @@ $_SESSION['active_tab'] = $active_tabs;
 
         case 'Login':
             // Filter and store the data
+            $csrfToken = filter_input(INPUT_POST, '_csrf', FILTER_SANITIZE_NUMBER_INT);
             $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
             $userEmail = checkEmail($userEmail);
 
             $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
             $checkPassword = checkPassword($userPassword);
+
+            
+            // Check for csrf token data
+            if($csrfToken != $_SESSION['csrfToken']){
+                
+                $message = "<p class='small-notice text-center detail-span-bold'>There was an error processing your request, please try again.</p>";
+                include '../view/login.php';
+                exit; 
+            }
 
             // Check for missing data
             if(empty($userEmail) || empty($checkPassword)){

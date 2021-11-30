@@ -33,9 +33,7 @@ $pageDescription = "";
                 echo $message;
             }
 
-            if(isset($_SESSION['message'])){
-                echo $_SESSION['message'];
-            }
+            $_SESSION['csrfToken'] = random_int(100000, 999999);
 
         ?>
         
@@ -55,6 +53,7 @@ $pageDescription = "";
                         <input class="reg-inputs validity" type="email" name="userEmail" required  />
 
                         <input class="reg-inputs reg-button button" type="submit" name="submit" id="regbtn" value="register" />
+                        <input type="hidden" name="_csrf" value="<?php echo $_SESSION['csrfToken'] ?>" />
                         <input type="hidden" name="action" value="register">  
                         <span class='detail-span'>Have an account? login below:</span>
 

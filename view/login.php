@@ -22,7 +22,9 @@
                 if (isset($message)) {
                     echo $message;
                 }
-            ?>
+
+                $_SESSION['csrfToken'] = random_int(100000, 999999);
+                ?>
 
             <div class="container shadow-lg w-sm-100 w-75">
 
@@ -38,6 +40,7 @@
                             
                             
                             <input class="login-inputs button" type="submit" name="action" value="login" />
+                            <input type="hidden" name="_csrf" value="<?php echo $_SESSION['csrfToken'] ?>" />
                             <input type="hidden" name="action" value="Login" />
 
                             <span class='detail-span' >No account? Please register below:</span>
