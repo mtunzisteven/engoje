@@ -144,10 +144,21 @@
                     ?>
                 </div>
             </div>
+        </div>
+        <div class='hidden container related-products bg-white pt-2 px-0 pb-3 mt-2 '>
             <h1 id='product-title' class='related-title ps-3 ms-1'>Reviews</h1>
-            <div class="row">
+            <div class="shop full-shop related-products mb-1 pb-1">
+                <div class='shop-products-archive'>
+                    <?php
+                        if(isset($_SESSION['relatedProducts'])){ // do not show the add to cart button if user not signed in 
 
+                            echo $_SESSION['relatedProducts'];
+
+                        }
+                    ?>
+                </div>
             </div>
+
         </div>
         <script src='/engoje/js/swatches.js'></script>
         <script type='module' src='/engoje/js/singleproduct.js'></script>
