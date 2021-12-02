@@ -76,91 +76,115 @@ payNowButton.addEventListener('click', function(){
     .then(response=> response.json())
     .then(data=>{
 
-        if(data['message'] == 1){
-
-            payfastForm.submit();
-
-        }
-        else if(data['message'] == 0){
+        if(data['csfrTokenFound'] == 0){
 
             popupCard.setAttribute('class', 'address-form-container');
             popupCardtext.innerHTML = 'There appears to be an error with your RTCPeerConnection. It does not appear to be secure, please fix this and try again later.';
 
 
-        }else{
+        }else if(data['csfrTokenFound'] == 1){
 
-            popupCard.setAttribute('class', 'address-form-container');
-            popupCardtext.innerHTML = data['message'];
+            // When there was no stock adjustment or out of sock items
+            if(data['message'] == undefined){
 
-            // close and submit new address form
-            popupCardYes.addEventListener('click', function(){
+                // submit form
+                payfastForm.submit();
 
-                popupCard.setAttribute('class', 'hidden');
-                
-                // update cart total to pay on form
-                payfastForm['amount'].value = data['orderTotal'];
+            }else{ 
 
-                // make payment if there's anything to pay for.
-                if(payfastForm['amount'].value != shippingFee){
+                // stock adjustment or out of stock items found
 
-                    // submit form
-                    payfastForm.submit();
+                popupCard.setAttribute('class', 'address-form-container');
+                popupCardtext.innerHTML = data['message'];
 
-                }else{
+                // close and submit new address form
+                popupCardYes.addEventListener('click', function(){
 
-                    // close pop up
+                    popupCard.setAttribute('class', 'hidden');
+                    
+                    // update cart total to pay on form
+                    payfastForm['amount'].value = data['orderTotal'];
+
+                    // make payment if there's anything to pay for.
+                    if(payfastForm['amount'].value != shippingFee){
+
+                        // submit form
+                        payfastForm.submit();
+
+                        // clear cart items from db
+                        let clearCartData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+                        clearCartData.append('action', 'clear-cart');                   // add the action that will be used by the case selection in the controller
+        
+        
+                        fetch("/engoje/cart/", {
+                            method: 'POST',
+                            body: clearCartData
+                        })
+                        .then(response=>{
+                            if(response.ok){
+                                return response;
+                            }
+                            throw Error(response.statusText);
+                        })
+                        .catch(error=> console.log(error));
+
+                    }else{
+
+                        // close pop up
+                        popupCard.setAttribute('class', 'hidden');
+
+                        reload.click();
+                        
+                    }
+
+
+                }, false)
+
+                let reverseData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+                reverseData.append('action', 'reverse-qty-deduction');                   // add the action that will be used by the case selection in the controller
+
+
+                // close new form
+                popupCardNo.addEventListener('click', function(){
+
                     popupCard.setAttribute('class', 'hidden');
 
+                    fetch(url, {
+                        method: 'POST',
+                        body: reverseData
+                    })
+                    .then(response=>{
+                        if(response.ok){
+                            return response;
+                        }
+                        throw Error(response.statusText);
+                    })
+
                     reload.click();
-                    
-                }
 
+                }, false)
 
-            }, false)
+                // close new address form
+                cancelPayfastConfirm.addEventListener('click', function(){
 
-            let reverseData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
-            reverseData.append('action', 'reverse-qty-deduction');                   // add the action that will be used by the case selection in the controller
+                    popupCard.setAttribute('class', 'hidden');
 
+                    fetch(url, {
+                        method: 'POST',
+                        body: reverseData
+                    })
+                    .then(response=>{
+                        if(response.ok){
+                            return response;
+                        }
+                        throw Error(response.statusText);
+                    })
 
-            // close new form
-            popupCardNo.addEventListener('click', function(){
+                    reload.click();
 
-                popupCard.setAttribute('class', 'hidden');
+                }, false)
 
-                fetch(url, {
-                    method: 'POST',
-                    body: reverseData
-                })
-                .then(response=>{
-                    if(response.ok){
-                        return response;
-                    }
-                    throw Error(response.statusText);
-                })
-
-                reload.click();
-
-            }, false)
-
-            // close new address form
-            cancelPayfastConfirm.addEventListener('click', function(){
-
-                popupCard.setAttribute('class', 'hidden');
-
-                fetch(url, {
-                    method: 'POST',
-                    body: reverseData
-                })
-                .then(response=>{
-                    if(response.ok){
-                        return response;
-                    }
-                    throw Error(response.statusText);
-                })
-
-                reload.click();
-
-            }, false)
+            }
 
         }
     }) 

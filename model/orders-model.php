@@ -60,7 +60,7 @@ function getOrderItems($orderId){
     return $items;
 }
 
-// Get all orders  
+// Get all orders  getCartQuantityForCheckout
 function getOrders(){
     $db = engojeConnect();
     $sql = 'SELECT * FROM orders 
@@ -275,6 +275,7 @@ function addOrder($userId, $order_items, $shippingId, $orderDate, $numberOfItems
 
 
 
+    // if order created, pullmout its id
     if($result){
 
         // Get the id of the last row
@@ -339,7 +340,7 @@ function getCartEntriesForCheckout($userId){
     return  $result;
 }
 
-// The price per item on the db product_entry
+// The item quantity of an item in the cart
 function getCartQuantityForCheckout($userId, $product_entryId){
     $db = engojeConnect();
 
@@ -373,6 +374,33 @@ function updateQty($product_entryId, $amount){
 
     return $rowsChanged;
 }
+
+// // This is for updating product entry qty when shopper clicks checkout button
+// function reduceQty($product_entryId, $amount){
+//     $db = engojeConnect();
+
+//     $sql = "SELECT amount FROM product_entry
+//             WHERE product_entryId = :product_entryId";
+
+//     $stmt = $db->prepare($sql);
+//     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+//     $stmt->execute();
+//     $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//     $newQty = $result['amount'] - $amount;
+
+//     $sql = "UPDATE product_entry SET amount= :newQty WHERE product_entryId = :product_entryId";
+//     $stmt = $db->prepare($sql);
+//     $stmt->bindValue(':product_entryId', $product_entryId, PDO::PARAM_INT);
+//     $stmt->bindValue(':amount', $amount, PDO::PARAM_INT);
+//     $stmt->bindValue(':newQty', $newQty, PDO::PARAM_INT);
+
+//     $stmt->execute();
+//     $rowsChanged = $stmt->rowCount(); 
+//     $stmt->closeCursor();
+
+//     return $rowsChanged;
+// }
 
 // This is for updating product entry qty when shopper clicks pay now button
 function updateCheckoutCartQty($product_entryId, $amount, $userId){

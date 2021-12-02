@@ -38,65 +38,73 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     $_SESSION['order'] = "";
 
-    foreach($cartDetails as $cartItem){
+    /////////////////////////////////////////////////////////////////////////////
+    //                              desktop cart                               //
+    /////////////////////////////////////////////////////////////////////////////
 
-        $saleItem = getSaleItem($cartItem['product_entryId']);
+        foreach($cartDetails as $cartItem){
 
-        if($saleItem){ // for sale items, show the correct price
+            $saleItem = getSaleItem($cartItem['product_entryId']);
 
-            if($_SESSION['order'] == ""){
+            if($saleItem){ // for sale items, show the correct price
 
-                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
-            
+                if($_SESSION['order'] == ""){
+
+                    $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
+                
+                }else{
+
+                    $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
+
+                }
+
+
+                $lineTotal = $saleItem['salePrice']*$cartItem['cart_item_qty'];
+                $grandTotal += $lineTotal;
+
+                $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
+                $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+                $cartDisplay .= "<div>$cartItem[productName]</div>"; 
+                $cartDisplay .= "<div>$cartItem[colour]</div>"; 
+                $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
+                $cartDisplay .= "<div>R<span class='price'>$saleItem[salePrice]</span></div>"; 
+                $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
+                $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
+                $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+
             }else{
 
-                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$saleItem['salePrice'].",".$cartItem['cart_item_qty'];
+                if($_SESSION['order'] == ""){
+
+                    $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+                
+                }else{
+
+                    $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
+
+                }
+
+                $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
+                $grandTotal += $lineTotal;
+
+                $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
+                $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+                $cartDisplay .= "<div>$cartItem[productName]</div>"; 
+                $cartDisplay .= "<div>$cartItem[colour]</div>"; 
+                $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
+                $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
+                $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
+                $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
+                $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
             }
-
-
-            $lineTotal = $saleItem['salePrice']*$cartItem['cart_item_qty'];
-            $grandTotal += $lineTotal;
-
-            $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-            $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
-            $cartDisplay .= "<div>$cartItem[productName]</div>"; 
-            $cartDisplay .= "<div>$cartItem[colour]</div>"; 
-            $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-            $cartDisplay .= "<div>R<span class='price'>$saleItem[salePrice]</span></div>"; 
-            $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
-            $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-            $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
-
-        }else{
-
-            if($_SESSION['order'] == ""){
-
-                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
-            
-            }else{
-
-                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$cartItem['price'].",".$cartItem['cart_item_qty'];
-
-            }
-
-            $lineTotal = $cartItem['price']*$cartItem['cart_item_qty'];
-            $grandTotal += $lineTotal;
-
-            $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-            $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
-            $cartDisplay .= "<div>$cartItem[productName]</div>"; 
-            $cartDisplay .= "<div>$cartItem[colour]</div>"; 
-            $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
-            $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
-            $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
-            $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-            $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
-
         }
-    }
 
-    $cartDisplay .= '</div>';
+        $cartDisplay .= '</div>';
+        
+    /////////////////////////////////////////////////////////////////////////////
+    //                           desktop cart end                              //
+    /////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////
     //                             mobile cart                              //
@@ -116,17 +124,6 @@ function buildCartDisplay($cartDetails, $shippingInfo){
                 $price =  $saleItem['salePrice'];
 
             }
-
-            if($_SESSION['order'] == ""){
-
-                $_SESSION['order'] .= $cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$price.",".$cartItem['cart_item_qty'];
-            
-            }else{
-
-                $_SESSION['order'] .= ",".$cartItem['product_entryId'].",".$cartItem['productName'].",".$cartItem['colour'].",".$price.",".$cartItem['cart_item_qty'];
-
-            }
-
 
             $lineTotal = $price*$cartItem['cart_item_qty'];
 
@@ -333,7 +330,8 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     // go through each cart item
     foreach($checkoutDetails as $cartItem){
 
-            
+        // reduceQty($cartItem['product_entryId'], $cartItem['cart_item_qty']);
+
         $saleItem = getSaleItem($cartItem['product_entryId']);
 
         $price = $cartItem['price'];

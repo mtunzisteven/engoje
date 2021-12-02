@@ -209,8 +209,6 @@ switch ($action){
 
                 if($cartItems){
 
-                    //var_dump($cartUpdateArr); exit;
-
                     // set the cart total to zero
                     $_SESSION['cartTotal'] = 0;
 

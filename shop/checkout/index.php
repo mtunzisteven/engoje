@@ -89,29 +89,29 @@ switch ($action){
             //                          updating the order string with cart update amounts                            //
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            //string must be made an array 
-            $_SESSION['order']= explode(",", $_SESSION['order']);
+                //string must be made an array 
+                $_SESSION['order']= explode(",", $_SESSION['order']);
 
-            // iterate through array and update purchase order amounts
-            // every 4th element is an amount of an item in the order
-            // each order info takes up 5 elements in the array
-            for($i = 4; $i < count($_SESSION['order']); $i+=5){
+                // iterate through array and update purchase order amounts
+                // every 4th element is an amount of an item in the order
+                // each order info takes up 5 elements in the array
+                for($i = 4; $i < count($_SESSION['order']); $i+=5){
 
-                $product_entryId = $_SESSION['order'][$i-4];
+                    $product_entryId = $_SESSION['order'][$i-4];
 
-                // fetch all the cart items for this user
-                $cartItemsQty = getCartQuantityForCheckout($_SESSION['userData']['userId'], $product_entryId)['cart_item_qty'];
+                    // fetch each cart item qty for this user
+                    $cartItemsQty = getCartQuantityForCheckout($_SESSION['userData']['userId'], $product_entryId)['cart_item_qty'];
 
-                // actual update of quantities done by this line.
-                $_SESSION['order'][$i] = $cartItemsQty;
+                    // actual update of quantities done by this line.
+                    $_SESSION['order'][$i] = $cartItemsQty;
 
-            }
+                }
 
-            // array turned back into a string
-            $_SESSION['order']  = implode(",", $_SESSION['order']);
+                // array turned back into a string
+                $_SESSION['order']  = implode(",", $_SESSION['order']);
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //                                          updating completed                                            //
+            //                                            updating end                                                //
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // When this is a logged in user
@@ -122,6 +122,7 @@ switch ($action){
 
                 // receive order string from cart
                 $order_items = $_SESSION['order'];
+
 
                 if(isset($_POST['shippingId'])){ // When coming from cart, this will be true. Not required if reloading, as session var will be set
 
@@ -167,7 +168,6 @@ switch ($action){
                         $db_order_items = getOrderItems($_SESSION['orderId']);
 
                         // if they are identical, go on and display the checkout view
-                        // turn db_order_items to string because it comes back as ana array
                         if($order_items === $db_order_items['order_items']){
 
                             // Update shipping and grand total of order
