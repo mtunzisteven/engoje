@@ -53,15 +53,14 @@
                     // The sale icon will only appear when the product is found in the sale table.
                     // sale-circle and sale-price classed elements remain hidden unless the requirement above is met.
                                                                                                     // div.sale-circle below
-                    echo "<div class='sale-img-container'><div id='$product[product_entryId]' class='$_SESSION[hidden] sale-circle'>sale</div><img id='single-product' class='$salePrimaryImage product-primary-image' src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."'></div>";
+                    echo "<div class='sale-img-container'><div id='$product[product_entryId]' class='$_SESSION[hidden] sale-circle'>sale</div><img id='single-product' class='$salePrimaryImage product-primary-image' src='/engoje/images/placeholder.png' data-src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."' loading='lazy' /></div>";
 
                     echo "<div class='single-product-gallery'>";
 
                     foreach($_SESSION['productData'] as $productrow){
                         if($productrow['product_entryId'] == $_SESSION['productData'][$index]['product_entryId']){
 
-                            echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='".$productrow['imagePath_tn']."' alt='Gallery Image'>";
-
+                            echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='/engoje/images/placeholder.png' data-src='".$productrow['imagePath_tn']."' alt='Gallery Image' loading='lazy' />";
                         }
                     }
 

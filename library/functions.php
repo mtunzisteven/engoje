@@ -1103,21 +1103,17 @@ function buildproductDisplay($product, $saleItems){
 
             if($product['product_entryId'] == $saleItem['product_entryId'] && $days < $interval){ // if there is a product in the sale table and it is the product urrently being accessed
         
-                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='$path' alt='".$product['productName']."' /></a>";
+                $dv ="<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='/engoje/images/placeholder.png' data-src='$path' alt='".$product['productName']."' ></a>";
+
                 $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$saleItem[salePrice]</h4></div></div>";
 
             }else{
         
-                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div>
+                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div>";
                                 
-                <picture>
-                    <source src='/engoje/images/placeholder.png' />
-                    <img src='$path' alt='".$product['productName']."' loading='lazy' />
-                </picture>
-
-                </a>";
+                $dv .= "<img src='/engoje/images/placeholder.png' data-src='$path' alt='".$product['productName']."' loading='lazy' /></a>";
                 $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice' >R$product[price]</h4><h4 class='hidden productPrice' >R$product[price]</h4></div></div>";

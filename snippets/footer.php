@@ -8,17 +8,8 @@
                     <img width="70" height="70" src=" /engoje/images/logo.svg" alt="logo image">
                 </a>
                 <small class="d-block mb-3 text-muted">&copy; 2020–2021</small>
-                </div>
-                <div class="col-6 col-md">
-                <h5>Help</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="link-secondary" href="#">Help</a></li>
-                    <li><a class="link-secondary" href="#">Returns</a></li>
-                    <li><a class="link-secondary" href="#">Blog</a></li>
-                    <li><a class="link-secondary" href="#">Contact us</a></li>
-                </ul>
-                </div>
-                <div class="col-6 col-md">
+            </div>
+            <div class="col-6 col-md">
                 <h5>Company</h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="#">About us</a></li>
@@ -26,8 +17,8 @@
                     <li><a class="link-secondary" href="#">Investor relations</a></li>
                     <li><a class="link-secondary" href="#">Careers</a></li> 
                 </ul>
-                </div>
-                <div class="col-6 col-md">
+            </div>
+            <div class="col-6 col-md">
                 <h5>Account</h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="#">Your account</a></li>
@@ -35,8 +26,18 @@
                     <li><a class="link-secondary" href="#">View orders</a></li>
                     <li><a class="link-secondary" href="#">Track order</a></li> 
                 </ul>
-                </div>
-                <div class="col-6 col-md">
+            </div>
+            <div class="col-6 col-md">
+                <h5>Help</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="#">Help</a></li>
+                    <li><a class="link-secondary" href="#">Returns</a></li>
+                    
+                    <li><a class="link-secondary" href="#">Blog</a></li>
+                    <li><a class="link-secondary" href="#">Contact us</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
                 <h5>Resources</h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="/engoje/policy/returns-policy.php">Returns Policy</a></li>
