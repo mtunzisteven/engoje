@@ -1157,6 +1157,12 @@ form{
         margin:2px 0 15px 0;
     }
 
+    & select.update-selecters{
+        min-width:65%;
+        min-height:28px;
+        margin:2px 0 15px 0;
+    }
+
     & input:focus{
         outline:none;
     }

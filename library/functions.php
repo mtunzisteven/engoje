@@ -865,9 +865,9 @@ function buildAddresses($addresses, $addressFound){
 function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
     $productUpdate = "<form method='POST' action='/engoje/products/'>";
 
-    $productUpdate .= "<label>Change Colour(".$product['colour'].")</label>".buildDropDownList($colours, 'colourId', 'colour' )."";
-    $productUpdate .= "<label>Change Size(".$product['sizeValue'].")</label>".buildDropDownList($sizes, 'sizeId', 'sizeValue' )."";
-    $productUpdate .= "<label>Change Category(".$product['categoryName'].")</label>".buildDropDownList($categories, 'categoryId', 'categoryName' )."";
+    $productUpdate .= "<label>Change Colour(".$product['colour'].")</label>".buildProductUpdateDropDownList($colours, 'colourId', 'colour', $product['colour'])."";
+    $productUpdate .= "<label>Change Size(".$product['sizeValue'].")</label>".buildProductUpdateDropDownList($sizes, 'sizeId', 'sizeValue', $product['sizeValue'])."";
+    $productUpdate .= "<label>Change Category(".$product['categoryName'].")</label>".buildProductUpdateDropDownList($categories, 'categoryId', 'categoryName', $product['categoryName'])."";
     $productUpdate .= "<label>Quantity</label><input type='number' name='amount' value='$product[amount]' />";
     $productUpdate .= "<label>Price</label><input type='number' name='price' value='$product[price]' />";
 
@@ -948,6 +948,22 @@ function buildDropDownList($array, $id, $name){
     $DropDownList .= "<option value='$item[$name]' ></option>";
     }
     $DropDownList .= '</datalist>';
+
+    return $DropDownList;
+
+}
+
+// Create a dropdown list for the size variations form
+function buildProductUpdateDropDownList($array, $id, $name, $currentValue){
+
+    // Build a navigation bar using the $classifications array
+    $DropDownList = "<select class='update-selecters' id='$id' name='".$name."[]' >";
+    $DropDownList .= "<option selected value='$currentValue' >$currentValue</option>";
+    foreach ($array as $item) {
+        //var_dump($item); exit;
+    $DropDownList .= "<option value='$item[$name]' >$item[$name]</option>";
+    }
+    $DropDownList .= '</select>';  
 
     return $DropDownList;
 
