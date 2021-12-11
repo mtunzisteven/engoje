@@ -23,21 +23,8 @@
 
                 <?php
 
-                    // Display the shop products
-                    if(isset($sidebarDisplay)){
-                    
-                        if(isset($_SESSION['sidebarDisplay'])){
-
-                            echo $_SESSION['sidebarDisplay'];
-
-                            unset($_SESSION['sidebarDisplay']);
-
-                        }else{
-                            echo $sidebarDisplay;
-                        }
-
-                    }
-
+                    // Display the new items shop ads sidebar
+                    require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/new-sidebar.php';
 
                 ?>
 

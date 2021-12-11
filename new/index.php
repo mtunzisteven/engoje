@@ -27,6 +27,6 @@ $products = getNewShopProducts($lim, $offset);
 $productsQty = count($products);
 
 // BUild a products archive
-$productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+$productsDisplay = buildNewProductsDisplay($products, $saleItems);
 
 include '../view/new.php';

@@ -1158,6 +1158,25 @@ function buildproductDisplay($product, $saleItems){
 
     }
 }
+// Build new products display block
+function buildNewProductsDisplay($products, $saleItems){
+
+    $dv = "<div class='shop-products'>";
+
+    if(isset($products)){
+                        
+        foreach($products as $product){
+
+            $dv .= buildproductDisplay($product, $saleItems);
+
+        }
+    }
+
+    $dv .="</div>";
+
+    return $dv;
+
+}
 // Build a product archive block
 function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems){
 
