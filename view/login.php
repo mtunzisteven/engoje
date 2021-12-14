@@ -1,7 +1,24 @@
 <?php
 
     if(!isset($_SESSION)){
-        session_start();
+    
+// no session started var set yet = no session created yet 
+if(!isset($_SESSION['STARTED'])){
+
+    $_SESSION['STARTED'] = time();
+
+}else if(time()-$_SESSION['started'] > 1800){
+    // session older than 30min
+    // change session id if session is older than 30 min
+    session_regenerate_id(true);
+
+    // set new session started var
+    $_SESSION['STARTED'] = time();
+
+}
+
+// start session with same id in this file
+session_start();
     }
 
     $pageName ="Login"; 

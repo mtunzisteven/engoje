@@ -1,7 +1,6 @@
 <?php
 
-// session expire reset: 180 sec
-session_cache_expire();
+
 
 //This is the shop controller for the site
 session_start();
@@ -20,60 +19,28 @@ require_once '../model/products-model.php';
 require_once '../model/uploads-model.php';
 
 // active tab array
-$_SESSION['active_tab'] = [
-    'account'=>'',
-    'users'=>'active',
-    'products'=>'',
-    'swatches' => '', 
-    'images'=>'',
-    'orders'=>'',
-    'reviews'=>'',
-    'promotions'=>''
-];
+$_SESSION['active_tab'] = $active_tabs;
 
+// Get the side navs library
+require_once '../library/sidenav.php';
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
 
-// make sure to get all sale items
-$saleItems = getSaleItems();
-
 //initial pagination
-$lim = 4;
+$lim = 8;
 $offset = 0;
 
 // Fetch all products and bring them to scope of all cases
-$products = getSaleShopProducts($lim, $offset);
+$products = getSaleShopPaginations($lim, $offset);
 
-//var_dump($products); exit;
+// Get all sale products in db
+$allProducts = getSaleItems();
 
-$productsQty = count($products);
+// all items on sale
+$saleItems = getSaleItems();
 
-// BUild a products archive
-$productsDisplay = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
-
-// get categories from db
-$category = getSaleCategories();
-
-if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
-
-    // input max and min price values
-    $maxPrice = $_SESSION['maxPriceFilter'];
-    $minPrice = $_SESSION['minPriceFilter'];
-
-}else{
-
-    // input max and min price values
-    $maxPrice = getmaxPrice();
-    $minPrice = 0;
-
-}
-
-
-// build sidebar display
-$saleSidebarDisplay  = buildShopSidebarPrice($minPrice, $maxPrice);
-$saleSidebarDisplay .= buildShopSidebarColour($products, 'colour');
-$saleSidebarDisplay .= buildShopSidebarSize($products, 'sizeValue');
-$saleSidebarDisplay .= buildShopSidebarCategory($category);
+// Get the total number products in db
+$productsQty = count($allProducts);
 
 // get colours and sizes from db
 $colours = getColours();
@@ -94,29 +61,26 @@ switch ($filter){
         // get the input colour value
         $_SESSION['colourFilter'] = filter_input(INPUT_GET, 'colour',FILTER_SANITIZE_STRING);
 
-        //echo $_SESSION['colourFilter']; exit;
-
+        // fetch all products
         $products = filters($products, $lim, $offset);
 
-        //var_dump($products); exit;
-
-
+        // make sure products isn't empty
         if(!empty($products)){
             
             // reset quantity for paginations
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=filters');
+        header('Location: /engoje/shop/?action=filters');
 
         break;
 
@@ -125,6 +89,13 @@ switch ($filter){
         // get the input size value
         $_SESSION['categoryFilter'] = filter_input(INPUT_GET, 'category',FILTER_SANITIZE_STRING);
 
+        // remove category filter if all is found
+        if($_SESSION['categoryFilter'] == 'all'){
+
+            unset($_SESSION['categoryFilter']);
+
+        }
+
         $products = filters($products, $lim, $offset);
 
         if(!empty($products)){
@@ -134,16 +105,16 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=filters');
+        header('Location: /engoje/shop/?action=filters');
     
         break;
 
@@ -160,24 +131,24 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=filters');
+        header('Location: /engoje/shop/?action=filters');
 
         break;
 
     case "price-filter":
 
         // get the input price values
-        $_SESSION['minPriceFilter'] = filter_input(INPUT_GET, 'minPrice',FILTER_SANITIZE_NUMBER_INT);
-        $_SESSION['maxPriceFilter'] = filter_input(INPUT_GET, 'maxPrice',FILTER_SANITIZE_NUMBER_INT);
+        $_SESSION['minPriceFilter'] = intval(filter_input(INPUT_GET, 'minPrice',FILTER_SANITIZE_NUMBER_INT));
+        $_SESSION['maxPriceFilter'] = intval(filter_input(INPUT_GET, 'maxPrice',FILTER_SANITIZE_NUMBER_INT));
 
         //echo $maxPrice; exit;
 
@@ -190,16 +161,16 @@ switch ($filter){
             $productsQty = $_SESSION['productQty'];
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = buildsaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+            $_SESSION['productsDisplay'] = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-filters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=filters');
+        header('Location: /engoje/shop/?action=filters');
 
         break;
 
@@ -207,7 +178,7 @@ switch ($filter){
 
         unset($_SESSION['sizeFilter'], $_SESSION['categoryFilter'], $_SESSION['colourFilter'], $_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter'], $_SESSION['productQty']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /engoje/shop/');
 
 
         break;
@@ -216,7 +187,7 @@ switch ($filter){
 
         unset($_SESSION['maxPriceFilter'], $_SESSION['minPriceFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /engoje/shop/');
 
 
         break;
@@ -225,7 +196,7 @@ switch ($filter){
 
         unset($_SESSION['sizeFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /engoje/shop/');
 
 
         break;
@@ -234,7 +205,7 @@ switch ($filter){
 
         unset($_SESSION['colourFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /engoje/shop/');
 
 
         break;
@@ -243,14 +214,14 @@ switch ($filter){
 
         unset($_SESSION['categoryFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /engoje/shop/');
 
 
         break;
 
     default:
 
-        header('Location: /engoje/sale/');
+        header('Location: /engoje/shop/');
 
     }
 

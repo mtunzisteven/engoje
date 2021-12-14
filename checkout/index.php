@@ -1,7 +1,6 @@
 <?php
 
-// session expire reset: 180 sec
-session_cache_expire();
+
 
 //This is the shop controller for the site checkout responsible for all checkout related actions, except go to checkout
 session_start();

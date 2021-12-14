@@ -1,7 +1,6 @@
 <?php
 
-// session expire reset: 180 sec
-session_cache_expire();
+
 
 //This is the shop controller for the site cart responsible for all cart related actions, except go to cart
 session_start();

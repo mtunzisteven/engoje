@@ -1,7 +1,6 @@
 <?php
 
-// session expire reset: 180 sec
-session_cache_expire();
+
 
 //This is the shop controller for the site
 session_start();
@@ -34,7 +33,7 @@ $offset = 0;
 // Fetch all products and bring them to scope of all cases
 $products = getShopPaginations($lim, $offset);
 
-// Get the number of products in db
+// Get all products in db
 $allProducts = getShopProducts();
 
 // all items on sale
