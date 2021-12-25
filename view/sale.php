@@ -23,21 +23,14 @@
 
                 <?php
 
-                    // Display the shop products
-                    if(isset($sidebarDisplay)){
-                    
-                        if(isset($_SESSION['sidebarDisplay'])){
+                    // Display the sale products side bar                  
+                    if(isset($_SESSION['sidebarDisplay'])){
 
-                            echo $_SESSION['sidebarDisplay'];
+                        echo $_SESSION['sidebarDisplay'];
 
-                            unset($_SESSION['sidebarDisplay']);
-
-                        }else{
-                            echo $sidebarDisplay;
-                        }
+                        unset($_SESSION['sidebarDisplay']);
 
                     }
-
 
                 ?>
 
@@ -47,8 +40,12 @@
                 <?php 
 
                     // Display the shop products
-                    if(isset($productsDisplay)){
+                    if(isset($_SESSION['productsDisplay'])){
                     
+                        echo $_SESSION['productsDisplay'];
+
+                    }else{
+
                         echo $productsDisplay;
 
                     }

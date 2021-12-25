@@ -143,690 +143,1555 @@ function getShopSizePaginations($lim, $offset, $size){
 //                    Pagination filter start                       //
 //////////////////////////////////////////////////////////////////////
 
-// Get product entries by pagination and size
-function getShopCategoryPaginations($lim, $offset, $category){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category 
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination and size
+    function getShopCategoryPaginations($lim, $offset, $category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination category and size
-function getShopCategorySizePaginations($lim, $offset, $category, $size){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category 
-                    AND size.sizeValue = :size
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination category and size
+    function getShopCategorySizePaginations($lim, $offset, $category, $size){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND size.sizeValue = :size
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination category and colour
-function getShopCategoryColourPaginations($lim, $offset, $category, $colour){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category 
-                    AND colour.colour = :colour
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination category and colour
+    function getShopCategoryColourPaginations($lim, $offset, $category, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND colour.colour = :colour
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size and colour
-function getShopSizeColourPaginations($lim, $offset, $size, $colour){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size and colour
+    function getShopSizeColourPaginations($lim, $offset, $size, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category and colour
-function getShopSizeColourCategoryPaginations($lim, $offset, $size, $colour, $category){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    AND categories.categoryName = :category
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category and colour
+    function getShopSizeColourCategoryPaginations($lim, $offset, $size, $colour, $category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
 
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizeColourCategoryPricePaginations($lim, $offset, $size, $colour, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category price and colour
+    function getShopSizeColourCategoryPricePaginations($lim, $offset, $size, $colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizeColourPricePaginations($lim, $offset, $size, $colour, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category price and colour
+    function getShopSizeColourPricePaginations($lim, $offset, $size, $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizeCategoryPricePaginations($lim, $offset, $size, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category price and colour
+    function getShopSizeCategoryPricePaginations($lim, $offset, $size, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination category price and colour
-function getShopColourCategoryPricePaginations($lim, $offset, $colour, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND colour.colour = :colour
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination category price and colour
+    function getShopColourCategoryPricePaginations($lim, $offset, $colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizePricePaginations($lim, $offset, $size, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category price and colour
+    function getShopSizePricePaginations($lim, $offset, $size, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopColourPricePaginations($lim, $offset, $colour, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND colour.colour = :colour
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category price and colour
+    function getShopColourPricePaginations($lim, $offset, $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopCategoryPricePaginations($lim, $offset, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price
-                    ORDER BY product_entry.product_entryId 
-                    LIMIT  :offset, :lim';
+    // Get product entries by pagination size category price and colour
+    function getShopCategoryPricePaginations($lim, $offset, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
-    $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
 //////////////////////////////////////////////////////////////////////
 //                     Pagination filter end                        //
 //////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////
-//                    Pagination filter start                       //
-//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//                    Sale Pagination filter start                       //
+///////////////////////////////////////////////////////////////////////////
 
-// Get product entries by pagination and size
-function getShopCategory($category){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category ';
+    // Get product entries by pagination and size
+    function getSaleCategoryPaginations($lim, $offset, $category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination category and size
-function getShopCategorySize($category, $size){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category 
-                    AND size.sizeValue = :size';
+    // Get product entries by pagination category and size
+    function getSaleCategorySizePaginations($lim, $offset, $category, $size){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND size.sizeValue = :size
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination category and colour
-function getShopCategoryColour($category, $colour){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category 
-                    AND colour.colour = :colour';
+    // Get product entries by pagination category and colour
+    function getSaleCategoryColourPaginations($lim, $offset, $category, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND colour.colour = :colour
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size and colour
-function getShopSizeColour($size, $colour){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour';
+    // Get product entries by pagination size and colour
+    function getSaleSizeColourPaginations($lim, $offset, $size, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category and colour
-function getShopSizeColourCategory($size, $colour, $category){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    AND categories.categoryName = :category';
+    // Get product entries by pagination size category and colour
+    function getSaleSizeColourCategoryPaginations($lim, $offset, $size, $colour, $category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
 
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizeColourCategoryPrice($size, $colour, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination size category price and colour
+    function getSaleSizeColourCategoryPricePaginations($lim, $offset, $size, $colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizeColourPrice($size, $colour, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND colour.colour = :colour
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination size category price and colour
+    function getSaleSizeColourPricePaginations($lim, $offset, $size, $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizeCategoryPrice($size, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination size category price and colour
+    function getSaleSizeCategoryPricePaginations($lim, $offset, $size, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination category price and colour
-function getShopColourCategoryPrice($colour, $category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND colour.colour = :colour
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination category price and colour
+    function getSaleColourCategoryPricePaginations($lim, $offset, $colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopSizePrice($size, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND size.sizeValue = :size 
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination size category price and colour
+    function getSaleSizePricePaginations($lim, $offset, $size, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':size',$size, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopColourPrice( $colour, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND colour.colour = :colour
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination price
+    function getSalePricePaginations($lim, $offset, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    return $productData;
-}
+        return $productData;
+    }
 
-// Get product entries by pagination size category price and colour
-function getShopCategoryPrice($category, $minPrice, $maxPrice){
-    $db = engojeConnect();
-    $sql = 'SELECT* FROM product_entry 
-                    JOIN images ON product_entry.product_entryId = images.product_entryId
-                    JOIN products ON product_entry.productId = products.productId
-                    JOIN categories ON product_entry.categoryId = categories.categoryId
-                    JOIN colour ON product_entry.colourId = colour.colourId
-                    JOIN size ON product_entry.sizeId = size.sizeId
-                    WHERE images.imagePrimary = 1 
-                    AND categories.categoryName = :category
-                    AND :minPrice <= product_entry.price
-                    AND :maxPrice > product_entry.price';
+    // Get product entries by pagination colour
+    function getSaleColourPaginations($lim, $offset, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-    $stmt = $db->prepare($sql);
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
 
-    $stmt->bindValue(':category',$category, PDO::PARAM_STR);
-    $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
-    $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
 
-    $stmt->execute();
-    $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt->closeCursor();
+        return $productData;
+    }
 
-    return $productData;
-}
+    // Get product entries by pagination size
+    function getSaleSizePaginations($lim, $offset, $size){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
 
-//////////////////////////////////////////////////////////////////////
-//                     Pagination filter end                        //
-//////////////////////////////////////////////////////////////////////
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleColourPricePaginations($lim, $offset, $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleCategoryPricePaginations($lim, $offset, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price
+                        ORDER BY product_entry.product_entryId 
+                        LIMIT  :offset, :lim';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':lim',$lim, PDO::PARAM_INT);
+        $stmt->bindValue(':offset',$offset, PDO::PARAM_INT);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+////////////////////////////////////////////////////////////////////////
+//                    Sale Pagination filter end                      //
+////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////
+//                    Pagination filter Products start                  //
+//////////////////////////////////////////////////////////////////////////
+
+    // Get product entries by pagination and size
+    function getShopCategory($category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category ';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination category and size
+    function getShopCategorySize($category, $size){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND size.sizeValue = :size';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination category and colour
+    function getShopCategoryColour($category, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND colour.colour = :colour';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size and colour
+    function getShopSizeColour($size, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category and colour
+    function getShopSizeColourCategory($size, $colour, $category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getShopSizeColourCategoryPrice($size, $colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getShopSizeColourPrice($size, $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getShopSizeCategoryPrice($size, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination category price and colour
+    function getShopColourCategoryPrice($colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getShopSizePrice($size, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getShopColourPrice( $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getShopCategoryPrice($category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+//////////////////////////////////////////////////////////////////////////
+//                     Pagination filter Products end                   //
+//////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+//                    Pagination filter Sale Products start                  //
+///////////////////////////////////////////////////////////////////////////////
+
+    // Get product entries by pagination and category
+    function getSaleProductsByCategory($category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category ';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination and size
+    function getSaleProductsBySize($size){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size ';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination and colour
+    function getSaleProductsByColour($colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour ';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination price
+    function getSaleProductsByPrice($minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination category and size
+    function getSaleCategorySize($category, $size){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND size.sizeValue = :size';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination category and colour
+    function getSaleCategoryColour($category, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category 
+                        AND colour.colour = :colour';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size and colour
+    function getSaleSizeColour($size, $colour){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category and colour
+    function getSaleSizeColourCategory($size, $colour, $category){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleSizeColourCategoryPrice($size, $colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleSizeColourPrice($size, $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleSizeCategoryPrice($size, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination category price and colour
+    function getSaleColourCategoryPrice($colour, $category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleSizePrice($size, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND size.sizeValue = :size 
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':size',$size, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleColourPrice( $colour, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND colour.colour = :colour
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':colour',$colour, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+    // Get product entries by pagination size category price and colour
+    function getSaleCategoryPrice($category, $minPrice, $maxPrice){
+        $db = engojeConnect();
+        $sql = 'SELECT* FROM product_entry 
+                        JOIN images ON product_entry.product_entryId = images.product_entryId
+                        JOIN sale ON product_entry.product_entryId = sale.product_entryId
+                        JOIN products ON product_entry.productId = products.productId
+                        JOIN categories ON product_entry.categoryId = categories.categoryId
+                        JOIN colour ON product_entry.colourId = colour.colourId
+                        JOIN size ON product_entry.sizeId = size.sizeId
+                        WHERE images.imagePrimary = 1 
+                        AND categories.categoryName = :category
+                        AND :minPrice <= product_entry.price
+                        AND :maxPrice > product_entry.price';
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':category',$category, PDO::PARAM_STR);
+        $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
+        $stmt->bindValue(':maxPrice',$maxPrice, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $productData;
+    }
+
+///////////////////////////////////////////////////////////////////////////////
+//                     Pagination filter Sale Products end                   //
+///////////////////////////////////////////////////////////////////////////////
 
 // Get product entries by pagination and size
 function getShopPricePaginations($lim, $offset, $minPrice, $maxPrice){
@@ -1083,7 +1948,22 @@ function getmaxPrice(){
 
     return $max['price'];
 }
+// Get sale products max price value
+function getsalemaxPrice(){
+    $db = engojeConnect();
+    $sql = 'SELECT salePrice FROM sale 
+            ORDER BY salePrice DESC LIMIT 1
+            ';
 
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $max = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //echo $max['price']; exit;
+
+    return $max['salePrice'];
+}
 // Get all products min price value
 function getminPrice(){
     $db = engojeConnect();

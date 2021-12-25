@@ -39,29 +39,143 @@ $offset = 0;
 // Fetch all products and bring them to scope of all cases
 $products = getSaleShopProducts($lim, $offset);
 
-//var_dump($products); exit;
-
+// number of sale products in db
 $productsQty = count($products);
 
 // BUild a products archive
-$productsDisplay = buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+$productsDisplay = buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
 
 // get categories from db
 $category = getSaleCategories();
 
-if(isset( $_SESSION['minPriceFilter'])  && isset( $_SESSION['maxPriceFilter'])){
+if(isset( $_SESSION['SaleminPriceFilter'])  && isset( $_SESSION['SalemaxPriceFilter'])){
 
     // input max and min price values
-    $maxPrice = $_SESSION['maxPriceFilter'];
-    $minPrice = $_SESSION['minPriceFilter'];
+    $maxPrice = $_SESSION['SalemaxPriceFilter'];
+    $minPrice = $_SESSION['SaleminPriceFilter'];
 
 }else{
 
     // input max and min price values
-    $maxPrice = getmaxPrice();
+    $maxPrice = getsalemaxPrice();
     $minPrice = 0;
 
 }
 
+$selected = "";
 
-include '../view/sale.php';
+if(isset($_SESSION['SalecategoryFilter'])){
+
+    $selected = $_SESSION['SalecategoryFilter'];
+
+}
+
+// build sidebar display
+$_SESSION['sidebarDisplay']  = buildSaleSidebarCategory($category, $selected);
+$_SESSION['sidebarDisplay'] .= buildSaleSidebarPrice($minPrice, $maxPrice);
+$_SESSION['sidebarDisplay'] .= buildSaleSidebarColour($products, 'colour');
+$_SESSION['sidebarDisplay'] .= buildSaleSidebarSize($products, 'sizeValue');
+
+// sanitize action variable
+$action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
+if ($action == NULL){
+    $action = filter_input(INPUT_GET, 'action',FILTER_SANITIZE_STRING);
+}
+
+switch ($action){
+    case 'next':
+
+        $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+
+        $offset += $lim;
+
+        // Fetch sale products and bring them to scope of all cases
+        $products = getShopPaginations($lim, $offset);
+
+        // get next offset
+        $products = saleFilters($products, $lim, $offset);
+
+        if(!empty($products)){
+
+            // reset quantity for paginations
+            $productsQty = $_SESSION['productQty'];
+
+            // BUild a products archive
+            $productsDisplay = buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+
+        }else{
+
+            // BUild a products archive
+            $productsDisplay = '<p class="notice"><br/>No products found...</p>';
+
+        }
+
+        include '../view/sale.php';
+
+        break;
+
+    case 'prev':
+
+        $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);
+
+        if($offset > 0){
+
+            $offset -= $lim;
+        }
+
+        // Fetch all products and bring them to scope of all cases
+        $products = getShopPaginations($lim, $offset);
+
+        // get next offset
+        $products = saleFilters($products, $lim, $offset);
+
+    
+        if(!empty($products)){
+
+            
+            // reset quantity for paginations
+            $productsQty = $_SESSION['productQty'];
+
+            // BUild a products archive
+            $productsDisplay = buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+
+        }else{
+
+            // BUild a products archive
+            $productsDisplay = '<p class="notice"><br/>No products found...</p>';
+
+        }
+
+        include '../view/sale.php';
+
+        break;
+
+    case 'saleFilters':
+
+        include '../view/sale.php';
+
+        break;
+
+    default:
+
+        $products = saleFilters($products, $lim, $offset);
+
+        // var_dump($products); exit;
+
+        if(!empty($products)){
+
+            // BUild a products archive
+            $productsDisplay = buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems);
+
+            unset($_SESSION['productsDisplay']);
+
+        }else{
+
+            // BUild a products archive
+            $productsDisplay = '<p class="notice"><br/>No products found...</p>';
+
+        }
+
+        include '../view/sale.php';
+    
+    }
