@@ -6,265 +6,253 @@
 
 
 // start session with same id in this file// start session with same id in this file
-session_start();
+require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
 
-// no session started var set yet = session just created 
-if(!isset($_SESSION['STARTED'])){
 
-    $_SESSION['STARTED'] = time();
+// Get the database connection file
+require_once '../library/connections.php';
+// Get the cleaner script 
+require_once '../library/dbCleaner.php';
+// Get the database connection file
+require_once '../library/functions.php';
+// Get the engoje main model for use as needed
+require_once '../model/main-model.php';
+// Get the accounts model for use as needed
+require_once '../model/accounts-model.php';
+// Get the products adproductUpdateNavmin model for use as needed
+require_once '../model/products-model.php';
 
-}else if(time()-$_SESSION['STARTED'] > 1800){
-    // session older than 30min
-    // change session id if session is older than 30 min
-    session_destroy();
+// Fetch all product entries and bring them to scope of all cases
+$products = getPrimaryProducts();
 
-    // set new session started var
-    $_SESSION['STARTED'] = time();
+// Create image paths for products of each colour but different size that don't have images
+// fetch all products first:
+$allProducts = getAllProducts();
 
+// Create an associative array  
+$nonImgedProducts = [];
+
+// active tab array
+$_SESSION['active_tab'] = $active_tabs;
+
+$_SESSION['active_tab']['products'] = "active";
+
+// Get the side navs library
+require_once '../library/sidenav.php';
+// Build Admin Side Nav
+$adminSideNav = buildAdminSideNav();
+
+// For each product with no image, loop through products with images and find a matching color.
+foreach($products as $imgProduct){
+
+    if(isset($imgProduct['imagePath_tn'])){
+
+        // add the following values in the order of colour then path
+        $nonImgedProducts[] = $imgProduct['colour']; 
+        $nonImgedProducts[] = $imgProduct['imagePath_tn']; 
+        $nonImgedProducts[] = $imgProduct['productId']; 
+
+
+    }
 }
 
-    // Get the database connection file
-    require_once '../library/connections.php';
-    // Get the database connection file
-    require_once '../library/functions.php';
-    // Get the engoje main model for use as needed
-    require_once '../model/main-model.php';
-    // Get the accounts model for use as needed
-    require_once '../model/accounts-model.php';
-    // Get the products adproductUpdateNavmin model for use as needed
-    require_once '../model/products-model.php';
+// Build products update Table
+$productAdminTable = buildAdminProductsDisplay( $allProducts,  $nonImgedProducts);
 
-    // Fetch all product entries and bring them to scope of all cases
-    $products = getPrimaryProducts();
+$action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
+if ($action == NULL){
+    $action = filter_input(INPUT_GET, 'action',FILTER_SANITIZE_STRING);
+}
 
-    // Create image paths for products of each colour but different size that don't have images
-    // fetch all products first:
-    $allProducts = getAllProducts();
+switch ($action){
 
-    // Create an associative array  
-    $nonImgedProducts = [];
+    case 'create':
 
-    // active tab array
-    $_SESSION['active_tab'] = $active_tabs;
+        // Fetch categories & colours from db
+        $categories = getCategories(); //var_dump($categories); exit;
+        $colours = getColours(); //var_dump($colours); exit;
+        $sizes = getSizes();
 
-    $_SESSION['active_tab']['products'] = "active";
+        
+        $createProductForm = buildProductCreateForm($categories, $colours, $sizes);
 
-    // Get the side navs library
-    require_once '../library/sidenav.php';
-    // Build Admin Side Nav
-    $adminSideNav = buildAdminSideNav();
+        include '../view/add-product.php';
 
-    // For each product with no image, loop through products with images and find a matching color.
-    foreach($products as $imgProduct){
+        break;
 
-        if(isset($imgProduct['imagePath_tn'])){
+    case 'core':
 
-            // add the following values in the order of colour then path
-            $nonImgedProducts[] = $imgProduct['colour']; 
-            $nonImgedProducts[] = $imgProduct['imagePath_tn']; 
-            $nonImgedProducts[] = $imgProduct['productId']; 
+        $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
+        $productShortDescr = nl2br(filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
+        $productDescription = nl2br(filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
+        $productTags = filter_input(INPUT_POST, 'productTags',FILTER_SANITIZE_STRING); 
+        $_SESSION['categoryId'] = $_POST['categoryId'];
+        $colourIds = $_POST['colourIds'];
+        $sizeIds = $_POST['sizeIds'];
 
+        if(empty($productTags) || empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
 
-        }
-    }
+            $message = "<p class='notice detail-span-bold'>Sorry, we couldn't add the Product.</p>";
 
-    // Build products update Table
-    $productAdminTable = buildAdminProductsDisplay( $allProducts,  $nonImgedProducts);
+        }else{
 
-    $action = filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING);
-    if ($action == NULL){
-        $action = filter_input(INPUT_GET, 'action',FILTER_SANITIZE_STRING);
-    }
+            $productCreationDate = date('Y-m-d H:i:s');
 
-    switch ($action){
+            // add the core product to the database
+            $productAdded = addProduct($productName, $productShortDescr, $productDescription, $productCreationDate, $productTags);
 
-        case 'create':
+            if($productAdded){
 
-            // Fetch categories & colours from db
-            $categories = getCategories(); //var_dump($categories); exit;
-            $colours = getColours(); //var_dump($colours); exit;
-            $sizes = getSizes();
+                $message = "<p class='notice detail-span-bold'>Product Information Added!</p>";
 
-            
-            $createProductForm = buildProductCreateForm($categories, $colours, $sizes);
+                // Create an array that will hold the specified colors
+                $colours = [];
 
-            include '../view/add-product.php';
+                
+                // Create an array that will hold the specified sizes
+                $sizes = [];
 
-         break;
+                // Get lengths for all sizes in db and specified colours
+                $sizeLength = count($sizeIds);
+                $colourLength = count($colourIds);
 
-         case 'core':
-
-            $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_STRING);  
-            $productShortDescr = nl2br(filter_input(INPUT_POST, 'productShortDescr',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
-            $productDescription = nl2br(filter_input(INPUT_POST, 'productDescription',FILTER_SANITIZE_STRING)); //respect new lines (nl2br used)
-            $productTags = filter_input(INPUT_POST, 'productTags',FILTER_SANITIZE_STRING); 
-            $_SESSION['categoryId'] = $_POST['categoryId'];
-            $colourIds = $_POST['colourIds'];
-            $sizeIds = $_POST['sizeIds'];
-
-            if(empty($productTags) || empty($_SESSION['categoryId']) || empty($productName) || empty($productShortDescr) || empty($productDescription) || empty($colourIds) || empty($sizeIds)){
-
-                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't add the Product.</p>";
-
-            }else{
-
-                $productCreationDate = date('Y-m-d H:i:s');
-
-                // add the core product to the database
-                $productAdded = addProduct($productName, $productShortDescr, $productDescription, $productCreationDate, $productTags);
-
-                if($productAdded){
-
-                    $message = "<p class='notice detail-span-bold'>Product Information Added!</p>";
-
-                    // Create an array that will hold the specified colors
-                    $colours = [];
-
-                    
-                    // Create an array that will hold the specified sizes
-                    $sizes = [];
-
-                    // Get lengths for all sizes in db and specified colours
-                    $sizeLength = count($sizeIds);
-                    $colourLength = count($colourIds);
-
-                    $length = $colourLength*$sizeLength;
+                $length = $colourLength*$sizeLength;
 
 
 
-                    for($i= 0; $i<$colourLength; $i++){
-                        // fetch the specified colours and load them into the array $colours
-                        $colours[] = getColourById($colourIds[$i]);
-                    }
-
-                    for($i= 0; $i<$sizeLength; $i++){
-                        // fetch the specified sizes and load them into the array $sizes
-                        $sizes[] = getSizeById($sizeIds[$i]);
-                    }
-
-                    // Create the variations form using the highest number of items between the sizes and coloours
-                    $variationsForm = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' >";
-
-                    for($i= 0; $i<$length; $i++){
-
-                        $variationsForm .= buildCreateVariationFormRows($colours, $sizes); // Access the table elements fetched with fetchall
-                    }
-
-                    $variationsForm .= "<input type='hidden' name='action' value='swatches' />";
-
-                    $variationsForm .= "<input class='button' type='submit' value='Add Product' /></form>";
-
-
-                    include '../view/add-each-product.php';
-                    break;
-
+                for($i= 0; $i<$colourLength; $i++){
+                    // fetch the specified colours and load them into the array $colours
+                    $colours[] = getColourById($colourIds[$i]);
                 }
 
-            }
+                for($i= 0; $i<$sizeLength; $i++){
+                    // fetch the specified sizes and load them into the array $sizes
+                    $sizes[] = getSizeById($sizeIds[$i]);
+                }
 
-            include '../view/add-product.php';
-
-         break;
-
-         case 'swatches':
-
-            if(!empty($_POST['sku']) || !empty($_POST['price']) || !empty($_POST['qty']) || !empty($_POST['sizeValue']) || !empty($_POST['colour']) || !empty($_SESSION['categoryId'])){
-
-                // Get the product id of the product that was last added(recently added)
-                $productId = getLastProductId();
-
-                // Get sizes array from datalist inputs
-                $size = $_POST['sizeValue'];
-                
-                // Get colours array from datalist inputs
-                $colour = $_POST['colour'];
-    
-                // Get the amount of product_entries to add
-                $length = count($size)*count($colour);
+                // Create the variations form using the highest number of items between the sizes and coloours
+                $variationsForm = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' >";
 
                 for($i= 0; $i<$length; $i++){
-                    if(isset($colour[$i])){
 
-                        // fetch the non-empty specified non empty colours and load them into the array $colours
-                        $colours[] = $colour[$i];
-
-                    }
+                    $variationsForm .= buildCreateVariationFormRows($colours, $sizes); // Access the table elements fetched with fetchall
                 }
 
-                for($i= 0; $i<$length; $i++){
-                    if(isset($size[$i])){
+                $variationsForm .= "<input type='hidden' name='action' value='swatches' />";
 
-                    // fetch the non-empty specified sizes and load them into the array $sizes
-                    $sizes[] = $size[$i];
+                $variationsForm .= "<input class='button' type='submit' value='Add Product' /></form>";
 
-                    }
-                }
-    
-                // Filter external input arrays
-                $price  = filter_var_array($_POST['price']);
-                $qty  = filter_var_array($_POST['qty']);
-                $sku  = filter_var_array($_POST['sku']);
 
-                //echo $variationRows."<br/>"; exit;
-    
-                for($i= 0; $i<count($sizes); $i++){
-    
-                    $price = $_POST['price'][$i];
-                    $qty =  $_POST['qty'][$i];
-                    $sku =  $_POST['sku'][$i];
-
-                    // get the size id from the db
-                    $sizeId = getSizeId($sizes[$i]);
-
-                    // get the colour id from the db
-                    $colourId = getColourId($colours[$i]);
-                    
-                    if(isset($sizeId['sizeId']) && isset($colourId['colourId']) && isset($price) && !empty($sku) && isset($qty)){
-
-                        // convert all IDs to inegers as array items some were received as strings
-                        $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
-
-                    }
-                }
-
-                // Get product entry ids from database for the last products added
-                //$product_entryIds = getLastProductEntryId($colours);
-
-                // fetch all product_entries just added and have no images
-                $products = getLastProductsInfoById((int)$productId['productId']);
-
-                // Build a select list of product information for the view
-                // Add images to all variations, even if it is size, it doesn't matter
-                $productSelect = buildProductSelect($products);
-
-                // get product image upload form
-                //$uploadForm = ''; 
-
-                $_SESSION['uploadForms'] = '';
-
-                // display as many image upload forms as products added
-                for($i = 0; $i < count($products); $i++){
-
-                    $_SESSION['uploadForms'] .= buildProductImageUploadForm($products[$i]);
-
-                    $_SESSION['uploadForms'] .= buildSecondaryImageUploadForm($products[$i]);
-
-                }
-                
-                $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
-                header('Location: /engoje/upload');
+                include '../view/add-each-product.php';
                 break;
 
-            }else{
-
-                $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product(s).</p>";
-
             }
 
-            include '../view/product-admin.php';
+        }
+
+        include '../view/add-product.php';
+
+        break;
+
+        case 'swatches':
+
+        if(!empty($_POST['sku']) || !empty($_POST['price']) || !empty($_POST['qty']) || !empty($_POST['sizeValue']) || !empty($_POST['colour']) || !empty($_SESSION['categoryId'])){
+
+            // Get the product id of the product that was last added(recently added)
+            $productId = getLastProductId();
+
+            // Get sizes array from datalist inputs
+            $size = $_POST['sizeValue'];
+            
+            // Get colours array from datalist inputs
+            $colour = $_POST['colour'];
+
+            // Get the amount of product_entries to add
+            $length = count($size)*count($colour);
+
+            for($i= 0; $i<$length; $i++){
+                if(isset($colour[$i])){
+
+                    // fetch the non-empty specified non empty colours and load them into the array $colours
+                    $colours[] = $colour[$i];
+
+                }
+            }
+
+            for($i= 0; $i<$length; $i++){
+                if(isset($size[$i])){
+
+                // fetch the non-empty specified sizes and load them into the array $sizes
+                $sizes[] = $size[$i];
+
+                }
+            }
+
+            // Filter external input arrays
+            $price  = filter_var_array($_POST['price']);
+            $qty  = filter_var_array($_POST['qty']);
+            $sku  = filter_var_array($_POST['sku']);
+
+            //echo $variationRows."<br/>"; exit;
+
+            for($i= 0; $i<count($sizes); $i++){
+
+                $price = $_POST['price'][$i];
+                $qty =  $_POST['qty'][$i];
+                $sku =  $_POST['sku'][$i];
+
+                // get the size id from the db
+                $sizeId = getSizeId($sizes[$i]);
+
+                // get the colour id from the db
+                $colourId = getColourId($colours[$i]);
+                
+                if(isset($sizeId['sizeId']) && isset($colourId['colourId']) && isset($price) && !empty($sku) && isset($qty)){
+
+                    // convert all IDs to inegers as array items some were received as strings
+                    $product_entry = addProductEntry((int)$productId['productId'], (int)$sizeId['sizeId'], (int)$colourId['colourId'], (int)$_SESSION['categoryId'], (int)$price, $sku, (int)$qty);                
+
+                }
+            }
+
+            // Get product entry ids from database for the last products added
+            //$product_entryIds = getLastProductEntryId($colours);
+
+            // fetch all product_entries just added and have no images
+            $products = getLastProductsInfoById((int)$productId['productId']);
+
+            // Build a select list of product information for the view
+            // Add images to all variations, even if it is size, it doesn't matter
+            $productSelect = buildProductSelect($products);
+
+            // get product image upload form
+            //$uploadForm = ''; 
+
+            $_SESSION['uploadForms'] = '';
+
+            // display as many image upload forms as products added
+            for($i = 0; $i < count($products); $i++){
+
+                $_SESSION['uploadForms'] .= buildProductImageUploadForm($products[$i]);
+
+                $_SESSION['uploadForms'] .= buildSecondaryImageUploadForm($products[$i]);
+
+            }
+            
+            $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
+            header('Location: /engoje/upload');
             break;
-         
-        case 'update':
+
+        }else{
+
+            $message = "<p class='notice detail-span-bold'>Sorry, we couldn't added the Product(s).</p>";
+
+        }
+
+        include '../view/product-admin.php';
+        break;
+        
+    case 'update':
             $product_entryId = filter_input(INPUT_GET, 'product_entryId', FILTER_SANITIZE_NUMBER_INT);
 
             $product = getProduct_entry($product_entryId);
@@ -380,10 +368,9 @@ if(!isset($_SESSION['STARTED'])){
          break;
 
     case 'product':
-
     default:
 
             
 
          include '../view/product-admin.php';
-    }
+}

@@ -1098,26 +1098,12 @@ function buildproductDisplay($product, $saleItems){
 
     $path = $product['imagePath'];
 
-    // if the is not product in sale table
+    // if there is not product in sale table
     if(!empty($saleItems)){
 
         foreach($saleItems as $saleItem){
 
-            // create new date time object
-            $today = new DateTime();
-
-            // format datetime object
-            $today->format('U');
-
-            $saleStart = new DateTime($saleItem['saleStart']);
-            $saleStart->format('Y-m-d H:i:s');
-
-            $interval = [date_diff($today, $saleStart)];
-
-            // the number of days since start of sale
-            $days = ($interval[0]->h)/24;
-
-            if($product['product_entryId'] == $saleItem['product_entryId'] && $days < $interval){ // if there is a product in the sale table and it is the product urrently being accessed
+            if($product['product_entryId'] == $saleItem['product_entryId']){ // if there is a product in the sale table and it is the product urrently being accessed
         
                 $dv ="<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='/engoje/images/placeholder.png' data-src='$path' alt='".$product['productName']."' ></a>";
 
@@ -1125,7 +1111,9 @@ function buildproductDisplay($product, $saleItems){
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$saleItem[salePrice]</h4></div></div>";
 
-            }else{
+                break; // end loop once item is found otherwise sale item will be overridden
+
+            }else{ // if the product is not found in sale items
         
                 $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div>";
                                 
@@ -1139,7 +1127,7 @@ function buildproductDisplay($product, $saleItems){
 
         return $dv;
 
-    }else{ // if there is a product in the sale table and it is the product currently being accessed
+    }else{ // if there is no product in the sale table
 
         $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div>
         
@@ -1325,8 +1313,6 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 }
 // Build a sale product archive block
 function buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleItems){
-
-    // return "Sale!";
 
     // The page number 
     $pageNum = ($offset+$lim)/$lim;

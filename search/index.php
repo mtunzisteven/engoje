@@ -2,6 +2,8 @@
 
 // Get the database connection file
 require_once '../library/connections.php';
+// Get the cleaner script 
+require_once '../library/dbCleaner.php';
 // Get the search model for use as needed
 require_once '../model/search-model.php';
 

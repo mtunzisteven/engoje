@@ -24,6 +24,8 @@ if(!isset($_SESSION['STARTED'])){
 
 // Get the database connection file
 require_once '../library/connections.php';
+// Get the cleaner script 
+require_once '../library/dbCleaner.php';
 // Get the database connection file
 require_once '../library/functions.php';
 // Get the engoje main model for use as needed

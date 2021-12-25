@@ -2000,6 +2000,28 @@ function deleteProduct($productId){
     return $result;
 }
 
+// This function will deleteproduct from sale table
+function deleteSale($saleId){
+    
+    // Create a connection object from the engoje connection function
+    $db = engojeConnect(); 
+
+    // The next line creates the prepared statement using the engoje connection      
+    $stmt = $db->prepare('DELETE FROM sale WHERE saleId = :saleId');
+
+    // Replace the place holder
+    $stmt->bindValue(':saleId',$saleId, PDO::PARAM_INT);
+
+    // The next line runs the prepared statement 
+    $stmt->execute(); 
+    // Get number of affected rows
+    $result = $stmt->rowCount();
+    // The next line closes the interaction with the database 
+    $stmt->closeCursor(); 
+
+    return $result;
+}
+
 function getProductsByCategory($categoryName){
     $db = engojeConnect();
     $sql = 'SELECT * FROM product_entry WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :categoryName)';

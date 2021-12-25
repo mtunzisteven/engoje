@@ -3,25 +3,13 @@
 
 
 //This is the shop controller for the site// start session with same id in this file
-session_start();
+require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
 
-// no session started var set yet = session just created 
-if(!isset($_SESSION['STARTED'])){
-
-    $_SESSION['STARTED'] = time();
-
-}else if(time()-$_SESSION['STARTED'] > 1800){
-    // session older than 30min
-    // change session id if session is older than 30 min
-    session_destroy();
-
-    // set new session started var
-    $_SESSION['STARTED'] = time();
-
-}
 
 // Get the database connection file
 require_once '../library/connections.php';
+// Get the cleaner script 
+require_once '../library/dbCleaner.php';
 // Get the database connection file
 require_once '../library/functions.php';
 // Get the side navs library
@@ -108,8 +96,8 @@ switch ($action){
 
         $_SESSION['sale'] = getSaleItem($_SESSION['product_entryId']);
 
-            // Set price and style appearance for sale items
-            if(!empty($_SESSION['sale'])){
+        // Set price and style appearance for sale items
+        if(!empty($_SESSION['sale'])){
                 
             // create new date time object
             $today = new DateTime();
@@ -127,7 +115,7 @@ switch ($action){
             $interval = [date_diff($today, $saleStart)];
 
             // the number of days since start of sale
-            $days = ($interval[0]->h)/24;
+            $days = ($interval[0]->m*30+$interval[0]->d);
 
             // if sale has not expired
             if($days < $_SESSION['sale']['salePeriod']){
