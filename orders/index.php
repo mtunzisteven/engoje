@@ -118,7 +118,7 @@ switch ($action) {
         // Id must not be empty
         if(!empty($orderId) && !empty($orderStatus)){
 
-            // deletion of order must occur
+            // update of order must occur
             if(updateOrderStatus($orderId, $orderStatus)){
 
                 // Send message

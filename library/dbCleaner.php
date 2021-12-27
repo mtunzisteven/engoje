@@ -12,7 +12,7 @@ require_once '../model/shop-model.php';
 // Get the products admin model for use as needed
 require_once '../model/products-model.php';
 // Get the products image uploads model for use as needed
-require_once '../model/uploads-model.php';
+require_once '../model/orders-model.php';
 
 // This script cleans the data base of all redundant or expired data 
 
@@ -50,5 +50,68 @@ $today->format('U');
 // End Sale Cleaner
 ///////////////////
 
-// the number of days since start of sale months + days
-$days = ($interval[0]->m*30+$interval[0]->d); 
+////////////////////
+// Order Cleaner
+//////////////////////
+
+    $orders = getOrders(); // get all orders from db
+
+    foreach($orders as $order){
+
+        $orderDate = new DateTime($order['orderDate']);
+        $orderDate->format('Y-m-d H:i:s');
+
+        $interval = [date_diff($today, $orderDate)];
+
+        // the number of hours since order placed
+        $hoursElapsed = ($interval[0]->m*30*24*60+$interval[0]->d*24*60+$interval[0]->h*60+$interval[0]->i);  
+
+        // if it's morethan 2 hours and order is still not paid
+        if($hoursElapsed > 2 ){
+
+            /////////////////////////////////////////////////////////////////////////////////////
+            //             reverse order stock amount reduction done at checkout               //
+            /////////////////////////////////////////////////////////////////////////////////////
+
+                
+                // replace item amounts in the db if order had already been checked out:
+                if($order['orderStatus'] == 'checked-out'){
+
+                    $order_items = explode(",", $order['order_items']);
+
+                    for($i = 0; $i < count($order_items); $i+=5){
+
+
+                        // id for the item in the db
+                        $product_entryId = $order_items[$i];
+                        // amount of this item to be purchased
+                        $purchaseAmount = intval($order_items[$i+4]);
+
+                        // amount available in the db
+                        $amount = getProduct_entryAmount($product_entryId);
+
+                        $amount = intval($amount['amount']);
+
+                        $reversedAmount = $amount + $purchaseAmount;
+
+
+                        // updatge done in the model within 
+                        // the function used below: updateQty().
+                        updateQty($product_entryId, $reversedAmount);
+                    }
+                }
+
+            /////////////////////////////////////////////////////////////////////////////////////
+            //             reverse order stock amount reduction done at checkout               //
+            /////////////////////////////////////////////////////////////////////////////////////
+
+            // delete the order from the db
+            deleteOrder($order['orderId']);
+
+        }
+
+    }
+
+//////////////////////
+// End Order Cleaner
+///////////////////
