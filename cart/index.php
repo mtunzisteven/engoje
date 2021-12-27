@@ -300,9 +300,6 @@ switch ($action){
             // delete cart display session variable
             unset($_SESSION['cartDisplay']);
 
-            // delete order
-            deleteOrder($_SESSION['orderId']);
-
             unset($_SESSION['orderId']);
 
         }

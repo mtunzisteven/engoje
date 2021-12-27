@@ -67,7 +67,7 @@ $today->format('U');
         $hoursElapsed = ($interval[0]->m*30*24+$interval[0]->d*24+$interval[0]->h);  
 
         // if it's morethan 2 hours and order is still not paid
-        if($hoursElapsed > 2 ){
+        if($hoursElapsed >= 2 ){
 
             /////////////////////////////////////////////////////////////////////////////////////
             //             reverse order stock amount reduction done at checkout               //

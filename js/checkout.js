@@ -50,6 +50,7 @@ let popupCardYes = document.querySelector('#popupCardYes');
 let cancelPayfastConfirm = document.querySelector('#cancelPayfastConfirm');
 let shippingFee = document.querySelector('#shipping-fee').value;
 let reload = document.querySelector('#redirect');
+let orderId = document.querySelector('#orderId');
 
 // process order and submit payfast form
 payNowButton.addEventListener('click', function(){
@@ -93,7 +94,6 @@ payNowButton.addEventListener('click', function(){
             }else{ 
 
                 // stock adjustment or out of stock items found
-
                 popupCard.setAttribute('class', 'address-form-container');
                 popupCardtext.innerHTML = data['message'];
 
@@ -122,7 +122,27 @@ payNowButton.addEventListener('click', function(){
                         })
                         .then(response=>{
                             if(response.ok){
-                                return response;
+
+                                // change orderStatus to chekced-out in db
+                                let orderStatustData = new FormData();                             
+                                orderStatustData.append('action', 'update-orderStatus');
+                                orderStatustData.append('orderId', orderId);
+                                orderStatustData.append('orderStatus', 'checked-out');
+                                orderStatustData.append('async', true);
+
+                                        
+                                fetch("/engoje/orders/", {
+                                    method: 'POST',
+                                    body: orderStatustData
+                                })
+                                .then(response=>{
+                                    if(response.ok){
+                                        return response;
+                                    }
+                                    throw Error(response.statusText);
+                                })
+                                .catch(error=> console.log(error));
+
                             }
                             throw Error(response.statusText);
                         })

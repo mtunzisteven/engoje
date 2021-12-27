@@ -434,7 +434,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
         $checkoutDisplay .= "<div class='label'> City: </div> <input type='text' name='addressCity' required />";  
         $checkoutDisplay .= "<div class='label'> Zip Code: </div> <input type='text' name='addressZipCode' required />"; 
 
-        $checkoutDisplay .= "<input type='hidden' name='orderNumber' value='$orderId' />"; 
+        $checkoutDisplay .= "<input type='hidden' id='orderId' name='orderNumber' value='$orderId' />"; 
         $checkoutDisplay .= "<input type='hidden' name='userId' value='".$userDetails[0]['userId']."' />"; 
         $checkoutDisplay .= "<input type='hidden' name='addressType' value='2' />";   
         $checkoutDisplay .= "<input type='button' class='button' id='newAddress' value='Submit' />";  

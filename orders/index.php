@@ -114,6 +114,8 @@ switch ($action) {
 
         $orderId = filter_input(INPUT_POST, 'orderId',FILTER_SANITIZE_NUMBER_INT);
         $orderStatus = filter_input(INPUT_POST, 'orderStatus',FILTER_SANITIZE_STRING);
+        $async = filter_input(INPUT_POST, 'async',FILTER_SANITIZE_STRING);
+
 
         // Id must not be empty
         if(!empty($orderId) && !empty($orderStatus)){
@@ -123,6 +125,13 @@ switch ($action) {
 
                 // Send message
                 $message = "<p>Order status changed to $orderStatus</p>";
+
+                // return to js with nothing
+                if($async){
+
+                    echo true; exit;
+
+                }
 
             }else{
 
@@ -138,8 +147,6 @@ switch ($action) {
         $ordersAdminTable = buildordersAdminTable($orders);
 
         header('Location: /engoje/orders/'); exit;
-
-        break;
     
     case 'orders':
 
