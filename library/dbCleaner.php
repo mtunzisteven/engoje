@@ -64,7 +64,7 @@ $today->format('U');
         $interval = [date_diff($today, $orderDate)];
 
         // the number of hours since order placed
-        $hoursElapsed = ($interval[0]->m*30*24*60+$interval[0]->d*24*60+$interval[0]->h*60+$interval[0]->i);  
+        $hoursElapsed = ($interval[0]->m*30*24+$interval[0]->d*24+$interval[0]->h);  
 
         // if it's morethan 2 hours and order is still not paid
         if($hoursElapsed > 2 ){
