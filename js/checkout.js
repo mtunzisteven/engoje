@@ -108,9 +108,6 @@ payNowButton.addEventListener('click', function(){
                     // make payment if there's anything to pay for.
                     if(payfastForm['amount'].value != shippingFee){
 
-                        // submit form
-                        payfastForm.submit();
-
                         // clear cart items from db
                         let clearCartData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
                         clearCartData.append('action', 'clear-cart');                   // add the action that will be used by the case selection in the controller
@@ -126,7 +123,7 @@ payNowButton.addEventListener('click', function(){
                                 // change orderStatus to chekced-out in db
                                 let orderStatustData = new FormData();                             
                                 orderStatustData.append('action', 'update-orderStatus');
-                                orderStatustData.append('orderId', orderId);
+                                orderStatustData.append('orderId', orderId.value);
                                 orderStatustData.append('orderStatus', 'checked-out');
                                 orderStatustData.append('async', true);
 
@@ -137,11 +134,17 @@ payNowButton.addEventListener('click', function(){
                                 })
                                 .then(response=>{
                                     if(response.ok){
+                                        
                                         return response;
                                     }
                                     throw Error(response.statusText);
                                 })
                                 .catch(error=> console.log(error));
+
+                                // submit form
+                                payfastForm.submit();
+
+                                return response;
 
                             }
                             throw Error(response.statusText);
