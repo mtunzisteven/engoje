@@ -1,7 +1,5 @@
 <?php
 
-
-
 // This is the shop controller for the site checkout responsible only for the default action: go to checkout
 // Provides a clean checkout url// start session with same id in this file
 require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
@@ -162,6 +160,7 @@ switch ($action){
                     $numberOfItems = $_SESSION['cartTotal'];
 
                     // when an order has been added to the db for this user
+
                     if(isset($_SESSION['orderId']) ){
 
                         // fetch the order from the db and compare it with the current order
@@ -176,7 +175,7 @@ switch ($action){
                             // build the checkout display
                             $_SESSION['checkoutDisplay'] = buildCheckoutDisplay($checkoutDetails, $userDetails, $_SESSION['orderId'], $order_items, $shippingInfo);
 
-                        } else{ // if they do not match, delete the db order and restart the process
+                        } else{ // if they do not match, delete the db order and restart the process. This will update the orderId as well as items
 
                             if(deleteOrder($_SESSION['orderId'])){
 

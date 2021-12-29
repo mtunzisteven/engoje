@@ -60,6 +60,25 @@ function getOrderItems($orderId){
     return $items;
 }
 
+// update order items string for the order  
+function updateOrderItemsAndTotal($orderId, $order_items, $numberOfItems){
+    
+    $db = engojeConnect();
+
+    $sql = "UPDATE orders SET order_items=:order_items, numberOfItems=:numberOfItems WHERE orderId = :orderId";
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':orderId', $orderId, PDO::PARAM_INT);
+    $stmt->bindValue(':order_items', $order_items, PDO::PARAM_STR);
+    $stmt->bindValue(':numberOfItems', $numberOfItems, PDO::PARAM_STR);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount(); 
+    $stmt->closeCursor();
+
+    return $rowsChanged;
+}
+
 // Get all orders  getCartQuantityForCheckout
 function getOrders(){
     $db = engojeConnect();

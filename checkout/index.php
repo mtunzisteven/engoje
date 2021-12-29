@@ -113,11 +113,15 @@ switch ($action){
             // user must be logged in
             if(isset($_SESSION['userData'])){
 
-                $testString = $_SESSION['order'];
+                // get the order items string from the db
+                $orderItemsString = getOrderItems($_SESSION['orderId'])['order_items'];
+
+                // echo $orderItemsString; exit;
 
                 //string must be made an array 
-                $_SESSION['order'] = explode(",", $_SESSION['order']);
+                $_SESSION['order'] = explode(",", $orderItemsString);
 
+                // this was set inside funtion file
                 $order_Total = $_POST['orderTotal'];
 
                 // there must be an order that exists for the user.
@@ -154,6 +158,8 @@ switch ($action){
                         // index 4 : price
                         // index 5 : qty
 
+                        $numberOfItems = 0;
+
                         for($i = 0; $i < count($_SESSION['order']); $i+=5){
 
 
@@ -179,7 +185,7 @@ switch ($action){
                             // amount remaining in the db of the item: will use the variable later
                             $dbAmountRemaining;
 
-                            // Item in stock if this value is 1.
+                            // Item available in stock if this value is 1.
                             $stockAvailable = 1;
 
                             // if there is stock available (from db)
@@ -189,6 +195,8 @@ switch ($action){
                                 if($amount >= $purchaseAmount){
 
                                     $dbAmountRemaining = $amount - $purchaseAmount; // only remove order amount from the order
+
+                                    $numberOfItems += $purchaseAmount; // add the purchase amount to the total amount of items
 
                                 }
                                 else{
@@ -202,6 +210,8 @@ switch ($action){
                                     $purchaseAmount = $amount; // specify amount in order
 
                                     $_SESSION['order'][$i+4] = $amount; // also update the session variable order string amount
+
+                                    $numberOfItems += $purchaseAmount; // add the purchase amount to the total amount of items
 
                                     // no more stock available but available for current order
                                     $stockAvailable = 2;
@@ -219,6 +229,9 @@ switch ($action){
                                 // Item out of stock when this value is zero
                                 $stockAvailable = 0;
 
+                                $numberOfItems -= $purchaseAmount; // remove the purchase amount to the total amount of items
+
+
                             }
 
                             // if item out of stock
@@ -231,7 +244,6 @@ switch ($action){
                                 $order_Total -= $price*$purchaseAmount;
 
                             }
-
                             // When the qty received from db is less than the order qty
                             // This happens when stock is less than order amount in cx's order.
                             else if($stockAvailable == 2){
@@ -243,7 +255,7 @@ switch ($action){
                                 $order_Total = $order_Total - $price*($initialPurchaseAmount - $purchaseAmount);
 
                             }
-                            else if($stockAvailable == 2){
+                            else if($stockAvailable == 1){
                                 continue;
                             }
 
@@ -255,6 +267,11 @@ switch ($action){
 
                     // array turned back into a string
                     $_SESSION['order']  = implode(",", $_SESSION['order']);
+
+                    // update the order items string and the total qty in the db 
+
+                    updateOrderItemsAndTotal($_SESSION['orderId'], $_SESSION['order'], $numberOfItems);
+
 
                     //echo "Post increment: ".$order_Total; exit;
 
