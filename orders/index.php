@@ -51,13 +51,58 @@ switch ($action) {
 
         $orderId = filter_input(INPUT_GET, 'orderId',FILTER_SANITIZE_NUMBER_INT);
 
-        // echo $orderId; exit;
-
         // Id must not be empty
         if(!empty($orderId)){
 
+            // get the order items string from the db
+            $order_items = getOrderItems($orderId)['order_items'];
+
             // deletion of order must occur
             if(deleteOrder($orderId)){
+
+                /////////////////////////////////////////////////////////
+                // reverse order item amount in the product entry table//
+                /////////////////////////////////////////////////////////
+
+                    if(!empty($order_items)){ 
+
+                        /////////////////////////////////////////////////////////////////////////////////////
+                        //             reverse order stock amount reduction done at checkout               //
+                        /////////////////////////////////////////////////////////////////////////////////////
+
+
+                            //string must be made an array 
+                            $order_items = explode(",", $order_items);
+
+                            for($i = 0; $i < count($order_items); $i+=5){
+
+
+                                // id for the item in the db
+                                $product_entryId = $order_items[$i];
+                                // amount of this item to be purchased
+                                $purchaseAmount = intval($order_items[$i+4]);
+
+                                // amount available in the db
+                                $amount = getProduct_entryAmount($product_entryId);
+
+                                $amount = intval($amount['amount']);
+
+                                $reversedAmount = $amount + $purchaseAmount;
+
+
+                                // updatge done in the model within 
+                                // the function used below: updateQty().
+                                updateQty($product_entryId, $reversedAmount);
+                            }
+
+                        ////////////////////////////////////////////////////////////////////////////////////////
+                        //            end reverse order stock amount reduction done at checkout               //
+                        ////////////////////////////////////////////////////////////////////////////////////////
+                    }
+
+                /////////////////////////////////////////////////////////
+                //                                                     //
+                /////////////////////////////////////////////////////////
 
                 // Send message
                 $message = "Order deleted!";

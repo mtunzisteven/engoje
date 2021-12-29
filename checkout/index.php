@@ -121,7 +121,7 @@ switch ($action){
                 //string must be made an array 
                 $_SESSION['order'] = explode(",", $orderItemsString);
 
-                // this was set inside funtion file
+                // this was set inside function file
                 $order_Total = $_POST['orderTotal'];
 
                 // there must be an order that exists for the user.
