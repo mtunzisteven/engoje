@@ -59,7 +59,7 @@ if ($filter == NULL){
     $filter = filter_input(INPUT_GET, 'filter',FILTER_SANITIZE_STRING);
 }
 
-switch ($filter){
+switch ($filter){ 
 
     case "colour-filter":
 

@@ -73,17 +73,15 @@ if ($filter == NULL){
     $filter = filter_input(INPUT_GET, 'filter',FILTER_SANITIZE_STRING);
 }
 
-switch ($filter){
+switch ($filter){ 
 
     case "colour-filter":
 
         // get the input colour value
         $_SESSION['SalecolourFilter'] = filter_input(INPUT_GET, 'colour',FILTER_SANITIZE_STRING);
 
-        // fetch all products
+        // fetch all products in filter
         $products = saleFilters($products, $lim, $offset);
-
-        // var_dump($products); exit;
 
         // make sure products isn't empty
         if(!empty($products)){
@@ -170,8 +168,6 @@ switch ($filter){
         // get the input price values
         $_SESSION['SaleminPriceFilter'] = intval(filter_input(INPUT_GET, 'minPrice',FILTER_SANITIZE_NUMBER_INT));
         $_SESSION['SalemaxPriceFilter'] = intval(filter_input(INPUT_GET, 'maxPrice',FILTER_SANITIZE_NUMBER_INT));
-
-        //echo $maxPrice; exit;
 
         $products = saleFilters($products, $lim, $offset);
 

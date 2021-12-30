@@ -2336,14 +2336,16 @@ function saleFilters($products, $lim, $offset){
         // get next offset
         return getSalePricePaginations($lim, $offset, $_SESSION['SaleminPriceFilter'], $_SESSION['SalemaxPriceFilter']);
 
+
+
     }  // size
-    else if(isset($_SESSION['SalesizeFilter'])){
+    else if(isset($_SESSION['SaleSizeFilter'])){
 
         // get total prod quantity in filter
-        $_SESSION['productQty'] = count(getSaleProductsBySize($_SESSION['SalesizeFilter']));
+        $_SESSION['productQty'] = count(getSaleProductsBySize($_SESSION['SaleSizeFilter']));
 
         // get next offset
-        return getSaleSizePaginations($lim, $offset, $_SESSION['SalesizeFilter']);
+        return getSaleSizePaginations($lim, $offset, $_SESSION['SaleSizeFilter']);
 
     }  // category
     else if(isset($_SESSION['SalecategoryFilter'])){

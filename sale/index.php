@@ -70,7 +70,7 @@ if ($action == NULL){
     $action = filter_input(INPUT_GET, 'action',FILTER_SANITIZE_STRING);
 }
 
-switch ($action){
+switch ($action){ 
     case 'next':
 
         $offset = filter_input(INPUT_GET, 'offset', FILTER_SANITIZE_NUMBER_INT);

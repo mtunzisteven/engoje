@@ -832,8 +832,8 @@ function getShopSizePaginations($lim, $offset, $size){
                         JOIN colour ON product_entry.colourId = colour.colourId
                         JOIN size ON product_entry.sizeId = size.sizeId
                         WHERE images.imagePrimary = 1 
-                        AND :minPrice <= product_entry.price
-                        AND :maxPrice > product_entry.price
+                        AND  sale.salePrice >= :minPrice 
+                        AND sale.salePrice <= :maxPrice
                         ORDER BY product_entry.product_entryId 
                         LIMIT  :offset, :lim';
 
@@ -1371,9 +1371,8 @@ function getShopSizePaginations($lim, $offset, $size){
                         JOIN categories ON product_entry.categoryId = categories.categoryId
                         JOIN colour ON product_entry.colourId = colour.colourId
                         JOIN size ON product_entry.sizeId = size.sizeId
-                        WHERE images.imagePrimary = 1 
-                        AND :minPrice <= product_entry.price
-                        AND :maxPrice > product_entry.price';
+                        WHERE sale.salePrice >= :minPrice 
+                        AND sale.salePrice <= :maxPrice';
 
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':minPrice',$minPrice, PDO::PARAM_INT);
