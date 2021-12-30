@@ -95,7 +95,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -129,7 +129,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
@@ -155,7 +155,7 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/sidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
