@@ -1284,11 +1284,11 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
             if($i == $pageNum){ //disable currrent link
 
-                $dv .= "<li class='page-item  disabled'><a class='page-link  disabled pagination pagination-number $focus' href='/engoje/sale/?action=prev&offset=$numOffset'> $i </a></li>";
+                $dv .= "<li class='page-item  disabled'><a class='page-link  disabled pagination pagination-number $focus' href='/engoje/shop/?action=prev&offset=$numOffset'> $i </a></li>";
             
             }else{
 
-                $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/engoje/sale/?action=prev&offset=$numOffset'> $i </a></li>";
+                $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/engoje/shop/?action=prev&offset=$numOffset'> $i </a></li>";
 
             }
         }

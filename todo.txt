@@ -1,5 +1,3 @@
-4. When checkout message for order adjustment happens and user accepts to checkout, order status must be changed to 'checked_out' asynchromously - Mthunzi
-
 5. Complete admin and user account dashboards - Mthunzi
 
 6. Add ability to print each order on A4 pages  - Mthunzi
@@ -16,4 +14,6 @@
 
 12. Add order-by ability on top right on archive - Mthunzi
 
-final step: Add listening ability so the order status changes to paid when customer pays(Take S-Code into consideration) - Mthunzi
+13. Add listening ability so the order status changes to paid when customer pays(Take S-Code into consideration) - Mthunzi
+
+14. Add log controller and table in db, with details of who did what and when, including all warnings and errors.
