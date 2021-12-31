@@ -175,7 +175,7 @@ switch ($action){
 
                 $gallery = getSwatchImages($newData[0]['product_entryId']);
 
-                $galleryPaths_tn = [];
+                $galleryPaths_tn = []; 
                 $galleryPaths = [];
 
                 foreach($gallery as $image){
@@ -184,6 +184,18 @@ switch ($action){
                     $galleryPaths[] = $image['imagePath'];
 
                 }
+
+                // find out if the swatch is on sale or not
+                if(getSaleItem($newData[0]['product_entryId'])){
+                    
+                    $responseText['onSale'] = true;
+
+                }else{
+
+                    $responseText['onSale'] = false;
+
+                }
+
 
                 // load the details of the product into an associative array
                 $responseText['galleryPaths_tn'] = $galleryPaths_tn;

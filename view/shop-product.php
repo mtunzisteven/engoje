@@ -66,7 +66,7 @@
 
                     echo "</div>";
 
-                    ?>
+                    ?> 
 
                 </div>
                 <form class="form-add-to-cart" action="" >
@@ -77,19 +77,19 @@
 
                             if(isset($_SESSION['salePrice'])){ $salePrice = "R".$_SESSION['salePrice']; } //When there is a sale price
                         
-                            echo "<h1 id='product-title'>".$_SESSION['productData'][0]['productName']."</h1>";
-                                                                                                                            // div.sale-circle below
-                            echo "<div class='sale-prices-container'><p class='productPrice $_SESSION[strikeThrough]' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p><p class='$_SESSION[hidden] productPrice sale-price' >".$salePrice."</p></div>";
-                            echo "<p  class='productShort-descr'>".$_SESSION['productData'][0]['productShortDescr']."</p>";
-                            echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$_SESSION['productData'][0]['product_entryId']."' />";
-                            echo "<input type='hidden' id='productId' name='productId' value='".$_SESSION['productData'][0]['productId']."' />";
-                            echo "<input type='hidden' id='colourChoice' name='".$_SESSION['colourChoice']."' value='".$_SESSION['colourChoice']."' />";
+                                echo "<h1 id='product-title'>".$_SESSION['productData'][0]['productName']."</h1>";
+                                                                                                                                // div.sale-circle below
+                                echo "<div class='sale-prices-container'><p class='productPrice $_SESSION[strikeThrough]' id='productPrice' >R".$_SESSION['productData'][0]['price']."</p><p id='salePrice' class='$_SESSION[hidden] productPrice sale-price' >".$salePrice."</p></div>";
+                                echo "<p  class='productShort-descr'>".$_SESSION['productData'][0]['productShortDescr']."</p>";
+                                echo "<input type='hidden' id='product_entryId' name='product_entryId' value='".$_SESSION['productData'][0]['product_entryId']."' />";
+                                echo "<input type='hidden' id='productId' name='productId' value='".$_SESSION['productData'][0]['productId']."' />";
+                                echo "<input type='hidden' id='colourChoice' name='".$_SESSION['colourChoice']."' value='".$_SESSION['colourChoice']."' />";
 
-                            echo $_SESSION['colours'];                            
+                                echo $_SESSION['colours'];                            
 
-                            echo $_SESSION['sizes'];
+                                echo $_SESSION['sizes'];
 
-                        }
+                            }
 
                         if(isset($_SESSION['userData'])){ // do not show the add to cart button if user not signed in 
                     ?>
