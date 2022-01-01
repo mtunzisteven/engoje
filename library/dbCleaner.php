@@ -67,43 +67,35 @@ $today->format('U');
         $hoursElapsed = ($interval[0]->m*30*24+$interval[0]->d*24+$interval[0]->h);  
 
         // if it's morethan 2 hours and order is still not paid
-        if($hoursElapsed >= 2 ){
+        // replace item amounts in the db if order had already been checked out:
+        if($hoursElapsed >= 2 && $order['orderStatus'] == 'checked-out'){
 
-            /////////////////////////////////////////////////////////////////////////////////////
-            //             reverse order stock amount reduction done at checkout               //
-            /////////////////////////////////////////////////////////////////////////////////////
+            $order_items = explode(",", $order['order_items']);
 
-                
-                // replace item amounts in the db if order had already been checked out:
-                if($order['orderStatus'] == 'checked-out'){
-
-                    $order_items = explode(",", $order['order_items']);
-
-                    for($i = 0; $i < count($order_items); $i+=5){
+            for($i = 0; $i < count($order_items); $i+=5){
 
 
-                        // id for the item in the db
-                        $product_entryId = $order_items[$i];
-                        // amount of this item to be purchased
-                        $purchaseAmount = intval($order_items[$i+4]);
+                // id for the item in the db
+                $product_entryId = $order_items[$i];
+                // amount of this item to be purchased
+                $purchaseAmount = intval($order_items[$i+4]);
 
-                        // amount available in the db
-                        $amount = getProduct_entryAmount($product_entryId);
+                // amount available in the db
+                $amount = getProduct_entryAmount($product_entryId);
 
-                        $amount = intval($amount['amount']);
+                $amount = intval($amount['amount']);
 
-                        $reversedAmount = $amount + $purchaseAmount;
+                $reversedAmount = $amount + $purchaseAmount;
 
 
-                        // updatge done in the model within 
-                        // the function used below: updateQty().
-                        updateQty($product_entryId, $reversedAmount);
-                    }
-                }
+                // updatge done in the model within 
+                // the function used below: updateQty().
+                updateQty($product_entryId, $reversedAmount);
+            }
+            // delete the order from the db
+            deleteOrder($order['orderId']);
 
-            /////////////////////////////////////////////////////////////////////////////////////
-            //             reverse order stock amount reduction done at checkout               //
-            /////////////////////////////////////////////////////////////////////////////////////
+        }else if($hoursElapsed >= 48 && $order['orderStatus'] == 'processing'){
 
             // delete the order from the db
             deleteOrder($order['orderId']);
