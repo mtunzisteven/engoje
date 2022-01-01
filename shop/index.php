@@ -1,10 +1,7 @@
 <?php
 
-
-
 //This is the shop controller for the site// start session with same id in this file
 require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
-
 
 // Get the database connection file
 require_once '../library/connections.php';

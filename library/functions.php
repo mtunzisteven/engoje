@@ -371,7 +371,17 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
         $fullName = explode(" ",$userDetails[0]['addressName']);
 
         $firstName = $fullName[0];
-        $lastName = $fullName[1];
+
+        // incase someone does not enter their last name.
+        if(isset($fullName[1])){
+
+            $lastName = $fullName[1];
+            
+        }else{ // if not, just leave the lastname blank
+
+            $lastName = '';
+
+        }
 
         $data = array(
             // Merchant details
