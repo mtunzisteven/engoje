@@ -3,7 +3,6 @@
  * This is for the side nav builder functions 
  */
 
-
 //  Build Admin Side Nav display
 function buildAdminSideNav(){
 
@@ -161,7 +160,7 @@ function buildAdminSideNav(){
                   <hr>
                   <ul class='nav nav-pills flex-column mb-auto'> 
                       <li class='nav-item'>
-                        <a href='/engoje/orders/?action=orders' class='nav-link text-white ".$_SESSION['active_tab']['orders']."'>
+                        <a href='/engoje/myaccount/?action=orders' class='nav-link text-white ".$_SESSION['active_tab']['orders']."'>
                           <i class='bi bi-truck'></i>
                           &nbsp;Orders
                         </a>

@@ -560,6 +560,94 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
 
    return $productRows;
 }  
+// Build a multi product display table on user account dashboard
+function  buildUsersOrdersAdminTable($orders){
+
+    $trackingNo = '-';
+    $grandTotal = '0';
+
+    $number = 0; // used for table numbering
+
+    // only go into this code if there are orders in the system
+    if(!empty($orders)){
+            
+        foreach($orders as $order){
+
+            $number += 1;
+
+            // add tracking number if updated
+            if($order['orderTracking'] != null){ 
+
+                $trackingNo = $order['orderTracking'];
+
+            }else{
+
+                $trackingNo = '-';
+
+            }
+
+            // add tracking number if updated
+            if($order['grandTotal'] != null){ 
+
+                $grandTotal = $order['grandTotal'];
+
+            }else{
+
+                $grandTotal = '0';
+
+            }
+
+            // bootstrap modal for product delete
+            $orderRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons >
+            
+                <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#update$order[orderId]'>
+                update
+                </button>
+
+                <div class='modal fade' id='update$order[orderId]' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                    <div class='modal-dialog'>
+                        <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' id='exampleModalLabel'>Cancel Order</h5>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                        
+                            <p>Order Id: $order[orderId]</p>
+                            <p>Number of Items: $order[numberOfItems]</p>
+                            <p>Order Status: $order[orderStatus]</p>
+                            <p>Order Date:$order[orderDate]</p>
+                        
+                        </div>
+
+                        <div class='container'>
+                            <div class='row'>
+                                <div class='col'>
+                                    <form class='border-0 px-2' action='/engoje/orders/?action=update-orderStatus' method='post'>
+                                        <div class='mb-3'>
+                                            <input type='hidden' type='text' class='form-control' id='orderStatus' name='orderStatus' value='cancelled'>
+                                            <input type='hidden' name='orderId' value='$order[orderId]'>
+                                        </div>
+                                        <button type='submit' class='btn btn-primary button'>Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+            </td><td>$order[orderId] </td> <td> $order[userFirstName] $order[userLastName] </td> <td> R$grandTotal </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> $order[shipper] </td> <td> $trackingNo </td></tr>";
+        }
+
+        return $orderRows;
+    }else{
+
+        return "";
+
+    }
+}
+
 // Build a multi product display table on admin dashboard
 function  buildordersAdminTable($orders){
 
@@ -646,7 +734,7 @@ function  buildordersAdminTable($orders){
                             </div>
                         </div>
                     </div>
-                </div>product
+                </div>
                 </div>
                 
                 <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#delete$order[orderId]'>
@@ -672,7 +760,7 @@ function  buildordersAdminTable($orders){
                         <a class='button chunk-buttons' href='/engoje/orders/?action=delete&orderId=$order[orderId]' >Delete</a>
                     </div>
                     </div>
-                </div>product
+                </div>
                 </div>
                 
             </td><td>$order[orderId] </td> <td> $order[userFirstName] $order[userLastName] </td> <td> R$grandTotal </td> <td>$order[orderDate]</td> <td>$order[numberOfItems] </td> <td>$order[orderStatus]</td> <td> $order[shipper] </td> <td> $trackingNo </td></tr>";

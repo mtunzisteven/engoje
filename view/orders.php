@@ -11,9 +11,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
     if(!$_SESSION['loggedin']){
         header('Location: /engoje/');
     }
-    else if($_SESSION['loggedin'] && $_SESSION['userData']['userLevel']<2){
-        header('Location: /engoje/view/account.php');
-    }
 
     $pageName ="Orders"; 
     $pageShortSummary = "Dashboard";

@@ -79,7 +79,7 @@ function updateOrderItemsAndTotal($orderId, $order_items, $numberOfItems){
     return $rowsChanged;
 }
 
-// Get all orders  getCartQuantityForCheckout
+// Get all orders 
 function getOrders(){
     $db = engojeConnect();
     $sql = 'SELECT * FROM orders 
@@ -88,6 +88,26 @@ function getOrders(){
     ';
 
     $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+
+    //var_dump($orders); exit;
+
+    return $orders;
+}
+
+// Get all orders by user Id
+function getOrdersbyId($userId){
+    $db = engojeConnect();
+    $sql = 'SELECT * FROM orders 
+                    JOIN shipping_method ON orders.shippingId = shipping_method.shippingId
+                    JOIN users ON orders.userId = users.userId
+                    WHERE orders.userId = :userId
+    ';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
     $stmt->execute();
     $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
