@@ -101,7 +101,7 @@ switch ($action){
         
                 $ordersAdminTable = buildUsersOrdersAdminTable($orders);
 
-                include '../view/orders.php';
+                include '../view/user-orders.php';
 
             }else{
 

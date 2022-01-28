@@ -30,7 +30,7 @@
 
             </div>
 
-            <div class='shop-products-archive'>
+            <div class='shop-products-archive'> 
                 <?php 
 
                     // Display the shop products

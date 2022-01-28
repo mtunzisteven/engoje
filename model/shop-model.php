@@ -1961,7 +1961,13 @@ function getsalemaxPrice(){
 
     //echo $max['price']; exit;
 
-    return $max['salePrice'];
+    if(!empty($max)){ 
+        
+        return $max['salePrice'];
+
+    }else{
+        return false;
+    }
 }
 // Get all products min price value
 function getminPrice(){

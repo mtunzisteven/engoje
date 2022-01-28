@@ -208,6 +208,10 @@ body .unspacer {
   margin-top: -50px !important;
 }
 
+body p small {
+  font-size: 13px;
+}
+
 .active {
   color: #fea500;
 }
