@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2022 at 05:45 AM
+-- Generation Time: Feb 01, 2022 at 06:10 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -24,59 +24,46 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Table structure for table `warninglog`
 --
 
-CREATE TABLE `orders` (
-  `orderId` int(11) NOT NULL,
-  `userId` int(11) DEFAULT NULL,
-  `order_items` varchar(265) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `shippingId` int(11) NOT NULL,
-  `orderStatus` varchar(22) NOT NULL DEFAULT 'processing',
-  `orderTracking` varchar(86) DEFAULT NULL,
-  `orderDate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `numberOfItems` int(11) DEFAULT NULL,
-  `grandTotal` int(11) DEFAULT NULL
+CREATE TABLE `warninglog` (
+  `warningId` int(11) NOT NULL,
+  `warning` varchar(256) NOT NULL,
+  `warningLocation` varchar(86) DEFAULT NULL,
+  `warningNumber` int(11) NOT NULL,
+  `warningDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `orders`
+-- Dumping data for table `warninglog`
 --
 
-INSERT INTO `orders` (`orderId`, `userId`, `order_items`, `shippingId`, `orderStatus`, `orderTracking`, `orderDate`, `numberOfItems`, `grandTotal`) VALUES
-(251, 13, '170,Formal Dress,grey,260,1', 2, 'processing', NULL, '2022-01-01 14:08:16', 1, 330);
+INSERT INTO `warninglog` (`warningId`, `warning`, `warningLocation`, `warningNumber`, `warningDate`) VALUES
+(1, 'Undefined variable $n', NULL, 2, '2022-02-01 05:00:59'),
+(2, 'Undefined variable $n', NULL, 2, '2022-02-01 05:02:05'),
+(3, 'Undefined variable $numnum', NULL, 2, '2022-02-01 05:03:40'),
+(4, 'Undefined variable $numnum', 'Main Index', 2, '2022-02-01 05:07:59');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `orders`
+-- Indexes for table `warninglog`
 --
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`orderId`),
-  ADD KEY `FK_orders_users` (`userId`),
-  ADD KEY `FK_orders_shipping_method` (`shippingId`);
+ALTER TABLE `warninglog`
+  ADD PRIMARY KEY (`warningId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT for table `warninglog`
 --
-ALTER TABLE `orders`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `FK_orders_shipping_method` FOREIGN KEY (`shippingId`) REFERENCES `shipping_method` (`shippingId`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `warninglog`
+  MODIFY `warningId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
