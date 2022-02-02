@@ -4,6 +4,9 @@
 set_error_handler("warning_handler", E_WARNING);
 
 
+// start session with same id in this file// start session with same id in this file
+require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+
 // Get the database connection file
 require_once '../library/connections.php';
 // Get the cleaner script 
