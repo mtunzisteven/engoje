@@ -1,9 +1,7 @@
 <?php
 
 //This is the Accounts Controller for the site
-
-// start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+set_error_handler("warning_handler", E_WARNING);
 
 
 // Get the database connection file
@@ -18,6 +16,8 @@ require_once '../model/main-model.php';
 require_once '../model/accounts-model.php';
 // Get the reviews model for use as needed
 require_once '../model/reviews-model.php';  
+// Get the engoje model for use as needed
+require_once '../model/warningLog-model.php';
 
 // active tab array
 $_SESSION['active_tab'] = $active_tabs;
@@ -28,6 +28,7 @@ if ($action == NULL){
 }
 
 switch ($action) {
+    
     case 'login':
         include "../view/login.php";
         break;
@@ -158,6 +159,7 @@ switch ($action) {
         break;
 
     case 'Login':
+        
         // Filter and store the data
         $csrfToken = filter_input(INPUT_POST, '_csrf', FILTER_SANITIZE_NUMBER_INT);
         $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
@@ -405,4 +407,21 @@ switch ($action) {
 
         include '../view/admin.php';
         break;
-    }
+}
+
+restore_error_handler();
+
+function warning_handler($errno, $errstr) { 
+
+    $warningNumber = $errno;
+
+    $warning = $errstr;
+
+    $warningLocation = 'Account Index';
+
+    addWarning($warningNumber, $warning, $warningLocation);
+
+    // header('Location: /engoje/error/500.php');
+
+}
+
