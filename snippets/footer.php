@@ -50,7 +50,7 @@
     </div>
 
     <div class="footer-bottom-block">
-        <span class="footer-span">Copyright &copy; 2021 ENGOJE (Pty) Ltd | </span>
+        <span class="footer-span">Copyright &copy; 2021 ENGOJE (Pty) Ltd.  All rights reserved. | </span>
         <span class="footer-span mySignature">Developed and Managed by <a target="blank" href="https://mediafrika.co.za" title="View Developer">MEDIAFRIKA</a></span>
     </div>
 </footer>

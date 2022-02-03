@@ -22,7 +22,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
 
-            echo "<h1 class='title'>Feedback</h1>";
+            echo "<h1 class='title mt-5'>Feedback</h1>";
 
 
                 if (isset($_SESSION['message'])) {
@@ -42,7 +42,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                 </label>
 
                 <label class="feedback-label">Enter Feedback</label>
-                <textarea class="feedback-inputs" name="feedback" rows=10 placeholder="Enter feedback" ></textarea>                
+                <textarea class="feedback-inputs" name="feedback" rows=10 placeholder="feedback..." ></textarea>                
                 
                 <input class="feedback-inputs button" type="submit" value="submit" />
                 
