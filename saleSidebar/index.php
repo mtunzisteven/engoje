@@ -3,7 +3,7 @@
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 // Get the database connection file
 require_once '../library/connections.php';
@@ -78,11 +78,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=saleFilters');
+        header('Location: /sale/?action=saleFilters');
 
         break;
 
@@ -112,11 +112,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=saleFilters');
+        header('Location: /sale/?action=saleFilters');
     
         break;
 
@@ -138,11 +138,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=saleFilters');
+        header('Location: /sale/?action=saleFilters');
 
         break;
 
@@ -166,11 +166,11 @@ switch ($filter){
         }else{
 
             // BUild a products archive
-            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/engoje/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
+            $_SESSION['productsDisplay'] = "<p class='notice'><br/>No products found...<br/><a href='/saleSidebar/?filter=clear-saleFilters' class='button'>Clear Filters</a></p>";
 
         }
 
-        header('Location: /engoje/sale/?action=saleFilters');
+        header('Location: /sale/?action=saleFilters');
 
         break;
 
@@ -178,7 +178,7 @@ switch ($filter){
 
         unset($_SESSION['SaleSizeFilter'], $_SESSION['SalecategoryFilter'], $_SESSION['SalecolourFilter'], $_SESSION['SalemaxPriceFilter'], $_SESSION['SaleminPriceFilter'], $_SESSION['productQty']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /sale/');
 
 
         break;
@@ -187,7 +187,7 @@ switch ($filter){
 
         unset($_SESSION['SalemaxPriceFilter'], $_SESSION['SaleminPriceFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /sale/');
 
 
         break;
@@ -196,7 +196,7 @@ switch ($filter){
 
         unset($_SESSION['SaleSizeFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /sale/');
 
 
         break;
@@ -205,7 +205,7 @@ switch ($filter){
 
         unset($_SESSION['SalecolourFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /sale/');
 
 
         break;
@@ -214,14 +214,14 @@ switch ($filter){
 
         unset($_SESSION['SalecategoryFilter']);
 
-        header('Location: /engoje/sale/');
+        header('Location: /sale/');
 
 
         break;
 
     default:
 
-        header('Location: /engoje/sale/');
+        header('Location: /sale/');
 
     }
 

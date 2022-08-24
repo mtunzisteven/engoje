@@ -24,7 +24,7 @@ function buildUsersDisplay($users){
 
     foreach($users as $user){
 
-        $userRows[] = "<tr class='user-display-info'> <td><a class='button account-button' href='/engoje/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
+        $userRows[] = "<tr class='user-display-info'> <td><a class='button account-button' href='/admin/?action=user&userId=$user[userId]'>update</a> </td>  <td>$user[userFirstName] $user[userLastName]</td> <td>$user[userEmail]</td> <td>0$user[userPhone]</td> </tr>";
     }
 
    return $userRows;
@@ -63,14 +63,14 @@ function buildCartDisplay($cartDetails, $shippingInfo){
                 $grandTotal += $lineTotal;
 
                 $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-                $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+                $cartDisplay .= "<div><a href='/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
                 $cartDisplay .= "<div>$cartItem[productName]</div>"; 
                 $cartDisplay .= "<div>$cartItem[colour]</div>"; 
                 $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
                 $cartDisplay .= "<div>R<span class='price'>$saleItem[salePrice]</span></div>"; 
                 $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
                 $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-                $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+                $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
             }else{
 
@@ -88,14 +88,14 @@ function buildCartDisplay($cartDetails, $shippingInfo){
                 $grandTotal += $lineTotal;
 
                 $cartDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-                $cartDisplay .= "<div><a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
+                $cartDisplay .= "<div><a href='/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' ><img src='$cartItem[imagePath_tn]'></a></div>"; 
                 $cartDisplay .= "<div>$cartItem[productName]</div>"; 
                 $cartDisplay .= "<div>$cartItem[colour]</div>"; 
                 $cartDisplay .= "<div>$cartItem[sizeValue]</div>"; 
                 $cartDisplay .= "<div>R<span class='price'>$cartItem[price]</span></div>"; 
                 $cartDisplay .= "<div class='buttoned-div'><button class='button oneDown'>-</button><input type='number' class='cart-item-qty validity' name='cart_item_qty' value='$cartItem[cart_item_qty]' min=1 /><button class='button oneUp'>+</button></div>"; 
                 $cartDisplay .= "<div>R<span class='line-total'>$lineTotal</span></div>"; 
-                $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+                $cartDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
             }
         }
@@ -131,7 +131,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
                             <div class='container mt-3'>
                                 <div class='row'>
                                     <div class='col'>
-                                        <a href='/engoje/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' >
+                                        <a href='/shop?action=product&productId=$cartItem[productId]&product_entryId=$cartItem[product_entryId]&colour=$cartItem[colour]' >
                                             <img width='110' height='110' src='$cartItem[imagePath_tn]'>
                                         </a>
                                     </div>
@@ -151,7 +151,7 @@ function buildCartDisplay($cartDetails, $shippingInfo){
                                 </div>
                             </div>
                             <input type='hidden' class='line-totalm' value='$lineTotal' />
-                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'>Delete</a></div>
+                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/cart/index.php?action=remove-cart-item&product_entryId=$cartItem[product_entryId]'>Delete</a></div>
                             ";
 
             $cartDisplay .= "<div class='seperator'></div>";
@@ -166,10 +166,10 @@ function buildCartDisplay($cartDetails, $shippingInfo){
 
     $cartDisplay .= "<div class='cart-display-table-row2 '><div class='cart-total-container'><h4>Cart Total:   R</h4><h4 id='grand-total'>$grandTotal</h4></div>";
     $cartDisplay .= "<a id='update-cart' class='update-cart button cart-buttons'>Update Cart</a>";
-    $cartDisplay .= "<a href='/engoje/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
+    $cartDisplay .= "<a href='/cart/index.php?action=clear-cart' class='clear-cart button cart-buttons'>Clear Cart</a></div>";
 
     $cartDisplay .= "<div class='cart-display-table-summary'>";
-    $cartDisplay .= "<h4 class='shipping-methods'>Select Shipping Method:</h4><form class='cart-checkout-form' action='/engoje/shop/checkout/' method='post'>";
+    $cartDisplay .= "<h4 class='shipping-methods'>Select Shipping Method:</h4><form class='cart-checkout-form' action='/shop/checkout/' method='post'>";
     $cartDisplay .= "<div class='shipping-methods-container'>"; 
 
     foreach($shippingInfo as $shippingMethod){
@@ -204,12 +204,12 @@ function buildWishlistDisplay($wishlistDetails){
         }
 
         $wishlistDisplay .= "<div class='seperator'></div><div class='cart-display-table-rows'> ";
-        $wishlistDisplay .= "<div><a href='/engoje/shop?action=product&productId=$wishlistItem[productId]' ><img src='$wishlistItem[imagePath_tn]' alt='product image'></a></div>"; 
+        $wishlistDisplay .= "<div><a href='/shop?action=product&productId=$wishlistItem[productId]' ><img src='$wishlistItem[imagePath_tn]' alt='product image'></a></div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[productName]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[colour]</div>"; 
         $wishlistDisplay .= "<div>$wishlistItem[sizeValue]</div>"; 
         $wishlistDisplay .= "<div>R$price</div>"; 
-        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/engoje/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
+        $wishlistDisplay .= "<div class='cart-item-remove-button remove-cart-item'><a href='/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'><i class='remove-item-x fa fa-times'></i></a></div></div>";         
 
     }
 
@@ -239,7 +239,7 @@ function buildWishlistDisplay($wishlistDetails){
                             <div class='container mt-3'>
                                 <div class='row'>
                                     <div class='col'>
-                                        <a href='/engoje/shop?action=product&productId=$wishlistItem[productId]&product_entryId=$wishlistItem[product_entryId]&colour=$wishlistItem[colour]' >
+                                        <a href='/shop?action=product&productId=$wishlistItem[productId]&product_entryId=$wishlistItem[product_entryId]&colour=$wishlistItem[colour]' >
                                             <img width='110' height='110' src='$wishlistItem[imagePath_tn]'>
                                         </a>
                                     </div>
@@ -251,7 +251,7 @@ function buildWishlistDisplay($wishlistDetails){
                                     </div>
                                 </div>
                             </div>
-                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/engoje/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'>Delete</a></div>
+                            <div class='cart-item-remove-button remove-cart-item my-3  mx-auto w-50 '><a class='text-decoration-none button mx-auto' href='/wishlist/index.php?action=remove-wishlist-item&product_entryId=$wishlistItem[product_entryId]'>Delete</a></div>
                             ";
 
             $wishlistDisplay .= "<div class='seperator'></div>";
@@ -264,7 +264,7 @@ function buildWishlistDisplay($wishlistDetails){
     //                             mobile wishlist end                             //
     /////////////////////////////////////////////////////////////////////////////////
 
-    $wishlistDisplay .= "<a href='/engoje/wishlist/index.php?action=clear-wishlist' class='clear-cart button wishlist-buttons'>Clear Wish List</a>";
+    $wishlistDisplay .= "<a href='/wishlist/index.php?action=clear-wishlist' class='clear-cart button wishlist-buttons'>Clear Wish List</a>";
 
     return $wishlistDisplay;
 
@@ -387,9 +387,9 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
             // Merchant details
             'merchant_id' => '13258122',
             'merchant_key' => 'bcdu5x8q91980',
-            'return_url' => 'http://www.engoje.com/return.php',
-            'cancel_url' => 'http://www.engoje.com/cancel.php',
-            'notify_url' => 'http://www.engoje.com/notify.php',
+            'return_url' => 'https://www.engoje.co.za/return.php',
+            'cancel_url' => 'https://www.engoje.co.za/cancel.php',
+            'notify_url' => 'https://www.engoje.co.za/notify.php',
             // Buyer details
             'name_first' => $firstName,
             'name_last'  => $lastName,
@@ -423,15 +423,15 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $checkoutDisplay .= "</div>$htmlForm</div></div>";
-    $checkoutDisplay .= "<a href='/engoje/cart/?action=cart' class='button checkout-back'>Back to Cart</a>"; 
-    $checkoutDisplay .= "<a id='redirect' class='hidden' href='/engoje/checkout/' class='button checkout-back'>redirect</a>"; 
+    $checkoutDisplay .= "<a href='/cart/?action=cart' class='button checkout-back'>Back to Cart</a>"; 
+    $checkoutDisplay .= "<a id='redirect' class='hidden' href='/checkout/' class='button checkout-back'>redirect</a>"; 
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                           Popupforms                                               //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/engoje/checkout/?action=new-shipping-address' method='POST'>";
+        $checkoutDisplay .= "<div id='HidenformC' class='hidden'><form class=' new-address-form' action='/checkout/?action=new-shipping-address' method='POST'>";
         $checkoutDisplay .= "<div class='cancel-container'> <div> </div><i id='cancelNewAddress' class='fa fa-times cancelNewAddress' aria-hidden='true'></i></div>"; 
         $checkoutDisplay .= "<h1> Enter New Shipping Address:</h1>"; 
 
@@ -469,7 +469,7 @@ function buildCheckoutDisplay($checkoutDetails, $userDetails, $orderId, $order, 
 // Build a cart view display view
 function buildCheckoutAddressDisplay(){
 
-    $checkoutAddressDisplay = "<form class='checkout-address' action='/engoje/shop/checkout/?action=addressed' method='POST' ><div id='checkout' class='checkout-display-form address' >";
+    $checkoutAddressDisplay = "<form class='checkout-address' action='/shop/checkout/?action=addressed' method='POST' ><div id='checkout' class='checkout-display-form address' >";
     $checkoutAddressDisplay .= "<div class='address-column'>";
 
     $checkoutAddressDisplay .= "<h2 class='address-column-title'>Billing Address:</h2>";
@@ -498,7 +498,7 @@ function buildCheckoutAddressDisplay(){
     $checkoutAddressDisplay .= "</div></div>";     
     $checkoutAddressDisplay .= "<input class='button' type='submit' value='Next' /></form>";     
 
-    $checkoutAddressDisplay .= "<a href='/engoje/cart/?action=cart' class='button checkout-back'>Back to Cart</a>";
+    $checkoutAddressDisplay .= "<a href='/cart/?action=cart' class='button checkout-back'>Back to Cart</a>";
 
     return $checkoutAddressDisplay;
 
@@ -523,7 +523,7 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
                 $number += 1;
 
                 // bootstrap modal for product delete
-                $productRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons ><a class='button account-button' href='/engoje/products/?action=update&product_entryId=$product[product_entryId]'>update</a>   
+                $productRows[] = "<tr class='user-display-info'><td>$number</td> <td class=td-buttons ><a class='button account-button' href='/products/?action=update&product_entryId=$product[product_entryId]'>update</a>   
 
                     
                     <button type='button' class='btn btn-primary button line-height-button' data-bs-toggle='modal' data-bs-target='#id$product[product_entryId]'>
@@ -546,13 +546,13 @@ function buildAdminProductsDisplay($allProducts, $nonImgedProducts){
                         
                         </div>
                         <div class='modal-footer'>
-                            <a class='button chunk-buttons' href='/engoje/products?action=delete-confirmed&product_entryId=$product[product_entryId]' >Delete</a>
+                            <a class='button chunk-buttons' href='/products?action=delete-confirmed&product_entryId=$product[product_entryId]' >Delete</a>
                         </div>
                         </div>
                     </div>product
                     </div>
                     
-                </td><td><a  href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]'><img class=image-tn src='$nonImgedProducts[$path]' /></a></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
+                </td><td><a  href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]'><img class=image-tn src='$nonImgedProducts[$path]' /></a></td>  <td>$product[productName] </td> <td>$product[price] </td> <td>$product[amount] </td> <td>$product[sizeValue]</td> <td>$product[colour]</td> <td>$product[sku]</td> </tr>";
         
             }
         }
@@ -629,7 +629,7 @@ function  buildUsersOrdersAdminTable($orders){
                                         <h4 class='text-muted mt-3 '>Order Total: R$grandTotal</h4> 
                                     </div>
                                 </div>
-                                <a class='btn btn-md btn-primary ' href='/engoje/5.1/components/navbar/' role='button'>View order</a>
+                                <a class='btn btn-md btn-primary ' href='/5.1/components/navbar/' role='button'>View order</a>
                             </div>";                
         }
 
@@ -704,7 +704,7 @@ function  buildordersAdminTable($orders){
                         <div class='container'>
                             <div class='row'>
                                 <div class='col'>
-                                    <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderStatus' method='post'>
+                                    <form class='taxonomy-forms px-2' action='/orders/?action=update-orderStatus' method='post'>
                                         <div class='mb-3'>
                                             <label for='orderStatus' class='form-label text-start'>Change Order Status</label>
                                             <input type='text' class='form-control' id='orderStatus' name='orderStatus'>
@@ -715,7 +715,7 @@ function  buildordersAdminTable($orders){
                                 </div>
 
                                 <div class='col'>
-                                    <form class='taxonomy-forms px-2' action='/engoje/orders/?action=update-orderTracking' method='post'>
+                                    <form class='taxonomy-forms px-2' action='/orders/?action=update-orderTracking' method='post'>
                                         <div class='mb-3'>
                                             <label for='orderTracking' class='form-label text-start'>Enter Tracking Number</label>
                                             <input type='text' class='form-control' id='orderTracking' name='orderTracking'>
@@ -750,7 +750,7 @@ function  buildordersAdminTable($orders){
                     
                     </div>
                     <div class='modal-footer'>
-                        <a class='button chunk-buttons' href='/engoje/orders/?action=delete&orderId=$order[orderId]' >Delete</a>
+                        <a class='button chunk-buttons' href='/orders/?action=delete&orderId=$order[orderId]' >Delete</a>
                     </div>
                     </div>
                 </div>
@@ -776,8 +776,8 @@ function buildUserUpdateNav(){
     }
 
     $updateNav ="<ul class='user-update'>";    
-    $updateNav .="<li class='user-update-item' ><a href='/engoje/admin/?action=user&userId=$accountUser'>Personal</a></li>";
-    $updateNav .="<li class='user-update-item' ><a href='/engoje/admin/?action=address'>Addresses</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/admin/?action=user&userId=$accountUser'>Personal</a></li>";
+    $updateNav .="<li class='user-update-item' ><a href='/admin/?action=address'>Addresses</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Orders</a></li>";
     $updateNav .="<li class='user-update-item' ><a href=''>Returns</a></li>";
     $updateNav .="</ul>";
@@ -798,7 +798,7 @@ function buildUserUpdateDisplay($userInfo){
             <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
 
-                    <form method="POST" action="/engoje/admin/">
+                    <form method="POST" action="/admin/">
                 
                     <label>First Name</label><input type="text" name="userFirstName" value="'.$userInfo['userFirstName'].'" />
                     <label>Last Name</label><input type="text" name="userLastName" value="'.$userInfo['userLastName'].'" />
@@ -834,7 +834,7 @@ function buildUserUpdateDisplay($userInfo){
 // Build a single user display view
 function buildUserDisplay($userInfo){
 
-    $userDisplay = "<form method='POST' action='/engoje/admin/'>";
+    $userDisplay = "<form method='POST' action='/admin/'>";
 
     $userDisplay .= "<label>First Name</label><input type='text' name='userFirstName' value='$userInfo[userFirstName]' />";
     $userDisplay .= "<label>Last Name</label><input type='text' name='userLastName' value='$userInfo[userLastName]' />";
@@ -885,7 +885,7 @@ function buildAddressForm($address, $addressFound){
     }
 
     //echo $action; exit;
-    $form = "<form method='POST' action='/engoje/admin/?action=$action'>";
+    $form = "<form method='POST' action='/admin/?action=$action'>";
     $form .= "<label>Address Line 1</label><input type=text name=addressLineOne value='$addressLineOne' />";
     $form .= "<label>Address Line 2</label><input type=text name=addressLineTwo value='$addressLineTwo' />";
     $form .= "<label>City</label><input type=text name=addressCity value='$addressCity' />";
@@ -925,7 +925,7 @@ function buildAddresses($addresses, $addressFound){
                 $address .="<p class='detail-span-bold' >$eachAddress[addressLineTwo]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressCity]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressZipCode]</p>";
-                $address .="<a class='button account-button center' href='/engoje/admin/?action=replace-address&addressType=1'>update</a>";
+                $address .="<a class='button account-button center' href='/admin/?action=replace-address&addressType=1'>update</a>";
                 $address .="</div>";
             }
 
@@ -939,7 +939,7 @@ function buildAddresses($addresses, $addressFound){
                 $address .="<p class='detail-span-bold' >$eachAddress[addressLineTwo]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressCity]</p>";
                 $address .="<p class='detail-span-bold' >$eachAddress[addressZipCode]</p>";
-                $address .="<a class='button account-button center' href='/engoje/admin/?action=replace-address&addressType=2'>update</a>";
+                $address .="<a class='button account-button center' href='/admin/?action=replace-address&addressType=2'>update</a>";
                 $address .="</div>";
             }
         }
@@ -954,7 +954,7 @@ function buildAddresses($addresses, $addressFound){
 }
 // Build a product update display form for admin dashboard
 function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
-    $productUpdate = "<form method='POST' action='/engoje/products/'>";
+    $productUpdate = "<form method='POST' action='/products/'>";
 
     $productUpdate .= "<label>Change Colour(".$product['colour'].")</label>".buildProductUpdateDropDownList($colours, 'colourId', 'colour', $product['colour'])."";
     $productUpdate .= "<label>Change Size(".$product['sizeValue'].")</label>".buildProductUpdateDropDownList($sizes, 'sizeId', 'sizeValue', $product['sizeValue'])."";
@@ -974,7 +974,7 @@ function buildProductUpdateDisplay($product, $colours, $sizes, $categories){
 // Build a product create display form for admin dashboard
 function buildProductCreateForm($categories, $colours, $sizes){
 
-    $productCreate = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' ><div class='row-form-content'>";
+    $productCreate = "<form class='checkboxed' method='POST' action='/products/index.php' ><div class='row-form-content'>";
 
 
 
@@ -1081,7 +1081,7 @@ function buildCreateVariationFormRows($colours, $sizes){
 // Build the form for uploading product images
 function buildImageUploadForm($productSelect){
 
-    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='/engoje/upload/' method='post' enctype='multipart/form-data'>";
+    $imageUploadForm = "<form class='db-entry-form form-image-upload' action='/upload/' method='post' enctype='multipart/form-data'>";
     $imageUploadForm .= "<label for='product_entryId'>Products</label>";
 
     if(isset($productSelect)){ 
@@ -1190,15 +1190,15 @@ function buildproductDisplay($product, $saleItems){
     $path = $product['imagePath'];
 
     // if there is not product in sale table
-    if(!empty($saleItems)){
+    if($saleItems != NULL){
 
         foreach($saleItems as $saleItem){
 
             if($product['product_entryId'] == $saleItem['product_entryId']){ // if there is a product in the sale table and it is the product urrently being accessed
         
-                $dv ="<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='/engoje/images/placeholder.png' data-src='$path' alt='".$product['productName']."' ></a>";
+                $dv ="<div  class='product'><a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='sale-circle'>sale</div><img class='sale' src='/images/placeholder.png' data-src='$path' alt='".$product['productName']."' ></a>";
 
-                $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+                $dv .= "<a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$saleItem[salePrice]</h4></div></div>";
 
@@ -1206,10 +1206,10 @@ function buildproductDisplay($product, $saleItems){
 
             }else{ // if the product is not found in sale items
         
-                $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div>";
+                $dv  = "<div  class='product'><a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' ><div id='sale$product[product_entryId]' class='hidden sale-circle'>sale</div>";
                                 
-                $dv .= "<img src='/engoje/images/placeholder.png' data-src='$path' alt='".$product['productName']."' loading='lazy' /></a>";
-                $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+                $dv .= "<img src='/images/placeholder.png' data-src='$path' alt='".$product['productName']."' loading='lazy' /></a>";
+                $dv .= "<a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
                 $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
                 $dv .= "<div class='sale-prices-container'><h4 class='productPrice' >R$product[price]</h4><h4 class='hidden productPrice' >R$product[price]</h4></div></div>";
 
@@ -1220,18 +1220,20 @@ function buildproductDisplay($product, $saleItems){
 
     }else{ // if there is no product in the sale table
 
-        $dv  = "<div  class='product'><a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' >
+        $dv  = "<div  class='product'><a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' >
         
             <picture>
-                <source src='/engoje/images/placeholder.png' />
+                <source src='/images/placeholder.png' />
                 <img src='$path' alt='".$product['productName']."' loading='lazy' />
             </picture>
         
         </a>";
-        $dv .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
+        $dv .= "<a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link'><h4 class='productName'>$product[productName]</h4></a>";
         $dv .= "<p  class='productCategory'>$product[categoryName]</p>";
 
-        $dv .= "<div class='sale-prices-container'><h4 class='productPrice strike-through' >R$product[price]</h4><h4 class='productPrice' >R$product[price]</h4></div></div>";
+        $dv .= "<div class='sale-prices-container'>
+                    <h4 class='productPrice' >R$product[price]</h4>
+                </div></div>";
         
         // echo "Right path!"; exit;
 
@@ -1279,22 +1281,22 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
         if(isset( $_SESSION['sizeFilter'])){
 
-            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><a href='/engoje/sidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[sizeFilter] </div><a href='/sidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['colourFilter'])){
 
-            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <a href='/engoje/sidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Colour: <div class='filter-value'> $_SESSION[colourFilter]</div> <a href='/sidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
 
         }        
         if(isset( $_SESSION['categoryFilter'])){
 
-            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><a href='/engoje/sidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[categoryFilter] </div><a href='/sidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['minPriceFilter']) && isset( $_SESSION['maxPriceFilter'])){
 
-            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><a href='/engoje/sidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[minPriceFilter] - $_SESSION[maxPriceFilter] </div><a href='/sidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
 
         }
 
@@ -1322,10 +1324,10 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
     }
 
     $noborderPaginationP = '';
-    $prevLink = "/engoje/shop/?action=prev&offset=$offset";
+    $prevLink = "/shop/?action=prev&offset=$offset";
 
     $noborderPaginationN = '';
-    $nextLink = "/engoje/shop/?action=next&offset=$offset";
+    $nextLink = "/shop/?action=next&offset=$offset";
 
 
     if($pageNum == $possiblePages){
@@ -1353,7 +1355,7 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
     if($pageNum >= 3){
 
-        $dv .= "<li class='page-item'><a class='page-link pagination pagination-number' href='/engoje/shop/?action=prev&offset=$lim'> 1 </a></li>";
+        $dv .= "<li class='page-item'><a class='page-link pagination pagination-number' href='/shop/?action=prev&offset=$lim'> 1 </a></li>";
 
         $dv .= "<h2>...&nbsp</h2>";
 
@@ -1377,11 +1379,11 @@ function buildproductsDisplay($products, $offset, $lim, $productsQty, $saleItems
 
             if($i == $pageNum){ //disable currrent link
 
-                $dv .= "<li class='page-item  disabled'><a class='page-link  disabled pagination pagination-number $focus' href='/engoje/shop/?action=prev&offset=$numOffset'> $i </a></li>";
+                $dv .= "<li class='page-item  disabled'><a class='page-link  disabled pagination pagination-number $focus' href='/shop/?action=prev&offset=$numOffset'> $i </a></li>";
             
             }else{
 
-                $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/engoje/shop/?action=prev&offset=$numOffset'> $i </a></li>";
+                $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/shop/?action=prev&offset=$numOffset'> $i </a></li>";
 
             }
         }
@@ -1425,22 +1427,22 @@ function buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleI
 
         if(isset( $_SESSION['SaleSizeFilter'])){
 
-            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[SaleSizeFilter] </div><a href='/engoje/saleSidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Size: <div class='filter-value'> $_SESSION[SaleSizeFilter] </div><a href='/saleSidebar/?filter=deleteSizeFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['SalecolourFilter'])){
 
-            $dv .= "<div class='filter'> Colour: <div class='filter-value'>$_SESSION[SalecolourFilter]</div> <a href='/engoje/saleSidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Colour: <div class='filter-value'>$_SESSION[SalecolourFilter]</div> <a href='/saleSidebar/?filter=deleteColourFilter'><i class='fa fa-times'></i></a></div>";
 
         }        
         if(isset( $_SESSION['SalecategoryFilter'])){
 
-            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[SalecategoryFilter] </div><a href='/engoje/saleSidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Category: <div class='filter-value'> $_SESSION[SalecategoryFilter] </div><a href='/saleSidebar/?filter=deleteCategoryFilter'><i class='fa fa-times'></i></a></div>";
 
         }
         if(isset( $_SESSION['SaleminPriceFilter']) && isset( $_SESSION['SalemaxPriceFilter'])){
 
-            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[SaleminPriceFilter] - $_SESSION[SalemaxPriceFilter] </div><a href='/engoje/saleSidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
+            $dv .= "<div class='filter'> Price Range: <div class='filter-value'> $_SESSION[SaleminPriceFilter] - $_SESSION[SalemaxPriceFilter] </div><a href='/saleSidebar/?filter=deletePriceFilter'><i class='fa fa-times'></i></a></div>";
 
         }
 
@@ -1469,10 +1471,10 @@ function buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleI
     }
 
     $noborderPaginationP = '';
-    $prevLink = "/engoje/sale/?action=prev&offset=$offset";
+    $prevLink = "/sale/?action=prev&offset=$offset";
 
     $noborderPaginationN = '';
-    $nextLink = "/engoje/sale/?action=next&offset=$offset";
+    $nextLink = "/sale/?action=next&offset=$offset";
 
     if($pageNum == $possiblePages){
 
@@ -1500,7 +1502,7 @@ function buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleI
 
     if($pageNum >= 3){
 
-        $dv .= "<li class='page-item'><a class='page-link pagination pagination-number' href='/engoje/sale/?action=prev&offset=$lim'> 1 </a></li>";
+        $dv .= "<li class='page-item'><a class='page-link pagination pagination-number' href='/sale/?action=prev&offset=$lim'> 1 </a></li>";
 
         $dv .= "<h2>...&nbsp</h2>";
 
@@ -1524,11 +1526,11 @@ function buildSaleproductsDisplay($products, $offset, $lim, $productsQty, $saleI
 
             if($i == $pageNum){ //disable currrent link
 
-                $dv .= "<li class='page-item  disabled'><a class='page-link  disabled pagination pagination-number $focus' href='/engoje/sale/?action=prev&offset=$numOffset'> $i </a></li>";
+                $dv .= "<li class='page-item  disabled'><a class='page-link  disabled pagination pagination-number $focus' href='/sale/?action=prev&offset=$numOffset'> $i </a></li>";
             
             }else{
 
-                $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/engoje/sale/?action=prev&offset=$numOffset'> $i </a></li>";
+                $dv .= "<li class='page-item'><a class='page-link pagination pagination-number $focus' href='/sale/?action=prev&offset=$numOffset'> $i </a></li>";
 
             }
         }
@@ -1606,11 +1608,11 @@ function buildShopSidebarCategory($categories, $selected){
     // no category yet selected
     if($selected === ""){
 
-        $sidebar .= "<form class='sidebar-section category-form' action='/engoje/sidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option selected value='all'>All Categories</option>";
+        $sidebar .= "<form class='sidebar-section category-form' action='/sidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option selected value='all'>All Categories</option>";
 
     }else{
 
-        $sidebar .= "<form class='sidebar-section category-form ' action='/engoje/sidebar'><select name='category' class='form-select ' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
+        $sidebar .= "<form class='sidebar-section category-form ' action='/sidebar'><select name='category' class='form-select ' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
 
     }
 
@@ -1644,7 +1646,7 @@ function buildShopSidebarPrice($minPrice, $maxPrice){
     // price section
     $sidebar .= "<h5 class='filter-titles price'>Filter by Price</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section' action='/engoje/sidebar'>";
+    $sidebar .= "<form class='sidebar-section' action='/sidebar'>";
     $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' /></label>";
     $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min=0 class='sidebar-price validity' /></label>";
     $sidebar .= "<input type='submit' value='filter'  class='button'>";
@@ -1659,7 +1661,7 @@ function buildShopSidebarColour($products, $colour){
     // colour section
     $sidebar  = "<h5 class='filter-titles'>Filter by Colour</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form id='colourform' class='sidebar-section' action='/engoje/sidebar'>";
+    $sidebar .= "<form id='colourform' class='sidebar-section' action='/sidebar'>";
     $sidebar .= buildProductSwatchesDisplay($products, $colour);
     $sidebar .= "<input type='hidden' name='colour' value=''>";
     $sidebar .= "<input type='hidden' name='filter' value='colour-filter' >";
@@ -1673,7 +1675,7 @@ function buildShopSidebarSize($products, $size){
     // colour section
     $sidebar  = "<h5 class='filter-titles'>Filter by Size</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/engoje/sidebar'>";
+    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/sidebar'>";
     $sidebar .= buildProductSwatchesDisplay($products, $size);
     $sidebar .= "<input type='hidden' name='size' value=''>";
     $sidebar .= "<input type='hidden' name='filter' value='size-filter' >";
@@ -1692,11 +1694,11 @@ function buildSaleSidebarCategory($categories, $selected){
     // no category yet selected
     if($selected === ""){
 
-        $sidebar .= "<form class='sidebar-section category-form' action='/engoje/saleSidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option selected value='all'>All Categories</option>";
+        $sidebar .= "<form class='sidebar-section category-form' action='/saleSidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option selected value='all'>All Categories</option>";
 
     }else{
 
-        $sidebar .= "<form class='sidebar-section category-form ' action='/engoje/saleSidebar'><select name='category' class='form-select ' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
+        $sidebar .= "<form class='sidebar-section category-form ' action='/saleSidebar'><select name='category' class='form-select ' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
 
     }
 
@@ -1730,7 +1732,7 @@ function buildSaleSidebarPrice($minPrice, $maxPrice){
     // price section
     $sidebar .= "<h5 class='filter-titles price'>Filter by Price</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section' action='/engoje/saleSidebar'>";
+    $sidebar .= "<form class='sidebar-section' action='/saleSidebar'>";
     $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' /></label>";
     $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min=0 class='sidebar-price validity' /></label>";
     $sidebar .= "<input type='submit' value='filter'  class='button'>";
@@ -1745,7 +1747,7 @@ function buildSaleSidebarColour($products, $colour){
     // colour section
     $sidebar  = "<h5 class='filter-titles'>Filter by Colour</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form id='colourform' class='sidebar-section' action='/engoje/saleSidebar'>";
+    $sidebar .= "<form id='colourform' class='sidebar-section' action='/saleSidebar'>";
     $sidebar .= buildProductSwatchesDisplay($products, $colour);
     $sidebar .= "<input type='hidden' name='colour' value=''>";
     $sidebar .= "<input type='hidden' name='filter' value='colour-filter' >";
@@ -1759,7 +1761,7 @@ function buildSaleSidebarSize($products, $size){
     // colour section
     $sidebar  = "<h5 class='filter-titles'>Filter by Size</h5>";
     $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/engoje/saleSidebar'>";
+    $sidebar .= "<form id='sizeform' class='sidebar-section' action='/saleSidebar'>";
     $sidebar .= buildProductSwatchesDisplay($products, $size);
     $sidebar .= "<input type='hidden' name='size' value=''>";
     $sidebar .= "<input type='hidden' name='filter' value='size-filter' >";
@@ -1808,7 +1810,7 @@ function buildImageDisplay($imageArray) {
     foreach ($imageArray as $image) {
      $id .= '<li>';
      $id .= "<img class='library-images' src='$image[imagePath]' title='image on engoje.com' alt=' $image[imageName] image on engoje.com'>";
-     $id .= "<p><a class='media-delete-button button' href='/engoje/upload?action=delete&imageId=$image[imageId]&filename=$image[imageName]' title='Delete the image'>Delete</a></p>";
+     $id .= "<p><a class='media-delete-button button' href='/upload?action=delete&imageId=$image[imageId]&filename=$image[imageName]' title='Delete the image'>Delete</a></p>";
      $id .= '</li>';
    }
     $id .= '</ul>';
@@ -2043,7 +2045,7 @@ function customerReviews($reviews){
         else if(isset($_SESSION['clientData'])){
             $cutomerReviews .= "<tr><td class='reviewerName'>Posted by: ".substr($_SESSION['clientData']['clientFirstname'],0,1)."".$_SESSION['clientData']['clientLastname']."</td></tr>";
             $cutomerReviews .= "<tr><td class='reviewDate' >Date posted: ".date('F j, Y', strtotime($review['reviewDate']))."</td></tr>";
-            $cutomerReviews .= "<tr><td><a href='/engoje/reviews?action=getUpdateReview&reviewId=$review[reviewId]' title='Update Review' >Update</a>  <a href='/engoje/reviews?action=deleteRequest&clientId=".$_SESSION['clientData']['clientId']."' title='Delete Review' >Delete</a></td></tr>";
+            $cutomerReviews .= "<tr><td><a href='/reviews?action=getUpdateReview&reviewId=$review[reviewId]' title='Update Review' >Update</a>  <a href='/reviews?action=deleteRequest&clientId=".$_SESSION['clientData']['clientId']."' title='Delete Review' >Delete</a></td></tr>";
         }
 
         $cutomerReviews .= "<tr><td> <hr/> </td></tr>";

@@ -1,3 +1,3 @@
 <div class="header-top">
-    Banner Notice!
+    This is a demo shop. No orders will be received!
 </div>

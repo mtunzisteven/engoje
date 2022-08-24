@@ -4,7 +4,7 @@
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
@@ -14,9 +14,9 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
     <body>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/plain-navigation.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/plain-navigation.php'; ?>
 
         <main class="content py-5 bg-light" >
             <h1 class='title'>Login</h1>
@@ -52,7 +52,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                         </form> 
 
                     </div>
-                    <img  class="col" height="400" src="/engoje/images/login.svg" alt="signin" />
+                    <img  class="col" height="400" src="/images/login.svg" alt="signin" />
                 </div>
             </div>
         </main>

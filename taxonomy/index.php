@@ -6,7 +6,7 @@
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
     // Get the database connection file
@@ -58,7 +58,7 @@ require_once '../library/dbCleaner.php';
                 if(addColour($colour)){
 
                     // added successfully
-                    header('Location: /engoje/taxonomy/?action=taxonomy');
+                    header('Location: /taxonomy/?action=taxonomy');
 
                 }
 
@@ -77,7 +77,7 @@ require_once '../library/dbCleaner.php';
                 if(addSize($size, $sizeName)){
 
                     // added successfully
-                    header('Location: /engoje/taxonomy/?action=taxonomy');
+                    header('Location: /taxonomy/?action=taxonomy');
 
                 }
 
@@ -95,7 +95,7 @@ require_once '../library/dbCleaner.php';
                 if(addCategory($category)){
 
                     // added successfully
-                    header('Location: /engoje/taxonomy/?action=taxonomy');
+                    header('Location: /taxonomy/?action=taxonomy');
 
                 }
 
@@ -115,7 +115,7 @@ require_once '../library/dbCleaner.php';
                 if(deleteColour($colourId)){
 
                     // added successfully
-                    header('Location: /engoje/taxonomy/?action=taxonomy');
+                    header('Location: /taxonomy/?action=taxonomy');
 
                 }
 
@@ -133,7 +133,7 @@ require_once '../library/dbCleaner.php';
                 if(deleteSize($sizeId)){
 
                     // added successfully
-                    header('Location: /engoje/taxonomy/?action=taxonomy');
+                    header('Location: /taxonomy/?action=taxonomy');
 
                 }
 
@@ -151,7 +151,7 @@ require_once '../library/dbCleaner.php';
                 if(deleteCategory($categoryId)){
 
                     // added successfully
-                    header('Location: /engoje/taxonomy/?action=taxonomy');
+                    header('Location: /taxonomy/?action=taxonomy');
 
                 }
 

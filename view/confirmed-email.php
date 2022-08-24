@@ -4,7 +4,7 @@ if(!isset($_SESSION)){
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 }
 
@@ -13,7 +13,7 @@ if(!isset($_SESSION)){
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 }
 
@@ -23,9 +23,9 @@ $pageDescription = "";
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
 <body>
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/plain-navigation.php'; ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/plain-navigation.php'; ?>
 
 <main class="content py-5 bg-light">
     <?php 
@@ -49,10 +49,10 @@ $pageDescription = "";
         
         <div class="container shadow-lg w-sm-100 w-75">
             <div class="row align-items-center pb-5 pt-2">
-                <img  class="col" height="400" src="/engoje/images/register.svg" alt="signin" />
+                <img  class="col" height="400" src="/images/register.svg" alt="signin" />
                 <div class="col">
 
-                    <form class="login-form" method="post" action="/engoje/accounts/index.php">
+                    <form class="login-form" method="post" action="/accounts/index.php">
                         
                         <label class="reg-label" style="text-align:left; min-width: 65%;">Password</label>
                         <input id="password" class="reg-inputs validity" type="password" name="userPassword" required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
@@ -74,6 +74,6 @@ $pageDescription = "";
         </div>
     </main>
 </body>
-<script src="/engoje/js/passwordmatch.js"></script>
+<script src="/js/passwordmatch.js"></script>
 
 </html>

@@ -3,14 +3,14 @@
     if(!isset($_SESSION)){
     
         // start session with same id in this file// start session with same id in this file
-        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+        require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
     }
 
     if(!$_SESSION['loggedin']){
-        header('Location: /engoje/');
+        header('Location: /');
     }
     else if($_SESSION['loggedin'] && $_SESSION['userData']['userLevel']<2){
-        header('Location: /engoje/view/account.php');
+        header('Location: /view/account.php');
     }
 
     $pageName ="Add Product"; 
@@ -19,12 +19,12 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us" class=" admin-main">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
             ?>
 
             <section class="dashboard admin-dashboard">

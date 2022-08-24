@@ -4,7 +4,7 @@
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
@@ -13,7 +13,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
@@ -23,13 +23,13 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
     <body>
 
         <main class="content short-content" id='parentContainer'>
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
 
                 echo "<h1 class='title'>Cart</h1>";
 
@@ -42,10 +42,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                     echo $_SESSION['cartDisplay'];
                 }
 
-                require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; 
+                require $_SERVER['DOCUMENT_ROOT'].'/snippets/footer.php'; 
                 
             ?>
-                <script src="/engoje/js/updateCart.js"></script>
+                <script src="/js/updateCart.js"></script>
                 
         </main>
     </body>

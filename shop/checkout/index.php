@@ -2,27 +2,27 @@
 
 // This is the shop controller for the site checkout responsible only for the default action: go to checkout
 // Provides a clean checkout url// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
 // Get the database connection file
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/library/connections.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/library/connections.php';
 // Get the database connection file
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/library/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/library/functions.php';
 // Get the engoje main model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/main-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/main-model.php';
 // Get the shop model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/shop-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/shop-model.php';
 // Get the products admin model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/products-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/products-model.php';
 // Get the products image uploads model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/uploads-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/uploads-model.php';
 // Get the products cart model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/cart-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/cart-model.php';
 // Get the products orders model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/orders-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/orders-model.php';
 // Get the products accounts model for use as needed
-require_once $_SERVER['DOCUMENT_ROOT'].'/engoje/model/accounts-model.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/model/accounts-model.php';
 
 // Fetch all products and bring them to scope of all cases
 $products = getShopProducts();
@@ -73,7 +73,7 @@ switch ($action){
             
         }
 
-        header('Location: /engoje/shop/checkout/');
+        header('Location: /shop/checkout/');
         break;
 
 
@@ -147,7 +147,7 @@ switch ($action){
 
                     $_SESSION['checkoutAddressDisplay'] = buildCheckoutAddressDisplay($_SESSION['userData']['userId']);
 
-                    include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/checkout-address.php';  
+                    include $_SERVER['DOCUMENT_ROOT'].'/view/checkout-address.php';  
 
                 }else{ // users with billing and shipping addresses added
 
@@ -199,16 +199,16 @@ switch ($action){
 
                     }
 
-                    include $_SERVER['DOCUMENT_ROOT'].'/engoje/view/checkout.php';  
+                    include $_SERVER['DOCUMENT_ROOT'].'/view/checkout.php';  
                 }
 
             }else{
 
-                header('Location: /engoje/accounts/?action=login');
+                header('Location: /accounts/?action=login');
             }
         }else{
 
-            header("Location: /engoje/shop/cart/");
+            header("Location: /shop/cart/");
 
         }
 }

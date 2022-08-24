@@ -4,12 +4,12 @@
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
     if(!$_SESSION['loggedin']){
-        header('Location: /engoje/');
+        header('Location: /');
     }
 
 
@@ -21,13 +21,13 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
     <body>
 
         <main class="content" id='parentContainer'>
             <?php 
 
-                echo "<div id='checkout-header'><img src='/engoje/images/logo.svg' alt='logo image'><h1 class='title'>Address</h1></div>";
+                echo "<div id='checkout-header'><img src='/images/logo.svg' alt='logo image'><h1 class='title'>Address</h1></div>";
 
 
                 if (isset($_SESSION['message'])) {
@@ -45,5 +45,5 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
             ?>
         </main>
     </body>
-    <script src="/engoje/js/checkout.js"></script>
+    <script src="/js/checkout.js"></script>
 </html>

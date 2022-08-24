@@ -3,7 +3,7 @@
 
 
 //This is the shop controller for the site checkout responsible for all checkout related actions, except go to checkout// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
 // Get the database connection file
@@ -60,7 +60,7 @@ switch ($action){
 
         }
 
-        header("Location: /engoje/checkout");
+        header("Location: /checkout");
 
         break;
 
@@ -377,6 +377,6 @@ switch ($action){
     case 'checkout':
     default:
 
-    header("Location: /engoje/shop/checkout/");
+    header("Location: /shop/checkout/");
 
 }

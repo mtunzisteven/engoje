@@ -4,14 +4,14 @@ if (!isset($_SESSION)) {
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 }
 
 //echo $_SESSION['userData']['userFirstName']; exit;
 
 if (!$_SESSION['loggedin']) {
-    header('Location: /engoje/');
+    header('Location: /');
 }
 
 $pageName = "Account";
@@ -21,13 +21,13 @@ $pageDescription = "User Account dashboard";
 ?>
 <!DOCTYPE html>
 <html lang="en-us">
-<?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+<?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
 
 <body class=" admin-main">
     <main class="content">
         <?php
-        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php';
-        require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php';
+        require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php';
+        require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php';
         ?>
 
         <div class="dashboard admin-dashboard">
@@ -53,8 +53,8 @@ $pageDescription = "User Account dashboard";
             </div>
         </div>
     </main>
-    <script src="/engoje/js/counts.js"></script>
-    <script src="/engoje/js/sliders.js"></script>
+    <script src="/js/counts.js"></script>
+    <script src="/js/sliders.js"></script>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
@@ -14,12 +14,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
             ?>
                 <section class="policy-doc">
                     <h1 class="text-center my-5">Frequently Asked Questions</h1>
@@ -29,8 +29,8 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                 </section>
             </section>           
         </main>
-        <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/footer.php'; ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/footer.php'; ?>
 
-        <script src="/engoje/js/counts.js"></script>
+        <script src="/js/counts.js"></script>
     </body>
 </html>

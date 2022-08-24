@@ -1,9 +1,7 @@
 <?php
 
-
-
 //This is the shop controller for the site cart responsible for all cart related actions, except go to cart// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
 // Get the database connection file
@@ -92,7 +90,7 @@ switch ($action){
                                 $responseText['cartTotal'] = $_SESSION['cartTotal'];
     
                                 // add the response text to the response array
-                                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/engoje/cart?action=cart'>cart</a></p>";
+                                $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/cart?action=cart'>cart</a></p>";
     
                                 // send the associative array back to the js Ajax
                                 echo json_encode($responseText);
@@ -132,7 +130,7 @@ switch ($action){
                                     $responseText['cartTotal'] = $_SESSION['cartTotal'];
     
                                     // add the response text to the response array
-                                    $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/engoje/cart?action=cart'>cart</a></p>";
+                                    $responseText['add-to-cart-response'] = "<p class='adding-alert'>$cart_item_qty products added to <a href='/cart?action=cart'>cart</a></p>";
     
                                     // send the associative array back to the js Ajax
                                     echo json_encode($responseText);
@@ -263,7 +261,7 @@ switch ($action){
         }
 
         // redirect to the cart page
-        header('Location: /engoje/cart/');
+        header('Location: /cart/');
 
 
         break;
@@ -304,13 +302,13 @@ switch ($action){
 
         }
 
-        header('Location: /engoje/cart/');
+        header('Location: /cart/');
 
         break;
 
     // cart page accessing through icon or link in product page
     default:
 
-        header('Location: /engoje/shop/cart/');  
+        header('Location: /shop/cart/');  
         
     }

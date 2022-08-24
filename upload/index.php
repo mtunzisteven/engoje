@@ -3,7 +3,7 @@
 
 
 // This is the images uload controller// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
 require_once '../library/connections.php';
@@ -22,7 +22,7 @@ require_once '../library/functions.php';
 $_SESSION['active_tab'] = $active_tabs;
 
 // directory name where uploaded images are stored
-$image_dir = '/engoje/images';
+$image_dir = '/images';
 
 // The path is the full path from the server root
 $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
@@ -83,7 +83,7 @@ switch ($action) {
     case 'new-upload':
 
         // directory name where uploaded images are stored
-        $image_dir = '/engoje/images';
+        $image_dir = '/images';
 
         // The path is the full path from the server root
         $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;
@@ -128,7 +128,7 @@ switch ($action) {
     case 'multi-upload':
 
         // directory name where uploaded images are stored
-        $image_dir = '/engoje/images';
+        $image_dir = '/images';
 
         // The path is the full path from the server root
         $image_dir_path = $_SERVER['DOCUMENT_ROOT'] . $image_dir;

@@ -9,13 +9,16 @@ require_once 'library/connections.php';
 require_once 'library/functions.php';
 // Get the side navs library
 require_once 'library/sidenav.php';
+
 // Get the engoje model for use as needed
 require_once 'model/main-model.php';
 // Get the engoje model for use as needed
 require_once 'model/warningLog-model.php';
 
+// echo 'model fns work fine!'; exit;
+
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
@@ -75,7 +78,7 @@ switch ($action){
     
     default:
 
-        header('Location: /engoje/error/404.php');
+        header('Location: /error/404.php');
 }
 
 restore_error_handler();
@@ -90,6 +93,6 @@ function warning_handler($errno, $errstr) {
 
     addWarning($warningNumber, $warning, $warningLocation);
 
-    header('Location: /engoje/error/500.php');
+    header('Location: /error/500.php');
 
 }

@@ -5,48 +5,30 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header-top.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/shop-hero.php';
         ?>
         
         <div class="categories">
-            <a href="/" class="left-category category">
-               <p>Left</p>
+            <a class="category-anchor" href="/new" class="left-category category">
+                <img class="category-image" src="/images/WindowShopping.png" alt="window shopping dresses" />
+                <h2 class="category-h2">New</h2>
             </a>
-            <a href="/" class="right-category category">
-                <p>Right</p>
+            <a class="category-anchor" href="/sale" class="right-category category">
+                <img class="category-image" src="/images/accessoriesWindow.png" alt="window shopping accessories" />
+                <h2 class="category-h2">Sale</h2>
             </a>
-        </div>
-
-        <div class="container products px-0 my-3 ms-auto ">
-            <div class="row w-100 px-0 my-0 mx-auto">
-                <div class="col-5 placeholder bg-white rounded mx-2"></div>
-                <div class="col-2 placeholder bg-white rounded mx-2"></div>
-                <div class="col-2 placeholder bg-white rounded mx-2"></div>
-                <div class="col-2 placeholder bg-white rounded mx-2"></div>
-            </div>
         </div>
                     
         <?php
 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header-bottom.php';
-
-            if($pageName == 'Home'){
-
-                ?>
-
-                <div class="spacer"></div>
-
-                <?php
-
-            }
-
-            require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; 
+            require $_SERVER['DOCUMENT_ROOT'].'/snippets/footer.php'; 
             
         ?>
 

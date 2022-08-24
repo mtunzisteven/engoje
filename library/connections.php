@@ -6,9 +6,9 @@ Proxy connection to the engoje database
 
 function engojeConnect(){
     $server ='localhost';
-    $dbname = 'comza';
-    $username = 'iClient';
-    $password = 'SNNM1HuFnB60weBA';
+    $dbname = 'mediafs0_comza';
+    $username = 'mediafs0_mtunzism';
+    $password = 'NtandoMilaniImani321.';
     $dsn = "mysql:host=$server; dbname=$dbname";
     $option = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
@@ -18,7 +18,7 @@ function engojeConnect(){
         return $link;
     }catch(PDOException $e){
         
-        header('Location:/engoje/error/500.php');
+        header('Location: /error/500.php');
         exit;
     }
 

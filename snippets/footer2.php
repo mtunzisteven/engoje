@@ -4,8 +4,8 @@
     <div class='footer-widgets-container container py-5'>
         <div class="row">
             <div class="col-12 col-md">
-                <a class="navbar-brand" href="/engoje/">        
-                    <img width="70" height="70" src=" /engoje/images/logo.svg" alt="logo image">
+                <a class="navbar-brand" href="/">        
+                    <img width="70" height="70" src=" /images/logo.svg" alt="logo image">
                 </a>
                 <small class="d-block mb-3 text-muted">&copy; 2020–2021</small>
                 </div>
@@ -57,7 +57,7 @@
 </footer>
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-<script src="/engoje/js/counts.js"></script>
-<script src="/engoje/js/sliders.js"></script>
+<script src="/js/counts.js"></script>
+<script src="/js/sliders.js"></script>
 
 

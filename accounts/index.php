@@ -5,7 +5,7 @@ set_error_handler("warning_handler", E_WARNING);
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 // Get the database connection file
 require_once '../library/connections.php';
@@ -89,7 +89,7 @@ switch ($action) {
             // email token in link to user for him/her to click and confirm
             // email link: https://engoje.co.za/accounts/?action=confirm-eid&$taid=$tuaid&regTk=$regToken
 
-            header("Location: /engoje/accounts/?action=confirm-eid&taid=$taid&regTk=$regToken");
+            header("Location: /accounts/?action=confirm-eid&taid=$taid&regTk=$regToken");
             exit;
         }
 
@@ -107,7 +107,7 @@ switch ($action) {
         if($regToken == $db_regToken){
 
             // go enter new password and reg account
-            header("Location: /engoje/accounts/?action=new-password&taid=$temp_accountId");
+            header("Location: /accounts/?action=new-password&taid=$temp_accountId");
             exit;
 
         }else{
@@ -151,7 +151,7 @@ switch ($action) {
 
             deleteTempAccount($temp_accountId);
 
-            header('Location: /engoje/view/login.php');
+            header('Location: /view/login.php');
 
             exit;
         } else {
@@ -226,7 +226,7 @@ switch ($action) {
                 $customerReviews = customerReviews($reviews);
 
                 // Send them to the admin view
-                header('Location:/engoje/accounts/?action=account');
+                header('Location: /accounts/?action=account');
                 exit; 
             }
             else{
@@ -253,7 +253,7 @@ switch ($action) {
         // Log them out
         $_SESSION['loggedin'] = FALSE;
 
-        header('Location: /engoje/');
+        header('Location: /');
 
         break;
 
@@ -347,7 +347,7 @@ switch ($action) {
 
             $_SESSION['userData']['userFirstName'] = $userFirstName;
 
-            header('Location: /phpmotors/accounts/');
+            header('Location: /accounts/');
 
             exit;
         } else {
@@ -384,7 +384,7 @@ switch ($action) {
 
                 $_SESSION['message-password'] = "<p class='admin-center'>Your password has been updated successfully.</p>";
 
-                header('Location: /phpmotors/accounts/');
+                header('Location: /accounts/');
 
                 exit;
             } else {
@@ -424,7 +424,7 @@ function warning_handler($errno, $errstr) {
 
     addWarning($warningNumber, $warning, $warningLocation);
 
-    // header('Location: /engoje/error/500.php');
+    header('Location: /error/500.php');
 
 }
 

@@ -1,16 +1,17 @@
 <?php
 
 //This is the shop controller for the site// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 // Get the database connection file
 require_once '../library/connections.php';
-// Get the cleaner script 
+// Get the cleaner script
 require_once '../library/dbCleaner.php';
 // Get the database connection file
 require_once '../library/functions.php';
 // Get the side navs library
 require_once '../library/sidenav.php';
+
 // Get the engoje main model for use as needed
 require_once '../model/main-model.php';
 // Get the shop model for use as needed
@@ -22,7 +23,6 @@ require_once '../model/uploads-model.php';
 
 // Build Admin Side Nav
 $adminSideNav = buildAdminSideNav();
-
 
 //initial pagination
 $lim = 8;
@@ -149,7 +149,7 @@ switch ($action){
         // build a swatch display for the colours
         $_SESSION['colours'] = buildProductSwatchesDisplay($productSwatch, 'colour');
 
-        header('Location: /engoje/shop/product/');
+        header('Location: /shop/product/');
         
         break;
 

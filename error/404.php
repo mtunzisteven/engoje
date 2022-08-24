@@ -4,7 +4,7 @@
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
@@ -13,7 +13,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
@@ -23,17 +23,18 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
 
     ?><!DOCTYPE html>
     <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
     <body>
 
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header-top.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
 
-            echo "<img  class='col rounded mx-auto d-block' height='500' src='/engoje/images/404.svg' alt='Erro 500' />";
+            echo "<img  class='col rounded mx-auto d-block' height='500' src='/images/404.svg' alt='Erro 500' />";
 
-            require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
+            require $_SERVER['DOCUMENT_ROOT'].'/snippets/footer.php'; ?>
 
         </main>
     </body>

@@ -4,15 +4,15 @@
     
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
     }
 
     if(!$_SESSION['loggedin']){
-        header('Location: /engoje/');
+        header('Location: /');
     }
     else if($_SESSION['loggedin']&& $_SESSION['userData']['userLevel']<2){
-        header('Location: /engoje/view/account.php');
+        header('Location: /view/account.php');
     }
 
     $pageName ="Taxonomy Manager"; 
@@ -21,12 +21,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
 
 ?><!DOCTYPE html>
 <html lang="en-us" class=" admin-main">
-    <?php require $_SERVER['DOCUMENT_ROOT']. '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT']. '/snippets/head.php'; ?>
     <body class=" admin-main">
         <main class="content">
             <?php 
-                require $_SERVER['DOCUMENT_ROOT']. '/engoje/snippets/header.php'; 
-                require $_SERVER['DOCUMENT_ROOT']. '/engoje/snippets/navigation.php'; 
+                require $_SERVER['DOCUMENT_ROOT']. '/snippets/header.php'; 
+                require $_SERVER['DOCUMENT_ROOT']. '/snippets/navigation.php'; 
             ?>
 
             <section class="dashboard admin-dashboard">
@@ -57,7 +57,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                                     <div class="container">
                                         <div class="row">
                                             <div class="col">
-                                                <form class="taxonomy-forms" action="/engoje/taxonomy/?action=add-colour" method="post">
+                                                <form class="taxonomy-forms" action="/taxonomy/?action=add-colour" method="post">
                                                     <div class="mb-3">
                                                         <label for="colour" class="form-label">New Colour</label>
                                                         <input type="text" class="form-control" id="colour" name="colour">
@@ -66,7 +66,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                                                 </form>
                                             </div>
                                             <div class="col">
-                                                <form class="taxonomy-forms" action="/engoje/taxonomy/?action=add-size" method="post">
+                                                <form class="taxonomy-forms" action="/taxonomy/?action=add-size" method="post">
                                                     <div class="mb-3">
                                                         <label for="size" class="form-label">New Size</label>
                                                         <input type="text" class="form-control" id="size" name="size">
@@ -79,7 +79,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                                                     <button type="submit" class="btn btn-primary button">Submit</button>
                                                 </form>                                            </div>
                                             <div class="col">
-                                                <form class="taxonomy-forms" action="/engoje/taxonomy/?action=add-category" method="post">
+                                                <form class="taxonomy-forms" action="/taxonomy/?action=add-category" method="post">
                                                     <div class="mb-3">
                                                         <label for="category" class="form-label">New Category</label>
                                                         <input type="text" class="form-control" id="category" name="category">
@@ -105,7 +105,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col">
-                                                    <form class="taxonomy-forms" action="/engoje/taxonomy/?action=delete-colour" method="post">
+                                                    <form class="taxonomy-forms" action="/taxonomy/?action=delete-colour" method="post">
                                                         
                                                         <select name="colourId" class="form-select" aria-label="Default select example">
                                                             <option selected>select colour</option>
@@ -129,7 +129,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                                                     </form>
                                                 </div>
                                                 <div class="col">
-                                                    <form class="taxonomy-forms" action="/engoje/taxonomy/?action=delete-size" method="post">
+                                                    <form class="taxonomy-forms" action="/taxonomy/?action=delete-size" method="post">
                                                         
                                                         <select name="sizeId" class="form-select" aria-label="Default select example">
                                                             <option selected>select size</option>
@@ -152,7 +152,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
                                                         <button type="submit" class="btn btn-primary button">Delete</button>
                                                     </form>                                      </div>
                                                 <div class="col">
-                                                    <form class="taxonomy-forms" action="/engoje/taxonomy/?action=delete-category" method="post">
+                                                    <form class="taxonomy-forms" action="/taxonomy/?action=delete-category" method="post">
                                                         
                                                         <select name="categoryId" class="form-select" aria-label="Default select example">
                                                             <option selected>select category</option>
@@ -189,6 +189,6 @@ require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php';
         </main>
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-        <script src="/engoje/js/counts.js"></script>
+        <script src="/js/counts.js"></script>
     </body>
 </html>

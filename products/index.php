@@ -6,7 +6,7 @@
 
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
 // Get the database connection file
@@ -131,7 +131,7 @@ switch ($action){
                 }
 
                 // Create the variations form using the highest number of items between the sizes and coloours
-                $variationsForm = "<form class='checkboxed' method='POST' action='/engoje/products/index.php' >";
+                $variationsForm = "<form class='checkboxed' method='POST' action='/products/index.php' >";
 
                 for($i= 0; $i<$length; $i++){
 
@@ -240,7 +240,7 @@ switch ($action){
             }
             
             $message = "<p class='notice detail-span-bold'>Success! Product(s) added.</p>";
-            header('Location: /engoje/upload');
+            header('Location: /upload');
             break;
 
         }else{
@@ -295,7 +295,7 @@ switch ($action){
 
                 if($update){
 
-                    header('Location: /engoje/products/?action=product'); exit;
+                    header('Location: /products/?action=product'); exit;
 
                     break;
 
@@ -355,7 +355,7 @@ switch ($action){
 
         }
 
-        header('Location: /engoje/products/');
+        header('Location: /products/');
 
         break;
 

@@ -55,7 +55,7 @@ let orderId = document.querySelector('#orderId');
 // process order and submit payfast form
 payNowButton.addEventListener('click', function(){
 
-    let url = "/engoje/checkout/";
+    let url = "https://engoje.co.za/checkout/";
 
     let orderData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
     
@@ -113,7 +113,7 @@ payNowButton.addEventListener('click', function(){
                         clearCartData.append('action', 'clear-cart');                   // add the action that will be used by the case selection in the controller
         
         
-                        fetch("/engoje/cart/", {
+                        fetch("https://engoje.co.za/cart/", {
                             method: 'POST',
                             body: clearCartData
                         })
@@ -128,7 +128,7 @@ payNowButton.addEventListener('click', function(){
                                 orderStatustData.append('async', true);
 
                                         
-                                fetch("/engoje/orders/", {
+                                fetch("https://engoje.co.za/orders/", {
                                     method: 'POST',
                                     body: orderStatustData
                                 })

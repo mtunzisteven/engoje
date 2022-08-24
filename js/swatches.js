@@ -16,7 +16,7 @@ let sizeSwatches = document.querySelectorAll('.size');     // get all divs with 
 let colourSwatches = document.querySelectorAll('.colour'); // get all divs with class:colour
 let colourChoice = document.querySelector('#colourChoice'); // get the colour choice from input
 
-let url = "http://localhost/engoje/shop/index.php";
+let url = "https://engoje.co.za/shop/index.php";
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                      //

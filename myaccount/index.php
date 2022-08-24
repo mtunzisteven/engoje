@@ -3,7 +3,7 @@
 //This is the main controller for the site
 
 // start session with same id in this file// start session with same id in this file
-require $_SERVER['DOCUMENT_ROOT'] . '/engoje/library/sessionsManager.php'; 
+require $_SERVER['DOCUMENT_ROOT'] . '/library/sessionsManager.php'; 
 
 
 // Get the database connection file
@@ -80,7 +80,7 @@ switch ($action){
         
             $ordersAdminTable = buildordersAdminTable($orders);
     
-            header('Location: /engoje/orders/'); exit;
+            header('Location: /orders/'); exit;
         
         case 'orders':
 
@@ -105,7 +105,7 @@ switch ($action){
 
             }else{
 
-                header('Location: /engoje/accounts');
+                header('Location: /accounts');
 
             }
     

@@ -1,6 +1,6 @@
 <?php 
     if(!isset($products)){
-        header('Location: /engoje/shop');
+        header('Location: /shop');
     }
 
     $pageName ="Shop"; 
@@ -9,13 +9,13 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header-top.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/shop-hero.php';
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header-top.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/shop-hero.php';
         ?>
         <div class="shop">
             <div class="side-bar">
@@ -66,7 +66,7 @@
                     echo "</div>";
 
                     if(isset($_SESSION['userData'])){
-                        echo "<div class='feedback'><a class='feedback-link' href='/engoje/?action=fb'>Feedback</a></div>";
+                        echo "<div class='feedback'><a class='feedback-link' href='/?action=fb'>Feedback</a></div>";
                     }
                 ?>
              
@@ -74,8 +74,8 @@
             
 
         </div>
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
+        <?php require $_SERVER['DOCUMENT_ROOT'].'/snippets/footer.php'; ?>
     </main>
  </body>
- <script src="/engoje/js/shopswatch.js"></script>
+ <script src="/js/shopswatch.js"></script>
 </html>

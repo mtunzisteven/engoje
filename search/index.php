@@ -21,7 +21,7 @@ if(!empty($products)){
         
     foreach($products as $product){
 
-        $searchDisplay .= "<a href='/engoje/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link text-decoration-none mx-5'>
+        $searchDisplay .= "<a href='/shop?action=product&productId=$product[productId]&product_entryId=$product[product_entryId]&colour=$product[colour]' class='productName-link text-decoration-none mx-5'>
         <div class='container mx-auto py-3 border-top m-0 search-results'>
             <div class='row align-items-start px-0 mx-0'>
 

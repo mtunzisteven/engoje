@@ -759,28 +759,67 @@ div#checkout-header{
 */
 
 .categories{
-    @include flex(row, space-around);
+    @include flex(row, space-between);
     min-width:90%;
     max-width:93%; 
-    height:300px;
-    background-color: #ffffff;
+    height: 600px;
     border-radius: 5px;
     padding: 5px;
-    margin: 20px auto;
+    margin: auto;
 
-    & .category{
-        display:block;
-        height:96%;
-        min-width:47%;
-        color:$background-color;
+    & .category-anchor{
+        display: block;
+        background-color: $darker-background-color;
+        box-shadow: $box-shadow;
         border-radius: 5px;
-        background-color: $secondary-color;
+        max-width: 45%;
+        height: auto;
+        margin:auto;
+        text-decoration: none;
 
-        & p{
-            font-size:50px;
-            text-align:center;        
+        & .category-h2{
+            display: block;
+            text-align: center;
+            font: $h2;
+            max-width: 84%;
+            margin: 10px auto;
+            background-color: $main-color;
+            color: $background-color;
+            padding: 5px auto;
+            border-radius: 5px;
+
         }
+
+        & .category-image{
+            display: block;
+            max-width: 75%;
+            border-radius: 5px;
+            margin:auto;
+        }
+
     }
+
+    & .category-anchor:hover{
+        background-color: $background-color;
+
+        & .category-h2{
+            background-color: $secondary-color;
+        }
+
+    }
+    // & .category{
+    //     display:block;
+    //     height:96%;
+    //     min-width:47%;
+    //     color:$background-color;
+    //     border-radius: 5px;
+    //     background-color: $secondary-color;
+
+    //     & p{
+    //         font-size:50px;
+    //         text-align:center;        
+    //     }
+    // }
 }
 
 /*-----------------------------------------------Category block END
@@ -2417,7 +2456,7 @@ main.short-content{
         }
     }
 
-    & .dashboard-content{
+    .dashboard-content{
         min-width:450px;
         max-width:450px;
 
@@ -2787,28 +2826,26 @@ form.login-form{
         */
 
         .categories{
-            @include flex(row, space-around);
+            @include flex(row, space-between);
             min-width:90%;
             max-width:93%; 
-            height:300px;
-            background-color: #ffffff;
             border-radius: 5px;
             padding: 5px;
             margin: 20px auto;
 
-            & .category{
-                display:block;
-                height:96%;
-                min-width:47%;
-                color:$background-color;
-                border-radius: 5px;
-                background-color: $secondary-color;
+            // & .category{
+            //     display:block;
+            //     height:96%;
+            //     min-width:47%;
+            //     color:$background-color;
+            //     border-radius: 5px;
+            //     background-color: $secondary-color;
 
-                & p{
-                    font-size:50px;
-                    text-align:center;        
-                }
-            }
+            //     & p{
+            //         font-size:50px;
+            //         text-align:center;        
+            //     }
+            // }
         }
 
         /*-----------------------------------------------Category block END

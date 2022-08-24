@@ -20,55 +20,55 @@ function buildAdminSideNav(){
           $adminSideNav = 
           '<main class="admin-dashboardnav">
               <div class="d-flex flex-column flex-shrink-0 p-3 text-white admin-nav" style="width: 280px;">
-                  <a href="/engoje/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                  <a href="/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-4">Dashboard</span>
                   </a>
                   <hr>
                   <ul class="nav nav-pills flex-column mb-auto"> 
                       <li class="nav-item">
-                        <a href="/engoje/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
+                        <a href="/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
                           <i class="bi bi-people"></i>
                           &nbsp;Users
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/engoje/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
+                        <a href="/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
                           <i class="bi bi-box-seam"></i>
                           &nbsp;Products 
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/engoje/taxonomy/?action=taxonomy" class="nav-link text-white '.$_SESSION['active_tab']['taxonomy'].'">
+                        <a href="/taxonomy/?action=taxonomy" class="nav-link text-white '.$_SESSION['active_tab']['taxonomy'].'">
                           <i class="bi bi-briefcase"></i>
                           &nbsp;Taxonomy 
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/engoje/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
+                        <a href="/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
                           <i class="bi bi-images"></i>
                           &nbsp;Images
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/engoje/orders/?action=orders" class="nav-link text-white '.$_SESSION['active_tab']['orders'].'">
+                        <a href="/orders/?action=orders" class="nav-link text-white '.$_SESSION['active_tab']['orders'].'">
                           <i class="bi bi-truck"></i>
                           &nbsp;Orders
                         </a>
                       </li>
                       <li class="nav-item">
-                      <a href="/engoje/saless/?action=sales" class="nav-link text-white '.$_SESSION['active_tab']['sales'].'">
+                      <a href="/saless/?action=sales" class="nav-link text-white '.$_SESSION['active_tab']['sales'].'">
                         <i class="bi bi-credit-card"></i>
                         &nbsp;Sales
                       </a>
                     </li>
                       <li class="nav-item">
-                        <a href="/engoje/reviews/?action=reviews" class="nav-link text-white '.$_SESSION['active_tab']['reviews'].'">
+                        <a href="/reviews/?action=reviews" class="nav-link text-white '.$_SESSION['active_tab']['reviews'].'">
                           <i class="bi bi-megaphone"></i>
                           &nbsp;Reveiws
                         </a>
                       </li>
                       <li class="nav-item">
-                        <a href="/engoje/sale/?action=promos" class="nav-link text-white '.$_SESSION['active_tab']['promotions'].'">
+                        <a href="/sale/?action=promos" class="nav-link text-white '.$_SESSION['active_tab']['promotions'].'">
                           <i class="bi bi-tags"></i>
                           &nbsp;Promotions
                         </a>
@@ -87,7 +87,7 @@ function buildAdminSideNav(){
                             <li><a class="dropdown-item" href="#">Profile</a></li>
                             <li><a class="dropdown-item" href="#">My Account</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/engoje/accounts/index.php?action=logout">Sign out</a></li>
+                            <li><a class="dropdown-item" href="/accounts/index.php?action=logout">Sign out</a></li>
                             </ul>
                         </div>
                       </li>
@@ -107,38 +107,38 @@ function buildAdminSideNav(){
         $adminSideNav = 
         '<main class="admin-dashboardnav">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-white admin-nav" style="width: 280px;">
-                <a href="/engoje/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <a href="/myaccount/?action=account" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                   <span class="fs-4">Dashboard</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto"> 
                     <li class="nav-item">
-                        <a href="/engoje/admin/?action=account" class="nav-link text-white '.$_SESSION['active_tab']['account'].'">
+                        <a href="/admin/?action=account" class="nav-link text-white '.$_SESSION['active_tab']['account'].'">
                             <i class="bi bi-speedometer"></i>
                             &nbsp;Account Home
                         </a>
                     </li>
                     <li>
-                    <a href="/engoje/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
+                    <a href="/admin/?action=users" class="nav-link text-white '.$_SESSION['active_tab']['users'].'">
                       <i class="bi bi-people"></i>
                       &nbsp;Users
                     </a>
                     </li>
                     <li>
-                    <a href="/engoje/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
+                    <a href="/products/?action=product" class="nav-link text-white '.$_SESSION['active_tab']['products'].'">
                       <i class="bi bi-basket2"></i>
                       &nbsp;Products
                     </a>
                     </li>
                     <li>
-                    <a href="/engoje/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
+                    <a href="/upload/" class="nav-link text-white '.$_SESSION['active_tab']['images'].'">
                       <i class="bi bi-images"></i>
                       &nbsp;Images
                     </a>
           
                 </ul>
                 <hr>
-                <a class="dropdown-item" href="/engoje/accounts/index.php?action=logout">Sign out</a>
+                <a class="dropdown-item" href="/accounts/index.php?action=logout">Sign out</a>
             </div>
         </main>';
 
@@ -154,44 +154,44 @@ function buildAdminSideNav(){
           $adminSideNav = 
           "<main class='admin-dashboardnav'>
               <div class='d-flex flex-column flex-shrink-0 p-3 text-white admin-nav' style='width: 280px;'>
-                  <a href='/engoje/myaccount/?action=account' class='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'>
+                  <a href='/myaccount/?action=account' class='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'>
                     <span class='fs-4'>Dashboard</span>
                   </a>
                   <hr>
                   <ul class='nav nav-pills flex-column mb-auto'> 
                       <li class='nav-item'>
-                        <a href='/engoje/myaccount/?action=orders' class='nav-link text-white ".$_SESSION['active_tab']['orders']."'>
+                        <a href='/myaccount/?action=orders' class='nav-link text-white ".$_SESSION['active_tab']['orders']."'>
                           <i class='bi bi-truck'></i>
                           &nbsp;Orders
                         </a>
                       </li>
                       <li class='nav-item'>
-                        <a href='/engoje/returns/?action=returns' class='nav-link text-white ".$_SESSION['active_tab']['returns']."'>
+                        <a href='/returns/?action=returns' class='nav-link text-white ".$_SESSION['active_tab']['returns']."'>
                           <i class='bi bi-truck-flatbed'></i>
                           &nbsp;Returns
                         </a>
                       </li>
                       <li class='nav-item'>
-                        <a href='/engoje/reviews/?action=reviews' class='nav-link text-white ".$_SESSION['active_tab']['reviews']."'>
+                        <a href='/reviews/?action=reviews' class='nav-link text-white ".$_SESSION['active_tab']['reviews']."'>
                           <i class='bi bi-megaphone'></i>
                           &nbsp;Reveiws
                         </a>
                       </li>
                       <hr>
                       <li class='nav-item'>
-                        <a href='/engoje/accounts/?action=security' class='nav-link text-white ".$_SESSION['active_tab']['security']."'>
+                        <a href='/accounts/?action=security' class='nav-link text-white ".$_SESSION['active_tab']['security']."'>
                           <i class='bi bi-shield-lock'></i>
                           &nbsp;security
                         </a>
                       </li>
                       <li class='nav-item'>
-                        <a href='/engoje/upload/' class='nav-link text-white ".$_SESSION['active_tab']['addresses']."'>
+                        <a href='/upload/' class='nav-link text-white ".$_SESSION['active_tab']['addresses']."'>
                           <i class='bi bi-pin-map'></i>
                           &nbsp;Addresses
                         </a>
                       </li>
                       <li class='nav-item'>
-                        <a class='nav-link text-white' href='/engoje/accounts/index.php?action=logout'>
+                        <a class='nav-link text-white' href='/accounts/index.php?action=logout'>
                           <i class='bi bi-person'></i>
                           &nbsp;Sign out
                         </a>

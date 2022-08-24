@@ -15,7 +15,7 @@ let addToWishlist = document.querySelector('#add-to-wishlist-button');
 var wishlistCounter = document.querySelector('#wishlist-count');
 let mwishlistCount = document.querySelector('#mobile-wishlist-count');
 
-let urlWishlist = "http://localhost/engoje/wishlist/index.php";
+let urlWishlist = "https://engoje.co.za/wishlist/index.php";
 
 wlisten(addToWishlist, urlWishlist, product_entryId, wishlistCounter, mwishlistCount, addToCartResponse, 'wishlistTotal', 'add-to-wishlist-response');
 
@@ -23,7 +23,7 @@ wlisten(addToWishlist, urlWishlist, product_entryId, wishlistCounter, mwishlistC
 //                   Add to cart updating                    |
 //-----------------------------------------------------------
 
-let urlCart = "http://localhost/engoje/cart/index.php";
+let urlCart = "https://engoje.co.za/cart/index.php";
 
 if(addToCart != null){ // works only for logged in users
 

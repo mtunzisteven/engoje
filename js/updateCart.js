@@ -36,9 +36,9 @@ shipRadioOptions.forEach(shipoption => {
 
 function myFunction(mediaQuery) {
 
-    let url = "http://localhost/engoje/cart/index.php";
+    let url = "https://engoje.co.za/cart/index.php";
 
-    if (mediaQuery.matches) { // If media query matches
+    if (mediaQuery.matches && updateCart != undefined) { // If media query matches and update cart defined
       
         updateCart.addEventListener('click', function(event){
 
@@ -108,69 +108,71 @@ function myFunction(mediaQuery) {
         
     } else {
 
-        updateCart.addEventListener('click', function(event){
+        if (mediaQuery.matches && updateCart != undefined) { // If media query doesn't match and update cart defined
 
-            const checkedRadio = [...document.querySelectorAll('.shippingId')].filter(button => button.checked).map(button => button.value);
+            updateCart.addEventListener('click', function(event){
 
-            let totalHolder = 0;
+                const checkedRadio = [...document.querySelectorAll('.shippingId')].filter(button => button.checked).map(button => button.value);
 
-            const cartUpdateArr = [];
+                let totalHolder = 0;
 
-            for(let i = 0; i < cartItemQtym.length; i++){
+                const cartUpdateArr = [];
 
-                cartUpdateArr.push(parseInt(cartItemQtym[i].value));
+                for(let i = 0; i < cartItemQtym.length; i++){
 
-                lineTotalsm[i].innerHTML = parseInt(cartItemQtym[i].value)*parseInt(pricesm[i].textContent);
+                    cartUpdateArr.push(parseInt(cartItemQtym[i].value));
 
-                totalHolder += parseInt(cartItemQtym[i].value)*parseInt(pricesm[i].textContent);
-            }
+                    lineTotalsm[i].innerHTML = parseInt(cartItemQtym[i].value)*parseInt(pricesm[i].textContent);
 
-            grandTotal.innerHTML = totalHolder; // update total
-
-            let cartUpdateData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
-            cartUpdateData.append('action', 'update-cart');                    // add the action that will be used by the case selection in the controller
-            cartUpdateData.append('cartUpdateArr', cartUpdateArr);                    // add the action that will be used by the case selection in the controller
-
-            fetch(url, {
-                method: 'POST',
-                body: cartUpdateData
-            })
-            .then(response=>{
-                if(response.ok){
-                    return response;
-                }
-                throw Error(response.statusText);
-            })
-            .then(response=>response.text())
-            .then(text=> {
-                
-                cartCount.innerHTML = text;
-                mcartCount.innerHTML = text;
-
-                if(checkedRadio > 0){
-
-                    // get the innerText in grand total defined above and sum it with the value of the hidden input element with
-                    // the same shipping id as the shipping method selected. id name of the input is a combination of 'shipppingId' and the actual id.
-                    let total = parseInt(totalHolder) + parseInt(document.querySelector('#shippingId'+checkedRadio).value);
-
-                    // set the inner text axactly as it is in the html with a new total calculated above.
-                    grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
-
-                }else{
-
-                    let total = parseInt(grandTotal.innerHTML);
-
-                    // set the inner text axactly as it is in the html with a new total calculated above.
-                    grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${totalHolder}`;
-
+                    totalHolder += parseInt(cartItemQtym[i].value)*parseInt(pricesm[i].textContent);
                 }
 
-            })
-            .catch(error => console.log(error))
+                grandTotal.innerHTML = totalHolder; // update total
+
+                let cartUpdateData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
+                cartUpdateData.append('action', 'update-cart');                    // add the action that will be used by the case selection in the controller
+                cartUpdateData.append('cartUpdateArr', cartUpdateArr);                    // add the action that will be used by the case selection in the controller
+
+                fetch(url, {
+                    method: 'POST',
+                    body: cartUpdateData
+                })
+                .then(response=>{
+                    if(response.ok){
+                        return response;
+                    }
+                    throw Error(response.statusText);
+                })
+                .then(response=>response.text())
+                .then(text=> {
+                    
+                    cartCount.innerHTML = text;
+                    mcartCount.innerHTML = text;
+
+                    if(checkedRadio > 0){
+
+                        // get the innerText in grand total defined above and sum it with the value of the hidden input element with
+                        // the same shipping id as the shipping method selected. id name of the input is a combination of 'shipppingId' and the actual id.
+                        let total = parseInt(totalHolder) + parseInt(document.querySelector('#shippingId'+checkedRadio).value);
+
+                        // set the inner text axactly as it is in the html with a new total calculated above.
+                        grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${total}`;
+
+                    }else{
+
+                        let total = parseInt(grandTotal.innerHTML);
+
+                        // set the inner text axactly as it is in the html with a new total calculated above.
+                        grandShipTotalText.innerHTML = `<div class='strong'>Grand Total:</div> R${totalHolder}`;
+
+                    }
+
+                })
+                .catch(error => console.log(error))
 
 
-        }, false);
-
+            }, false);
+        }
     }
 }
   

@@ -7,8 +7,8 @@
 <meta name="title" content="<?php echo $pageName." | ".$pageShortSummary; ?>">
 <meta name="description" content="<?php echo $pageDescription; ?>">	      
       
-<link rel="icon" href="/engoje/images/logo.ico" type="image/ico">
-<link href="/engoje/css/styles.css" rel="stylesheet">
+<link rel="icon" href="/images/logo.ico" type="image/ico">
+<link href="/css/styles.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/1276afdf97.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">

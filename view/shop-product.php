@@ -1,6 +1,6 @@
 <?php 
     if(!isset($_SESSION['productData'])){
-        header('Location: /engoje/shop');
+        header('Location: /shop');
     }
 
     $pageName ="Shop"; 
@@ -9,12 +9,12 @@
 
 ?><!DOCTYPE html>
 <html lang="en-us">
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/head.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/snippets/head.php'; ?>
  <body>
     <main class="content">
         <?php 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/header.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/engoje/snippets/navigation.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
         ?>
         <div class="all-product-info">
             <div class="shop single-product-shop">
@@ -53,14 +53,14 @@
                     // The sale icon will only appear when the product is found in the sale table.
                     // sale-circle and sale-price classed elements remain hidden unless the requirement above is met.
                                                                                                     // div.sale-circle below
-                    echo "<div class='sale-img-container'><div id='$product[product_entryId]' class='$_SESSION[hidden] sale-circle'>sale</div><img id='single-product' class='$salePrimaryImage product-primary-image' src='/engoje/images/placeholder.png' data-src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."' loading='lazy' /></div>";
+                    echo "<div class='sale-img-container'><div id='$product[product_entryId]' class='$_SESSION[hidden] sale-circle'>sale</div><img id='single-product' class='$salePrimaryImage product-primary-image' src='/images/placeholder.png' data-src='".$_SESSION['productData'][$index]['imagePath']."' alt='".$_SESSION['productData'][$index]['productName']."' loading='lazy' /></div>";
 
                     echo "<div class='single-product-gallery'>";
 
                     foreach($_SESSION['productData'] as $productrow){
                         if($productrow['product_entryId'] == $_SESSION['productData'][$index]['product_entryId']){
 
-                            echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='/engoje/images/placeholder.png' data-src='".$productrow['imagePath_tn']."' alt='Gallery Image' loading='lazy' />";
+                            echo "<img class='product-gallery-image' id='$productrow[imagePath]' src='/images/placeholder.png' data-src='".$productrow['imagePath_tn']."' alt='Gallery Image' loading='lazy' />";
                         }
                     }
 
@@ -92,17 +92,17 @@
                             }
 
                         if(isset($_SESSION['userData'])){ // do not show the add to cart button if user not signed in 
-                    ?>
-                    <div id='add-to-cart-stock'></div>
-                    <div class="add-to-cart-container">
-                        <input id="add-to-cart-qty" class='validity' type="number" name="qty" value="0" min=1 />
-                        <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
-                    </div>
+                            ?>
+                            <div id='add-to-cart-stock'></div>
+                            <div class="add-to-cart-container">
+                                <input id="add-to-cart-qty" class='validity' type="number" name="qty" value="0" min=1 />
+                                <input id="add-to-cart-button" class="button" type="button" value="Add to Cart" />
+                            </div>
 
                     <?php }else{ ?>
 
                         <div class="add-to-cart-container">
-                            <a href="/engoje/accounts/index.php?action=login">Sign in &NonBreakingSpace;</a><span> to place an order.</span>
+                            <a href="/accounts/index.php?action=login">Sign in &NonBreakingSpace;</a><span> to place an order.</span>
                         </div>
 
                     <?php } ?>
@@ -160,9 +160,9 @@
             </div>
 
         </div>
-        <script src='/engoje/js/swatches.js'></script>
-        <script type='module' src='/engoje/js/singleproduct.js'></script>
-        <?php require $_SERVER['DOCUMENT_ROOT'].'/engoje/snippets/footer.php'; ?>
+        <script src='/js/swatches.js'></script>
+        <script type='module' src='/js/singleproduct.js'></script>
+        <?php require $_SERVER['DOCUMENT_ROOT'].'/snippets/footer.php'; ?>
     </main>
  </body>
 </html>

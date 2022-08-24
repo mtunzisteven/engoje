@@ -7,7 +7,7 @@ var mcartCount = document.querySelector('#mobile-cart-count');
 let cartCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 cartCountData.append('action', 'cart-count');                    // add the action that will be used by the case selection in the controller
 
-let curl = "http://localhost/engoje/cart/index.php";
+let curl = "https://engoje.co.za/cart/index.php";
 
 fetch(curl, {
     method: 'POST',
@@ -111,7 +111,7 @@ var mwishlistCount = document.querySelector('#mobile-wishlist-count');
 let wishlistCountData = new FormData();                              // create a new formData object to send data aysnchronously to the controller
 wishlistCountData.append('action', 'wishlist-count');                    // add the action that will be used by the case selection in the controller
 
-let wurl = "http://localhost/engoje/wishlist/index.php";
+let wurl = "https://engoje.co.za/wishlist/index.php";
 
 fetch(wurl, {
     method: 'POST',
