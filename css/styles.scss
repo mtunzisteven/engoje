@@ -52,7 +52,7 @@ $notices  : 200 20px 'Handlee', sans-serif;
 
 @mixin flex($direction:row, $justify:space-between, $justify-items: center) {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-direction: $direction;
     justify-content: $justify;
     align-items: $justify-items;
@@ -88,19 +88,20 @@ $notices  : 200 20px 'Handlee', sans-serif;
     margin: 15px auto;
 }
 
-@mixin product-count($top, $right){
+@mixin product-count($top, $right, $fontSize: 10px, $size: 15px){
     position:relative;
     z-index: 1000;
     top:$top;
     right: $right;
     color:$darker-main-color;
     background-color: $secondary-color;
-    width: 15px;
-    height: 15px; 
-    line-height: 15px;
-    font-size: 10px;
+    width: $size;
+    height: $size; 
+    line-height: $size;
+    font-size: $fontSize;
     text-align: center;
-    border-radius: 15px;
+    border-radius: $size;
+    font-weight: 500;
 }
 
 @mixin invalidinput(){
@@ -136,11 +137,9 @@ $notices  : 200 20px 'Handlee', sans-serif;
 
 body{
     color:$dark-color;
-    background-color: $dark-background-color;
-    height:100%;
+    background-color: $dark-background-color !important;
     padding:0;
     margin:0;
-    overflow-x: hidden;   
 
     & main{
         padding:0;
@@ -307,8 +306,7 @@ input, textarea, button, a{
 
 .all-nav{
     background-color: $dark-main-color;
-    height:60px;
-    line-height:60px;
+    line-height:150px;
     padding: 0;
     margin-bottom: 0;
     max-width:100%;
@@ -317,12 +315,12 @@ input, textarea, button, a{
 
     & div.container-fluid{
         background-color: $dark-main-color;
-        padding: 0 3%;
+        padding: 0 1%;
         
         & .navbar-brand{
 
             & img{
-                width: 48px;
+                width: 180px;
                 height: auto;
                 margin:0;
             }
@@ -333,8 +331,8 @@ input, textarea, button, a{
 
             & .navbar-toggler-icon{
                 color:$darker-background-color;
-                font-size: 40px;
-                line-height: 60px;
+                font-size: 100px;
+                line-height: 150px;
                 margin:0;
                 padding:0;
 
@@ -359,8 +357,21 @@ input, textarea, button, a{
 
         & .navbar-collapse{
 
+            max-width: 80%;
+            position:absolute;
+            z-index: 1000;
+            top: 200px;
+            left: 0;
+            min-height:400px;
+            background-color: $dark-main-color;
+            padding-left: 15px;
+
             & a{
                 color:$darker-background-color;
+                font-size: 50px;
+                padding: 15px 0 10px 20px;
+                background-color: $dark-main-color;
+
             }
 
             & a:hover{
@@ -371,43 +382,49 @@ input, textarea, button, a{
             & a.active{
                 color:$light-main-color;
             }
-        }
-    }
-
-    & div.collapse{
-        background-color: $dark-main-color;
-        width:100%;
-        padding: 0;
         
-        & .d-flex{
-            @include flex(row, space-between, center);
-            max-height: 40px;
-            border: none;
+            & .d-flex{
+                @include flex(row);
+                flex-wrap: nowrap !important;
+                max-height: 180px;
+                border: none;
+                border-top: $main-color 1px solid;
+                width: 100%;
+                padding-right: 20px;
+                padding-top: 20px;
+                margin:  60px 0 20px 20px;
 
-            & input{
-                border-radius: 3px 0 0 3px;
-                height: 30px;
-                margin: 0;
+                & input{
+                    border-radius: 15px 0 0 15px;
+                    height: 60px;
+                    margin: 0;
+                    width: 70%;
+                    font-size: 40px;
 
-            }
-
-            & .buttons{
-                @include buttons($secondary-color, 60px, 30px);
-                border-radius: 0 3px 3px 0;
-                margin-left:-10px;
-                box-shadow: none;
-
-                & i{
-                    color: $background-color;
-                    box-shadow: none;
-                    font-size: 16px;
                 }
-            }
 
-            & .buttons:hover{
-                @include buttonshover();
-                box-shadow: none;
+                & .buttons{
+                    @include buttons($secondary-color, 60px, 30px);
+                    height: 60px;
+                    width: 80px;
+                    border-radius: 0 15px 15px 0;
+                    margin-left: -45px;
+                    margin-right: 143px;
+                    box-shadow: none;
 
+                    & i{
+                        color: $background-color;
+                        box-shadow: none;
+                        font-size: 35px;
+                        
+                    }
+                }
+
+                & .buttons:hover{
+                    @include buttonshover();
+                    box-shadow: none;
+
+                }
             }
         }
     }
@@ -462,7 +479,7 @@ img.product-image{
     color: $dark-secondary-color;
     background-color: $background-color;
     font: $h1;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 800px;
 }
 
@@ -483,41 +500,45 @@ div.bottom-nav-container{
     z-index:1000;
     background-color: $background-color;
     min-width: 100%;
-    height: 50px;
-    line-height: 50px;
+    height: 150px;
+    line-height: 150px;
     padding: 0 10%;
     box-shadow: $box-shadow;
 
     & a{
         display:block;
         color: $dark-color;
-        font-size: 150%;
+        font-size: 60px;
         text-decoration: none;
 
-        & .bi{
-            font-size: 20px;
-            margin-bottom: 20px;
+        
+
+        & [class*=" bi-"]::before{
+            font-size: 60px;
+            margin-bottom: 30px;
 
         }
 
         & .bi-person-fill{
-            font-size: 30px;
+            font-size: 60px;
             margin-bottom: 0;
         }
 
         & .cart-count{
-            @include product-count(5px, -17px);
+            @include product-count(10px, -45px, 30px, 40px);
 
         }
 
         & .wishlist-count{
-            @include product-count(3px, -69%);
+            @include product-count(10px, -79%, 30px, 40px);
 
         }
     }
 
     & a.signin{
         font: $p;
+        font-size: 30px;
+        font-weight: 500;
     }
 
     & a:hover{
@@ -537,7 +558,6 @@ div.bottom-nav-container{
 //-----------------------------------------------Header-bottom
 
 .header-bottom{
-    height:250px;
     width:94%;
     line-height: 150px;
     text-align: center;
@@ -550,19 +570,16 @@ div.bottom-nav-container{
 }
 
 .shop-hero{
-    background-color: $secondary-color;
-    margin: 10px auto;
     width: 93%;
 
     #myCarousel{
-        background-color: $secondary-color;
 
         & .carousel-inner{
-            background-color: $secondary-color;
+            padding: 30px auto;
 
             & .carousel-item{
                 background-color: $secondary-color;
-                height: 250px;
+                min-height: 300px;
                 border-radius: 3px;
 
                 & .container{
@@ -570,6 +587,16 @@ div.bottom-nav-container{
 
                     & .carousel-caption{
                         background-color: $secondary-color;
+
+                        & h1{
+                            font-size: 60px;
+                        }
+
+                        & p{
+                            font: $p;
+                            font-weight: 400;
+                            font-size: 30px;
+                        }
                     }
                 }
             }
@@ -759,33 +786,33 @@ div#checkout-header{
 */
 
 .categories{
-    @include flex(row, space-between);
+    @include flex(column, column);
     min-width:90%;
     max-width:93%; 
-    height: 600px;
+    height: auto;;
     border-radius: 5px;
     padding: 5px;
-    margin: auto;
+    margin: auto auto 200px auto;
 
     & .category-anchor{
         display: block;
         background-color: $darker-background-color;
         box-shadow: $box-shadow;
         border-radius: 5px;
-        max-width: 45%;
         height: auto;
-        margin:auto;
+        margin:25px auto;
         text-decoration: none;
 
         & .category-h2{
             display: block;
             text-align: center;
             font: $h2;
+            font-size: 50px;
             max-width: 84%;
             margin: 10px auto;
             background-color: $main-color;
             color: $background-color;
-            padding: 5px auto;
+            padding: 20px auto;
             border-radius: 5px;
 
         }
@@ -999,9 +1026,8 @@ div#checkout-header{
         }
 
         & .shop-products{
-            width:100%;
+            width:95%;
             @include flex();
-            flex-wrap: wrap;
             position:relative;
             z-index: 0;
             border-radius: 3px;
@@ -2535,640 +2561,20 @@ form.login-form{
     
 }
 
-@media only screen and (min-width: 880px){
-   
-
-    /*
-    *------------------------------------------------Dashboard
-    */
-
-    .dashboard{
-        @include flex(row, space-around, flex-start);
-        max-width:100%;
-        margin:0;
-
-        & .dashboard-side-nav{
-            min-width:0;
-            max-width:12%;
-            min-height: 100%;
-            margin: 0;
-            }
-        
-
-        & .dashboard-content{
-            max-width:100%;
-            border:none;
-
-            & .h2{
-                font-size: 23px;
-                padding: 0x 10px 0 20px;
-            }
-
-            & p{
-                font-size: 16px;
-                padding: 0 10px 10px 10px;
-
-            }
-
-            & .user-data-container{
-                max-width:100%;
-                padding:30px;
-
-                & .user-update{
-                    @include flex();
-                    width:100%;
-
-                    & li{
-                        width:25%;
-                        height:40px;
-                        line-height:40px;
-                        text-align:center;
-
-                        & a{
-                            display:block;
-                        }
-                    }
-
-                    & .user-update-item{
-                        background-color: $light-main-color;
-                        border-bottom:$background-color 1px solid;
-
-                        & a{
-                            color:$background-color;
-                        }
-                    }
-
-                    & .user-update-item:hover{
-                        background-color: $main-color;
-                    }
-                }
-
-
-
-                & .dashboard-user-update-data{
-                    margin:0 auto 50px auto;
-                    background-color: $light-main-color;
-                    @include flex(row, space-around, start);
-
-                    & form{
-                        border:none;
-                        padding:10px;
-                        margin:15px 0 !important;
-                        width:50%;
-                    }
-
-                    & .dashboard-form-details{
-                        width:50%;
-                        height:300px;
-                        background-color: $background-color;
-                        border-radius: 3px;
-                        margin:25px 60px 30px 0;
-
-                        & h3{
-                            text-align: center;
-
-                        }
-
-                        & .dashboard-details-addresses{
-                            @include flex(row, space-around);
-                            margin-top: -15px;
-
-
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-    .wide-form-container{
-        justify-content: space-between;
-        width:95%;
-        height:auto;
-        margin: 5px;
-        padding:0;
-
-    }
-
-    /*------------------------------------------------Dashboard END
-    */
-
-    /*
-    *------------------------------------------------All Forms
-    */
-
-    form{
-        width:45%;
-        max-width: 500px;
-
-    }
-
-    form.login-form{
-        width: 100%;
-        max-width: 100%;
-
-    }
-
-    form.checkboxed{
-        padding:5px;
-        margin:5px;
-        width:100%;
-        min-width:85%;
-        border: $background-color 1px solid;
-        border-radius: 3px;
-        background-color: $light-main-color;
-
-        & .swatch-row{
-            @include flex();
-
-        }
-
-        & .small-width-swatches{
-            @include flex(row, start);
-            max-width:50px;
-
-            & .swatch-item{
-                @include flex(column, start);
-                max-width:50px;
-            }
-        }
-
-                            
-        & input.button{
-            max-width:100px;
-            margin:30px 20px 20px 20px;
-        }
-
-        & div.row-form-content{
-            @include flex(row, space-between);
-            width:95%;
-            border: $dark-background-color 1px solid;
-            border-radius:3px;
-            padding: 20px;
-
-            & div.column-form-input{
-                @include flex(column, center);
-                min-width:50%;
-                text-align:left;
-
-                & input, textarea, label{
-                    width:100%;
-                    text-align:left;
-                    border:none;
-                    border-radius: 4px;
-                }
-
-                & label{
-                    color: $dark-color;
-                }
-            }
-
-            & div.column-form-fieldsets{
-                @include flex(column, center);
-                min-width:50%;
-
-                & fieldset{
-                    @include flex(column, space-between, flex-start);
-                    background-color: $dark-background-color;
-                    min-width:30%;
-                    width:70%;
-                    height:100px;
-                    overflow:scroll;
-                    padding: 2px 5px;
-                    font: $p;
-                    margin-bottom: 10px;
-
-                    & strong{
-                        font-weight: 700;
-                    }
-
-                    & label{
-                        @include flex(row, space-between);
-                        flex-wrap: nowrap;
-                        vertical-align: start;
-                        min-width:100%;
-                        height:40px;
-                        font: $p;
-
-                        & span{
-                            text-align: left;
-                            width:100%;
-                            font: $p;
-                            font-size:14px;
-                            height:14px;
-                            margin:5px 0 5px 0;
-                        }
-
-                        & input{
-                            min-width:14px;
-                            width:14px;
-                            min-height:14px;
-                            height:14px;
-                            margin:5px 5px 5px 20px;
-                            font: $p;
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    
-    form.checkout-address{
-
-        min-width: 55%;
-        max-width: 55%;
-        margin: 0 auto;
-    }
-
-    form.taxonomy-forms{
-        min-width: 95%;
-        max-width: 96%;
-        border: none;
-        box-shadow: $box-shadow;
-
-        & button.button{
-            line-height: 15px;
-        }
-
-        & input:focus{
-            box-shadow: 0 0 5px 2px $dark-secondary-color;
-            border: $dark-secondary-color 1px solid;
-        }
-
-        & select{
-            max-width: 95%;
-            margin-bottom: 10px;
-            color: $dark-color;
-
-            & option{
-                color: $dark-color;
-            }
-        }
-
-        & Select:focus{
-            box-shadow: 0 0 5px 2px $dark-secondary-color;
-            border: $dark-secondary-color 1px solid;
-        }
-    }
-
-    /*------------------------------------------------Forms END
-*/
-
-    .center{
-        text-align:center !important;
-    }
-
-        /*
-        *-----------------------------------------------Category block
-        */
-
-        .categories{
-            @include flex(row, space-between);
-            min-width:90%;
-            max-width:93%; 
-            border-radius: 5px;
-            padding: 5px;
-            margin: 20px auto;
-
-            // & .category{
-            //     display:block;
-            //     height:96%;
-            //     min-width:47%;
-            //     color:$background-color;
-            //     border-radius: 5px;
-            //     background-color: $secondary-color;
-
-            //     & p{
-            //         font-size:50px;
-            //         text-align:center;        
-            //     }
-            // }
-        }
-
-        /*-----------------------------------------------Category block END
-        */
-
-
-        /*
-        *-----------------------------------------------Products block
-        */
-
-        .products{
-            @include flex(row, space-around);
-            width:94%;
-            height:320px;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 20px auto;
-
-            & .product{
-                max-width:20%;
-                color:$background-color;
-                background-color: $background-color;
-                border-radius: 5px;
-
-                & img{
-                    width:200px;
-                    height:auto;
-                    background-color: $darker-background-color;
-                    display:block;
-                    margin: 15px auto;
-
-                }
-
-                & p{
-                    font-size:15px;
-                    height:20px;
-                    text-align:center;      
-                    color: $dark-color;  
-                }
-            }
-        }
-
-        .shop{
-            display: table;
-            min-width: 93%;
-            max-width:93%;
-            margin: 10px auto;
-            background-color: $background-color;
-            padding:5px;
-
-            & .side-bar{
-                display: table-cell;
-                vertical-align: top;
-                width: 23%;
-                max-width:28%;
-
-            
-                & h2  {
-                        text-align: center;
-                        margin-top: 2px;
-                    }
-            }
-
-
-            & div.shop-products-archive{
-                @include flex(column, space-between, center);
-                min-width:76%;
-                margin: 10px auto;
-                
-
-                & .shop-products{
-                    justify-content: space-between;
-                    margin: 10px 0;
-                    width:100%;
-                    max-width:100%;
-
-                    & .product{
-                        color:$dark-color;
-                        text-align: center;
-                        max-width:220px;
-                        margin: 5px;
-                        margin-bottom: 35px;
-
-                    }
-                }
-            }
-
-            & div.sale{
-                max-width: 98%;
-            }
-        }
-
-        .full-shop{ // shop page archive | no sidebar
-
-            & div.shop-products-archive{
-                @include flex(column, space-between, center);
-                width:100%;
-                margin: 10px 0;
-            }
-        }
-
-        .container{
-            max-width: 800px;
-
-            .related-title{
-                margin-bottom: -25px;
-                font-weight: 800px;
-                color: $main-color;
-            }
-
-            .related-products{
-                max-width: 95%;
-                margin: 10px 2.1%;
-                padding: 10px 0;
-                border:none;
-            }
-        }
-
-
-        div.checkout-display-form{
-            @include flex(row, space-between, start);
-            border: none;
-            min-width: 60%;
-            width: 80%;
-        
-            & .address-column{
-                min-width: 40%;
-                width: 40%;
-                padding: 15px;
-
-                & div.ship-address-label{
-                    @include flex();
-                    font: $p;
-                    color: $dark-color;
-                    text-align: left;
-                    padding: 0; 
-                    margin: 0; 
-                    padding: 0; 
-                    max-width: 100%;
-        
-                    & div.ship-to{
-                        margin: 0;
-                        min-width: 10px;
-                        min-height: 10px;
-                        border-radius: 10px;
-                        border: 2px solid $secondary-color;
-                    }
-                }   
-        
-                & h2.address-column-title{
-                    font-size: 22px;
-                }
-
-                & div.button:hover{
-                    @include buttonshover();
-                }
-            }
-        
-            & .cart-summary-column{
-                @include flex(column, left);
-                align-items: flex-start;
-                min-width: 49%;
-                width: 50%;
-                font-size: 17px;
-                border-radius: 5px;
-                border: 1px solid $darker-background-color;
-
-                & form.payfast-form{
-
-                    & input[type=button]{
-                        @include buttons($secondary-color);
-                        max-width:200px;
-                        height: 30px;
-                    }
-
-                    & input[type=button]:hover{
-                        @include buttonshover();
-                    }
-                }
-        
-                & .cart-items-summary{
-                    @include flex(column);
-                    padding-bottom:10px;
-                    min-width:100%;
-                    font-size: 16px;
-                    width:100%;
-                    padding-bottom: 15px;
-        
-                    & div.summary-product-shipping{
-                        @include flex(row, space-between);
-                        text-align: left;
-                        width: 79.5%;
-                        padding: 10px 15.5% 10px 0;
-                    }
-        
-                    & div.seperator{
-                        height: 1px;
-                        width: 100%;
-                        background-color: $darker-background-color;
-        
-                    }
-        
-                    & .cart-item{
-                        @include flex(row, space-between);
-                        padding: 0 2%;
-                        width:100%;
-        
-                        & div{
-                            padding: 10px;
-            
-                        }
-        
-                        & div.summary-product-names{
-                            min-width: 35%;
-                            width: 50%;
-                        }
-            
-                        & div.summary-product-qty{
-                            min-width: 30%;
-                            width: 35%;        
-                            text-align: center;
-                        }
-            
-                        & div.summary-product-price{
-                            min-width: 30%;
-                            width: 35%;
-                        }
-        
-                    }
-        
-                    & .cart-item-summary-label{
-                        color: $background-color;
-                        background-color: $main-color;
-                        border-radius: 5px 5px 0 0;
-                        border: 1px solid $main-color;
-                        height: 50px;
-                        padding: 0;
-        
-                        & div.header-labels{
-                            line-height: 50px;
-                            font-size: 22px;
-                            font-weight: 900;
-                            padding: 10px;
-                        }
-                    }
-        
-                    & div.summary-product-total{
-                        @include flex(row, space-between);
-                        text-align: left;
-                        width: 88%;
-                        height: 30px;
-                        padding: 10px 12% 0 5%;
-                        margin-bottom: 0;
-                    }
-        
-                }
-        
-            }
-        }
-
-        div.address{
-            margin: 5px 5px 20px 5px;
-            padding: 0;
-            width: 100%;
-
-            & h2.address-column-title{
-                margin:0 0 5px 0;
-            }
-        }
-
-        div.address-form-container{
-            top: 15%;
-        }
-        
-        // button below this checkout form
-        a.checkout-back{
-            display:block;
-            height: 40px;
-            line-height:40px;
-            max-width: 200px;
-            margin: 20px auto;
-            text-align: center;
-        
-        }
-
-        main.short-content{
-        
-            & nav{
-                margin-bottom: 80px;
-            }
-
-            & footer{
-                margin-top: 150px;
-            }
-        }
-
-        footer.main-footer{
-            display: block;
-        }
-
-        footer.main-footer2{
-            margin-top:0;
-        }
-}
-/*-----------------------------------------------Product END
-*/
-
-
 //---------------------------------------------------------------
 //                           Desktop                             |
 //---------------------------------------------------------------
-@media only screen and (min-width: 1080px){
+@media only screen and (min-width: 992px){
 
-    div.bottom-nav-container{
-        display: none;
-    }
-
-    div.mobile-cart{
+    div.bottom-nav-container, div.mobile-cart{
         display: none;
     }
 
     .all-nav{
+        height: 60px;
+        line-height: 60px;
         padding: 0 3%;
+        max-width: 1400px;
 
         & div.collapse{
             min-width:80%;
@@ -3214,7 +2620,78 @@ form.login-form{
         }
     
         & div.container-fluid{
-            padding: 0;
+            padding: 0 1%;
+            height: 50px;
+            line-height: 50px;
+            max-width: 600px;
+            padding: 4px 0;
+            margin: 0 auto 0 0;
+            
+            & .navbar-brand{
+    
+                & img{
+                    width: 50px;
+                    height: auto;
+                    margin:0;
+                }
+            }
+    
+            & .navbar-toggler{ 
+    
+                & .navbar-toggler-icon{
+                    font-size: 14px;
+                    line-height: 14px;   
+                }   
+            }
+    
+            & .navbar-collapse{
+    
+                max-width: 600px;
+                position:inherit;
+                height: 50px;
+                line-height: 50px;
+                min-height: 50px;
+                top: 0;
+                left: 0;
+                padding-left: 15px;
+    
+                & a{
+                    font-size: 14px;
+                    padding: 15px 0 10px 20px;
+    
+                }
+               
+                & .d-flex{
+                    max-height: 60px;
+                    max-width: 324px;
+                    border: none;
+                    width: 80%;
+                    padding-left: 20%;
+                    margin: 13px 0 7px 0;    
+
+                    & input{
+                        border-radius: 7px 0 0 7px;
+                        height: 20px;
+                        margin: 0;
+                        width: 300px;
+                        font-size: 14px;
+                    }
+    
+                    & .buttons{
+                        @include buttons($secondary-color, 15px, 9px);
+                        height: 20px;
+                        width: 24px;
+                        border-radius: 0 7px 7px 0;
+                        margin-left: -15px;
+                        margin-right: 10;
+                        padding-right: 15px;
+    
+                        & i{
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
         }
         
         & .icons-container{
@@ -3228,9 +2705,10 @@ form.login-form{
                 color: $darker-background-color;
                 font-size: 22px;
                 text-decoration: none;
-                height: 90px;
-                line-height: 60px;
-    
+                height: 50px;
+                line-height: 50px;
+                margin-top: -40px;
+
                 & .bi{
                     font-size: 18px;
                     margin-bottom: 10px;
@@ -3244,12 +2722,12 @@ form.login-form{
                 }
         
                 & .cart-count{
-                    @include product-count(21px, -11px);
+                    @include product-count(17px, -11px);
         
                 }
         
                 & .wishlist-count{
-                    @include product-count(21px, -65%);
+                    @include product-count(17px, -65%);
     
                 }
             }
@@ -3257,7 +2735,7 @@ form.login-form{
             & a.signin{
                 font: $p;
                 color: $darker-background-color;
-                margin-top: 73px;
+                margin-top: 25px;
                     
             }
     
@@ -3423,6 +2901,10 @@ form.login-form{
                 font-size: 18px;
             }
         }
+    }
+
+    footer.main-footer{
+        display: block;
     }
 
 }

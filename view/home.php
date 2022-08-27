@@ -12,7 +12,7 @@
             require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header-top.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/snippets/header.php'; 
             require $_SERVER['DOCUMENT_ROOT'] . '/snippets/navigation.php'; 
-            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/shop-hero.php';
+            require $_SERVER['DOCUMENT_ROOT'] . '/snippets/home-hero.php';
         ?>
         
         <div class="categories">

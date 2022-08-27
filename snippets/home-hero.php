@@ -1,5 +1,5 @@
 <main class="header-bottom shop-hero mt-5">
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="myCarousel" class="carousel slide home-header-carousel" data-bs-ride="carousel">
 
         <div class="carousel-inner">
             <div class="carousel-item active">
