@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Ubuntu:wght@300;400;500;700&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+//--------------------------------Typography
+$display-1:400 35px 'Ubuntu', sans-serif;
+$display-2:500 18px 'Ubuntu', sans-serif;
+$display-3:400 25px 'Montserrat', sans-serif;
+$display-4:500 22px 'Montserrat', sans-serif;
+$display-5:500 14px 'Montserrat', sans-serif;
+$display-6:400 14px  'Montserrat', sans-serif;
+
+$primary: #b82127;
+$secondary: #052530;
+$info: #013d57;
+$danger: #5c5c5c;
+$light: #ffffff; 
+$success: #e6e6e6;
+
+
+@import "../node_modules/bootstrap/scss/bootstrap"; 
+
+main.content{
+
+    & div{
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    & i, .col-2.pe-0{
+        max-width: 50px;
+    }
+
+    overflow-x: hidden;
+    max-width: 100%;
+
+    & nav.navbar{
+        flex-direction:column;
+        z-index: 3010;
+        box-shadow: 0 0 15px 1px #31393c;
+
+        div.container-fluid{
+            flex-direction: column;
+
+            
+            & li.nav-item{
+                margin-right: 0;
+            }
+
+        }
+
+    }
+
+    & #scrollUp{
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+    }
+
+    & div.hero{
+        background-image: url("/images/hero3.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 450px;
+
+        & div.h1-holder{
+            height: 450px;
+            min-width: 100%;
+            position: relative;
+            z-index: 1000;
+            opacity: 0;
+        }
+
+        & h1.heading{
+            position: relative;
+            z-index: 2000;
+            margin-block: 95px auto;
+        }
+
+        & div.hero-row{
+            margin-top: 100px;
+        }
+
+    }
+
+    
+    & img.thumbs{
+        max-width: 150px;
+    }
+}
+
+//---------------------------------------------------------------
+//                             -sm                               |
+//---------------------------------------------------------------
+@media (min-width: 576px) {
+
+}
+
+//---------------------------------------------------------------
+//                             -md                               |
+//---------------------------------------------------------------
+@media only screen and (min-width: 768px){
+
+}
+
+//---------------------------------------------------------------
+//                             -l                                |
+//---------------------------------------------------------------
+@media only screen and (min-width: 992px){
+
+    main.content div.hero {
+        background-size: contain;
+        height: 400px;
+    }
+
+    nav.navbar{
+        flex-direction:row !important;
+
+        & div.container-fluid{
+            flex-direction: row !important;
+
+            
+            & li.nav-item{
+                margin-right: 1rem;
+            }
+
+        }
+    }
+    
+}
+
+//---------------------------------------------------------------
+//                             -xl                               |
+//---------------------------------------------------------------
+
+@media only screen and (min-width: 1200px){
+
+    main.content{
+
+        overflow-x: hidden;
+        margin: 0 auto;
+
+        & div.hero{
+            background-size: cover;
+        }
+    }
+
+    
+    .box-content{
+
+        overflow-x: hidden;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}

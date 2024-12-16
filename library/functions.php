@@ -1608,11 +1608,17 @@ function buildShopSidebarCategory($categories, $selected){
     // no category yet selected
     if($selected === ""){
 
-        $sidebar .= "<form class='sidebar-section category-form' action='/sidebar'><select name='category' class='form-select' id='category' aria-label='Default select example'><option selected value='all'>All Categories</option>";
+        $sidebar .= "
+            <form class='sidebar-section category-form' action='/sidebar'>
+                 <select name='category' class='form-select' id='category' aria-label='Default select example'>
+                    <option selected value='all'>All Categories</option>";
 
     }else{
 
-        $sidebar .= "<form class='sidebar-section category-form ' action='/sidebar'><select name='category' class='form-select ' id='category' aria-label='Default select example'><option value='all'>All Categories</option>";
+        $sidebar .= "
+            <form class='sidebar-section category-form ' action='/sidebar'>
+                <select name='category' class='form-select ' id='category' aria-label='Default select example'>
+                    <option value='all'>All Categories</option>";
 
     }
 
@@ -1642,16 +1648,20 @@ function buildShopSidebarCategory($categories, $selected){
 // build a shop side bar display
 function buildShopSidebarPrice($minPrice, $maxPrice){
 
-    $sidebar = '';
     // price section
-    $sidebar .= "<h5 class='filter-titles price'>Filter by Price</h5>";
-    $sidebar .= "<div class='seperator'>&nbsp;</div>";
-    $sidebar .= "<form class='sidebar-section' action='/sidebar'>";
-    $sidebar .= "<label> min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' /></label>";
-    $sidebar .= "<label> max:<input type='number' name='maxPrice' value='$maxPrice' min=0 class='sidebar-price validity' /></label>";
-    $sidebar .= "<input type='submit' value='filter'  class='button'>";
-    $sidebar .= "<input type='hidden' name='filter' value='price-filter' >";
-    $sidebar .= "</form>";
+    $sidebar = "
+        <h5 class='filter-titles price'>Filter by Price</h5>
+        <div class='seperator'>&nbsp;</div>
+        <form class='sidebar-section sidebar-price-filter' action='/sidebar'>
+            <label> 
+                min:<input type='number' name='minPrice' value='$minPrice' min=0 class='sidebar-price validity' />
+            </label>
+            <label> 
+                max:<input type='number' name='maxPrice' value='$maxPrice' min=0 class='sidebar-price validity' />
+            </label>
+            <input type='submit' value='filter'  class='button'>    
+            <input type='hidden' name='filter' value='price-filter'>
+        </form>";
 
     return $sidebar;
 
